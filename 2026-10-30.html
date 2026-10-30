@@ -1,0 +1,158 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>论文日报 · 2026-10-30</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style></head><body class="">
+<header><a class="brand" href="index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="daily/index.html" aria-current="page">日报</a><a href="papers/index.html">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 每日论文推荐</div><h1>论文日报 · 2026-10-30</h1><p class="lede">本期 6 篇，按阅读价值排序。</p><div class="metrics"><div><strong>6</strong>全文解读</div><div><strong>0</strong>优先团队</div><div><strong>0</strong>待重试</div></div><nav><a href="#trends">样本观察</a><a href="#briefs">今日速览</a><a href="#digest">全文解读</a><a href="#topic">今日专题</a></nav><section id="trends"><h2><span class="no">01</span>当日样本观察</h2><div class="trends"><article class="trend"><h3>计量设备正在从实验室走向现场</h3><p>NIST 把 3×10⁻¹⁶ 的超稳激光装上 4.3 km 山顶，靠的是长方体腔和全光纤分配；PTB 用两台 Nd:YAG 合成波长，在 224 m 户外做到 0.13 mm。两者共同点是把“环境控制”换成“结构设计 + 算法补偿”，让光钟和基线校准离开恒温实验室。</p><div class="sources"><a href="#paper-2610.37822">可搬运超稳激光上 4.3 km 山顶：3×10⁻¹⁶</a> · <a href="#paper-2610.40038">户外绝对测距干涉仪：224 m 做到 0.13 mm</a></div></article><article class="trend"><h3>成像链路的标定与评测成了主角</h3><p>相机颜色校正从 CCT 标量走向多通道 SPD 恢复，逐张拟合 CCM；视网膜散斑成像用 1000 fps 加 GPU 在线处理，把对比度图变成实时可看的信号；LOL 基准审计则指出测试标签本身会漂移，测试集调参能让排名反转。三篇分别对应“标定、采集、评测”三个环节。</p><div class="sources"><a href="#paper-2610.40175">不看色温看光谱：多通道 ALS 让相机逐张校色</a> · <a href="#paper-2610.34605">1000 帧/秒的视网膜激光散斑血流成像</a> · <a href="#paper-2610.38121">低光增强基准的标签漂移：LOL 到底在测什么</a></div></article><article class="trend"><h3>仿真方法用分段近似换规模</h3><p>THz 近场 U-MIMO 的孔径太大，全波跑不动；子孔径射线追踪把孔径切开、每块按远场传播，再用分割数控制误差。对光学设计的启示是：当全波或严格衍射计算太贵时，分段 + 远场近似是可调的折中。</p><div class="sources"><a href="#paper-2610.38772">把射线追踪推到近场：子孔径法</a></div></article></div></section><section id="briefs"><h2><span class="no">02</span>今日速览</h2><ol class="briefs"><li><a href="#paper-2610.37822">可搬运超稳激光上 4.3 km 山顶：3×10⁻¹⁶</a><span>10 cm 腔加全光纤分配，三个轴加速度敏感度低于 2×10⁻¹⁰/g，频率不稳定度 3×10⁻¹⁶，整机运到山顶仍能工作。</span></li><li><a href="#paper-2610.40038">户外绝对测距干涉仪：224 m 做到 0.13 mm</a><span>两台 Nd:YAG 加 OPLL，用可调合成波长与伪超合成波长，无需辅助测长，224 m 户外扩展不确定度 0.13 mm。</span></li><li><a href="#paper-2610.40175">不看色温看光谱：多通道 ALS 让相机逐张校色</a><span>用多通道环境光传感器恢复光源 SPD，再闭式拟合 3×3 CCM；合成基准平均角误差从 1.89° 降到 1.20°，LED 偏普朗克组尾部降 1.7 倍。</span></li><li><a href="#paper-2610.34605">1000 帧/秒的视网膜激光散斑血流成像</a><span>3840×2160、1000 fps、988 µs 曝光，852 nm 5 mW 免散瞳，RTX 5090 在线算 62.5 张对比度图/秒，能看清视网膜动静脉搏动。</span></li><li><a href="#paper-2610.38121">低光增强基准的标签漂移：LOL 到底在测什么</a><span>18 个公开权重、8 种方法复现到 0.09 dB 内，发现 LOL-v1 测试标签饱和度低 1.48 倍、LOLv2 测试块暗 14%，测试集调参可虚高 0.9–2.0 dB。</span></li><li><a href="#paper-2610.38772">把射线追踪推到近场：子孔径法</a><span>把发射孔径切成子孔径、各自按远场射线传播，再用可调分割复现近场 U-MIMO 的波束操控，精度对标全波。</span></li></ol></section><section id="digest"><h2><span class="no">03</span>重点论文 · 全文 insight</h2><input id="search" type="search" placeholder="筛选标题、机构、标签…" aria-label="筛选论文"><article class="paper" id="paper-2610.37822" data-search="$3\times10^{-16}$ Stable Laser Deployed on a 4.3 km Mountain 可搬运超稳激光上 4.3 km 山顶：3×10⁻¹⁶ NIST / University of Colorado Boulder NIST University of Colorado Boulder 超稳激光 可搬运 光钟 光纤分配">
+<div class="paper-meta"><span class="pill">NIST</span><span class="pill">University of Colorado Boulder</span><span>阅读优先级 ★★★★★</span></div>
+<h3>可搬运超稳激光上 4.3 km 山顶：3×10⁻¹⁶</h3><a class="original" href="https://arxiv.org/abs/2610.37822v1" target="_blank" rel="noopener noreferrer">$3\times10^{-16}$ Stable Laser Deployed on a 4.3 km Mountain ↗</a>
+
+<p class="muted">PDF 首页作者署名单位 · 论文更新于 2026-10-27（UTC）</p><p class="reason">10 cm 腔加全光纤分配，三个轴加速度敏感度低于 2×10⁻¹⁰/g，频率不稳定度 3×10⁻¹⁶，整机运到山顶仍能工作。</p>
+<h4>研究问题</h4><p>实验室超稳激光依赖大尺寸腔和隔振平台，难以搬到野外支撑移动光钟、大地测量和相对论检验。</p><h4>核心方法</h4><p>把参考腔做成长方体，同长度下间隔物体积降到四分之一；配全光纤相位稳定分配网络，运输后重新测加速度敏感度和频率不稳定度。</p>
+<h4>实验结果</h4><ul><li>三个轴的可重复加速度敏感度低于 2×10⁻¹⁰/g，频率不稳定度低至 3×10⁻¹⁶。</li><li>10 m 光纤分配后稳定光相位误差低于 1×10⁻¹⁸，整机成功部署到山顶。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>现场化的关键是腔体结构与光纤分配一起设计，只缩腔不解决振动和温漂。</li><li>3×10⁻¹⁶ 比实验室最好水平（10⁻¹⁷）低约一个量级，适合移动光钟/大地测量，不适合最高精度实验。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>单套系统、单次运输验证，长期环境适应性未给（分析者判断）。</li><li>光纤分配在户外温度循环下的零点漂移未单独量化（分析者判断）。</li></ul></article><article class="paper" id="paper-2610.40038" data-search="Unlimited-Range Absolute Distance Interferometry Outdoors via Tunable Synthetic and Pseudo-Supersynthetic Wavelengths: The TeleYAG-II Interferometer 户外绝对测距干涉仪：224 m 做到 0.13 mm Physikalisch-Technische Bundesanstalt Physikalisch-Technische Bundesanstalt 绝对测距 合成波长 干涉测量 大地基线">
+<div class="paper-meta"><span class="pill">Physikalisch-Technische Bundesanstalt</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>户外绝对测距干涉仪：224 m 做到 0.13 mm</h3><a class="original" href="https://arxiv.org/abs/2610.40038v1" target="_blank" rel="noopener noreferrer">Unlimited-Range Absolute Distance Interferometry Outdoors via Tunable Synthetic and Pseudo-Supersynthetic Wavelengths: The TeleYAG-II Interferometer ↗</a>
+
+<p class="muted">PDF 首页作者署名单位 · 论文更新于 2026-10-29（UTC）</p><p class="reason">两台 Nd:YAG 加 OPLL，用可调合成波长与伪超合成波长，无需辅助测长，224 m 户外扩展不确定度 0.13 mm。</p>
+<h4>研究问题</h4><p>绝对测距要同时具备公里级无模糊范围和微米级精度，传统多波长方案光源多、切换复杂，难以户外使用。</p><h4>核心方法</h4><p>以两台 1064 nm Nd:YAG 为光源，用光学锁相环稳定频差，构造一串可连续部署的合成波长；TeleYAG-II 作为 SI 可溯源的基线校准标准。</p>
+<h4>实验结果</h4><ul><li>在 224 m 户外基线上取得 0.13 mm 的扩展测量不确定度，无需辅助长度测量。</li><li>有限数量光源即可构造伪超合成波长序列，把宏观无模糊范围与微观干涉精度接起来。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>用算法合成替代多波长硬件，是现场绝对测距的可行路线；空气折射率补偿仍是主要误差项。</li><li>校准大地基线这类场景，0.13 mm/224 m 已经够用，但对百米级机床/大科学装置还需更高重复性。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>单台样机、特定天气条件，长期漂移未给（分析者判断）。</li><li>空气折射率模型在温度梯度下的残差未单独量化（分析者判断）。</li></ul></article><article class="paper" id="paper-2610.40175" data-search="Beyond CCT: Multi-channel SPD recovery for per-shot camera color correction 不看色温看光谱：多通道 ALS 让相机逐张校色 Shenzhen Polytechnic University / Insta360 Shenzhen Polytechnic University Insta360 颜色校正 光谱恢复 相机标定 环境光传感器">
+<div class="paper-meta"><span class="pill">Shenzhen Polytechnic University</span><span class="pill">Insta360</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>不看色温看光谱：多通道 ALS 让相机逐张校色</h3><a class="original" href="https://arxiv.org/abs/2610.40175v1" target="_blank" rel="noopener noreferrer">Beyond CCT: Multi-channel SPD recovery for per-shot camera color correction ↗</a>
+
+<p class="muted">PDF 首页作者署名单位 · 论文更新于 2026-10-29（UTC）</p><p class="reason">用多通道环境光传感器恢复光源 SPD，再闭式拟合 3×3 CCM；合成基准平均角误差从 1.89° 降到 1.20°，LED 偏普朗克组尾部降 1.7 倍。</p>
+<h4>研究问题</h4><p>相机通常用 CCT 插值两三个预标定矩阵，把光源光谱压成一个标量；LED、荧光灯和混光偏离普朗克轨迹，同色度异谱光源无法区分。</p><h4>核心方法</h4><p>用非负最小二乘在基字典上恢复光源 SPD，条件于相机白点和多通道 ALS；每张照片闭式拟合 3×3 CCM，再色适应到 D65。</p>
+<h4>实验结果</h4><ul><li>300 种光源、3100 种反射率的合成基准上，平均角误差从 1.89° 降到 1.20°。</li><li>LED 类偏普朗克组（n=45）尾部误差降 1.7 倍，1684 组实测 SPD 上同样保持优势。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>硬件只需多通道 ALS，算法替代产线逐光源标定，适合手机/车载快速换型。</li><li>收益集中在偏普朗克光源；如果产线只测标准 D65/A 光源，传统 CCM 仍够用。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>合成基准为主，实拍只验证 SPD 层面，未给整机色差（分析者判断）。</li><li>ALS 通道数与噪声决定上限，低成本单通道方案可能退化（分析者判断）。</li></ul></article><article class="paper" id="paper-2610.34605" data-search="High-speed laser speckle contrast imaging of the human retina 1000 帧/秒的视网膜激光散斑血流成像 CNRS / ESPCI Paris CNRS ESPCI Paris 激光散斑 视网膜成像 高帧率相机 GPU 处理">
+<div class="paper-meta"><span class="pill">CNRS</span><span class="pill">ESPCI Paris</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>1000 帧/秒的视网膜激光散斑血流成像</h3><a class="original" href="https://arxiv.org/abs/2610.34605v1" target="_blank" rel="noopener noreferrer">High-speed laser speckle contrast imaging of the human retina ↗</a>
+
+<p class="muted">PDF 首页作者署名单位 · 论文更新于 2026-10-25（UTC）</p><p class="reason">3840×2160、1000 fps、988 µs 曝光，852 nm 5 mW 免散瞳，RTX 5090 在线算 62.5 张对比度图/秒，能看清视网膜动静脉搏动。</p>
+<h4>研究问题</h4><p>视网膜血流成像需要高时空分辨率，传统相机帧率和处理延迟不够，难以实时看到心动周期内的变化。</p><h4>核心方法</h4><p>用 Phantom S980 流式相机做激光散斑对比成像，Maxwellian 照明免散瞳，Holoflow 在 GPU 上按 5×5 像素、16 帧块在线计算对比度。</p>
+<h4>实验结果</h4><ul><li>3840×2160、1000 fps、988 µs 曝光，单次记录 4096 帧，全部 16384 帧保留。</li><li>852 nm、入眼功率 5.0 mW，无需药物散瞳即可看到视网膜主要动静脉和小血管。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>高帧率加 GPU 在线处理，让 LSCI 从研究工具变成临床可实时看的工具。</li><li>对比度是仪器相关量，不是标定过的血流速度；跨设备比较要先做校准。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>单志愿者、健康眼，无病理对照（分析者判断）。</li><li>长时间照射的安全剂量与运动伪影未系统评估（分析者判断）。</li></ul></article><article class="paper" id="paper-2610.38121" data-search="What Does LOL Measure? Hidden Label Shifts in Low-Light Enhancement Benchmarks 低光增强基准的标签漂移：LOL 到底在测什么 University of Wisconsin-Madison University of Wisconsin-Madison 低光增强 基准审计 图像评测 数据标签">
+<div class="paper-meta"><span class="pill">University of Wisconsin-Madison</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>低光增强基准的标签漂移：LOL 到底在测什么</h3><a class="original" href="https://arxiv.org/abs/2610.38121v1" target="_blank" rel="noopener noreferrer">What Does LOL Measure? Hidden Label Shifts in Low-Light Enhancement Benchmarks ↗</a>
+
+<p class="muted">PDF 首页作者署名单位 · 论文更新于 2026-10-28（UTC）</p><p class="reason">18 个公开权重、8 种方法复现到 0.09 dB 内，发现 LOL-v1 测试标签饱和度低 1.48 倍、LOLv2 测试块暗 14%，测试集调参可虚高 0.9–2.0 dB。</p>
+<h4>研究问题</h4><p>低光增强论文普遍在 LOL 上调测试时参数，但如果测试标签与训练标签渲染不一致，方法排名就不可比。</p><h4>核心方法</h4><p>用统一指标实现复现所有已发表数字，审计标签亮度/饱和度与场景划分，并把训练可校准的残差与仅测试集调参的残差分开。</p>
+<h4>实验结果</h4><ul><li>所有公开权重在统一实现下复现到 0.09 dB 以内，说明后续差异不是实现问题。</li><li>LOL-v1 测试标签与 LOLv2 同场景标签亮度相同但饱和度低 1.48 倍；LOLv2 测试块整体暗 14%。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>做工业低光检测时，先审计数据集标签一致性，再谈模型；否则选型结论会被测试集调参带偏。</li><li>论文排名对“是否使用作者发布的测试时设置”敏感，复现时应固定这些设置再比较。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>只审 LOL 系列，未覆盖其他低光数据集（分析者判断）。</li><li>未提出新的增强方法，结论是评测规范层面的（分析者判断）。</li></ul></article><article class="paper" id="paper-2610.38772" data-search="A Sub-Aperture-Based Ray-Tracing Framework for Near-Field U-MIMO THz Communications 把射线追踪推到近场：子孔径法 Ranplan Group / University of Piraeus Ranplan Group University of Piraeus 射线追踪 近场传播 子孔径 光学仿真">
+<div class="paper-meta"><span class="pill">Ranplan Group</span><span class="pill">University of Piraeus</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>把射线追踪推到近场：子孔径法</h3><a class="original" href="https://arxiv.org/abs/2610.38772v1" target="_blank" rel="noopener noreferrer">A Sub-Aperture-Based Ray-Tracing Framework for Near-Field U-MIMO THz Communications ↗</a>
+
+<p class="muted">PDF 首页作者署名单位 · 论文更新于 2026-10-28（UTC）</p><p class="reason">把发射孔径切成子孔径、各自按远场射线传播，再用可调分割复现近场 U-MIMO 的波束操控，精度对标全波。</p>
+<h4>研究问题</h4><p>近场超大规模 MIMO 孔径大、近场区远，全波仿真代价高，而传统射线追踪只适用于远场。</p><h4>核心方法</h4><p>把发射阵列视为孔径，分割成若干子孔径，每个子孔径按远场发射射线，再用几何光学传播；用可调分割数平衡精度与速度。</p>
+<h4>实验结果</h4><ul><li>与全波传播对比，所提框架能重建近场波束，且分割越细近场误差越小。</li><li>可调孔径分割可以复现近场 U-MIMO 的波束操控效果，而不必跑全波。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>“分段 + 远场近似”是把射线模型扩展到近场的通用套路，光学设计里的大孔径/近场传播也可借鉴。</li><li>分割数不是越多越好，要在精度和射线数之间找拐点。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>THz 通信场景，仅仿真对比，无实验验证（分析者判断）。</li><li>几何光学近似在强衍射/遮挡下可能失效（分析者判断）。</li></ul></article></section><section id="topic"><h2><span class="no">04</span>今日专题</h2><div class="topic"><h3>现场化的三个前提：结构、算法、评测</h3><p>这期四篇指向同一件事：把实验室指标搬到现场，靠的不是更贵的器件，而是三件事。结构上，NIST 用长方体腔把间隔物体积降到四分之一，才装得进运输箱；算法上，PTB 用合成波长序列替代多波长硬件，相机用 SPD 恢复替代逐光源标定；评测上，LOL 审计说明如果不先固定标签和测试时设置，现场数据再多也选错模型。推断：做现场化产品时，先把结构、补偿算法、评测协议三件事定下来，再谈指标能到多少。</p><div class="sources"><a href="#paper-2610.37822">可搬运超稳激光上 4.3 km 山顶：3×10⁻¹⁶</a> · <a href="#paper-2610.40038">户外绝对测距干涉仪：224 m 做到 0.13 mm</a> · <a href="#paper-2610.40175">不看色温看光谱：多通道 ALS 让相机逐张校色</a> · <a href="#paper-2610.38121">低光增强基准的标签漂移：LOL 到底在测什么</a></div></div></section></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
