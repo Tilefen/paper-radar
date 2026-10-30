@@ -1,0 +1,174 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>论文日报 · 2026-10-29</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style></head><body class="">
+<header><a class="brand" href="index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="daily/index.html" aria-current="page">日报</a><a href="papers/index.html">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 每日论文推荐</div><h1>论文日报 · 2026-10-29</h1><p class="lede">本期 8 篇，按阅读价值排序。</p><div class="metrics"><div><strong>8</strong>全文解读</div><div><strong>1</strong>优先团队</div><div><strong>0</strong>待重试</div></div><nav><a href="#trends">样本观察</a><a href="#briefs">今日速览</a><a href="#digest">全文解读</a><a href="#topic">今日专题</a></nav><section id="trends"><h2><span class="no">01</span>当日样本观察</h2><div class="trends"><article class="trend"><h3>集成激光进入单谐振 + 可调阶段</h3><p>Pockels 倍频激光用单谐振腔让倍频光跟随基频快速调谐；自注入锁定把超稳激光压进 3 mL 腔；VCSEL 用横向失谐加载换 50 GHz 带宽。三条路线分别在可见光、超窄线宽、超高速三个指标上把分立器件搬到片上，取舍都是牺牲效率或功率换体积与速度。</p><div class="sources"><a href="#paper-2610.37279">铷参考的倍频 Pockels 激光：片上 780 nm、GHz 调谐</a> · <a href="#paper-2610.31866">微型法珀腔稳频的自注入锁定二极管激光</a> · <a href="#paper-2610.35578">横向失谐加载把 VCSEL 调制带宽推过 50 GHz</a></div></article><article class="trend"><h3>光学系统设计开始把仿真误差与串扰当成一等指标</h3><p>PWB 用变换光学把自由曲面波导的仿真加速两个数量级以上，代价是 3.9% 的功率误差；piston 微镜靠相位优化把 9 通道最差串扰压到 -21.7 dB，通道间距只有 2 倍束腰。设计空间被算法打开后，瓶颈从“能不能算”转到仿真保真度与装调/封装。</p><div class="sources"><a href="#paper-2610.31004">用变换光学 BPM 快速仿真 3D 打印自由曲面光波导</a> · <a href="#paper-2610.30757">可重构自由空间光互连：活塞微镜阵列</a></div></article><article class="trend"><h3>看不见的退化正在被量化</h3><p>相位噪声分析指出：kHz 级线宽在 ns 级差分延时下也会吃掉 256 阵元的相干增益，并给出阵列规模上限；浑浊水成像则证明参考选择会反转“原始 vs 复原”的排序，单帧原始图像的分类反而有 96.8%；低光裂缝分割进一步说明退化会改变细结构的拓扑，只做低光增强不够。三篇都是“指标看着正常、系统已经退化”的案例，提醒评估协议本身要进设计。</p><div class="sources"><a href="#paper-2610.32563">激光相位噪声如何限制光子辅助射频波束成形的阵列规模</a> · <a href="#paper-2610.32646">望远镜透过浑浊、气泡、流动水层的计算成像</a> · <a href="#paper-2610.33635">低光照路面裂缝分割：冻结 CLIPSeg + 轻量适配</a></div></article></div></section><section id="briefs"><h2><span class="no">02</span>今日速览</h2><ol class="briefs"><li><a href="#paper-2610.35578">横向失谐加载把 VCSEL 调制带宽推过 50 GHz</a><span>850 nm 单模 VCSEL 让横向模与损耗区的重叠随载流子变化，形成负微分损耗：44 GHz 弛豫振荡、&gt;50 GHz 电带宽，106.25 Gb/s NRZ 无需 DSP。</span></li><li><a href="#paper-2610.37279">铷参考的倍频 Pockels 激光：片上 780 nm、GHz 调谐</a><span>InP/TFLN 混合集成，腔内倍频 + 电可调 DBR 构成单谐振腔：1560/780 nm 线宽 2.7/9.0 kHz，调谐带宽 1.2 GHz，锁定铷 D2 后抖动 135→8 MHz。</span></li><li><a href="#paper-2610.31004">用变换光学 BPM 快速仿真 3D 打印自由曲面光波导</a><span>把弯曲光子线键合映射成直波导 + 各向异性介质，用全矢量 BPM 求解：比 FDTD 快两个数量级以上，功率传输平均绝对误差 3.9%。</span></li><li><a href="#paper-2610.31866">微型法珀腔稳频的自注入锁定二极管激光</a><span>DFB + 微环自注入锁定，配 3 mL 真空腔：1–10 s 分数频率不稳定度 5×10⁻¹⁵，腔精细度只需 10⁵，面向可搬运光钟。</span></li><li><a href="#paper-2610.32646">望远镜透过浑浊、气泡、流动水层的计算成像</a><span>25 mm 水层、45 mm 前置的实测数据集：浊度主要把对比度压低 4.4–4.8 倍；8 帧平均仅提升 SSIM 0.032，单帧原始图像五类识别 96.8%。</span></li><li><a href="#paper-2610.30757">可重构自由空间光互连：活塞微镜阵列</a><span>用 piston 微镜阵列做自由空间互连，9 通道同时优化，最差串扰 -21.7 dB；按二维扩展外推 &gt;10000 通道可到 100 Tbps（&lt;10 Gbps/通道）。</span></li><li><a href="#paper-2610.32563">激光相位噪声如何限制光子辅助射频波束成形的阵列规模</a><span>随机模型显示：100 kHz 线宽 + ns 级光延时，256 阵元的部分相干系统就会出现波束畸变与增益下降；相干增益被涨落淹没后，阵列规模存在上限。</span></li><li><a href="#paper-2610.33635">低光照路面裂缝分割：冻结 CLIPSeg + 轻量适配</a><span>不重训主干，只加 LoRA 与域残差适配（1.9 M 参数），在 CrackLingo-9K/12K 上稳定提升 Dice/IoU，细裂缝子集增益最大，并能零样本迁移到 MVTec-AD。</span></li></ol></section><section id="digest"><h2><span class="no">03</span>重点论文 · 全文 insight</h2><input id="search" type="search" placeholder="筛选标题、机构、标签…" aria-label="筛选论文"><article class="paper" id="paper-2610.35578" data-search="Transverse detuned loading for modulation bandwidth enhancement in VCSELs 横向失谐加载把 VCSEL 调制带宽推过 50 GHz Coherent Coherent VCSEL 直接调制 光互连 失谐加载">
+<div class="paper-meta"><span class="pill">Coherent</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>横向失谐加载把 VCSEL 调制带宽推过 50 GHz</h3><a class="original" href="https://arxiv.org/abs/2610.35578v1" target="_blank" rel="noopener noreferrer">Transverse detuned loading for modulation bandwidth enhancement in VCSELs ↗</a>
+
+<p class="muted">PDF 首页作者署名单位 · 论文更新于 2026-10-26（UTC）</p><p class="reason">850 nm 单模 VCSEL 让横向模与损耗区的重叠随载流子变化，形成负微分损耗：44 GHz 弛豫振荡、&gt;50 GHz 电带宽，106.25 Gb/s NRZ 无需 DSP。</p>
+<h4>研究问题</h4><p>短距光互连需要更高单通道速率，传统氧化限制 VCSEL 在 100 Gb/s 以上仍依赖高功耗 DSP。</p><h4>核心方法</h4><p>设计横向模式与空间选择性损耗的重叠：载流子诱导折射率变化使重叠随电流下降，产生类似失谐加载的负微分损耗，同时提高弛豫频率、降低阻尼。</p>
+<h4>实验结果</h4><ul><li>850 nm 单模器件在 5.3 mA 下电-电调制带宽超过 50 GHz，S21 中可见 44 GHz 弛豫峰。</li><li>25–75 °C 范围内增强效果保持，106.25 Gb/s NRZ 无需 DSP、预加重或接收均衡。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>这是器件层解决速率/功耗的路线，不增加 DSP 开销；对 800G/1.6T 短距模块的每通道成本有直接意义。</li><li>50 GHz 已到测试上限，真实带宽可能更高；但横向模设计对工艺偏差敏感，量产良率需验证。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>单器件结果，未给良率、可靠性或长期老化数据（分析者判断）。</li><li>带宽受测量设备上限限制，&gt;50 GHz 部分未完整表征（分析者判断）。</li></ul></article><article class="paper" id="paper-2610.37279" data-search="Rubidium-Referenced Frequency-Doubled Pockels Laser with High-Speed Electro-Optic Tuning 铷参考的倍频 Pockels 激光：片上 780 nm、GHz 调谐 Beihang University / National University of Singapore Beihang University National University of Singapore 集成激光 薄膜铌酸锂 倍频 原子参考">
+<div class="paper-meta"><span class="pill">Beihang University</span><span class="pill">National University of Singapore</span><span>阅读优先级 ★★★★★</span></div>
+<h3>铷参考的倍频 Pockels 激光：片上 780 nm、GHz 调谐</h3><a class="original" href="https://arxiv.org/abs/2610.37279v1" target="_blank" rel="noopener noreferrer">Rubidium-Referenced Frequency-Doubled Pockels Laser with High-Speed Electro-Optic Tuning ↗</a>
+
+<p class="muted">PDF 首页作者署名单位 · 论文更新于 2026-10-27（UTC）</p><p class="reason">InP/TFLN 混合集成，腔内倍频 + 电可调 DBR 构成单谐振腔：1560/780 nm 线宽 2.7/9.0 kHz，调谐带宽 1.2 GHz，锁定铷 D2 后抖动 135→8 MHz。</p>
+<h4>研究问题</h4><p>780 nm 窄线宽且可快速调谐的片上光源缺失；双谐振倍频腔要求基频与倍频同时对准，倍频光无法跟随快速调谐。</p><h4>核心方法</h4><p>把 PPLN 波导放进激光腔，用只对 1560 nm 反馈的 E-DBR 形成单谐振；倍频光直接输出，天然跟随基频调谐；再用 DAVLL 把 780 nm 锁到 Rb D2。</p>
+<h4>实验结果</h4><ul><li>1560/780 nm 本征线宽 2.7/9.0 kHz，3 dB 电光调谐带宽 1.11/1.2 GHz，无跳模范围 3.04/6.48 GHz。</li><li>780 nm 片上功率 0.8 mW；锁定后频率波动标准差由 135 MHz 降到 8 MHz。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>单谐振设计把“倍频效率”与“快速调谐”解耦，是可调可见光片上源的通用思路；代价是倍频效率只有 3.4%。</li><li>0.8 mW 片上功率对原子钟/传感偏紧，需评估后续放大或更高泵浦的收益。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>780 nm 片上功率仅 0.8 mW，未验证长期可靠性（分析者判断）。</li><li>铷锁定在实验室完成，便携场景的温漂/振动未评估（分析者判断）。</li></ul></article><article class="paper" id="paper-2610.31004" data-search="Efficient Modeling of 3D-Printed Freeform Waveguides with a Transformation Optics-Based Beam Propagation Method 用变换光学 BPM 快速仿真 3D 打印自由曲面光波导 Karlsruhe Institute of Technology Karlsruhe Institute of Technology 自由曲面 光子线键合 BPM 变换光学">
+<div class="paper-meta"><span class="pill">Karlsruhe Institute of Technology</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>用变换光学 BPM 快速仿真 3D 打印自由曲面光波导</h3><a class="original" href="https://arxiv.org/abs/2610.31004v1" target="_blank" rel="noopener noreferrer">Efficient Modeling of 3D-Printed Freeform Waveguides with a Transformation Optics-Based Beam Propagation Method ↗</a>
+
+<p class="muted">PDF 首页作者署名单位 · 论文更新于 2026-10-22（UTC）</p><p class="reason">把弯曲光子线键合映射成直波导 + 各向异性介质，用全矢量 BPM 求解：比 FDTD 快两个数量级以上，功率传输平均绝对误差 3.9%。</p>
+<h4>研究问题</h4><p>3D 打印光子线键合（PWB）曲率大、折射率对比高，FDTD 网格细、仿真慢，难以做设计迭代。</p><h4>核心方法</h4><p>变换光学把弯曲 PWB 映射为直波导，材料变为各向异性；曲线网格 + 全矢量 BPM 求解；与 FDTD 对比传输谱并做网格收敛。</p>
+<h4>实验结果</h4><ul><li>相对 FDTD，仿真时间降低两个数量级以上，功率传输的平均绝对百分比误差 3.9%。</li><li>覆盖最小曲率半径 2–215 µm，并与 FDTD 的功率传输结果做对照验证。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>适合 PWB/自由曲面互连的布局迭代：先把曲率与模场扫一遍，再用 FDTD 复核关键结构。</li><li>3.9% 的功率误差对插损预算够用，但对相位敏感器件（如干涉结构）仍需全波复核。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>仅与有限 FDTD 案例对比，未覆盖强弯曲/多模/散射情形（分析者判断）。</li><li>各向异性近似在极高折射率对比下的适用边界未量化（分析者判断）。</li></ul></article><article class="paper" id="paper-2610.31866" data-search="Thermal-noise-limited stabilization of a self-injection-locked diode laser using a miniature Fabry-Perot cavity 微型法珀腔稳频的自注入锁定二极管激光 Russian Quantum Center Russian Quantum Center 超稳激光 自注入锁定 法珀腔 光钟">
+<div class="paper-meta"><span class="pill">Russian Quantum Center</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>微型法珀腔稳频的自注入锁定二极管激光</h3><a class="original" href="https://arxiv.org/abs/2610.31866v1" target="_blank" rel="noopener noreferrer">Thermal-noise-limited stabilization of a self-injection-locked diode laser using a miniature Fabry-Perot cavity ↗</a>
+
+<p class="muted">PDF 首页作者署名单位 · 论文更新于 2026-10-22（UTC）</p><p class="reason">DFB + 微环自注入锁定，配 3 mL 真空腔：1–10 s 分数频率不稳定度 5×10⁻¹⁵，腔精细度只需 10⁵，面向可搬运光钟。</p>
+<h4>研究问题</h4><p>超稳激光依赖低温单晶硅腔或半米级 ULE 腔，体积与复杂度限制现场部署。</p><h4>核心方法</h4><p>用 DFB 激光器与高 Q 微环实现自注入锁定，再锁定到 3 mL 真空隙法珀腔；重点抑制残余幅度调制（RAM）等技术噪声。</p>
+<h4>实验结果</h4><ul><li>1–10 s 平均时间达到 5×10⁻¹⁵ 的分数频率不稳定度，已进入热噪声极限。</li><li>使用普通多层膜镜与 10⁵ 量级精细度即可实现，核心器件可进一步与微环光梳集成。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>把超稳激光从“半米腔”压到“3 mL 腔”，是现场光钟/微波合成的关键一步；但 RAM 抑制是成败点。</li><li>该方案对隔振/温控的依赖仍需实测，便携化不能只看腔体积。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>未报告长期漂移与运输/振动条件下的复现性（分析者判断）。</li><li>3 mL 腔的制造一致性与镀膜损耗控制未展开（分析者判断）。</li></ul></article><article class="paper" id="paper-2610.32646" data-search="Computational imaging through turbid, bubbly and flowing water near the telescope 望远镜透过浑浊、气泡、流动水层的计算成像 University of Utah / MIT University of Utah MIT 计算成像 水下成像 图像复原 机器视觉">
+<div class="paper-meta"><span class="pill">University of Utah</span><span class="pill">MIT</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>望远镜透过浑浊、气泡、流动水层的计算成像</h3><a class="original" href="https://arxiv.org/abs/2610.32646v1" target="_blank" rel="noopener noreferrer">Computational imaging through turbid, bubbly and flowing water near the telescope ↗</a>
+
+<p class="muted">PDF 首页作者署名单位 · 论文更新于 2026-10-23（UTC）</p><p class="reason">25 mm 水层、45 mm 前置的实测数据集：浊度主要把对比度压低 4.4–4.8 倍；8 帧平均仅提升 SSIM 0.032，单帧原始图像五类识别 96.8%。</p>
+<h4>研究问题</h4><p>水下/尾流成像的复原网络多在显示图像上评分，缺少实测基准；工程上不知道该先做复原还是先做识别。</p><h4>核心方法</h4><p>搭建望远镜透过 25 mm 水层的实测平台，覆盖 7 种流/气泡/浊度组合；比较多帧平均、实测+合成配对训练；用 SSIM 与五类识别评估。</p>
+<h4>实验结果</h4><ul><li>浊度使 Siemens star 对比度下降 4.4–4.8 倍；8 帧平均相对单帧把 SSIM 提高 0.032，学习融合增益很小。</li><li>单帧原始图像即可达到 96.8% 的五类识别率，与复原图像相当。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>工程顺序应是“多帧平均 + 直接识别”，而不是先训练复原网络；复原指标会随参考选择反转排序。</li><li>合成数据对显示图像评分无帮助，但能把复原结构与清水参考的相关性从 &lt;0.5 提到 &gt;0.9，说明训练集要混合实测与合成。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>单一水层厚度与七种条件、五类分类，外推到真实海况需验证（分析者判断）。</li><li>未给出望远镜口径/带宽等系统参数对结论的影响（分析者判断）。</li></ul></article><article class="paper" id="paper-2610.30757" data-search="Reconfigurable Free-Space Optical Interconnects 可重构自由空间光互连：活塞微镜阵列 Stanford University Stanford University 自由空间互连 MEMS 微镜 光交换 数据中心">
+<div class="paper-meta"><span class="pill">Stanford University</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>可重构自由空间光互连：活塞微镜阵列</h3><a class="original" href="https://arxiv.org/abs/2610.30757v1" target="_blank" rel="noopener noreferrer">Reconfigurable Free-Space Optical Interconnects ↗</a>
+
+<p class="muted">PDF 首页作者署名单位 · 论文更新于 2026-10-22（UTC）</p><p class="reason">用 piston 微镜阵列做自由空间互连，9 通道同时优化，最差串扰 -21.7 dB；按二维扩展外推 &gt;10000 通道可到 100 Tbps（&lt;10 Gbps/通道）。</p>
+<h4>研究问题</h4><p>波导/光纤互连受封装、能耗与成本限制；自由空间方案需要可重构、低串扰且能规模扩展。</p><h4>核心方法</h4><p>用活塞运动微镜阵列（TI-PLM）调制相位，按通道优化相位分布；建立通道数缩放模型，并与 3×3 概念验证系统对比。</p>
+<h4>实验结果</h4><ul><li>9 通道同时优化，平均最差串扰 -21.7 dB，通道间距仅为束腰的 2 倍。</li><li>1060×670 µm 内实现 9 通道；1358×800 微镜阵列预计可产生约 156 个通道（理想 374 个）。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>二维通道扩展让自由空间互连在“多低速率通道”场景有成本优势；但对准与封装是落地关键，论文未展开。</li><li>100 Tbps 是外推值，9 通道验证与万通道之间还有阵列规模/驱动/热稳定性三关。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>概念验证仅 9 通道，100 Tbps 为模型外推（分析者判断）。</li><li>未讨论对准容差、封装与长期可靠性（分析者判断）。</li></ul></article><article class="paper" id="paper-2610.32563" data-search="Stochastic Analysis of Laser Phase Noise in Photonics-Assisted Radio Frequency Beamforming 激光相位噪声如何限制光子辅助射频波束成形的阵列规模 Eindhoven University of Technology / ASTRON Eindhoven University of Technology ASTRON 光真延时 相位噪声 波束成形 阵列规模">
+<div class="paper-meta"><span class="pill">Eindhoven University of Technology</span><span class="pill">ASTRON</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>激光相位噪声如何限制光子辅助射频波束成形的阵列规模</h3><a class="original" href="https://arxiv.org/abs/2610.32563v1" target="_blank" rel="noopener noreferrer">Stochastic Analysis of Laser Phase Noise in Photonics-Assisted Radio Frequency Beamforming ↗</a>
+
+<p class="muted">PDF 首页作者署名单位 · 论文更新于 2026-10-23（UTC）</p><p class="reason">随机模型显示：100 kHz 线宽 + ns 级光延时，256 阵元的部分相干系统就会出现波束畸变与增益下降；相干增益被涨落淹没后，阵列规模存在上限。</p>
+<h4>研究问题</h4><p>光子辅助射频波束成形用光真延时（OTTD）实现宽带扫描，但传统设计假设各通道相位完全相干，忽略激光线宽在差分延时下造成的去相干。</p><h4>核心方法</h4><p>把阵列因子建模为随机过程，用傅里叶域分析相位噪声对空间相干函数的影响，推导有效孔径收缩、波束畸变与增益涨落的统计描述，并扫描线宽、差分延时与阵元数。</p>
+<h4>实验结果</h4><ul><li>以 100 kHz 线宽、N=256、指向 45° 为例，差分延时增大时归一化平均波束峰值下降、旁瓣抬升，出现明显畸变。</li><li>当相干增益与涨落相等（fidelity 降到 0 dB）后，相干波束成形不再可能，阵列规模存在上限。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>选激光线宽不能只看 kHz 指标，要按最大差分延时与阵元数反推；ns 级延时下 kHz 线宽也可能不够。</li><li>大孔径光子阵列的设计流程应加入相位噪声预算，与阵元数、延时范围联合优化，而不是先定阵再选激光。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>纯理论/数值分析，无实验验证（分析者判断）。</li><li>假设特定噪声谱与部分相干模型，实际激光的 1/f 噪声未覆盖（分析者判断）。</li></ul></article><article class="paper" id="paper-2610.33635" data-search="DROA-CLIPSeg: Prompt-Guided Thin Crack Segmentation in Low-Light Conditions 低光照路面裂缝分割：冻结 CLIPSeg + 轻量适配 Indian Institute of Technology Mandi / Indian Institute of Technology Kanpur Indian Institute of Technology Mandi Indian Institute of Technology Kanpur 图像识别 缺陷分割 低光照 工业检测">
+<div class="paper-meta"><span class="pill">Indian Institute of Technology Mandi</span><span class="pill">Indian Institute of Technology Kanpur</span><span>阅读优先级 ★★☆☆☆</span></div>
+<h3>低光照路面裂缝分割：冻结 CLIPSeg + 轻量适配</h3><a class="original" href="https://arxiv.org/abs/2610.33635v1" target="_blank" rel="noopener noreferrer">DROA-CLIPSeg: Prompt-Guided Thin Crack Segmentation in Low-Light Conditions ↗</a>
+
+<p class="muted">PDF 首页作者署名单位 · 论文更新于 2026-10-24（UTC）</p><p class="reason">不重训主干，只加 LoRA 与域残差适配（1.9 M 参数），在 CrackLingo-9K/12K 上稳定提升 Dice/IoU，细裂缝子集增益最大，并能零样本迁移到 MVTec-AD。</p>
+<h4>研究问题</h4><p>低光照下裂缝对比度低，阴影、眩光、接缝和湿痕都会干扰；现有分割方法默认光照良好，低光增强又会破坏裂缝的细长拓扑。</p><h4>核心方法</h4><p>冻结 CLIPSeg 视觉-语言主干，在 Q/K/V 注入低秩适配（LoRA）做裂缝域对齐；再加域残差正交适配（DROA）把特征拆成主导裂缝分支与正交残差分支，用可学习门控融合；训练目标由加权 BCE、Dice 和结构连通性监督组成。</p>
+<h4>实验结果</h4><ul><li>在 CrackLingo-9K/12K 上取得一致的 Dice/IoU 提升，细裂缝子集的增益最大。</li><li>只训练约 1.9 M 参数，避免全量微调的成本与小样本过拟合，单张 H200 MIG 约 5 小时完成训练。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>低光检测首先是照明与动态范围问题，模型只能补一部分；工业落地应先把光源/曝光/镀膜做对，再谈分割网络。</li><li>冻结主干 + LoRA 的 1.9 M 参数方案适合小样本工业缺陷：数据少、类别少、需要快速换型时，比全量微调更现实。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>只验证路面裂缝一个域，零样本到 MVTec-AD 的结果是定性展示（分析者判断）。</li><li>低光增强与分割是联合训练的，二者各自贡献没有拆开；边缘部署延迟未测（分析者判断）。</li></ul></article></section><section id="topic"><h2><span class="no">04</span>今日专题</h2><div class="topic"><h3>把光学指标翻译成产线指标：线宽、功率、仿真误差、串扰</h3><p>这期四篇给出了四种翻译方式。Pockels 激光把线宽/调谐带宽翻译成原子钟的系统预算，0.8 mW 片上功率是否够用取决于后续光路；相位噪声分析把激光线宽翻译成最大阵元数与延时预算，ns 级延时下 kHz 线宽也可能不够；PWB 仿真把 3.9% 的功率误差翻译成设计迭代成本，决定哪些结构值得上 FDTD；piston 微镜把 -21.7 dB 串扰翻译成通道间距与封装公差。推断：做器件选型时先确定系统能接受的功率预算、延时范围、仿真误差与封装间距，再反推光学指标，而不是先追论文里的最优值。</p><div class="sources"><a href="#paper-2610.37279">铷参考的倍频 Pockels 激光：片上 780 nm、GHz 调谐</a> · <a href="#paper-2610.32563">激光相位噪声如何限制光子辅助射频波束成形的阵列规模</a> · <a href="#paper-2610.31004">用变换光学 BPM 快速仿真 3D 打印自由曲面光波导</a> · <a href="#paper-2610.30757">可重构自由空间光互连：活塞微镜阵列</a></div></div></section></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
