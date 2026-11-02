@@ -146,7 +146,7 @@ li{margin:5px 0}
 <h4>局限与阅读提醒</h4><ul><li>实验为SLM台式概念验证，作者定位TRL3，并非飞行硬件或整机望远镜测试；台面源稳定性/读出噪声/满阱限制了更高SNR叠加。</li><li>双星场景由移位叠加单源图合成，不是真实双星同时成像；该方法在泊松噪声主导时成立，并会高估读出噪声贡献；DBFH还要求各次曝光、增益、背景和掩模透过率一致。</li></ul></article><article class="paper" id="paper-2610.33136" data-search="Matching Particle-Arrival Rates for Low-Count Image Denoising 匹配粒子到达率的低计数图像去噪 机构待核验 optical_design">
 <div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★☆☆</span></div>
 <h3>匹配粒子到达率的低计数图像去噪</h3><a class="original" href="https://arxiv.org/abs/2610.33136" target="_blank" rel="noopener noreferrer">Matching Particle-Arrival Rates for Low-Count Image Denoising ↗</a>
-
+<a class="reading-link" href="papers/2610.33136/index.html">阅读中文全文 →</a>
 <p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-23（UTC）</p><p class="reason">可快速判断Poisson thinning自监督是否适合你的低照度/光子计数成像，以及保质量推断在极稀疏场景的边界。</p>
 <h4>研究问题</h4><p>低照度、短曝光或低剂量下，探测器只收集少量光子/电子，测量受信号相关Poisson散粒噪声主导。监督去噪需要配对干净/含噪数据，现有自监督方法多利用空间/时间冗余，未显式建模随曝光累积的粒子到达过程。论文要回答：仅凭单次含噪观测，能否学到统计上正确的粒子到达率并恢复细结构。</p><h4>核心方法</h4><p>PARM把粒子累积建模为曝光索引的Poisson纯生过程，用Kolmogorov前向方程导出条件粒子到达率场，即干净粒子到达率的后验均值。训练时用Poisson thinning把单次含噪观测随机拆成互补低曝光视图A、B，以另一视图的曝光归一化计数作为自监督率目标；在GKL散度下，该目标与监督干净率回归共享同一Bayes最优预测器。网络用2D/3D U-Net输出softmax归一化空间分配，推断时用观测总计数恢复全局粒子质量；双向匹配和由零值比例触发的跨视图一致性正则用于稳定极低计数训练。</p>
 <h4>实验结果</h4><ul><li>合成Cameraman 3D堆栈中，PARM的PSNR/SSIM在Λ=2、1、0.5、0.25、0.125、0.0625分别为26.12 dB/0.817、24.79/0.787、23.39/0.731、22.28/0.708、20.99/0.646、19.46/0.588。</li><li>Coastguard自然视频Λ=2时，PARM为27.25 dB/0.767；同表VBM4D 24.84/0.628、N2V 22.47/0.502、SHINE 22.75/0.599、UDVD 24.10/0.604、bit2bit 26.40/0.746。</li><li>真实低剂量Pt纳米颗粒EM测试条件：电子剂量率约2000 e− Å−2 s−1、75 fps。</li><li>在该真实EM数据上，PARM在评估的一致性协议下取得最高平均相关（与组平均多帧参考比较）。</li></ul>
