@@ -1,0 +1,174 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>论文日报 · 2026-11-02</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style></head><body class="">
+<header><a class="brand" href="index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="daily/index.html" aria-current="page">日报</a><a href="papers/index.html">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 每日论文推荐</div><h1>论文日报 · 2026-11-02</h1><p class="lede">本期 8 篇，按阅读价值排序。</p><div class="metrics"><div><strong>8</strong>全文解读</div><div><strong>0</strong>优先团队</div><div><strong>0</strong>待重试</div></div><nav><a href="#trends">样本观察</a><a href="#briefs">今日速览</a><a href="#digest">全文解读</a><a href="#topic">今日专题</a></nav><section id="trends"><h2><span class="no">01</span>当日样本观察</h2><div class="trends"><article class="trend"><h3>可解释模型与先验前移到设计回路</h3><p>本批样本中，多篇把解析模型或统计先验直接嵌入设计/反演：高光谱用PCA风险分解优化掩模与DOE，DBFH用线性方程组重建波前，PARM用Poisson到达率做自监督，光谱计量用线形模型与全局拟合校正频标。共同点是先定义可检验的噪声/物理模型，再让器件参数服从该模型；这只是当天样本的观察，不能外推为全领域趋势。</p><div class="sources"><a href="#paper-2610.34935">风险引导的编码—重建协同设计实现数据高效的线性高光谱成像</a> · <a href="#paper-2610.34760">HWO类分段孔径中双盲傅里叶全息波前传感的实验验证</a> · <a href="#paper-2610.33136">匹配粒子到达率的低计数图像去噪</a> · <a href="#paper-2610.38565">扩展转动分辨中红外光谱极限：联合傅里叶变换与亚多普勒测量建立三氧六环精确模型</a></div></article><article class="trend"><h3>波长/模式选择从额外滤波转向耦合与器件响应</h3><p>样本里出现把选择机制放进耦合网络、输出镜反射率谱、超表面双共振或编码滤光响应，而非单纯在腔内插入滤波器。好处是可减少插入损耗或把选择与读出合并，代价是设计维度、公差与标定要求更高。该归纳仅基于本批论文，不代表全行业路线。</p><div class="sources"><a href="#paper-2610.26578">尺寸无关损耗判别的单模激光阵列</a> · <a href="#paper-2610.30897">扩展双波长注入种子激光可用波长范围的激光设计方法</a> · <a href="#paper-2610.36475">光门控转导实现硅基中红外电学读出</a> · <a href="#paper-2610.34935">风险引导的编码—重建协同设计实现数据高效的线性高光谱成像</a></div></article><article class="trend"><h3>验证层级参差：仿真与台架强，整机指标弱</h3><p>多篇给出全波仿真、台架实验或数据集验证，但缺少有源激光功率/线宽、实物掩模与DOE、整机望远镜、产线延迟等指标；工程迁移还需补耦合公差、热漂移与长期稳定性。此判断只描述当天样本的验证覆盖，不能据此断言领域普遍水平。</p><div class="sources"><a href="#paper-2610.26578">尺寸无关损耗判别的单模激光阵列</a> · <a href="#paper-2610.30897">扩展双波长注入种子激光可用波长范围的激光设计方法</a> · <a href="#paper-2610.34935">风险引导的编码—重建协同设计实现数据高效的线性高光谱成像</a> · <a href="#paper-2610.36475">光门控转导实现硅基中红外电学读出</a> · <a href="#paper-2610.34760">HWO类分段孔径中双盲傅里叶全息波前传感的实验验证</a> · <a href="#paper-2610.33136">匹配粒子到达率的低计数图像去噪</a></div></article></div></section><section id="briefs"><h2><span class="no">02</span>今日速览</h2><ol class="briefs"><li><a href="#paper-2610.26578">尺寸无关损耗判别的单模激光阵列</a><span>用有损辅助腔构造星形耗散网络，使目标超模在辅助腔完全相消，竞争模被额外损耗压制，模间间隔不随阵元数N下降；仅有全波仿真验证。</span></li><li><a href="#paper-2610.30897">扩展双波长注入种子激光可用波长范围的激光设计方法</a><span>用波长相关输出耦合镜替代腔内滤波，在不增加谐振腔损耗的情况下，将Ti:sapphire双波长注入锁定振荡扩展到60 nm间隔。</span></li><li><a href="#paper-2610.34935">风险引导的编码—重建协同设计实现数据高效的线性高光谱成像</a><span>把重建风险精确拆成五项，用PCA统计包络同时优化CASSI掩模/DOE/滤光片阵列与闭式LMMSE重建器；单帧CASSI达34.76 dB，仅5个源场景时比深度基线高9.43 dB。</span></li><li><a href="#paper-2610.36475">光门控转导实现硅基中红外电学读出</a><span>Nd3+纳米颗粒与双共振Al/p-Si超表面把6.8 μm中红外对近红外发光的调制转成硅零偏电流。</span></li><li><a href="#paper-2610.34760">HWO类分段孔径中双盲傅里叶全息波前传感的实验验证</a><span>DBFH在37段HWO-like瞳面上完成首次实验验证，用焦面强度线性重建波前，精度与FDPR相当，并演示双星波前传感。</span></li><li><a href="#paper-2610.33136">匹配粒子到达率的低计数图像去噪</a><span>PARM把低计数成像建模为曝光依赖Poisson计数过程，用Poisson thinning自监督估计粒子到达率，实现无干净参考去噪。</span></li><li><a href="#paper-2610.38565">扩展转动分辨中红外光谱极限：联合傅里叶变换与亚多普勒测量建立三氧六环精确模型</a><span>用0.001 cm⁻¹ FTIR与SI可溯源亚多普勒饱和吸收联合拟合并后验修正频标，将12原子分子ν5带模型推到40 kHz级线位置不确定度。</span></li><li><a href="#paper-2610.30672">CVP-BAA：高效适配分割一切模型用于医学图像分割</a><span>在冻结 SAM 的 ViT 中前插 CNN 局部提示并并行高频边界适配器，以较少可训练参数提升医学图像分割边界精度。</span></li></ol></section><section id="digest"><h2><span class="no">03</span>重点论文 · 全文 insight</h2><input id="search" type="search" placeholder="筛选标题、机构、标签…" aria-label="筛选论文"><article class="paper" id="paper-2610.26578" data-search="Single-Mode Laser Arrays with Size-Invariant Loss Discrimination 尺寸无关损耗判别的单模激光阵列 机构待核验 laser">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>尺寸无关损耗判别的单模激光阵列</h3><a class="original" href="https://arxiv.org/abs/2610.26578" target="_blank" rel="noopener noreferrer">Single-Mode Laser Arrays with Size-Invariant Loss Discrimination ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-19（UTC）</p><p class="reason">读完可判断星形耗散选择器是否适合你的单模阵列，以及辅助损耗和EP工作点如何影响尺寸扩展与工艺窗口。</p>
+<h4>研究问题</h4><p>传统耦合腔/激光阵列扩大有源体积时，模式谱拥挤使目标超模与最近竞争者之间的损耗间隔随尺寸缩小，并伴随空间烧孔、多模丝化和光束退化。论文要解决的是：在不牺牲全阵列均匀性的前提下，让单模选择能力随阵列规模保持。</p><h4>核心方法</h4><p>提出稀疏星形耗散网络：中心腔经N个有损辅助谐振腔与N个外围腔相连，取g1=-g2引入π相位差。目标同相超模在各辅助腔发生完全相消，辅助场为零且主腔等幅；竞争相位绕模破坏相消、驱动辅助损耗。快衰减极限下投影为星图拉普拉斯有效哈密顿量，把结构度不对称转成与节点数N无关的模间损耗间隔；再用1587 nm微环阵列全波仿真检验。</p>
+<h4>实验结果</h4><ul><li>理想星形网络中，目标超模与最近竞争模的归一化虚能间隔为 Δstar/κc=√N，随外围腔数 N 增大而增大。</li><li>引入有损辅助腔后的有效星图拉普拉斯模型中，精确模间损耗间隔只由局部外围支路参数决定，与发射单元数 N 完全无关。</li><li>在 N=18 的微环全波仿真中，目标模损耗为 0.08 GHz，能量分配 C/P/A=5.0/94.9/0.01%，辅助腔几乎无能量。</li><li>竞争模损耗约 11.5 GHz，C/P/A=0.08/98.1/2.01%，显示其驱动辅助腔耗散。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>全波仿真显示 gap 随 N 近似不变，说明该机制有潜力把单模选择与阵列尺寸解耦；迁移到有源阵列时需保证各支路耦合符号与幅度一致，否则目标模的完全相消会退化为辅助损耗。</li><li>EP 处（g2=Γ_R/2）之后模间损耗间隔饱和，继续增大耦合不再改善判别；设计应围绕 EP 附近选取 g2/Γ_R，并评估偏差落在 EP 两侧的后果。</li><li>目标模辅助腔能量仅 0.01%，竞争模达 2.01%，辅助腔能量可作为片上模式选择的诊断量；但该指标来自无源本征模，不能直接等同于有源激射时的边模抑制比。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>仅提供理论推导与无源微环全波本征模仿真，未制备有源激光阵列，未给出功率、斜率效率、WPE、M²、线宽等激光指标，也未验证增益竞争、热积累与非线性。</li><li>设计依赖 g1=-g2 与 Γ_R≫g（或 EP 附近）的精确平衡；论文未给出耦合/损耗公差、温度漂移、装调误差与良率分析。</li></ul></article><article class="paper" id="paper-2610.30897" data-search="Laser-design methodology for extending an available wavelength range of dual-wavelength injection-seeded laser 扩展双波长注入种子激光可用波长范围的激光设计方法 机构待核验 laser">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>扩展双波长注入种子激光可用波长范围的激光设计方法</h3><a class="original" href="https://arxiv.org/abs/2610.30897" target="_blank" rel="noopener noreferrer">Laser-design methodology for extending an available wavelength range of dual-wavelength injection-seeded laser ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-22（UTC）</p><p class="reason">读完可复现从增益失衡测量到输出耦合镜反射率指标与公差的完整设计链，并看清阈值与斜率效率的取舍。</p>
+<h4>研究问题</h4><p>双波长注入锁定激光在常规恒反射率输出耦合镜下，远离增益中心的波长难以被种子拉入振荡；若仅提高增益尾部种子功率，自由运转谱仍难抑制。论文要解决的是：在Ti:sapphire增益中心787 nm与增益尾部846 nm同时注入锁定，并使两波长输出接近相等，同时避免腔内波长选择元件带来的额外损耗。</p><h4>核心方法</h4><p>先用可调的有效陷波滤波器（ENF）在Ti:sapphire环形腔内定量增加787 nm损耗，测不同插入角下的精细度，找出既抑制787 nm自由运转又保持846 nm单波长注入锁定的窗口；再用已知腔内固有损耗把精细度换算成输出耦合镜反射率，设计并制作787 nm约47%、846 nm约63%的波长相关输出耦合镜（dual-OC），替代腔内波长选择元件。最后在532 nm泵浦的Ti:sapphire环形腔中测试多组双波长注入锁定与输出功率。</p>
+<h4>实验结果</h4><ul><li>在787 nm附加损耗对应精细度7.53–8.17、846 nm精细度保持11.0–11.5时，可获得两波长近等功率注入锁定输出。</li><li>按设计范围制作的dual-OC实测反射率为47%@787 nm和63%@846 nm，落在设计反射率范围内。</li><li>双波长振荡可在787 nm附近与增益尾部多组波长组合上实现，最大波长间隔60 nm。</li><li>双波长近等功率条件下，787 nm与846 nm注入锁定的阈值分别为42 mJ和41 mJ，斜率效率29%和28%，最大输出11.2 mJ和10.6 mJ，最大效率14.2%和13.4%。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>该设计流程可迁移到其他存在增益中心/增益尾部失衡的注入锁定激光：先测附加损耗-精细度窗口，再换算成OC反射率并留±2.5%公差；前提是腔内固有损耗可测且OC镀膜能实现所需光谱形状。</li><li>把波长均衡做在输出耦合镜上虽避免腔内插入损耗，但低OC反射率会把阈值从27 mJ推到41 mJ；泵浦受限系统需先评估阈值余量，泵浦充足时斜率效率提升可补偿。</li><li>60 nm间隔下仍需按组合调节种子功率比来获得近等输出，说明OC设计解决的是增益失衡和自由运转抑制，输出功率配比仍依赖种子功率控制。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>实验为10 Hz、532 nm泵浦的Ti:sapphire环形腔台架验证，仅一组增益介质和有限波长组合；分析者判断：高重频、高脉冲能量下的热效应、损伤阈值和长期稳定性未验证。</li><li>论文展示的最大波长间隔为60 nm，未证明对其他增益介质或更宽间隔同样有效；输出功率平衡还需逐组调节种子功率比。</li></ul></article><article class="paper" id="paper-2610.34935" data-search="Data-efficient linear hyperspectral imaging through risk-guided co-design 风险引导的编码—重建协同设计实现数据高效的线性高光谱成像 Zhejiang University Zhejiang University optical_design">
+<div class="paper-meta"><span class="pill">Zhejiang University</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>风险引导的编码—重建协同设计实现数据高效的线性高光谱成像</h3><a class="original" href="https://arxiv.org/abs/2610.34935" target="_blank" rel="noopener noreferrer">Data-efficient linear hyperspectral imaging through risk-guided co-design ↗</a>
+
+<p class="muted">全文机构行（模型提取） · 论文更新于 2026-10-26（UTC）</p><p class="reason">能学到一套可直接照搬的编码器设计流程：用PCA包络先验+匹配闭式LMMSE作为优化目标求掩模/DOE面形/滤光片响应，并用风险分解判断该改光学硬件还是补数据。</p>
+<h4>研究问题</h4><p>计算高光谱成像从有限光学测量中重建空间—光谱信息。线性重建器高效、可解释且计算量小，但在强压缩测量下精度不足；深度非线性模型精度高，却依赖大量训练数据与GPU算力，数据稀缺时性能明显退化。核心问题是：能否在保持线性重建器简洁性与低数据需求的前提下逼近深度模型的精度，并定量判断重建误差究竟来自光学编码、重建器设计还是源域统计覆盖不足。</p><h4>核心方法</h4><p>建立线性测量模型 y=H_θx+n 下的重建风险精确五项分解（包络内、包络外、耦合、噪声传播、均值漂移），并用源域PCA包络（累计方差99.5%）把风险进一步分离为与编码无关的统计覆盖项R_stat（下界）和可由协同设计降低的R_design项，给出可实现风险降幅的上下界式(5)。编码器以最小化PCA系数LMMSE误差协方差迹为目标、在物理可行域内优化，重建器由同一先验闭式给出、无需GPU训练。框架实例化到三类物理编码：CASSI二值掩模（开孔率25%、相邻谱带色散2像素）、16级熔石英DOE（5 µm采样、5 mm口径、初始焦距200 mm、含量化/总变差正则）、4×4共16片光谱滤光片（400–700 nm、双峰参数化、平均透过率固定0.15）。</p>
+<h4>实验结果</h4><ul><li>单帧CASSI仿真（ICVL十幅目标场景、31谱带、平均测量SNR 28.03 dB）：本文PCA优化掩模+PCA-LMMSE得平均PSNR 34.76 dB、SAM 2.01°、SSIM 0.9106；同掩模下比GMRF先验基线高4.81 dB/低2.78°；比DAUHST-5stg低1.15 dB但SAM低0.15°。</li><li>数据效率：仅5个源场景时线性重建器PSNR 34.57 dB、SAM 2.08°、SSIM 0.9086，训练时间0 min，比同数据训练的DAUHST-5stg（25.13 dB、11.55°、0.4604、24.80 min）高9.43 dB；源场景增至100时DAUHST反超。</li><li>跨域CASSI（ICVL先验→KAUST目标）：五项解析风险之和与实测平均全场风险偏差在0.2%以内；ICVL先验下统计覆盖下界19827.73占总风险60.5%，协同设计仅降实测风险3.4%，换用更宽的Mixed Source先验则降55.4%。</li><li>DOE与SFA仿真：DOE平均PSNR由30.76升至33.40 dB、SAM 3.17°→3.00°、SSIM 0.8659→0.9087，同时PSF能量损失由3.42%升至4.29%、测量SNR 29.44→29.06 dB；SFA平均PSNR由37.16升至38.70 dB、SAM 2.51°→1.78°、测量SNR 27.14→29.30 dB。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>编码器应以&quot;与其匹配的重建器&quot;为目标联合优化，而不是单独评价掩模/DOE/滤光片本身：本文优化掩模不仅提升线性重建，也让非线性DAUHST从33.66 dB升至35.91 dB（+2.25 dB）。做编码孔径或计算成像光机设计时，可把下游重建算法代入光学优化回路，收益能迁移到实际部署的重建器。适用前提是能获得场景统计先验与噪声协方差。</li><li>在投入光学加工/装调成本前，先用&quot;统计覆盖下界&quot;判断瓶颈：文中ICVL先验下协同设计只能降3.4%风险，扩大源域覆盖却降55.4%，且该下界不随编码器优化而改变。工程含义是：若目标场景与先验分布失配，应先补标定/训练数据，再谈提升光学指标。</li><li>评价编码光学不宜只看光通量或效率：DOE优化后PSF能量损失从3.42%升到4.29%、测量SNR略降，但重建PSNR提升2.64 dB，说明信息编码质量可能比纯效率更重要。该结论来自AWGN仿真，若迁移到实物还需把衍射效率、杂散光与鬼像一并实测，避免效率损失转化为对比度下降。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>全部结果为基于ICVL/KAUST等高光谱数据集的数值仿真：采用偏置校准后的线性测量模型与加性高斯白噪声，未给出实物掩模、DOE样机或滤光片阵列的实验验证；实际衍射效率、镀膜偏差、杂散光与装调误差的影响未知。</li><li>线性/PCA包络框架有边界：源域数据充足（100场景）时深度DAUHST反超线性重建器；作者亦指出固定99.5%方差包络、采用简化噪声模型，更丰富的统计先验、更真实噪声模型与非线性/学习型重建留作未来工作。</li></ul></article><article class="paper" id="paper-2610.36475" data-search="Optically gated transduction enables silicon electrical readout of mid-infrared light 光门控转导实现硅基中红外电学读出 National University of Singapore National University of Singapore optical_design">
+<div class="paper-meta"><span class="pill">National University of Singapore</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>光门控转导实现硅基中红外电学读出</h3><a class="original" href="https://arxiv.org/abs/2610.36475" target="_blank" rel="noopener noreferrer">Optically gated transduction enables silicon electrical readout of mid-infrared light ↗</a>
+
+<p class="muted">全文机构行（模型提取） · 论文更新于 2026-10-27（UTC）</p><p class="reason">可细读双共振超表面的PSO逆设计与门控读出链路；若只做激光器或成像镜头，主要可迁移的是双波段光谱分离与比值读出思路。</p>
+<h4>研究问题</h4><p>硅的1.1 eV带隙使其难以直接探测6.8 μm中红外光；现有硅基方案多围绕亚带隙吸收或外接吸收层，输出仍以强度型光电流为主，缺少用独立光输入“写入—扰动—区分”电学状态的读出路径。</p><h4>核心方法</h4><p>将NaYF4:Nd3+@NaYF4核壳纳米颗粒与PSO逆设计的双波段Al/p-Si超表面、硅肖特基读出台集成。740 nm门控光激发Nd3+，建立可读电流；6.8 μm MIR改变Nd3+激发态布居，使806/866 nm发射支路重新分配。超表面NIR共振偏向增强806 nm向硅的耦合，MIR共振增强MIR与LNP区域相互作用；几何缩放调谐700–900 nm与5.6–7.4 μm双共振。</p>
+<h4>实验结果</h4><ul><li>在740 nm门控功率1.0 μW、样品处6.8 μm MIR功率1 mW下，Nd3+发射出现显著谱重分布。</li><li>806 nm发射增强、866 nm发射减弱，I806/I866由0.09升至1.02。</li><li>零偏压下LG+LM附加电流103.335 nA；对应MIR调制响应度103 μA/W。</li><li>组合门控与MIR序列时，MIR调制引入附加电流电平，解码输出02010210并判为目标信号。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>双共振超表面把门控/硅读出（700–900 nm）与MIR调制（5.6–7.4 μm）分到两个波段，适用于需要多波长协同的片上传感；代价是几何缩放必须同时对准两个共振。</li><li>用806/866 nm双通道比值而非总强度读出，可抑制激发功率漂移的共模项；前提是两通道在硅读出台中的吸收权重稳定，并需标定比值-电流映射。</li><li>零偏压读出适合低功耗阵列，但约38 s慢热/结弛豫会限制弱MIR高速测量；可把差分锁相、斩波或热隔离作为系统级缓解。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>MIR诱导谱重分布是在透射衬底上单独表征，因Al/p-Si器件不支持所需MIR透射几何；片上光谱-电学对应未完整直接测量（E8）。</li><li>MIR瞬态含约38 s慢分量，且作者明确时间分离不能证明快分量完全非热起源；快响应还可能受结输运与测量带宽影响（E9,E10）。</li></ul></article><article class="paper" id="paper-2610.34760" data-search="Experimental Validation of Double-Blind Fourier Holography in an HWO-Like Segmented Aperture HWO类分段孔径中双盲傅里叶全息波前传感的实验验证 机构待核验 optical_design">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>HWO类分段孔径中双盲傅里叶全息波前传感的实验验证</h3><a class="original" href="https://arxiv.org/abs/2610.34760" target="_blank" rel="noopener noreferrer">Experimental Validation of Double-Blind Fourier Holography in an HWO-Like Segmented Aperture ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-26（UTC）</p><p class="reason">读完可判断DBFH是否适合你的分段/大孔径波前检测：线性重建、无需离焦，但需四类焦面测量和严格曝光归一化。</p>
+<h4>研究问题</h4><p>面向HWO等未来分段主镜空间望远镜的高对比度成像，焦面波前传感需在复杂瞳面像差下稳定、低计算量地重建波前；现有FDPR依赖离焦图和迭代非线性优化，且难以处理视场内多个互不相干点源。</p><h4>核心方法</h4><p>DBFH用已知振幅掩模把瞳面分成互补子孔径，采集奇/偶段、全孔径和π/2相移四幅焦面强度；由强度组合提取交叉项，并以子孔径紧支撑为约束建立过定线性方程组，最小二乘解出焦面复场，逆变换恢复瞳面波前，避免FDPR式迭代非线性优化。实验用635 nm激光和LCOS-SLM生成37段HWO EAC5-like瞳面并加载伪随机像差，与五幅离焦FDPR对比；双星用移位叠加单源图合成。</p>
+<h4>实验结果</h4><ul><li>DBFH差分相位重建的RMSE为0.21 rad。</li><li>相同数据上FDPR的RMSE略低于0.21 rad，单次相位重建约15 nm，与DBFH精度相近。</li><li>等亮度双星情形，两个互不相干点源独立重建的RMSE为0.220和0.228 rad，等权圆平均后降至0.210 rad。</li><li>MATLAB R2025b中，i7-8700K上完整DBFH重建中位耗时10.57 s。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>DBFH把相位恢复化为线性最小二乘，计算量可预测且不依赖低阶像差基；对高维波前检测/分段镜装调有吸引力，但前提是四类焦面强度曝光归一化和掩模透过率一致，否则线性反演会被系统偏差主导。</li><li>焦面PSF面积小，使多个互不相干点源可在探测器上分开独立重建并平均降噪；若用于亮目标，需高满阱、低读出噪声传感器，否则帧数堆叠受读出噪声/源漂移限制。</li><li>SLM分段瞳面的像素填充、高阶衍射和段间漏光需用空间滤波与遮光带抑制；迁移到真实分段镜测试时，掩模边界、配准和段间杂散光会成为系统误差来源。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>实验为SLM台式概念验证，作者定位TRL3，并非飞行硬件或整机望远镜测试；台面源稳定性/读出噪声/满阱限制了更高SNR叠加。</li><li>双星场景由移位叠加单源图合成，不是真实双星同时成像；该方法在泊松噪声主导时成立，并会高估读出噪声贡献；DBFH还要求各次曝光、增益、背景和掩模透过率一致。</li></ul></article><article class="paper" id="paper-2610.33136" data-search="Matching Particle-Arrival Rates for Low-Count Image Denoising 匹配粒子到达率的低计数图像去噪 机构待核验 optical_design">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>匹配粒子到达率的低计数图像去噪</h3><a class="original" href="https://arxiv.org/abs/2610.33136" target="_blank" rel="noopener noreferrer">Matching Particle-Arrival Rates for Low-Count Image Denoising ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-23（UTC）</p><p class="reason">可快速判断Poisson thinning自监督是否适合你的低照度/光子计数成像，以及保质量推断在极稀疏场景的边界。</p>
+<h4>研究问题</h4><p>低照度、短曝光或低剂量下，探测器只收集少量光子/电子，测量受信号相关Poisson散粒噪声主导。监督去噪需要配对干净/含噪数据，现有自监督方法多利用空间/时间冗余，未显式建模随曝光累积的粒子到达过程。论文要回答：仅凭单次含噪观测，能否学到统计上正确的粒子到达率并恢复细结构。</p><h4>核心方法</h4><p>PARM把粒子累积建模为曝光索引的Poisson纯生过程，用Kolmogorov前向方程导出条件粒子到达率场，即干净粒子到达率的后验均值。训练时用Poisson thinning把单次含噪观测随机拆成互补低曝光视图A、B，以另一视图的曝光归一化计数作为自监督率目标；在GKL散度下，该目标与监督干净率回归共享同一Bayes最优预测器。网络用2D/3D U-Net输出softmax归一化空间分配，推断时用观测总计数恢复全局粒子质量；双向匹配和由零值比例触发的跨视图一致性正则用于稳定极低计数训练。</p>
+<h4>实验结果</h4><ul><li>合成Cameraman 3D堆栈中，PARM的PSNR/SSIM在Λ=2、1、0.5、0.25、0.125、0.0625分别为26.12 dB/0.817、24.79/0.787、23.39/0.731、22.28/0.708、20.99/0.646、19.46/0.588。</li><li>Coastguard自然视频Λ=2时，PARM为27.25 dB/0.767；同表VBM4D 24.84/0.628、N2V 22.47/0.502、SHINE 22.75/0.599、UDVD 24.10/0.604、bit2bit 26.40/0.746。</li><li>真实低剂量Pt纳米颗粒EM测试条件：电子剂量率约2000 e− Å−2 s−1、75 fps。</li><li>在该真实EM数据上，PARM在评估的一致性协议下取得最高平均相关（与组平均多帧参考比较）。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>低照度/光子计数成像可优先尝试把噪声写成曝光依赖Poisson计数，并用互补thinning做自监督；适用前提是原始计数可标定、曝光已知且读出噪声可忽略；若存在混合Poisson–Gaussian噪声，应按作者所述只作Poisson-informed代理并重新验证。</li><li>将输出拆成归一化空间分配+观测总计数保质量，可让网络避开绝对曝光/增益标定，适合曝光变化的显微或工业视觉；但总计数为0时输出恒为0，暗场和极稀疏帧需另加先验。</li><li>参数量级上，一致性正则仅在极稀疏区间有帮助，γ0=0.01为默认；时间堆栈32帧是质量/显存折中。迁移到低计数视频时可在你的计数水平上重新扫γ0和堆栈深度，而非固定照搬。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>理论等价仅对已标定整数Poisson计数、已知曝光区间和独立增量成立；经验归一化、随机舍入、softmax分配和保质量推断均为实现近似，混合Poisson–Gaussian/读出噪声下不保证。</li><li>真实EM没有干净真值，评价只说明与同序列组平均多帧参考的一致性而非绝对保真；且每个序列/粒子水平单独优化，跨数据集泛化未验证。</li></ul></article><article class="paper" id="paper-2610.38565" data-search="Extending the limits of rotationally resolved mid-IR spectroscopy: an accurate model of trioxane derived from combining Fourier transform and sub-Doppler measurements 扩展转动分辨中红外光谱极限：联合傅里叶变换与亚多普勒测量建立三氧六环精确模型 CNRS CNRS laser">
+<div class="paper-meta"><span class="pill">CNRS</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>扩展转动分辨中红外光谱极限：联合傅里叶变换与亚多普勒测量建立三氧六环精确模型</h3><a class="original" href="https://arxiv.org/abs/2610.38565" target="_blank" rel="noopener noreferrer">Extending the limits of rotationally resolved mid-IR spectroscopy: an accurate model of trioxane derived from combining Fourier transform and sub-Doppler measurements ↗</a>
+
+<p class="muted">全文机构行（模型提取） · 论文更新于 2026-10-28（UTC）</p><p class="reason">可了解如何用少量SI可溯源亚多普勒谱线对宽带FTIR频标做后验校正，以及FM饱和吸收线形与不确定度处理；分子常数本身对激光工程师用途有限。</p>
+<h4>研究问题</h4><p>三氧六环ν5 CO对称伸缩带（960–1000 cm⁻¹）转动谱线密集且热带重叠，常规FTIR的0.001 cm⁻¹分辨率与频标精度难以同时给出宽带覆盖和高精度分子常数；需验证亚多普勒激光计量能否扩展到12原子多原子分子并反向校准FTIR频标。</p><h4>核心方法</h4><p>在SOLEIL/AILES用0.001 cm⁻¹ FTIR记录ν5带；在LPL用OsO4锁定CO2激光（10 Hz线宽、&lt;60 Hz绝对频率）和光频梳锁定QCL（~0.1 Hz线宽、&lt;300 Hz不确定度）做饱和吸收。对FM谱采用含残余幅度调制和扫描功率变化的线形模型，双向扫描平均；共记录557条线并指派123条。随后把毫米波、FTIR与亚多普勒线位置入全局Hamiltonian拟合，以乘性频标修正副本最大化一致性，后验校正FTIR频标。</p>
+<h4>实验结果</h4><ul><li>指派跃迁的线中心拟合不确定度为40–200 kHz。</li><li>FTIR频标最优乘性修正为δ=(-5.0±0.5)×10−5 cm−1。</li><li>最终全局拟合归一化RMS为0.983，中红外obs.-calc. RMS为6.3 MHz，剔除103条线（79条FTIR、11条mmw、13条亚多普勒）。</li><li>ν5带原点相对不确定度达到3.7×10−10。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>宽带光谱仪频标可借助少量SI可溯源亚多普勒锚点加大量密集谱线的全局模型做后验乘性修正，比只用有限参考线更能传播绝对准确度；适用前提是谱线归属可靠、模型覆盖足够J/K且锚点分布合理。</li><li>FM饱和吸收或波长调制中残余幅度调制与扫描功率漂移会造成线形不对称和线心偏移；工程上应双向扫描、采用含调制畸变的线形模型，并把拟合残差纳入不确定度。</li><li>高精度窄带亚多普勒数据若只覆盖P/Q支会偏置分子参数；计量系统设计应让宽带FTIR补齐R支和高J/K，避免用窄带数据单独定标全谱。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>作者指出亚多普勒数据仅覆盖P、Q支而未覆盖R支，导致激发态参数存在偏置；991–996 cm⁻¹的局部Coriolis型微扰也未完整处理。</li><li>分析者判断：FTIR后验频标修正依赖全局Hamiltonian模型与大量已指派谱线；迁移到谱线稀疏、归属不清或存在未建模微扰的样品时，修正可能引入模型偏差。</li></ul></article><article class="paper" id="paper-2610.30672" data-search="CVP-BAA: Efficiently Adapting Segment Anything Model for Medical Image Segmentation CVP-BAA：高效适配分割一切模型用于医学图像分割 机构待核验 display">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>CVP-BAA：高效适配分割一切模型用于医学图像分割</h3><a class="original" href="https://arxiv.org/abs/2610.30672" target="_blank" rel="noopener noreferrer">CVP-BAA: Efficiently Adapting Segment Anything Model for Medical Image Segmentation ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-22（UTC）</p><p class="reason">若你在做基于 SAM/ViT 的缺陷或医学图像分割，可快速了解 K/V 提示注入与高频边界适配器的取舍；对激光/光学设计本身无直接帮助。</p>
+<h4>研究问题</h4><p>医学图像分割需要精确的边界刻画，但 SAM 直接用于医学图像会受域偏移影响；现有 PEFT（prompt/adapter/LoRA）多缺少显式局部结构先验和高频边界增强，对低对比、模糊边缘的分割仍不够敏感。</p><h4>核心方法</h4><p>在冻结 SAM ViT-B 上并行一个轻量 CNN 分支；CVP 将 CNN 特征经 1×1 卷积和空间注意力生成提示，前插到第 3/6/9/12 个 ViT 块 MHSA 的 K/V 序列；BAA 与 FFN 并行，用 3×3 平均池化作低通，原特征减低通得高频，融合后以 s=0.3 加回 FFN。仅训练 CNN、CVP、BAA；输入 256×256，单点提示，Dice+BCE 损失。</p>
+<h4>实验结果</h4><ul><li>BUSI/UDIAT/TN3K 上 Dice 分别为 86.71±0.33%、89.72±0.23%、85.23±0.30%，HD 分别为 24.52±0.44、13.17±0.58、27.77±0.42 mm；表中均优于 SAMUS 的 85.07/89.43/84.46% 与 25.85/14.09/28.41 mm。</li><li>CVC-ClinicDB 上 Dice 94.11±0.21%、mIoU 89.36±0.20%、Acc 99.16±0.02%、Prec 94.57±0.35%、Rec 94.21±0.42%。</li><li>ISIC-2018 上 Dice 90.40±0.20%、mIoU 83.75±0.25%、Acc 96.27±0.36%、Prec 92.44±0.25%、Rec 91.66±0.46%。</li><li>在 BUSI、256×256 输入下，可训练参数 30.20M（较 SAMUS 39.65M 约降 23.8%），143.46 GFLOPs，37.92 FPS。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>把 CNN 局部先验直接前插到 K/V 而不是只做 cross-attention，可让冻结 ViT 的全局注意力在查询语义不变的情况下接收细粒度结构；对已有 SAM/ViT 缺陷分割改造，优先扫描注入层位置与提示维度。</li><li>用“原特征减低通”的显式高通支路增强边界，比通用 adapter 更针对低对比边缘；迁移到显示/光学表面缺陷时，平均池化核与缩放系数需按缺陷线宽和对比度重新标定。</li><li>s=0.3 的折中说明高频支路过强会扰动冻结主干；在产线数据上应把 s 作为正则化超参小范围扫描，而不是照搬。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>作者指出 BAA 等额外结构带来可学习参数增加，且完全未见临床域与数据稀缺场景的泛化仍是开放问题。</li><li>分析者判断：仅在 2D 医学图像、256×256 输入和单点提示下验证，未报告工业缺陷数据、跨成像条件或产线级延迟；迁移到光学检测需重新验证。</li></ul></article></section><section id="topic"><h2><span class="no">04</span>今日专题</h2><div class="topic"><h3>模式/波长选择性设计：耦合耗散、镀膜响应与超表面共振的工程取舍</h3><p>围绕“把选择机制做进器件响应”这一线索，样本给出三条路线。星形耗散网络（2610.26578）用g1=-g2的π相位使目标超模在辅助腔相消、竞争模承担额外损耗，理论上模间间隔与N无关，但依赖精确耦合平衡，且仅1587 nm微环本征模仿真。双波长输出耦合镜（2610.30897）把787/846 nm反射率做成约47%/63%，以精细度窗口和±2.5%公差换阈值从27升至41 mJ、斜率41%升至57%，已有台架实测。双共振超表面（2610.36475）用逆设计分开700–900 nm与5.6–7.4 μm共振，零偏读出约103 μA/W，但约38 s慢分量限制高速。推断：高功率单模阵列优先评估星形网络的耦合公差与EP偏置；泵浦受限体激光先算阈值余量再选双OC；片上多波段读出需把热隔离与双共振对准纳入系统指标。</p><div class="sources"><a href="#paper-2610.26578">尺寸无关损耗判别的单模激光阵列</a> · <a href="#paper-2610.30897">扩展双波长注入种子激光可用波长范围的激光设计方法</a> · <a href="#paper-2610.36475">光门控转导实现硅基中红外电学读出</a></div></div></section></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
