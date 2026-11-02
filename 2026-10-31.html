@@ -1,0 +1,198 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>论文日报 · 2026-10-31</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style></head><body class="">
+<header><a class="brand" href="index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="daily/index.html" aria-current="page">日报</a><a href="papers/index.html">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 每日论文推荐</div><h1>论文日报 · 2026-10-31</h1><p class="lede">本期 11 篇，按阅读价值排序。</p><div class="metrics"><div><strong>11</strong>全文解读</div><div><strong>1</strong>优先团队</div><div><strong>0</strong>待重试</div></div><nav><a href="#trends">样本观察</a><a href="#briefs">今日速览</a><a href="#digest">全文解读</a><a href="#topic">今日专题</a></nav><section id="trends"><h2><span class="no">01</span>当日样本观察</h2><div class="trends"><article class="trend"><h3>锁频激光的降噪重心分为腔体热噪声与环路延迟两类</h3><p>基于当天样本，2610.30532用低温21 cm硅腔、增大模式与10.2 m曲率镜压低镀层热噪声，在6 K/16 K获得7–9×10⁻¹⁸稳定度；2610.31396则在既有PDH环内用FPGA Smith预测补偿时延，把伺服凸起压低14 dB。两者分别对应热噪声受限与伺服受限，不能互相替代。推断：选路线前应先判定主导噪声，并分别核算低温维护成本或模型失配风险。</p><div class="sources"><a href="#paper-2610.30532">基于21 cm低温硅腔、频率稳定度达7×10⁻¹⁸的激光</a> · <a href="#paper-2610.31396">窄线宽激光器的预测电子反馈控制</a></div></article><article class="trend"><h3>模型驱动与自动化标定进入光学测量和装调</h3><p>当天样本显示，2610.39340用状态空间模型、在轨Jacobian精修和闭式控制直接调控焦面复场；2610.38203用GDSII位置表驱动退役SEM自动采集CD/LER并反馈工艺偏差；2610.39221用Fisher信息设计SPADE探测；2610.31424提供圆柱光热前向模型。共同点是先建模再测量/控制。推断：其收益取决于模型有效性与标定质量，强非线性或工艺漂移下需在线更新。</p><div class="sources"><a href="#paper-2610.39340">面向深层超分辨成像与纳米光刻的焦面极端自适应光学</a> · <a href="#paper-2610.38203">将退役Raith电子束图形发生器改造为无人值守关键尺寸SEM</a> · <a href="#paper-2610.39221">局部矿物吸收光谱的空间模式选择</a> · <a href="#paper-2610.31424">多层圆柱三维各向异性光学测温的调制加热解析建模</a></div></article><article class="trend"><h3>光束/视场调控在自由空间、热发射与模式域分途</h3><p>基于当天样本，2610.38403用共焦椭球偏置Gregorian双反射镜消除中心遮挡，以副镜倾斜和馈源位移实现扫描/调焦；2610.33935用InGaAs/InAs磁光GMR与ENZ在24.5 µm实现非互易热发射偏转；2610.39221用SPADE在探测前分离目标模与背景。三者分别受几何装调、磁场/材料色散和模式串扰约束。推断：不能只用分辨率比较，需按相干性、扫描速度和可制造性选型。</p><div class="sources"><a href="#paper-2610.38403">用于远距离毫米波成像的共焦椭球偏置格雷戈里结构</a> · <a href="#paper-2610.33935">热发射的非互易磁光光束偏转</a> · <a href="#paper-2610.39221">局部矿物吸收光谱的空间模式选择</a></div></article><article class="trend"><h3>紧凑/集成光学系统的瓶颈转向耦合、功耗与封装</h3><p>当天样本中，2610.34821的TFLN电光梳仍需外部RF源和高驱动功率，SNR受片上传输与光纤-芯片耦合损耗限制；2610.32795的紧凑OPM样机仍依赖台式激光与锁相电子，且线圈均匀性使灵敏度较台式退化6倍；2610.40194的低温光输入总效率仅2.02×10⁻⁵，受光纤芯径逐级缩小和吸收面反射制约。推断：这些方案离整机化还差封装与损耗预算，不能只看核心器件指标。</p><div class="sources"><a href="#paper-2610.34821">单片集成铌酸锂光子电路上的电光频率梳驱动大规模数据传输</a> · <a href="#paper-2610.32795">基于吸收检测的紧凑型单光束光泵磁力仪</a> · <a href="#paper-2610.40194">基于光子数分辨统计的频域复用X射线TES微热量计阵列光学标定</a></div></article></div></section><section id="briefs"><h2><span class="no">02</span>今日速览</h2><ol class="briefs"><li><a href="#paper-2610.31396">窄线宽激光器的预测电子反馈控制</a><span>在PDH锁频环内用单块FPGA实现Smith预测器，纯电子补偿环路时延，把伺服凸起压低14 dB、锁定误差信号压低18 dB。</span></li><li><a href="#paper-2610.30532">基于21 cm低温硅腔、频率稳定度达7×10⁻¹⁸的激光</a><span>21 cm低温硅腔稳激光在6 K/16 K分别达到7×10⁻¹⁸/9×10⁻¹⁸稳定度，并驱动Sr钟实现超过10 s询问。</span></li><li><a href="#paper-2610.39340">面向深层超分辨成像与纳米光刻的焦面极端自适应光学</a><span>用状态空间模型把变形镜电压直接映射到焦面复场，靠少量对称探针和闭式最优控制快速校正高阶、空变相位—振幅像差，在160 µm深脑组织SMLM与STED光刻中验证。</span></li><li><a href="#paper-2610.34821">单片集成铌酸锂光子电路上的电光频率梳驱动大规模数据传输</a><span>在TFLN芯片上用级联AM/PM产生平坦电光梳，结合片上解复用与调制器，实现16.56 Tb/s现场相干传输和1.71 Tb/s单片IM/DD发射。</span></li><li><a href="#paper-2610.38203">将退役Raith电子束图形发生器改造为无人值守关键尺寸SEM</a><span>用AutoSEM把GDSII版图转成扫描位置表，将退役Raith eLine Plus变为无人值守CD-SEM，服务光刻胶工艺窗口、硅光芯片CD统计与CNN训练数据采集。</span></li><li><a href="#paper-2610.39221">局部矿物吸收光谱的空间模式选择</a><span>用二元SPADE在探测前分离目标场模与正交补，并联合反演局部矿物吸收深度；等时仿真显示深度RMSE降14%–26%。</span></li><li><a href="#paper-2610.32795">基于吸收检测的紧凑型单光束光泵磁力仪</a><span>500 Torr N2缓冲的87Rb微气室加795 nm单束圆偏振DBR光，台式达11 fT/√Hz，折叠FPCB立方探头达66 fT/√Hz。</span></li><li><a href="#paper-2610.33935">热发射的非互易磁光光束偏转</a><span>用磁场打破±kx导模简并，在24.5 µm热发射器上仿真实现非互易、不对称的22°光束偏转。</span></li><li><a href="#paper-2610.38403">用于远距离毫米波成像的共焦椭球偏置格雷戈里结构</a><span>提出共焦椭球偏置Gregorian双反射结构，用射线追踪与60 GHz全波仿真验证低遮挡、1.5 cm分辨率、49.7 cm焦深及约40 cm FoV扫描。</span></li><li><a href="#paper-2610.31424">多层圆柱三维各向异性光学测温的调制加热解析建模</a><span>建立调制椭圆高斯激光加热下任意层各向异性圆柱的三维热传导闭式解，作为红外光热测温的前向模型，与有限元对比最大误差1.51%。</span></li><li><a href="#paper-2610.40194">基于光子数分辨统计的频域复用X射线TES微热量计阵列光学标定</a><span>用405 nm激光二极管经AOM斩波和光纤送入稀释制冷机，对FDM TES阵列做光子数分辨低能标定，等效能量到400 eV以上，并验证三像素一致性。</span></li></ol></section><section id="digest"><h2><span class="no">03</span>重点论文 · 全文 insight</h2><input id="search" type="search" placeholder="筛选标题、机构、标签…" aria-label="筛选论文"><article class="paper" id="paper-2610.31396" data-search="Predictive electronic feedback control for narrow-linewidth lasers 窄线宽激光器的预测电子反馈控制 SIOM SIOM">
+<div class="paper-meta"><span class="pill">SIOM</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>窄线宽激光器的预测电子反馈控制</h3><a class="original" href="https://arxiv.org/abs/2610.31396" target="_blank" rel="noopener noreferrer">Predictive electronic feedback control for narrow-linewidth lasers ↗</a>
+
+<p class="muted">全文机构行（模型提取） · 论文更新于 2026-10-22（UTC）</p><p class="reason">读完可判断能否在现有PDH锁频系统中用FPGA预测补偿替代额外光学滤波，并了解模型泄漏强度与锁频增益对抑制量的影响。</p>
+<h4>研究问题</h4><p>窄线宽激光器依赖PDH锁频，但光路与电子链路的总时延在环路中引入随频率线性增长的相位滞后，使反馈带宽受限，并在数十kHz至数MHz形成伺服凸起。既有抑制方案多在电子环外增加光学滤波、自注入锁定或延迟光纤前馈，带来输出功率损失与调谐负担。</p><h4>核心方法</h4><p>在PDH反馈环内加入基于Smith预测器的纯电子补偿：先辨识含激光器的环路频响，将PID输出分为主路与预测支路；FPGA用移位寄存器缓存历史控制量，按实测总时延重构无延迟误差信号，预测残差再经20 kHz二阶高通限幅。实验以80 MHz光学拍频和频响分析仪在10 kHz–5 MHz测量，FPGA时钟125 MHz；实测反馈链路时延200 ns、前向208 ns，对应25与26个时钟周期。</p>
+<h4>实验结果</h4><ul><li>以80 MHz光学拍频测量，Smith预测器使伺服凸起降低14 dB，锁定态误差信号在凸起频率处降低18 dB。</li><li>参数扫描中，预测模型泄漏强度k增大时三组伺服凸起均下降；k=9时分别达到-34.35、-35.16和-33.28 dB。</li><li>在Rydberg EIT电场传感中，140 kHz附近3.7 dB的噪声凸起被消除并降至噪声底，表明该凸起来自PDH伺服凸起。</li><li>若目标电场信号位于140 kHz伺服凸起附近，启用该方法可将探测SNR提高2.46 dB。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>对已有PDH锁频系统，纯数字Smith预测补偿可在不改光路、不牺牲输出功率的情况下替代额外光学滤波；适用前提是环路时延和对象频响能稳定辨识，且预测模型与真实系统匹配。</li><li>20 kHz高通是模型失配残差与低频补偿之间的折中；若目标噪声或伺服凸起靠近更低频，需重新评估该拐点，不能直接照搬。</li><li>预测器泄漏强度k和锁频增益Kp共同决定抑制量；部署时应联合标定，尤其在Kp=-19 dB、k较小时抑制可能接近无效。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>补偿效果依赖对象模型和总时延估计；论文指出模型失配残差随1−e−τs增长，仅用20 kHz二阶高通限制低频残差，未给残差上界。</li><li>数字流水线本身带来非零残余延迟，正文未给具体数值（称在补充材料量化）；k较小且Kp=-19 dB时抑制最弱，凸起水平接近原始状态。</li></ul></article><article class="paper" id="paper-2610.30532" data-search="Laser with $7\times10^{-18}$ stability 基于21 cm低温硅腔、频率稳定度达7×10⁻¹⁸的激光 NIST / Physikalisch-Technische Bundesanstalt / University of Colorado Boulder NIST Physikalisch-Technische Bundesanstalt University of Colorado Boulder">
+<div class="paper-meta"><span class="pill">NIST</span><span class="pill">Physikalisch-Technische Bundesanstalt</span><span class="pill">University of Colorado Boulder</span><span>阅读优先级 ★★★★★</span></div>
+<h3>基于21 cm低温硅腔、频率稳定度达7×10⁻¹⁸的激光</h3><a class="original" href="https://arxiv.org/abs/2610.30532" target="_blank" rel="noopener noreferrer">Laser with $7\times10^{-18}$ stability ↗</a>
+
+<p class="muted">全文机构行（模型提取） · 论文更新于 2026-10-21（UTC）</p><p class="reason">可了解低温硅腔超稳激光的热噪声极限、模式/支撑/隔振与PDH工程取舍，判断是否值得为自身窄线宽光源引入类似腔体与温控架构。</p>
+<h4>研究问题</h4><p>超稳激光的频率稳定度受限于腔镜镀层布朗热噪声；降低温度、增大模式或加长腔可降噪，但会带来温度敏感、振动敏感和系统复杂度上升。论文要解决的是：在21 cm硅腔上同时优化短期与长期稳定度，并验证其能否支撑超10 s的Sr钟询问。</p><h4>核心方法</h4><p>以21 cm单晶硅腔为核心：把腔镜曲率半径改为10.2 m并增大光学模式，工作点从124 K零膨胀点下移到16 K零膨胀点或6 K制冷机基温；用氦闭循环低温恒温器、两级隔振/主动隔振台与倾斜仪前馈抑制振动，并用铒热质量和多层屏蔽获得约4 d热时间常数。激光用三音AOM产生PDH边带，主动抑制RAM与载波，锁定到高精细度腔（860 000，线宽820 Hz）。</p>
+<h4>实验结果</h4><ul><li>16 K工作时，改性Allan偏差在2–50 s内几乎平坦在9×10⁻¹⁸，表明进入闪变频率噪声区。</li><li>降温到6 K后，短期稳定度进一步降至7×10⁻¹⁸。</li><li>16 K下积分相位噪声给出2.9 mHz线宽，长期频率漂移低于4 µHz/s。</li><li>用于Sr晶格钟时，12.4 s Rabi脉冲得到傅里叶极限64 mHz线宽。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>大模式半径降低镀层热噪声，但会放大平行度误差导致的模式偏移和振动敏感度；10.2 m曲率腔需把间隔件平行度控制在&lt;10 arcsec、模式偏移&lt;500 µm，并与低振动恒温器协同设计。</li><li>16 K零膨胀点降低二阶温度敏感度，但低温热容小，需用铒热质量与多层屏蔽获得约4 d热时间常数；高精度光学系统的热架构应与光学参数同步设计。</li><li>三音AOM的PDH方案同时抑制RAM和载波，使锁定噪声在0.1 Hz–10 kHz内保持散粒噪声受限；对高精细度腔锁频，残余幅度调制和腔内功率加热是必须主动处理的误差源。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>&gt;100 s平均时间出现噪声模型之外的额外噪声，可能来自腔内真空压力波动或腔内光功率局部加热；因传感器无法贴近腔体，这些量未能准确测量。</li><li>闭循环氦路每约2个月需停机约2 d清除污染物，并出现约10 Hz滞后，连续运行与维护成本受限。</li></ul></article><article class="paper" id="paper-2610.39340" data-search="Focal-Plane Extreme Adaptive Optics for Deep Super Resolution Imaging and Nanolithography 面向深层超分辨成像与纳米光刻的焦面极端自适应光学 机构待核验 optical_design">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>面向深层超分辨成像与纳米光刻的焦面极端自适应光学</h3><a class="original" href="https://arxiv.org/abs/2610.39340" target="_blank" rel="noopener noreferrer">Focal-Plane Extreme Adaptive Optics for Deep Super Resolution Imaging and Nanolithography ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-29（UTC）</p><p class="reason">读完能判断“用少量差分强度探针+闭式控制直接调控终端焦场”这一思路，是否可替代你现有系统中的逐平面波前重建/无传感器迭代寻优，以及双DM级联与在轨Jacobian标定的工程代价。</p>
+<h4>研究问题</h4><p>在生物组织、光刻胶这类折射率非均匀的三维介质中，像差沿全光程累积，随深度变为高阶、空变，并且相位与振幅耦合。传统做法要么在瞳面或共轭面重构波前再做相位共轭，要么依赖波前传感器（低光子荧光/写入面难以实现），要么做基于图像指标的无传感器迭代（高阶校正慢且脆弱）。数字/计算AO则在探测前已丢失光子，无法物理校正用于加工的光场。</p><h4>核心方法</h4><p>提出焦面极端自适应光学FP-ExAO：不再显式分解各平面像差，而是在工作点附近把“DM电压增量→焦面复场”的端到端响应线性化，得到实值状态空间模型与Jacobian G_R（由光学仿真初始化，再用已知电压扰动与差分强度在轨精修）。探测采用对称±探针，差分强度消去二次项，化为关于复场实/虚部的线性观测模型，逐像素最小二乘并行求解；探针按Fisher信息D-最优设计，用2D sinc探针保证焦面扰动近似均匀、Hilbert变换对保证两象限近正交（用4对）。控制端把任务目标写成焦面掩模加权（SMLM抑制PSF核外能量、STED把能量压入环形并压低中心零点），二次型目标有闭式解，避免迭代指标搜索；视场分成N×N等晕区联合求解，实现空变像差全场协同校正。</p>
+<h4>实验结果</h4><ul><li>荧光珠实验中，双DM级联（瞳面140执行器DM + 下游146 mm处952执行器DM）在5×5等晕区上校正空变像差，校正时间缩短约10倍、校正后Strehl比高2–3倍，并等效把校正视场扩大16倍；sinc+Hilbert正交探针优于Zernike与随机探针，探针对数由2增至4进一步提升校正。</li><li>COS-7细胞TOM20三维SMLM：级联DM下定位精度横向14 nm、轴向53 nm，FRC分辨率由无AO的127.1 nm改善至66.7 nm（1/7阈值判据）。</li><li>Thy1-EGFP脑切片：在75 µm×75 µm校正视场内实现144.3–161.7 µm深度3D SMLM，横向定位精度约16–17 nm，三处区域FRC由75.5→40.7 nm、112.1→71.3 nm、103.1→58.8 nm；肾组织63.4 µm深度处横向精度16.3 nm、FRC 61.7→49.2 nm。</li><li>STED直写（780 nm/120 fs/80 MHz激发+532 nm连续耗尽，NA 1.1、60×、WD 1.5 mm，激发13.4 mW、耗尽7.26 mW、扫描60 µm/s）在160 µm写入深度，孤立线宽由无校正251.1 nm降至88.8 nm（指标型AO为128.4 nm）；密集光栅由319.1 nm线/261.7 nm间隙改善到121.8 nm线/64.8 nm间隙。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>把“仿真给初值+在轨扰动辨识”的Jacobian精修流程直接搬到多执行器光学装调：用小幅已知驱动增量与差分强度回归系统响应矩阵（L-BFGS+正则化），可在不拆机的前提下跟踪温漂/装调漂移，比重新做几何标定更轻量；前提是局部线性仍成立、扰动幅度小</li><li>将“像差校正”和“目标场整形”解耦：控制器只最小化掩模W加权的焦面能量，W换成PSF核、环形doughnut或任意目标分布即可切换任务；这为DOE/超表面与AO联合设计提供接口——把DOE的理想焦场作为目标态，AO只吸收残余与装配误差</li><li>信息论探针设计把每次复场估计压缩到4对（8帧）差分强度，说明在光子受限系统里，测量预算应花在“探针正交性+焦面覆盖均匀性”而非增加迭代次数；对无传感器AO、相位恢复或波前检测的采样方案设计有直接迁移价值</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>状态空间模型依赖局部线性，在大光学漂移或像差突变时会退化，需靠在线系统辨识更新Jacobian（作者自述）。</li><li>空间校正越细需越多等晕区，存在视场—测量负担—校正带宽三者折中；实验最多用两面级联DM，作者称Strehl&gt;0.9尚需更多级联；STED光刻只做单区域校正、未分区，焦场估计依赖点状发射体等引导信号（分析者判断：在无点源的非荧光场景适用性未验证）。</li></ul></article><article class="paper" id="paper-2610.34821" data-search="Electro-optic comb-driven massive data transmission on monolithically integrated lithium niobate photonic circuits 单片集成铌酸锂光子电路上的电光频率梳驱动大规模数据传输 机构待核验 laser">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>单片集成铌酸锂光子电路上的电光频率梳驱动大规模数据传输</h3><a class="original" href="https://arxiv.org/abs/2610.34821" target="_blank" rel="noopener noreferrer">Electro-optic comb-driven massive data transmission on monolithically integrated lithium niobate photonic circuits ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-26（UTC）</p><p class="reason">读完能判断TFLN电光梳的平坦度、通道扩展与单片集成路径是否可迁移到自己的WDM/集成光源方案，并量化外部RF与耦合损耗的代价。</p>
+<h4>研究问题</h4><p>数据中心互连容量受符号率、调制阶数和光纤数量扩展限制，WDM需要紧凑低成本多波长光源；现有Kerr梳和锁模激光器在效率、平坦度、相位噪声、固定信道间隔及与高速调制器共集成方面存在瓶颈。</p><h4>核心方法</h4><p>在x-cut TFLN上制作级联AM+PM电光梳：50 GHz射频驱动，PM双程工作（Vπ约4.5 V@50 GHz，驱动约34 dBm、深度3.5π），用平顶时域脉冲映射出频域平坦梳；两个激光器把通道扩展到46个。片上100 GHz FSR add-drop微环将奇偶通道交错，落口得到10通道、4.6 dB平坦度。最后把梳与高速强度调制器单片集成，调制器3-dB EO带宽&gt;40 GHz、Vπ=2.2 V，分别进行相干和IM/DD传输；相干验证在98.84 km现网链路上完成。</p>
+<h4>实验结果</h4><ul><li>50-GHz电光梳在20 nm跨度内产生46个通道，平坦度6 dB。</li><li>DP-16-QAM总速率16.56 Tb/s（净14.27 Tb/s，16% FEC）；DP-QPSK近无误码8.28 Tb/s。</li><li>100-GHz交错方案在100 km光纤上实现10通道80-GBaud WDM传输，总速率6.4 Tb/s（净5.5 Tb/s）。</li><li>单片集成梳+高速调制器实现19通道45-GBaud PAM-4 IM/DD，总速率1.71 Tb/s（净1.47 Tb/s）。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>平坦梳省去WSS/整形器，但通道功率均衡压力会转移到EDFA增益谱和接收端SNR；自建WDM光源时，应把AM/PM偏置与RF相位锁定纳入公差预算，否则平坦度差异会直接变成通道BER差异。</li><li>100 GHz交错采用强过耦合pulley环，以较低Q/7.5 GHz线宽换制造误差与热漂移鲁棒性；若系统需要窄过渡带和高抑制，单环不够，需级联环或AWG。</li><li>单片集成已验证B2B IM/DD，但迁移到整机/现场链路前需解决外部RF源、高驱动功率和光纤-芯片耦合损耗；CPO、低损耦合或片上放大是前置条件。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>依赖离散外部RF源和高RF驱动功率；SNR受片上传输与光纤-芯片耦合损耗限制。</li><li>单片WDM发射机仅做B2B IM/DD概念验证；相干大容量链路使用外部商用DP IQ调制器，不是全单片现场验证。</li></ul></article><article class="paper" id="paper-2610.38203" data-search="Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM 将退役Raith电子束图形发生器改造为无人值守关键尺寸SEM 机构待核验 optical_design">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>将退役Raith电子束图形发生器改造为无人值守关键尺寸SEM</h3><a class="original" href="https://arxiv.org/abs/2610.38203" target="_blank" rel="noopener noreferrer">Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-28（UTC）</p><p class="reason">读完可判断能否用现有EBL/SEM镜筒和版图驱动扫描框，低成本搭建光子芯片CD/LER统计与工艺闭环；光学设计指标不是本文内容。</p>
+<h4>研究问题</h4><p>学术洁净室的EBL关键尺寸计量依赖人工SEM，晶圆级成像耗时且受操作者影响，数据量不足以闭环校准；集成光子器件对纳米级结构变异敏感，需要从版图出发的高通量CD/LER测量。</p><h4>核心方法</h4><p>将退役Raith eLine Plus（与CD-SEM共用SEM镜筒和透透镜二次电子探测）与AutoSEM网页工具结合：解析GDSII版图，把预设扫描框布置到版图上并导出.pls位置表；经三点对准和工作距离平面校正后无人值守采集，图像送入GenISys ProSEM提取CD/LER，再由Tracer/Beamer反演工艺模糊、偏差、等焦剂量并做PEC。核心变化是从设计版图自动生成成像位置表，而非依赖原生曝光自动化或手工列表。</p>
+<h4>实验结果</h4><ul><li>AR-P 6200.09的Tracer拟合给出等焦剂量~256 µC/cm²、工艺模糊~20 nm、工艺偏差~6 nm。</li><li>等焦测试图像以2 nm/px采集，无人值守约5.5 h。</li><li>1104个片上结构可在GDSII设计阶段安排自动CD计量。</li><li>CNN对2 µm inverse design crossing预测回流导致的CD展宽。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>已有EBL/SEM镜筒的实验室可先做版图驱动的扫描框/位置表自动化，而不是直接购置CD-SEM；前提是三点对准和工作距离平面校正到位，否则系统误差会进入整个数据集。</li><li>把扫描框和计量标记前置到GDSII设计阶段，可把光子芯片CD/LER统计变成常规QA；但扩展到晶圆级仍需自动标记识别/激光高度传感，论文只演示单台退役eLine Plus。</li><li>CNN预校正的可迁移性受工艺窗口约束：数据集绑定热回流条件（140°C、60/90 s）和特定测试图案；换胶厚/温度/设备需重新采集，不能直接复用模型。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>三点对准需高水平操作，可能造成全数据集系统偏差。</li><li>分析者判断：论文为单台退役Raith eLine Plus的学术洁净室演示，对其它NanoSuite机型仅为预期适用；未给出晶圆级量产验证或CNN预测精度/跨工艺泛化数据。</li></ul></article><article class="paper" id="paper-2610.39221" data-search="Spatial-Mode Selection for Local Mineral Absorption Spectroscopy 局部矿物吸收光谱的空间模式选择 University of Wisconsin-Madison / Zhejiang University University of Wisconsin-Madison Zhejiang University">
+<div class="paper-meta"><span class="pill">University of Wisconsin-Madison</span><span class="pill">Zhejiang University</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>局部矿物吸收光谱的空间模式选择</h3><a class="original" href="https://arxiv.org/abs/2610.39221" target="_blank" rel="noopener noreferrer">Spatial-Mode Selection for Local Mineral Absorption Spectroscopy ↗</a>
+
+<p class="muted">全文机构行（模型提取） · 论文更新于 2026-10-29（UTC）</p><p class="reason">可快速判断空间模式接收是否值得用于局部光谱/成像光谱仪，重点是可迁移的Fisher设计判据和失配边界，而非已验证硬件。</p>
+<h4>研究问题</h4><p>小矿物斑块在成像光谱中与周围背景经衍射混合，常规光谱拟合只能扣除平均背景，无法去掉已记录背景光子噪声，因此目标自身吸收深度（相对连续谱的凹陷）难以定量比较。论文问：在有限目标、扩展背景和未知场景参数下，如何设计探测前的空间模式接收，使深度估计精度优于全像素直接成像。</p><h4>核心方法</h4><p>把目标建模为有限朗伯反射斑块，用圆孔艾里PSF计算目标/背景到像面像素及二元SPADE端口的收集系数；SPADE把与目标位置匹配的场模与其正交补分到0/⟂两端口，各记录一条光谱。先由直接成像估计位置和初值，再把初始DI、两端口光谱及校准数据联合拟合深度、目标亮度/连续谱斜率、位置和25个共享背景光谱值。设计上用Poisson Fisher信息、Schur补和局部c最优准则判断在固定10 s预算内加入有损SPADE曝光是否优于DI。</p>
+<h4>实验结果</h4><ul><li>理想C4算例中，选定模式保留94.54%目标光而接收8.49%背景；最佳DI圆在相近背景8.62%下仅保留60.65%目标光。</li><li>固定响应设计给出名义中心透射阈值0.4559；η=0.70时最优模式曝光分数0.8115、信息提升35.8%；目标居中模式阈值降至0.4192。</li><li>五个真实深度上自适应RMSE均低于DI；比值0.744–0.858，即降低14%–26%，七个校正区间均低于1。</li><li>在替代矿物/几何基准中，等权几何平均RMSE比为0.8836，区间[0.8680,0.8996]；17个逐点区间和11个Bonferroni区间低于1。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>理想条件下两端口信息205.43，高于全像素/最优加权101.38，但完整采集只折合14–26% RMSE下降；做接收端方案时不能把Fisher信息增益直接当整机增益，需把定位、对准、校准、读出和模式损耗计入同一预算。</li><li>设计判据 η v_DI^T F_SPADE v_DI &gt; I_DI 可作为是否增加模式分束通道的工程筛选：沿DI最差 nuisance 方向比较有损SPADE信息，比仅看目标计数或F_αα更严格。</li><li>共享背景光谱拟合对空间梯度敏感，a=0.05时自适应RMSE反而为DI的1.880倍；若视场内背景矿物组成变化，需在模型中加空间-光谱背景项或失配诊断，否则模式选择会放大偏差。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>全为等时仿真，硬件性能未测；目标形状/几何由外部提供，目标连续谱斜率拟合、曲率固定，绝对RMSE依赖参考谱和场景模型。</li><li>共享背景谱无法描述空间成分梯度，强梯度下自适应变差；曲率不确定性使局部信息从240.9/327.1降至28.9/40.7，拟合曲率虽降偏差却使RMSE升至0.02685/0.02947。</li></ul></article><article class="paper" id="paper-2610.32795" data-search="A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection 基于吸收检测的紧凑型单光束光泵磁力仪 机构待核验 laser">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>基于吸收检测的紧凑型单光束光泵磁力仪</h3><a class="original" href="https://arxiv.org/abs/2610.32795" target="_blank" rel="noopener noreferrer">A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-23（UTC）</p><p class="reason">可快速了解单光束吸收式OPM的光强/失谐优化、LCVR稳功率和FPCB线圈均匀性取舍，判断是否值得迁移其紧凑磁传感光路。</p>
+<h4>研究问题</h4><p>如何在仅0.027 cm³的87Rb微气室中，用单束圆偏振光的吸收检测同时完成泵浦与探测，避免独立泵浦-探测光路和偏振读出，并在折叠FPCB把气室、加热器与磁场线圈集成为12 mm立方探头后，抑制线圈磁场不均匀导致的共振展宽与灵敏度退化。</p><h4>核心方法</h4><p>采用纯87Rb微气室（内腔3×3×3 mm³，0.027 cm³）充500 Torr N2，437 K工作；795 nm DBR经PM光纤、LCVR+PBS闭环稳功率，λ/4圆偏振后单束兼作泵浦与吸收探测。四层磁屏蔽加内部补偿线圈把剩余场压到&lt;400 pT，997 Hz交流调制磁场、锁相解调取色散斜率。微型化用折叠FPCB把气室、加热器和线圈集成为12 mm立方探头，比较方形Helmholtz与双平面线圈的ROI场均匀性，并用台式激光/PD/锁相电子表征。</p>
+<h4>实验结果</h4><ul><li>台式在优化光强/失谐下达到11 fT/√Hz，气室体积仅0.027 cm³。</li><li>微型BP样机66 fT/√Hz，较台式退化6倍；噪声约4倍、共振线宽宽50%。</li><li>SH线圈均匀区小，需将光束缩至1.6 mm，最佳仅1.2 pT/√Hz；BP可用2.6 mm光束达到66 fT/√Hz。</li><li>仿真中BP在2.5 mm ROI内场变化仅2.6%，优于SH的13.8%。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>单光束吸收式OPM把泵浦与探测合并，省掉正交偏振读出；代价是光强波动会耦合到自旋极化与解调噪声，因此LCVR+PBS闭环稳功率是这类紧凑光路的关键设计点，适合光强噪声主导的吸收检测系统。</li><li>微型化OPM的灵敏度瓶颈更多来自线圈在光-原子作用区的场均匀性而非中心场强：ROI场变化从13.8%降到2.6%后允许较大光束并维持灵敏度，设计FPCB线圈应优先扩大均匀区，同时用nV项校核缩小光束带来的原子数损失。</li><li>对磁场敏感的紧凑光学传感器，加热器可用高频AC（351 kHz，远高于DC–100 Hz检测带）、双面反向走线和Al2O3垫片把光束处剩余场压到约2 nT；该思路可迁移到需要低磁干扰的原子/激光传感头。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>样机只集成气室、加热器和磁场线圈；DBR激光、偏振光学、PD和锁相电子仍为台式，PD与激光集成区预留但未使用。</li><li>BP样机共振线宽比台式宽50%，低频&lt;20 Hz噪声升高，作者归因于加热结构和剩余场梯度；全集成VCSEL的120 MHz线宽与光强波动影响尚未实测。</li></ul></article><article class="paper" id="paper-2610.33935" data-search="Nonreciprocal magneto-optic beam steering of thermal emission 热发射的非互易磁光光束偏转 机构待核验 laser">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>热发射的非互易磁光光束偏转</h3><a class="original" href="https://arxiv.org/abs/2610.33935" target="_blank" rel="noopener noreferrer">Nonreciprocal magneto-optic beam steering of thermal emission ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-24（UTC）</p><p class="reason">可扫读其低场非互易GMR色散调控与22°偏转的仿真边界，判断是否值得为远红外光束扫描做实验验证。</p>
+<h4>研究问题</h4><p>传统热发射受基尔霍夫定律约束，吸收率等于发射率；现有磁光非互易热发射多聚焦光谱解耦，且实验常需大于1 T，缺少对热发射方向的无机械、可调偏转。论文研究在24.5 µm通过外加磁场打破±kx导模简并，实现非互易且不对称的热发射光束偏转。</p><h4>核心方法</h4><p>提出全III-V半导体三层结构：本征In0.53Ga0.47As顶层带刻蚀光栅，将自由空间辐射耦合到导模；掺杂InAs中层为磁光有源层，ENZ约24.1 µm；简并掺杂InAs底层作背反射。磁场沿光栅槽方向（Voigt构型），TM偏振下介电张量出现反对角分量，使导模共振色散ω(kx)≠ω(−kx)，峰值发射角随磁场移动。用COMSOL二维全波FEM计算，并用微扰理论将磁致频移与GMR色散映射到偏转角。</p>
+<h4>实验结果</h4><ul><li>24.5 µm处，仅50 mT外加场时非互易性（峰值发射率与对应负角发射率之差）大于0.5。</li><li>150 mT下峰值发射率不对称大于0.6。</li><li>1 T下场峰值发射方向偏转22°。</li><li>22°偏转范围约为零场峰值角FWHM的4倍，说明偏转幅度显著大于光束角宽。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>把工作点放在GMR色散平坦区，可用小磁致波长移动换大角度偏转；但平坦色散通常也意味着角度/波长选择变松，需与线宽和发射率峰值权衡。</li><li>若迁移到可调红外光源/扫描器，磁调制带宽受线圈L/R限制（约100 Hz），适合慢速扫描而不适合高速扫描；同时热发射空间与时间非相干，不能按激光亮度或相干性指标设计。</li><li>ENZ波长附近发射近全向，会降低方向性；高场下近法向弱F-P峰被排除分析，说明实际角度选择需避开寄生模式或增加模式滤波。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>作者明确结果为COMSOL二维全波数值演示，无实验样件或实测；升温会增大散射率γ、展宽共振并可能降低峰值发射率，载流子浓度温度漂移还会移动ENZ波长。</li><li>22°偏转需1 T；50 mT只给出非互易对比大于0.5，未给出该场下完整偏转范围。仅TM偏振有磁光响应，TE不响应；高场下近法向弱F-P峰会增大，分析中被排除，实际角度选择需处理。</li></ul></article><article class="paper" id="paper-2610.38403" data-search="Confocal ellipsoidal displaced Gregorian structure for stand-off millimeter-wave imaging 用于远距离毫米波成像的共焦椭球偏置格雷戈里结构 机构待核验 optical_design">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>用于远距离毫米波成像的共焦椭球偏置格雷戈里结构</h3><a class="original" href="https://arxiv.org/abs/2610.38403" target="_blank" rel="noopener noreferrer">Confocal ellipsoidal displaced Gregorian structure for stand-off millimeter-wave imaging ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-28（UTC）</p><p class="reason">可快速了解用闭式几何生成低遮挡双反射镜光路、并用副镜倾斜/馈源位移实现扫描与调焦的取舍；只有仿真，适合作为概念设计参考而非产线方案。</p>
+<h4>研究问题</h4><p>毫米波/太赫兹远距离成像常用反射式光学段，但经典Gregorian等轴上双反射结构存在副镜/馈源遮挡，且需兼顾扫描、视场与焦深；自由曲面或离轴方案虽能降低遮挡，却带来加工与装调复杂度。论文试图用较简单的同轴双反射镜几何在低遮挡、紧凑性和扫描能力之间取得平衡。</p><h4>核心方法</h4><p>提出CEDG：主镜为标准椭球面并垂直偏置形成中心通孔，副镜由上下两段半椭圆曲线经平移、旋转和倾斜构成；推导闭式设计方程及遮挡约束D_S≤D_B&lt;D_M，使馈源球面波经副镜和主镜在3 m处聚焦。用COMSOL射线追踪与60 GHz全波仿真评估PSF、DoF、副镜倾斜/馈源位移扫描及馈源横向位移调焦。</p>
+<h4>实验结果</h4><ul><li>射线追踪结果显示无光线经过中心遮挡区，作者据此称遮挡被消除。</li><li>全波仿真得到分辨率1.5 cm、DoF 49.7 cm。</li><li>副镜倾斜±4.5°时，3 m处焦面扫描范围为11.7~38.93 cm。</li><li>馈源位置从5 mm移到30 mm时，3 m处焦面扫描从7.3 cm到近19.2 cm。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>D_S≤D_B&lt;D_M的几何约束可作为低遮挡同轴双反射镜的初始设计规则；但本文仅验证60 GHz仿真，迁移到激光/红外时需补充面形、散射和装调公差预算。</li><li>用小型副镜倾斜扫描可避免FPA，但扫描会抬高旁瓣和HPBW，工程上要把FoV与分辨率预算一起分配。</li><li>馈源横向位移可做站距调焦，且灵敏度随放大率M_s增大而降低；大变距场景可优先低M_s，但需重新校核遮挡。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>论文只报道COMSOL射线追踪与全波仿真，未给出加工样机、实测指标、公差分配、装调敏感度、表面散射或热分析；分析者判断其向激光/红外波段的迁移可行性尚未验证。</li><li>副镜由两段半椭圆拼接，存在非光滑尖点，论文承认会引入局部相位/幅度扰动，需靠装调和倾角选择控制。</li></ul></article><article class="paper" id="paper-2610.31424" data-search="Analytical Modeling of Modulated Heating for Three-Dimensional Anisotropic Optical Thermometry of Multilayered Cylinders 多层圆柱三维各向异性光学测温的调制加热解析建模 机构待核验 laser">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★☆☆☆</span></div>
+<h3>多层圆柱三维各向异性光学测温的调制加热解析建模</h3><a class="original" href="https://arxiv.org/abs/2610.31424" target="_blank" rel="noopener noreferrer">Analytical Modeling of Modulated Heating for Three-Dimensional Anisotropic Optical Thermometry of Multilayered Cylinders ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-22（UTC）</p><p class="reason">若你从事曲面样品（圆柱电池、管件、复合包壳）的红外光热或热物性测量，可看其光斑投影与探测窗口加权处理；若做激光器或成像光学设计，读摘要即可。</p>
+<h4>研究问题</h4><p>圆柱样品（锂离子电池、SiC 复合包壳、增材制造件等）因绕制或工艺产生径向、周向、轴向热导率差异，需要非接触表征。现有圆柱光热/光学测温方法多假设各向同性、界面完美、一维或二维热输运，且未描述有限椭圆激光光斑在曲面上的投影强度分布与有限探测窗口的空间加权，缺少可直接用于反演拟合的三维各向异性前向模型。</p><h4>核心方法</h4><p>对正交各向异性（k_r≠k_φ≠k_z）多层圆柱，先做时间傅里叶变换、角向复傅里叶级数展开与轴向傅里叶变换，把热扩散方程化为 Bessel 型 ODE，用热四极法构造层矩阵与界面矩阵（界面热边界导纳 G），分别给出单层实心、带实心芯多层、多层圆筒壳三类闭式表面温度解。加热源为投影到圆柱外表面、在 φ=π/2 处垂直入射的椭圆高斯光束，含 sinφ 投影因子（斜入射面积增大导致单位面积功率下降）及 x、z 向偏移；边界条件叠加对流与辐射损失。探测侧仅考虑红外辐射测温，将探测器灵敏度按 Lambert 投影加权做面积平均，并给出圆/矩形探测窗口在曲面上的积分限。相对已有工作，首次把三维非轴对称输运、层间热阻、有限椭圆光斑与光斑偏移纳入同一前向模型。</p>
+<h4>实验结果</h4><ul><li>与 Xie 等人的各向同性圆柱解析解对比，在角向模态截断满足要求时误差&lt;0.01%；对比条件为 w_x=1 mm、w_z/w_x=1000、k=10 与 100 W·m⁻¹·K⁻¹、w_x/R_N=0.3/0.6/0.9、C=1×10⁶ J·m⁻³·K⁻¹，双层情形界面热导取 G→∞。</li><li>在平面近似区（w/R_N=0.02）与各向异性平面模型对比，单层圆筒壳归一化幅值与相位总体误差在0.4%以内，双层壳误差略大。</li><li>与自建三维有限元（scikit-fem，界面 G=50×10⁶ W·m⁻²·K，w/R_N=0.9，覆盖0/横向/轴向三种偏移与四种层构型）对比，单层实心圆柱最大误差1.51%，双层实心1.28%，双层壳0.84%，三层壳0.85%。</li><li>平面/圆柱模型偏差随圆柱变厚、光斑变大、频率降低而增大；给出以 w/R_N、μ/R_N、L/R_N 三个无量纲量为坐标的误差图谱，可据此选择光斑尺寸使平面模型可用于数据拟合。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>曲面样品做红外/光热检测时，若探测窗口相对曲率半径不可忽略，需按投影面积（sinφ 加权）对测量信号做空间平均，否则会把曲率引起的温度分布非均匀性误当成物性差异；该处理可直接迁移到圆柱电池、管件在线热检测的视场与窗口标定。</li><li>论文给出 w/R_N=0.02 时圆柱解与平面解几乎重合，提示实验中优先压缩光斑以提高平面近似有效性；代价是角向截断阶数增大、计算时间显著上升，需在测量精度与拟合成本间取折中。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>作者明确说明：未建立参数可辨识性、未做不确定度传播分析，也未把平面与圆柱模型的百分比相位偏差换算成非线性最小二乘拟合误差。</li><li>验证全部为解析解对比与自建有限元数值仿真，没有实测样品数据；探测侧仅覆盖红外辐射测温，热反射法因曲面镜面反射条件难以满足而被作者排除。</li></ul></article><article class="paper" id="paper-2610.40194" data-search="Optical Calibration of a Frequency-Domain-Multiplexed X-Ray TES Microcalorimeter Array via Photon-Number-Resolved Statistics 基于光子数分辨统计的频域复用X射线TES微热量计阵列光学标定 机构待核验 laser">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★☆☆☆</span></div>
+<h3>基于光子数分辨统计的频域复用X射线TES微热量计阵列光学标定</h3><a class="original" href="https://arxiv.org/abs/2610.40194" target="_blank" rel="noopener noreferrer">Optical Calibration of a Frequency-Domain-Multiplexed X-Ray TES Microcalorimeter Array via Photon-Number-Resolved Statistics ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-29（UTC）</p><p class="reason">可快速了解AOM外触发、光纤低温对准和光子数谱重建在探测器标定中的取舍；对常规激光/光学设计迁移有限。</p>
+<h4>研究问题</h4><p>Athena类TES X射线微热量计在低能段缺少紧凑、准确的校准源：荧光X射线线宽较宽，单色器受通量或大设施限制，低能X射线还会被红外阻挡滤光片衰减。论文要验证405 nm光纤光脉冲能否作为few-eV至sub-keV响应的校准工具，并在频域复用（FDM）多像素阵列上保持可分辨的光子数统计和线性响应。</p><h4>核心方法</h4><p>405 nm激光二极管经准直进入AOM；波形发生器驱动AOM产生200 ns–约5 μs、重复周期20 ms的脉冲，取一级衍射光作为快光开关，同时提供与光脉冲同步的外触发。光经衰减后耦合进光纤送入稀释制冷机，用铜支架和铝超导屏蔽构成的低温接口把光纤对准像素36；6个FDM像素同时偏置读出。数据处理采用固定模板的最优滤波、逐脉冲基线扣除和基线漂移校正，再以多高斯模型重建光子数谱，并用独立功率计测得的发送光子数与单一全局探测效率检验泊松线性。</p>
+<h4>实验结果</h4><ul><li>Figure 5所示数据集的拟合平均光子数从1.06覆盖到101.80。</li><li>同一组数据集的拟合能量分辨率为约2.1–2.5 eV FWHM。</li><li>用单一全局效率预测的探测均值在发送光子数跨近两个数量级时仍与实测一致，支持泊松线性响应。</li><li>三个FDM像素同时读出并合并拟合后，能量分辨率为2.61±0.27 eV，与单数据集相当。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>AOM既做快光开关又提供与光脉冲同步的外触发，可在激光驱动器无法产生足够短电脉冲时把光脉冲压到200 ns–5 μs，并保持20 ms重复周期；对需要低光子数、低占空比的探测器/器件测试台可复用这一触发链。</li><li>该光路总效率仅2.02×10−5，主要来自200 μm→5 μm→3 μm光纤芯径逐级缩小及Bi吸收面反射；若迁移到小像素/低温光输入，需把模式匹配、接头损耗和屏蔽杂散光作为一等设计变量，否则光子数标定的等效能量范围会被光路吞吐量限制。</li><li>三像素同时读出仍保持2.61±0.27 eV合并分辨率，提示FDM多路读出下可用同一光学标定流程逐像素定标；但高光子数时分辨率变差可能与芯片表面漏光有关，需在光机屏蔽上验证。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>作者明确把约400 eV的可分辨上限归因于当前光学装置而非探测器本征限制，后续需改善光约束并与独立X射线标定对比。</li><li>总探测效率很低（2.02×10−5），主要来自低温恒温器内光纤熔接/芯径缩小及Bi吸收面反射；高光子数时分辨率退化，作者推测与对准像素附近芯片漏光引入的额外噪声有关。</li></ul></article></section><section id="topic"><h2><span class="no">04</span>今日专题</h2><div class="topic"><h3>PDH锁频的两条降噪路线：低温大模式腔体与数字Smith预测</h3><p>当天样本中两篇PDH锁频工作针对不同限制：2610.30532用21 cm单晶硅腔、10.2 m曲率镜和增大模式降低镀层热噪声，在16 K零膨胀点/6 K基温运行，配合铒热质量、多层屏蔽与隔振，测到9×10⁻¹⁸/7×10⁻¹⁸稳定度和mHz线宽；2610.31396不改光路，在FPGA内用Smith预测器补偿200/208 ns环路时延，以125 MHz时钟、20 kHz高通限制残差，把伺服凸起压低14 dB、锁定误差信号压低18 dB。前者是腔体/热-机械架构路线，工艺窗口受腔镜曲率、平行度、低温柔性与氦循环维护约束；后者是电子控制路线，窗口取决于时延辨识、模型匹配、泄漏强度k与Kp。推断：若系统已接近热噪声极限且具备低温低振平台，优先腔体路线；若现有PDH受伺服凸起限制、光路不宜改动，先做数字预测补偿并联合标定k/Kp；两者可叠加，但需分别验证残差与长期漂移。</p><div class="sources"><a href="#paper-2610.30532">基于21 cm低温硅腔、频率稳定度达7×10⁻¹⁸的激光</a> · <a href="#paper-2610.31396">窄线宽激光器的预测电子反馈控制</a></div></div></section></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
