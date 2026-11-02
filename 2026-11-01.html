@@ -1,0 +1,190 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>论文日报 · 2026-11-01</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style></head><body class="">
+<header><a class="brand" href="index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="daily/index.html" aria-current="page">日报</a><a href="papers/index.html">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 每日论文推荐</div><h1>论文日报 · 2026-11-01</h1><p class="lede">本期 10 篇，按阅读价值排序。</p><div class="metrics"><div><strong>10</strong>全文解读</div><div><strong>0</strong>优先团队</div><div><strong>0</strong>待重试</div></div><nav><a href="#trends">样本观察</a><a href="#briefs">今日速览</a><a href="#digest">全文解读</a><a href="#topic">今日专题</a></nav><section id="trends"><h2><span class="no">01</span>当日样本观察</h2><div class="trends"><article class="trend"><h3>机械重构成为平面光学可调谐的共同路线</h3><p>当天样本中，三篇平面/超表面论文都用机械位移而非可调材料实现重构：两片同版图PB超表面相对旋转调焦、三层GRIN板横向错位改变等效折射率、级联全介质超表面转角切换THz矢量束。共同点是控制量少、版图可复用；代价是装调公差、相位量化与孔径/NA折中直接进入性能预算。该观察仅基于本批样本，且三者均以全波仿真为主，不能外推为全行业路线。</p><div class="sources"><a href="#paper-2610.28389">集成Moiré与Pancharatnam-Berry相位的中红外连续可调超透镜</a> · <a href="#paper-2610.28398">机械可重构层状GRIN透镜用于中红外与毫米波聚焦</a> · <a href="#paper-2610.41392">基于全介质级联超表面的太赫兹螺旋矢量束可重构产生</a></div></article><article class="trend"><h3>计算模型从“算得快”转向“给出可用边界”</h3><p>样本中的代理模型、信息论成像与工业视觉都在强调误差/决策边界：随机图案训练的FDFD代理报告未见金属透镜的场与功率误差，并指出粗尺度外推会退化；PSF光谱信息框架用Fisher信息与截止模式量化可恢复自由度；产线检测用确定性规则把整件误拒率压低。共同方向是把模型输出转成可审计的适用条件，而非只比精度。此判断仅来自当天样本。</p><div class="sources"><a href="#paper-2610.27769">从随机图案到纳米光子结构：无需再训练的电磁场预测</a> · <a href="#paper-2610.41092">衍射受限图像的光谱信息含量</a> · <a href="#paper-2610.29398">基于深度学习和领域知识决策融合的区域感知多视角检测</a></div></article><article class="trend"><h3>系统级光子系统仍以仿真验证为主，实测缺口集中在相位噪声与装调</h3><p>本批多篇光子系统论文给出完整数值链路，但实验边界清楚：OEO梳仅系统级仿真且未报相位噪声；8端口干涉解码虽实测96.19%，仍依赖参考符号与增益均衡；可调超透镜与THz级联超表面均无样件实测。样本共同提示，设计阶段应把相位/增益标定、装调公差和噪声表征列为下一轮验证项，而不能仅用杂散抑制或仿真误差替代。仅为样本观察。</p><div class="sources"><a href="#paper-2610.26372">面向对地观测系统亚太赫兹本振的自振荡光子频率梳</a> · <a href="#paper-2610.29797">无源相位感知Hadamard解码：解析与机器学习方法</a> · <a href="#paper-2610.28389">集成Moiré与Pancharatnam-Berry相位的中红外连续可调超透镜</a> · <a href="#paper-2610.41392">基于全介质级联超表面的太赫兹螺旋矢量束可重构产生</a></div></article></div></section><section id="briefs"><h2><span class="no">02</span>今日速览</h2><ol class="briefs"><li><a href="#paper-2610.27769">从随机图案到纳米光子结构：无需再训练的电磁场预测</a><span>用500 nm二维TE随机介质图案训练代理模型，固定权重预测未见金属透镜/双材料结构的复场与透射功率，平均场误差1.39%–7.57%。</span></li><li><a href="#paper-2610.28389">集成Moiré与Pancharatnam-Berry相位的中红外连续可调超透镜</a><span>两片同版图Ge/CaF2超表面盘用PB相位合成Moiré互补相位，旋转第二片在2 µm实现45→12 µm连续调焦；仅仿真与容差分析。</span></li><li><a href="#paper-2610.29797">无源相位感知Hadamard解码：解析与机器学习方法</a><span>固定8端口无源干涉网络把4模Hadamard码的未知相对相位转成6个强度三角函数，实现免连续锁相的差分解码。</span></li><li><a href="#paper-2610.26372">面向对地观测系统亚太赫兹本振的自振荡光子频率梳</a><span>数值验证自振荡OEO频率梳经3 MHz Bragg环谐振滤波与光外差，产生183/229 GHz本振，杂散抑制约55/59 dB。</span></li><li><a href="#paper-2610.28398">机械可重构层状GRIN透镜用于中红外与毫米波聚焦</a><span>三层刻槽GRIN板通过对称侧移实现中红外/毫米波连续调焦，全波仿真焦点误差约2%–10%。</span></li><li><a href="#paper-2610.41392">基于全介质级联超表面的太赫兹螺旋矢量束可重构产生</a><span>两层全介质级联超表面靠相对转角在0.9 THz切换螺旋矢量束的螺旋数1–3与圆偏振手性，并仿真其纵向旋转。</span></li><li><a href="#paper-2610.26429">基于可编程光子网格的参数高效神经计算</a><span>用低秩电子参数驱动全尺寸 MZI 网格，数值上以更少可训练参数匹配稠密层，但尚无光学实验。</span></li><li><a href="#paper-2610.41092">衍射受限图像的光谱信息含量</a><span>用Fisher信息与可微光学模型量化宽带PSF可恢复的光谱模式，给出Airy斑谱传递函数及WFC3/NIRCam模拟恢复结果。</span></li><li><a href="#paper-2610.41481">S-FPL51 与 S-LAH71 的低温光学特性：折射率、透过率与热膨胀</a><span>为 ELT-MICADO 的低温 ADC 补充 S-FPL51/S-LAH71 在 80–293 K 的折射率、43–293 K 透过率和 45–293 K 热膨胀数据。</span></li><li><a href="#paper-2610.29398">基于深度学习和领域知识决策融合的区域感知多视角检测</a><span>用Mask R-CNN分割座区缺陷、EfficientNetV2分类轴区异常，再以SOP规则聚合18视角，将整件误拒率从57.6%降至10.9%而保持100% NOK召回。</span></li></ol></section><section id="digest"><h2><span class="no">03</span>重点论文 · 全文 insight</h2><input id="search" type="search" placeholder="筛选标题、机构、标签…" aria-label="筛选论文"><article class="paper" id="paper-2610.27769" data-search="From random patterns to nanophotonic structures: Electromagnetic field prediction without retraining 从随机图案到纳米光子结构：无需再训练的电磁场预测 机构待核验 optical_design">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>从随机图案到纳米光子结构：无需再训练的电磁场预测</h3><a class="original" href="https://arxiv.org/abs/2610.27769" target="_blank" rel="noopener noreferrer">From random patterns to nanophotonic structures: Electromagnetic field prediction without retraining ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-20（UTC）</p><p class="reason">读完可判断随机图案训练的电磁代理能否用于金属透镜/超表面的快速场与功率筛选，以及哪些条件下必须回到FDFD。</p>
+<h4>研究问题</h4><p>纳米光子逆设计需反复全波求解Maxwell方程，现有神经代理多在训练分布内准确，能否用与目标器件无关的随机介质图案训练一次，并固定权重预测未见几何与新材料排列的复电磁场，是降低金属透镜/超表面设计成本的关键问题。</p><h4>核心方法</h4><p>用OpenSimplex梯度噪声在64×13设计层生成二值随机介质图案，5,001个几何×140个相对介电常数(2.1–16.0)共700,140样本；以Ceviche的二维TE FDFD在500 nm、10 nm网格、无损耗非色散条件下算参考复磁场。网络输入为归一化介电常数图加两个坐标通道，输出Hz实部/虚部；比较FNO、F-FNO、U-Net与DilResNet，同一训练协议、固定检查点，在非周期条阵、手工图案、逆设计金属透镜/二值结构及双材料图案上测试，不重新训练。</p>
+<h4>实验结果</h4><ul><li>在5个独立测试集共35,441个场样本上，DilResNet在四个集取得最低平均误差，集级平均相对复场误差为1.39%–7.57%。</li><li>在6,950个逆设计金属透镜场样本上，F-FNO、U-Net、DilResNet的透射功率中位相对误差为0.7%–0.9%，与FDFD参考功率的Pearson相关系数为0.994–0.996。</li><li>在训练区间外侧的较粗尺度组，复场中位误差升至约1.5%（DilResNet）、2.0%（F-FNO）、2.7%（U-Net），FNO约9.3%，显示粗结构迁移更困难。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>可将该代理作为金属透镜/超表面的早期筛选器：固定权重一次前向给出复场与输出线透射功率，用于在FDFD精算前排序候选；但仅覆盖2D TE 500 nm、固定照明、无损耗非色散标量介电常数，不能直接外推到宽带、3D、斜入射或色散/吸收材料。</li><li>训练图案的尺度覆盖是可用边界：目标结构若比训练图案更粗，误差明显增大，应在相应尺度上补采样或对目标结构做FDFD复核，而不能仅凭训练分布内误差判断可迁移性。</li><li>透射功率中位误差低于1%只说明输出线能流一致，不等同于聚焦效率或装配后单元间相对相位正确；用于系统级光机前需补充焦斑、效率与相干合成验证。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>仅验证二维TE、500 nm、固定正入射、无损耗非色散介质与训练范围内标量相对介电常数；3D、宽带、斜入射、色散/吸收材料均未验证。</li><li>精度以离散FDFD参考为基准，未对异质结构做网格收敛研究，因此不能把报告误差直接当作相对连续解的总误差。</li></ul></article><article class="paper" id="paper-2610.28389" data-search="Continuously Tunable Mid-Infrared Metalens Integrating Moiré and Pancharatnam-Berry Phases 集成Moiré与Pancharatnam-Berry相位的中红外连续可调超透镜 机构待核验 optical_design">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>集成Moiré与Pancharatnam-Berry相位的中红外连续可调超透镜</h3><a class="original" href="https://arxiv.org/abs/2610.28389" target="_blank" rel="noopener noreferrer">Continuously Tunable Mid-Infrared Metalens Integrating Moiré and Pancharatnam-Berry Phases ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-20（UTC）</p><p class="reason">可快速判断同版图双层PB-Moiré变焦方案能否迁移到中红外成像/光谱，并获取孔径缩放与装调公差的量化门槛。</p>
+<h4>研究问题</h4><p>本文要解决：现有可调超透镜要么依赖传播相位而易受色差影响，要么基于PB相位但制作后不可重构；中红外波段缺少用简单、同版图双层结构实现连续变焦并兼顾任意偏振输入的方案。</p><h4>核心方法</h4><p>两片结构相同的Ge纳米条/CaF2超表面盘，纳米条设计为半波片；把Moiré互补相位分布映射为PB旋转角，第二片相对旋转时等效二次相位改变。CST优化单元，ANSYS Lumerical做全波，每盘1664个元原子，盘径32.2 µm、层间距0.163 µm，旋转角30°–120°。</p>
+<h4>实验结果</h4><ul><li>CST单元仿真：2 µm处Ge纳米条超表面实现99.95% PCR、83.65%总透射功率、16.33%总反射功率。</li><li>表2全波检索焦距f_N依次为45.41、29.52、29.52、29.41、29.41、29.52、29.52、19.62、12.71 µm，覆盖30°→120°及60°下RCP/LCP/LP案例。</li><li>按式(20)，NA随旋转角从22.99%变到68.67%。</li><li>表2解析-数值焦距偏差Δf：30°为33.41%，60°约13.4%，90°为13.67%，120°为25.42%。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>同版图双层设计把Moiré互补相位交给PB半波片的偏振翻转自动实现，可减少双片不同版图与对准复杂度；迁移前提是单元PCR接近1且相位延迟严格接近180°。</li><li>容差分析显示该短焦、小孔径器件对盘间中心偏移敏感：3375次Monte Carlo（1.8°旋转、15 nm间隙、9°半波片相位、0.15 rad相位噪声）平均f=52.28 µm、σ_f≈2.38 µm；2 µm中心偏移在部分方位出现双焦/清晰度下降。装调应优先控制同轴度，而非只控制旋转角。</li><li>D/λ≈16.1时衍射使解析与全波结果偏差明显；作者建议把孔径扩到D≥75 µm并保持N_F&gt;10。若迁移到更大口径成像系统，需同时复核Moiré最大a限制与相位量化，否则高NA端焦斑定位会退化。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>仅有CST/Lumerical全波仿真与Monte Carlo，无器件制作与实测；效率、焦斑、MTF与装调结果均为数值预测。</li><li>孔径32.2 µm、D/λ≈16.1，30°时Δf=33.41%；LP输入理论效率上限50%；旋转接近180°时相位量化使焦斑定位退化。</li></ul></article><article class="paper" id="paper-2610.29797" data-search="Passive Phase-Aware Hadamard Decoding: Analytical and Machine-Learning Approaches 无源相位感知Hadamard解码：解析与机器学习方法 机构待核验 optical_design">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>无源相位感知Hadamard解码：解析与机器学习方法</h3><a class="original" href="https://arxiv.org/abs/2610.29797" target="_blank" rel="noopener noreferrer">Passive Phase-Aware Hadamard Decoding: Analytical and Machine-Learning Approaches ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-21（UTC）</p><p class="reason">若你在做相位敏感多端口干涉、光子芯片校准或强度域解码，可细读其酉矩阵构造与误差分析；若只做激光器、镜头或显示光机，读摘要即可。</p>
+<h4>研究问题</h4><p>Hadamard编码光接收依赖稳定干涉，环境、制作和传输引起的相对相位漂移会降低干涉对比度并造成解码歧义；传统主动相位稳定或多输入反馈会增加控制复杂度和功耗。论文要回答：固定、仅测强度的8端口无源干涉网络能否在三个未知输入相对相位下识别Hadamard-4码字跃迁，并给出可辨识性与噪声敏感度的边界。</p><h4>核心方法</h4><p>把4个Hadamard逻辑模嵌入固定8×8无源酉矩阵，另4模为空置辅助通道；8个输出功率经线性反演得到cosB、cosC、sinD、cos(B−C)、sin(B−D)、sin(C−D)六个三角观测量。码字跃迁等价于两个输入模加π相移，观测量符号按固定模式翻转；解析解码只做符号模式匹配而不连续锁相。另以8个归一化功率差加前一状态为特征，比较XGBoost、LightGBM、CatBoost、随机森林、Extra-Trees与全连接网络六类学习器。</p>
+<h4>实验结果</h4><ul><li>解析符号模式解码在报告实验序列上取得96.19%总体分类准确率。</li><li>六模型软投票集成在held-out合成集上top-1 0.9906，在盲测实验轨迹上0.9831。</li><li>理想等光子数仿真中，50,000次、n=30、参考相位已知且均匀随机相位时，四端口误判率0.15510，八端口0.01090；作者明确这是仿真而非实测。</li><li>可辨识性证明：除24个例外相位配置外，四个候选跃迁签名两两不同。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>该结构把“相位”转成多个互补正余弦强度通道，适合需要监测相对相位但不想持续反馈的多端口干涉系统；迁移时必须保留每个判决区间的稳定参考，否则符号翻转模式会失效。</li><li>做8×8光子芯片时，反演对等幅输入和理想U敏感，通道增益、分束比和热光偏置的标定误差会直接进入六个三角量；应把增益均衡和相位偏置校准纳入公差预算。</li><li>ML集成能补偿零交叉误判，但需要实验轨迹微调和标签；若没有独立噪声表征，不能把98.31%当作解析模型的替代保证。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>顺序差分解码需要参考符号和判决区间内有限相位漂移，论文不证明无参考绝对码字识别，也不证明对快速相位扩散的容忍。</li><li>未量化整体电能耗、延迟、可扩展性和网络级性能；热光偏置仍需电功率，采集噪声对误码的贡献也未独立表征。</li></ul></article><article class="paper" id="paper-2610.26372" data-search="Self-Oscillating Photonic Frequency Comb for Sub-THz Local Oscillator Generation in Earth Observation Systems 面向对地观测系统亚太赫兹本振的自振荡光子频率梳 机构待核验 laser">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>面向对地观测系统亚太赫兹本振的自振荡光子频率梳</h3><a class="original" href="https://arxiv.org/abs/2610.26372" target="_blank" rel="noopener noreferrer">Self-Oscillating Photonic Frequency Comb for Sub-THz Local Oscillator Generation in Earth Observation Systems ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-19（UTC）</p><p class="reason">可快速判断该OEO+频率梳+窄带滤波方案能否替代多级倍频链，并了解其目前仅有系统级仿真、缺相噪实测的边界。</p>
+<h4>研究问题</h4><p>面向对地观测的183/229 GHz本振需要低相噪、高稳定且低SWaP；传统DRO加多级倍频为不同频段配置专用链，硬件复杂且倍频恶化相噪。论文要验证一种可重构自振荡光子频率梳架构，用同一平台产生多个亚太赫兹本振频点。</p><h4>核心方法</h4><p>将CW激光分两路：主路经级联MZM与相位调制器，在OEO反馈环内产生间距等于OEO频率的光频梳；梳线经10 GHz粗滤波和3 MHz双腔Bragg光栅环谐振器（BGRR）热光选线，再与同一激光参考路合束、光电探测外差，产生目标LO。BGRR以传输矩阵建模，中心约1548.35 nm；WSF在系统模型中按外部器件处理。VPIphotonics系统级仿真183/229 GHz，OEO在约30 GHz量级。</p>
+<h4>实验结果</h4><ul><li>183 GHz：选6次梳线，仿真输出−0.16 dBm，最强无用分量抑制约55 dB。</li><li>229 GHz：选7次梳线，仿真输出5.77 dBm，无用分量抑制至少59 dB。</li><li>系统级仿真采用409.6 ns时间窗，固有频谱分辨率2.44 MHz。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>OEO工作在约30 GHz、选高次梳线再外差，可把调制器与反馈电子带宽压到目标LO的几分之一；对多频点LO系统，可调EBPF+可调窄带光滤波器比多套倍频链更利于重构。适用前提是目标梳线光功率足够。</li><li>3 MHz BGRR放在10 GHz粗滤波后，可用热光在Bragg阻带内连续选线；工程上要把腔长/折射率公差、热调谐稳定度和参考臂相位纳入预算，3 MHz带宽对激光与温度漂移敏感。</li><li>论文以杂散抑制和输出功率评价LO，但未给相位噪声、线宽和频率稳定度；迁移到辐射计/雷达前需补这些实测，55/59 dB杂散不能当作相噪指标。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>仅系统级VPIphotonics数值仿真，未实验验证；WSF按外部器件建模，未覆盖完整集成。</li><li>未报告相位噪声、线宽、频率稳定度和实测SWaP；插损、PD带宽/饱和、器件功率处理等实际非理想性未完整建模。</li></ul></article><article class="paper" id="paper-2610.28398" data-search="Mechanically reconfigurable layered GRIN lenses for mid-infrared 机械可重构层状GRIN透镜用于中红外与毫米波聚焦 机构待核验 optical_design">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>机械可重构层状GRIN透镜用于中红外与毫米波聚焦</h3><a class="original" href="https://arxiv.org/abs/2610.28398" target="_blank" rel="noopener noreferrer">Mechanically reconfigurable layered GRIN lenses for mid-infrared ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-20（UTC）</p><p class="reason">可了解如何用Chebyshev刻槽和对称层移把Alvarez调焦搬到平面GRIN，以及准直孔径与±10%公差对焦点的量化影响。</p>
+<h4>研究问题</h4><p>如何在平面、可光刻兼容的GRIN透镜中实现无需流体或偏压的连续焦距调谐，并覆盖中红外与毫米波；关键是把目标折射率分布映射为可机械移动的刻槽层，同时控制层间错位、刻蚀深度和边缘衍射带来的焦点误差。</p><h4>核心方法</h4><p>提出三层平面GRIN：首层固定，其刻槽有效折射率按二阶Chebyshev多项式分布，提供基础光焦度；第二、三层用镜像三阶Chebyshev刻槽，沿x轴按[0,X,−X]对称反向位移，通过EMT混合规则重构二次型等效折射率，实现Alvarez式调焦。比较Haar、正弦、锯齿、Legendre、线性与Chebyshev基函数后选Chebyshev；中红外用Si/ZnSe，毫米波用Rogers RO3010/RO3006，全波仿真149–151 THz与39–41 GHz，并加金属准直孔径抑制边缘衍射。</p>
+<h4>实验结果</h4><ul><li>中红外会聚配置全波仿真：焦距56.47 µm与24.37 µm，相对理想透镜误差4.37%与9.95%。</li><li>毫米波会聚配置：焦距157.58 mm与127.68 mm，相对误差2.27%与6.02%。</li><li>毫米波Profile IV′准直孔径扫描：无准直时焦距179.88 mm、归一化强度100%；72/64/56 mm孔径分别给出153.58/127.68/108.63 mm与93.51%/78.63%/65.24%，缩小孔径拉近焦点但损失峰值强度。</li><li>±10%高斯扰动、10,000次Monte Carlo：中红外与毫米波平均系统焦点漂移约±0.7570 µm与±3.8247 mm。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>把Alvarez横向位移调焦改到等效折射率域，可避开自由曲面/曲面镀膜，适合平面化中红外可调焦光机；但需要亚波长刻槽与纳米级致动，且层间界面反射会成为额外损耗源。</li><li>准直孔径是毫米波可重构GRIN的亮度-焦距折中旋钮：缩孔径使焦点前移并可能改善焦斑定义，但峰值强度按表降到65.24%；若亮度预算紧，应优先保留较大孔径并用其他手段抑制边缘衍射。</li><li>Chebyshev重构加对称位移对±10%厚度/梯度扰动在仿真中表现稳健，可作为平面GRIN公差分配的起点；但实际刻蚀侧壁角、深宽比和界面反射未纳入，不能直接当作工艺窗口。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>全文为数值仿真与概念设计，未报道样机、加工或实测；作者明确实验验证仍是必要步骤。</li><li>作者指出重构折射率与理想剖面的梯度斜率失配会带来纵向像差/多焦，极端位移下焦斑不再锐利；界面反射也留待未来工作。</li></ul></article><article class="paper" id="paper-2610.41392" data-search="Reconfigurable Generation of Terahertz Spiral Vector Beams Based on All-Dielectric Cascaded Metasurfaces 基于全介质级联超表面的太赫兹螺旋矢量束可重构产生 Tianjin University Tianjin University optical_design">
+<div class="paper-meta"><span class="pill">Tianjin University</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>基于全介质级联超表面的太赫兹螺旋矢量束可重构产生</h3><a class="original" href="https://arxiv.org/abs/2610.41392" target="_blank" rel="noopener noreferrer">Reconfigurable Generation of Terahertz Spiral Vector Beams Based on All-Dielectric Cascaded Metasurfaces ↗</a>
+
+<p class="muted">全文机构行（模型提取） · 论文更新于 2026-10-30（UTC）</p><p class="reason">可快速了解用两层超表面机械转角实现THz矢量束离散重构的相位设计与仿真流程，但无实测，迁移前需自行评估单元库和装调公差。</p>
+<h4>研究问题</h4><p>THz波段缺乏成熟的空间光调制器，现有单层超表面难以动态重构，级联超表面又主要面向标量结构光；如何用紧凑器件独立控制LCP/RCP分量，动态切换矢量束的螺旋数、手性与纵向演化，是本文要解决的问题。</p><h4>核心方法</h4><p>设计并仿真两层全硅级联超表面：MS1为各向同性相位补偿层，MS2为各向异性圆偏振敏感层，按自旋解耦分别给LCP/RCP加载相位；螺旋相位由双曲透镜项与二重旋转相位叠加，k固定为2，用两层相对转角Δβ经round(kβ)切换螺旋数。单元周期140 μm、柱高200 μm、衬底300 μm，阵列90×90，设计焦距7 mm，在CST瞬态求解器下仿真0.6–1.2 THz线偏振入射。</p>
+<h4>实验结果</h4><ul><li>论文报道在线偏振THz波照射、约0.9 THz下实现螺旋数1–3可切换且圆偏振手性可逆的矢量束。</li><li>在S3分布上，Δβ=−13.6°时外层三螺旋为LCP、内层单螺旋为RCP；Δβ=+13.6°时偏振分布完全反转。</li><li>Δβ=−13.6°和+13.6°时，LCP输出分别为顺时针三螺旋和单螺旋束。</li><li>沿传播方向Z=4200–5200 μm，单、双、三层螺旋的方位旋转分别约279.9°、125.7°、75.5°。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>把可重构性放在两层超表面的机械相对转角而非可调材料，适合THz等缺少成熟空间调制器的波段做离散态光束切换；但转角是核心控制量，层间对准和角度重复性会直接决定螺旋数与手性是否正确。</li><li>单元胞以&gt;0.6传输幅度和π/4、π/8相位量化构建库，且最佳频点从设计的1 THz偏到0.9 THz被归因于部分单元相位选择误差；迁移到其他波段时应把单元库离散误差与层间对准纳入公差扫描，否则效率与工作频点会偏移。</li><li>不同螺旋数的纵向旋转速率差异（279.9°/125.7°/75.5°）可作为模式/手性鉴别的一个观测量；但该关系仅在仿真Z区间成立，实验需先标定传播距离和光束中心。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>仅见CST瞬态仿真，未给出加工样件、实测THz光场或效率/损耗数据；实验可实现性未知。</li><li>可重构仅演示Δβ=0°、±13.6°三个离散状态，k固定为2；连续调谐范围、层间/转角装调公差和0.6–1.2 THz带宽内的性能一致性未量化。</li></ul></article><article class="paper" id="paper-2610.26429" data-search="Parameter-efficient neural computing with programmable photonic meshes 基于可编程光子网格的参数高效神经计算 机构待核验 optical_design">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>基于可编程光子网格的参数高效神经计算</h3><a class="original" href="https://arxiv.org/abs/2610.26429" target="_blank" rel="noopener noreferrer">Parameter-efficient neural computing with programmable photonic meshes ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-19（UTC）</p><p class="reason">可快速了解光子网格做参数高效神经层的架构取舍、8-bit 相位量化结果与缺失的实验验证。</p>
+<h4>研究问题</h4><p>神经网络的大矩阵存储与数据搬运受内存容量和带宽限制；张量网络等参数高效表示虽能压缩参数，却与面向稠密线性代数的处理器不匹配，现有光子实现又常需按特定分解定制光路。本文要问：能否用通用可编程光子网格，在不改动光路的前提下实现参数高效神经变换。</p><h4>核心方法</h4><p>采用 Clements 型 M 模态 MZI 网格，保留 M² 个物理相位控制；用两个小矩阵 A、B 生成低秩潜矩阵 Z=BA，再经 sigmoid 映射为相位 Ψ=2πσ(Z)，独立可训练参数 P=2Mr。低秩约束只加在电子潜矩阵上，光学干涉仍给出稠密、一般高秩的 U_MZI(Ψ)。实值输入用单正交测量 Re(U) 或双正交编码（M 模态处理 2M 维实向量）；在 MNIST、CIFAR-100 和 Qwen3-0.6B 序列记忆任务上与 LR、TT、BW、LoRA、BOFT 对比，并将相位量化到 8 bit 用 STE 训练。</p>
+<h4>实验结果</h4><ul><li>MNIST-10 上，全精度光子层在 2.05×10^4 个可训练参数下达到 (1.91±0.05)% 测试误差，已匹配稠密参考。</li><li>CIFAR-100 上，光子分类头以 5.54×10^4 个参数达到 (26.23±0.1)% 测试误差。</li><li>Qwen3-0.6B 序列记忆任务中，在约 1.31×10^5 参数下，光子适配器达到 45.3% 贪心召回准确率。</li><li>CIFAR-100 上，9.23×10^4 参数时全精度与 8-bit 光子层误差分别为 (26.14±0.05)% 与 (26.14±0.06)%，未见相位量化系统退化。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>把参数效率放在电子低秩映射而非光路结构，使同一 MZI 网格可通过改变 r 调整参数预算；但通用网格仍有 M² 个物理相位、重编程需 O(M²) 临时内存，适合输入复用次数高、重编程不频繁的推理/微调场景。</li><li>8-bit 相位量化在本文数值任务中未见系统退化，提示相位驱动精度可适当放宽；但该结论只覆盖 FP32 电子参数化后的相位量化，实际芯片还需计入插损、偏置漂移和校准误差。</li><li>双正交编码用双倍收发硬件换取正交、保范的 2M×2M 实矩阵，对深层网络信号传播有利；在调制器/探测器资源受限时需权衡。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>纯数值研究：训练/微调在 PyTorch + A100 上完成，未做光子芯片实验；未计入光学损耗、相位噪声、校准误差、相位加载和器件建立时间。</li><li>通用干涉网格保留 M² 个物理相位控制，构造新配置可能产生 O(M²) 临时内存；实验演示的通用干涉仪规模仍显著小于常用网络维度，且 Qwen3 序列记忆仅用单组固定随机序列、无重复训练。</li></ul></article><article class="paper" id="paper-2610.41092" data-search="Spectral Information Content of Diffraction-Limited Images 衍射受限图像的光谱信息含量 机构待核验 optical_design">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>衍射受限图像的光谱信息含量</h3><a class="original" href="https://arxiv.org/abs/2610.41092" target="_blank" rel="noopener noreferrer">Spectral Information Content of Diffraction-Limited Images ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-30（UTC）</p><p class="reason">读完能判断这套信息论指标是否适合评估宽带PSF计算光谱/PSF标定方案，并知道其仿真边界与截止判据。</p>
+<h4>研究问题</h4><p>衍射受限成像的PSF随波长缩放，宽带图像因此隐含光谱信息；但此前缺少严格的信息论框架来回答：在给定视场、噪声和探测器采样下，究竟能恢复多少个光谱自由度、对应多高的有效光谱分辨率，以及如何信息最优地提取。</p><h4>核心方法</h4><p>将多色PSF写成对数波长/对数半径坐标下的一维卷积，定义谱传递函数；对Airy斑用Mellin变换解析求出核函数及渐近式。再用可微光学模型（∂Lux/Jax）计算对波长通量的Fisher信息矩阵，做本征分解得到光谱信息本征基，按截止ρ筛选可约束模式并换算有效光谱分辨率R；在Airy孔径及Hubble/WFC3、Webb/NIRCam模拟配置中评估通量、视场、读出噪声和采样影响，并做30模式注入-8模式恢复。</p>
+<h4>实验结果</h4><ul><li>Airy斑的多色PSF谱传递函数不具有限支撑，而按光谱对数频率的幂律衰减；这意味着理想无噪声PSF中高频光谱结构不会被严格截止，但实际受视场与噪声限制。</li><li>在圆形孔径、倍频程带宽模拟的高通量端，可约束模式数N随视场按N∝FOV^0.7亚线性增长。</li><li>论文指出，在固定探测器像素数下，优于Nyquist的采样对光谱信息恢复不一定最优；采样与视场不应独立考虑。</li><li>模拟Hubble/WFC3 UVIS2单次积分，注入30个光谱模式，保留8个约束模式进行光谱恢复。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>若把该框架迁移到宽带PSF计算光谱或PSF标定，外环衍射特征是光谱信息载体；读出噪声会截断有效视场，低强度外环先失效。因此视场、读出噪声和外环SNR应作为联合设计变量，而不能只优化核心PSF。</li><li>在固定像素数相机上，可考虑用较大角像素/视场换取更多可约束光谱模式；过采样不是必然最优。迁移到工业成像时需按目标光谱分辨率与外环SNR做像素预算，而不是照搬Nyquist。</li><li>信息本征基与截止ρ可作为PSF编码光谱系统的相对设计指标，但ρ=0.1是分析选择，且投影协方差只覆盖截断子空间；对外比较应同时报告ρ、保留模式数和投影范围。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>全部关键结果来自理论推导和数值模拟；提供的文本没有实验、在轨或硬件样机验证，不能据此判断装调、量产或真实探测器非理想性的影响。</li><li>模型主要基于标量近轴Fraunhofer传播与特定噪声/检测器模型；有效光谱分辨率依赖截止ρ，且投影协方差只描述截断模态子空间，不是完整未投影光谱的不确定度。</li></ul></article><article class="paper" id="paper-2610.41481" data-search="Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion S-FPL51 与 S-LAH71 的低温光学特性：折射率、透过率与热膨胀 机构待核验 display">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>S-FPL51 与 S-LAH71 的低温光学特性：折射率、透过率与热膨胀</h3><a class="original" href="https://arxiv.org/abs/2610.41481" target="_blank" rel="noopener noreferrer">Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-30（UTC）</p><p class="reason">读它能拿到两种玻璃的低温 Sellmeier、透过率与 CTE 拟合系数及测试条件，用于判断冷光学设计是否需要重新取折射率和热膨胀预算。</p>
+<h4>研究问题</h4><p>下一代极大望远镜近红外仪器（如 ELT-MICADO、TMT-IRIS）用 S-FPL51/S-LAH71 棱镜做大气色散校正，但这两类玻璃在液氮温区的折射率、2.4 µm 以外的透过率以及从室温到 45 K 的热膨胀数据不足，影响冷光学设计、棱镜几何迭代和安装应力/双折射预算。</p><h4>核心方法</h4><p>用反射式最小偏向角法：Perkin Elmer Lambda 1050 经双锥镜准直，棱镜夹在无氧铜板间置于低温恒温器，由步进电机旋转台和超高精度角编码器定位，拟合 293/100/80 K 的 Sellmeier 系数及温度项。透过率用 Varian FT7000e FTS 配 CRiSP 低温恒温器，1 英寸、5 mm 厚未镀膜样品，蓝宝石窗口，9 mm 光束压缩器，测 293/77/43 K。热膨胀用 Attocube IDS3010 三轴干涉位移传感器，留一轴作参考，记录 293→40 K 降温和回温。</p>
+<h4>实验结果</h4><ul><li>在 0.8–2.5 µm 内，测得折射率与 OHARA 数据相比，S-FPL51 差可达 −1.6×10⁻³，S-LAH71 差可达 3×10⁻⁴。</li><li>2700 nm 后透过率下降，原文称约 12%（S-FPL51）和 60%（S-LAH71）。</li><li>在 293、77 和 43 K 的透过率谱未见显著变化。</li><li>77 K 相对 293 K 的线性收缩，结果段给出 S-FPL51 2.1 mm/m、S-LAH71 1.3 mm/m。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>冷光学设计不能只用室温目录折射率：论文的 80–293 K Sellmeier 温度项可直接用于 ADC 棱镜几何迭代和冷光学优化；0.8–2.5 µm 内与目录差约 10⁻³ 量级，应纳入公差/波前预算而非当作可忽略漂移。</li><li>S-LAH71 在 2.7 µm 后约 60% 的透过率下降可用于 0.8–2.4 µm 系统的带外抑制，从而放宽滤光片截止要求；但若工作波段需覆盖 2.7 µm 以上，应把该玻璃视为高吸收材料并重新选型。</li><li>棱镜安装与冷光学应力预算应使用从 293 K 到工作温度的积分收缩（mm/m）及与安装材料 CTE 差，而不是只取室温 CTE；论文的 CTE 与收缩数据可用于双折射和界面公差估算。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>透过率测量受光源稳定性、探测器灵敏度和水汽影响，精度难优于几个百分点；S-LAH71 出现内部透过率 &gt;100% 的非物理结果，平滑滤波还可能引入小伪峰，因此只宜作趋势判断。</li><li>CTE 测量中温度传感器不在样品上，存在约 ±10 K 热滞后，S-FPL51 在 210–190 K 的异常段被剔除；且结果段与结论段对 77 K 收缩量的两种玻璃数值互换，使用前需核对原始图表。</li></ul></article><article class="paper" id="paper-2610.29398" data-search="Region-Aware Multi-View Inspection Using Deep Learning and Domain-Informed Decision Fusion 基于深度学习和领域知识决策融合的区域感知多视角检测 机构待核验 vision">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>基于深度学习和领域知识决策融合的区域感知多视角检测</h3><a class="original" href="https://arxiv.org/abs/2610.29398" target="_blank" rel="noopener noreferrer">Region-Aware Multi-View Inspection Using Deep Learning and Domain-Informed Decision Fusion ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-21（UTC）</p><p class="reason">可快速了解如何用确定性验收规则把高灵敏分割/分类模型的整件误拒率从57.6%压到10.9%，以及多视角采集的节拍代价。</p>
+<h4>研究问题</h4><p>汽车喷油器针阀等精密反光零件表面缺陷微小，座区与轴区的缺陷形态和验收标准不同；高灵敏视觉模型若把任一单帧检测都当作整件拒收依据，会产生大量误拒。研究问题是在不牺牲NOK召回的前提下，把逐帧模型输出转成可追溯、符合SOP的整件OK/NOK判定。</p><h4>核心方法</h4><p>在PLC同步的转台工位上，零件每转一整圈采集18个角位，每个角位由座区与轴区相机各拍1帧，共36帧；座区用Mask R-CNN（ResNet-50-FPN V2）做实例分割，轴区用EfficientNetV2-S做Rotation OK/Bad二分类。关键是不把任一模型检测直接作为拒收：先按R1–R10确定性规则检查座区检测的位置、功能区、类别、框尺寸和计数（尺寸/边界、区域类别尺寸、缺陷计数三组），像素阈值由计量标尺在固定工作距离下标定；轴区若≥3帧判Bad则优先判NOK，再由座区结果决定整件。</p>
+<h4>实验结果</h4><ul><li>Model I在座区留出测试中实例级召回37.19%（FN=846）、F1-score 43.79%，正确匹配检测的平均框IoU为0.7069。</li><li>Model II在轴区二分类留出测试中图像级准确率99.62%、macro F1-score 98.32%。</li><li>仅用模型输出并按任一检测即拒收时，276件合格件中159件被误拒，整件FRR为57.6%。</li><li>完整R1–R10决策层把整件FRR降至10.9%，同时104件NOK全部检出（100%召回）。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>最大单项收益来自区域/类别/尺寸验收（Group II单独把FP从159降到40、FRR降到14.5%），说明在反光精密件上优先把图纸公差写成区域规则，比只调模型阈值更直接；前提是像素阈值与物理尺寸标定稳定。</li><li>18角位多视角可补偿单帧高光漏检（Model I单帧召回37.19%，整件仍达100%），但伺服与采图约占节拍55%；是否值得取决于工位节拍和缺陷视角敏感性。</li><li>确定性融合层几乎不增加延迟且保留类别/帧号追溯，适合产线；但像素尺寸规则绑定镜头、工作距离和分辨率，换光学配置需重新用标尺标定，不能直接复制阈值。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>单产品、单产线案例，评估集380件（104 NOK/276 OK），数据与代码不公开；规则依赖既有SOP和像素-毫米标定，跨产线需重新验证。</li><li>Model I单帧实例召回仅37.19%，整件100% NOK召回依赖18视角聚合；论文未报告长期稳定性、跨批次泛化或新缺陷形态下的误拒变化。</li></ul></article></section><section id="topic"><h2><span class="no">04</span>今日专题</h2><div class="topic"><h3>机械可重构平面光学的路线取舍与工程门槛</h3><p>围绕机械重构，样本给出三条路线：①同版图双层PB-Moiré超表面相对旋转，用几何相位翻转自动得到互补相位，适合中红外短焦连续变焦；②三层Chebyshev刻槽GRIN板对称横向错位，以有效折射率重构替代曲面，偏振不敏感、可覆盖中红外/毫米波；③两层全介质级联超表面相对转角，在0.9 THz离散切换螺旋矢量束。工艺窗口差异明显：PB路线要求单元PCR近1且半波片相位严格180°，对同轴装调最敏感；GRIN路线依赖亚波长刻槽深度与层间界面，横向位移公差可用±10%扰动做初筛；THz级联路线以π/4或π/8相位量化和&gt;0.6传输幅度建库，转角重复性与单元相位选择误差会移动最佳频点。测试条件上，三者均为全波仿真：PB-Moiré用Lumerical并做3375次Monte Carlo，GRIN用149–151 THz/39–41 GHz仿真和10000次扰动，THz级联用CST瞬态0.6–1.2 THz、最佳0.9 THz。工程上（推断）：若需连续调焦且孔径不大，优先同版图PB旋转并严控同轴度；若要求偏振无关或跨中红外/毫米波，选GRIN错位但先核算刻蚀与界面反射；若只需THz离散模式切换，选级联转角但需角度重复性与单元库校准。三者缺实测，迁移前应补效率、波前/焦斑和装调重复性。</p><div class="sources"><a href="#paper-2610.28389">集成Moiré与Pancharatnam-Berry相位的中红外连续可调超透镜</a> · <a href="#paper-2610.28398">机械可重构层状GRIN透镜用于中红外与毫米波聚焦</a> · <a href="#paper-2610.41392">基于全介质级联超表面的太赫兹螺旋矢量束可重构产生</a></div></div></section></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
