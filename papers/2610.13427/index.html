@@ -1,0 +1,127 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>光谱控制辅助的Tm:Y2O3陶瓷Kerr透镜锁模激光器</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style><style>
+.paper-reader{max-width:860px;margin:0 auto}
+.paper-reader h1{font-size:28px;line-height:1.35;margin:10px 0 6px}
+.paper-reader .original-title{color:var(--muted);font-size:14px;margin-bottom:18px}
+.paper-reader .meta{color:var(--muted);font-size:13px;margin-bottom:20px}
+.paper-reader .toc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:20px 0 28px;font-size:14px}
+.paper-reader .toc ol{margin:6px 0 0 18px;padding:0}
+.paper-reader .toc li{margin:3px 0}
+.paper-reader article{font-size:16px;line-height:1.9}
+.paper-reader h2{font-size:22px;margin:30px 0 10px}
+.paper-reader h3{font-size:18px;margin:22px 0 8px}
+.paper-reader figure{margin:20px 0;text-align:center}
+.paper-reader img{max-width:100%;height:auto}
+.paper-reader figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+.paper-reader table{display:block;overflow-x:auto;border-collapse:collapse;margin:16px 0;font-size:14px}
+.paper-reader math{overflow-x:auto;max-width:100%}
+.paper-reader pre{overflow-x:auto}
+</style></head><body class="">
+<header><a class="brand" href="../index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="../daily/index.html">日报</a><a href="../papers/index.html" aria-current="page">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 中文全文</div><h1>光谱控制辅助的Tm:Y2O3陶瓷Kerr透镜锁模激光器</h1><div class="paper-reader"><h1>光谱控制辅助的Tm:Y2O3陶瓷Kerr透镜锁模激光器</h1><p class="meta">arXiv 2610.13427 · 4 页</p><article><p>光谱控制辅助的 Tm:Y2O3 陶瓷激光器克尔透镜锁模 ZEYU GONG,1,2 JING WANG,1,2 PANQIANG KANG,1 WEICHAO YAO,1,* YUJIE PENG,1 JUN WANG,3,5 DINGYUAN TANG,4 YUXIN LENG1,2,6 1中国科学院上海光学精密机械研究所超强激光科学与技术国家重点实验室，中国上海 201800 2中国科学院大学材料科学与光电工程中心，中国北京 100049 3江苏师范大学江苏省先进激光材料与器件重点实验室，中国徐州 221116 4深圳技术大学未来技术学院，中国深圳 518118 5junwang@jsnu.edu.cn</p><p>6lengyuxin@mail.siom.ac.cn *wyao@siom.ac.cn 收稿日期：XX Month XXXX；修回日期：XX Month, XXXX；接受日期：XX Month XXXX；在线发布：XX Month XXXX（文献编号 XXXXX）；出版日期：XX Month XXXX 我们报道了一种软光阑克尔透镜锁模 Tm:Y2O3 陶瓷激光器，其通过在高粒子数反转条件下抑制波长竞争实现稳定。该激光器的平均输出功率为 0.5 W，脉冲宽度为 112 fs，重复频率为 90 MHz，中心波长为 2.08 μm。进一步优化以获得更短脉冲，可将脉宽缩短至 107 fs，但输出功率降低至 0.22 W。这些结果表明，光谱控制是在此类激光器中实现稳定锁模的有效方法</p><p>具有强光谱竞争。工作在 2 μm 的超快固体激光器在气体传感、材料加工和高次谐波产生等方面具有广泛应用。在这方面，锁模 Tm 固体激光器提供了一种有吸引力的途径，因为 Tm3+ 掺杂材料通常具有超宽增益带宽，能够实现飞秒脉冲产生 [1]。基于多种无序材料已实现飞秒脉冲产生，包括 Tm:GdScO3 [2]、Tm:CNNGG [3]、Tm:CALGO [4] 以及 Tm3+ 掺杂倍半氧化物 [5-7] 等。作为用于飞秒脉冲产生的一类重要增益介质，Tm3+ 掺杂倍半氧化物具有优异的热学性能，使其成为极具前景的候选材料，用于</p><p>高功率超快激光系统的研制。迄今为止，SESAM 锁模一直是 Tm 基超快激光器最广泛使用的技术途径 [5-7]。尽管 SESAM 锁模实现简单并支持高平均功率产生，但其固有的响应时间慢和带宽有限会限制超短脉冲的产生。相比之下，克尔透镜锁模（KLM）因其大调制深度、超快动态响应机制和无限制的光谱带宽，非常适合形成更短的脉冲宽度。然而，针对 Tm 倍半氧化物激光器的 KLM 演示报道数量有限 [8, 10–12]。一个常见挑战是，平滑的增益</p><p>光谱只能在低粒子数反转条件下获得。高粒子数反转会将增益光谱重塑为多峰分布，并引起增益峰蓝移。这种光谱偏移与水汽吸收带重叠，严重损害飞秒脉冲产生的稳定性[9, 13]。该问题在KLM激光系统中尤为突出，因为谐振腔通常工作在稳定区边缘附近，使得在启动锁模之前增益介质可达到高粒子数反转。显著的波长偏移不仅阻碍锁模启动，还限制了高透射输出</p><p>用于功率提升的耦合器。为了在Tm倍半氧化物激光器的KLM运行期间控制激光波长，我们设计了一种二向色镜：在低粒子数反转条件下对激光波长具有高反射率，而在高粒子数反转条件下对激光波长具有高透射率。该设计能够精确控制激光光谱，并将激射波长限制在2000 nm以上。采用该方法，我们在Tm:Y2O3陶瓷激光器中实现了KLM，脉冲宽度为112 fs，平均功率为0.5 W，重复频率为90 MHz，中心波长为2.08 μm。这种光谱控制技术为稳定Tm激光系统中的KLM运行提供了一种通用且可靠的解决方案。</p><p>图1展示了锁模Tm:Y2O3陶瓷激光器的实验装置。将长度为3 mm的2 at.% Tm:Y2O3陶瓷置于布儒斯特角。该陶瓷的孔径为3 mm ×3 mm，晶体两端面均经过精细抛光且未镀增透膜。陶瓷由最大输出功率为20 W的线偏振1635 nm拉曼光纤激光器泵浦。陶瓷中泵浦光在弧矢面和子午面的半径分别为32 μm和60 μm。在低泵浦功率（&lt;300 mW）下，Tm:Y2O3陶瓷在未激射条件下的小信号吸收约为80%。两个凹面镜（M1和M2）具有</p><p>在1600-1700 nm高透射、在1950-2200 nm高反射，二者曲率半径（RoC）均为-100 mm。高反射（HR）镜和腔内啁啾镜（CM1-CM3）在1900-2200 nm也表现出高反射率。使用在2000-2200 nm处透射率（TOC）分别为1%、2%、3%、5%和7%的不同输出耦合器来优化输出功率。采用45°二向色镜（DM）控制激光波长。谐振腔总往返群延迟色散约为-3000 fs²，以支持孤子锁模。总腔长约为1.66 m，对应重复频率为90 MHz。图1. KLM Tm:Y2O3陶瓷激光器的实验装置。M1和</p><p>M2：凹面镜。RoC：曲率半径。CM1-CM3：啁啾镜，每次反射 -500 fs²。OC：输出耦合器。DM：二向色镜。HR：高反射镜。图2给出了两个二向色镜DM1和DM2的反射率光谱，以及Tm:Y2O3陶瓷的增益截面。DM1在1900-2200 nm具有高反射率，而DM2在1900-1950 nm具有高透射率、在2020-2200 nm具有高反射率。在高粒子数反转比（β）下，增益截面在1950 nm和2050 nm处呈现两个波长峰。这种光谱结构解释了在不使用波长选择元件时，即在使用宽带</p><p>反射镜DM1时，Tm:Y2O3激光波长从2050 nm向1950 nm的偏移。图2. DM1和DM2的反射率光谱以及Tm:Y2O3陶瓷的增益截面。β：粒子数反转比。首先，我们针对使用DM1时获得最大连续波（CW）输出功率对激光腔进行了优化。图3(a)给出了不同TOC下输出功率随吸收泵浦功率的变化。TOC为1%、2%、3%、5%和7%时，斜率效率分别为12.5%、19.7%、23.8%、28.4%和28.8%。在吸收泵浦功率为16 W时，采用7% TOC获得了4.8 W的最大输出功率，对应的光-光效率为30%。未观察到功率饱和，表明输出功率可通过更高的可用</p><p>泵浦功率进一步提高。激光光谱使用光谱仪（WaveScan，A.P.E. GmbH）记录。图3(b)给出了不同TOC下的激光光谱。对于1%、2%、3%和5%的TOC，中心波长稳定在约2050 nm，但7% TOC时移至约1950 nm，表明在该输出耦合下粒子数反转比超过10%。图3. CW激光输出结果。(a) 不同TOC下输出功率随吸收泵浦功率的变化。(b) 不同TOC下的激光光谱。为了实现锁模，将TOC设为1%，因为低输出耦合下更容易实现锁模。将腔镜M1向晶体方向移动，直到输出功率迅速下降。结果，单波长激光发射</p><p>在2050 nm处切换为2050 nm和1950 nm的双波长运转[图4(a)]，甚至切换为1950 nm的单波长发射。在这种情况下，尽管仔细进行了腔对准并施加了外部机械扰动，仍无法实现稳定锁模。在最佳情况下，仅获得不完整锁模，激光光谱由强CW分量主导[图4(b)]。这种行为主要归因于CW与锁模脉冲之间的增益竞争不足，从而无法完全抑制CW分量。一般而言，将腔工作点移近稳定范围的边缘可以有效增强增益</p><p>竞争。然而，这也会增加粒子数反转并增强激光波长的蓝移，不利于稳定锁模。</p><p>图4. 使用DM1的锁模结果。(a) 锁模启动前的激光光谱。(b) 不完全锁模。第二步中，用DM2替换DM1。对于所有TOC和腔工作点，连续波激射波长均保持在~2050 nm。通过微调HR反射镜，在6.3 W吸收泵浦功率下成功实现了稳定锁模。平均输出功率为0.22 W。相应的激光光谱如图5(a)所示。用sech²剖面拟合测得的光谱，得到中心波长(λ)为2084.3 nm，半高全宽(FWHM)带宽(Δλ)为43.5 nm。脉冲持续时间用自相关仪(NX 50, A.P.E. GmbH)表征。假设sech²脉冲形状，拟合的FWHM脉冲</p><p>持续时间(Δτ)为107 fs。计算得到的时间带宽积(TBP)为0.321，非常接近傅里叶变换极限0.315。我们进一步尝试通过调节GDD来缩短脉冲持续时间，但未实现明显的脉冲缩短。该限制最可能归因于DM2导致Tm:Y2O3陶瓷可用增益带宽减小[5]，从而限制进一步脉冲缩短并导致脉冲持续时间相对较长。图5. 使用DM2和1% TOC的锁模结果。(a)激光光谱。(b)非共线强度自相关迹。通过增加TOC实现功率缩放。在3% TOC下，在8.2 W泵浦功率下实现了稳定锁模，</p><p>输出平均功率为0.5 W。图6(a)和6(b)分别展示了激光光谱和自相关迹。中心波长为2081.3 nm，FWHM带宽为41.6 nm。脉冲持续时间为112 fs，对应的TBP为</p><h2>0.322。然而，进一步增加TOC以获得更高输出</h2><p>功率时，未能维持稳定锁模运行。该现象可归因于较高输出耦合下瞬时脉冲强度降低，削弱了克尔非线性效应，从而阻碍锁模的启动和稳定。图6. 使用DM2和3% TOC的锁模结果。(a)激光光谱。(b)非共线强度自相关迹。锁模脉冲的稳定性使用12.5 GHz光电二极管和射频(RF)频谱分析仪(Rigol DSA875)进行表征。最高输出功率下锁模脉冲的RF频谱如图7所示。图7(a)中1 GHz跨度范围内的拍频信号表现出几乎相同的</p><p>幅度，确认了稳定锁模。图7(b)显示了重复频率为90 MHz的基频RF拍频信号，无杂散动态范围为60 dBc。位于89.96 MHz和90.04 MHz的对称弱噪声峰可忽略，因为其幅度低于幅度噪声背景[14]。图7. 锁模Tm:Y2O3激光器的RF频谱。(a)在1 GHz跨度内；RBW，分辨率带宽。(d)在400 kHz跨度内的基频拍频信号。</p><p>综上所述，我们利用激光腔内具有定制反射带的定制设计双色镜进行精确光谱控制，在 Tm:Y₂O₃ 陶瓷激光器中展示了纯 KLM 运转。在中心波长 2084.3 nm、平均输出功率为</p><h2>0.22 W。通过进一步优化输出耦合透过率，</h2><p>平均输出功率提高至 0.5 W，脉宽略微增至 112 fs，中心波长为 2081.3 nm。最短脉宽受双色镜反射带宽限制。进一步优化镜面反射光谱——例如，将其略微蓝移以覆盖 Tm:Y2O3 的更多增益带，同时在 1950 nm 处保持高透过率——并结合调节陶瓷中的泵浦光直径，有可能在获得更高输出功率的同时实现更短脉宽。所提出的光谱控制方法为在具有多个光谱峰的增益介质中稳定 KLM 运转提供了一种有效方案。尽管 SESAM 辅助 KLM 以及使用</p><p>低得多的输出耦合也能实现稳定锁模 [5, 8]，但我们的方法更有利于功率提升，并可作为基于此类增益材料开发高性能锁模激光器的一种通用辅助技术。基金资助。本工作得到国家自然科学基金（62505331、12388102）资助，由上海市自然科学基金（25ZR1402532）赞助，并得到中国科学院战略性先导科技专项（Grant No. XDB1940000）支持。利益冲突声明。作者声明不存在利益冲突。数据可用性。本文所呈现结果所依据的数据目前不公开，但可向</p><p>作者在合理请求下获取。参考文献</p><h2>1. C. Kr änkel. “Rare-earth-doped sesquioxides for diode -pumped high -</h2><p>power lasers in the 1-, 2-, and 3-μm spectral range,” IEEE J. Sel. Top. Quant. 21(1), 250-262(2014).</p><h2>2. N. Zhang, Q. Song, J. Zhou, J. Liu, S. Liu, H. Zhang, X. Xu, Y. Xue,</h2><p>J.Xu, W . Chen, Y . Zhao, U . Griebner, and V . Petrov, “44-fs pulse generation at 2.05 µ m from a SESAM mode-locked Tm:GdScO3 laser,” Opt. Lett. 48, 510-513 (2023).</p><h2>3. Z. Pan, Y. Wang, Y. Zhao, H. Yuan, X. Dai, H. Cai, J. E. Bae, S. Y.</h2><p>Choi, F. Rotermund, X. Mateos, J. M. Serres, P. Loiko, U. Griebner, and V . Petrov, “Generation of 84 -fs pulses from a mode -locked Tm:CNNGG disordered garnet crystal laser,” Photon. Res. 6, 800-804 (2018).</p><h2>4. Y. Wang, G. Xie, X. Xu, J. Di, Z. Qin, S. Suomalainen, M. Guina, A.</h2><p>Hä rkö nen, A. Agnesi, U. Griebner, X. Mateos, P. Loiko, and V. Petrov, “SESAM mode -locked Tm:CALGO laser at 2 µ m, ” Opt. Mater. Express 6, 131-136 (2016).</p><h2>5. N. Zhang, S. Liu, Z. Wang, J. Liu, X. Xu, J. Xu, J. Wang, P. Liu, J. Ma,</h2><p>D. Shen, D. Tang, H. Lin, J. Zhang, W. Chen, Y. Zhao, U. Griebner, and V. Petrov, “SESAM mode-locked Tm:Y 2O3 ceramic laser,” Opt. Express 30, 29531-29538 (2022).</p><h2>6. Y. Zhao, L. Wang, W. Chen, Z. Pan, Y. Wang, P. Liu, X. Xu, Y. Liu,</h2><p>D. Shen, J. Zhang, M. Guina, X. Mateos, P. Loiko, Z. Wang, X. Xu, Jun Xu, M . Mero, U . Griebner, and V . Petrov, “SESAM锁模Tm:LuYO3陶瓷激光器在2048 nm产生54 fs脉冲，” Appl. Opt. 59, 10493-10497 (2020).</p><h2>7. N. Zhang, Z. Wang, S. Liu, W. Jing, H. Huang, Z. Huang, K. Tian, Z.</h2><p>Yang, Y . Zhao, U . Griebner, V . Petrov, and W . Chen, “瓦级飞秒Tm掺杂“混合”倍半氧化物陶瓷激光器，由1627 nm拉曼光纤激光器带内泵浦，” Opt. Express 30, 23978- 23985 (2022).</p><h2>8. Y. Zhao, L. Wang, W. Chen, P. Loiko, Y. Wang, Z. Pan, H. Yang, W.</h2><p>Jing, H. Huang, J. Liu, X. Mateos, Z. Wang, X. Xu, U. Griebner, and V. Petrov, “克尔透镜锁模Tm掺杂倍半氧化物陶瓷激光器，” Opt. Lett. 46, 3428-3431 (2021).</p><h2>9. L. Dong, N. Zhang, H. Ding, P. Wang, Y. Liu, Z. Wang, J. Liu, Y. Zhao,</h2><p>S. Liu, X. Xu, J. Xu, “从采用双折射滤光片作为波长选择器的Tm: CaYLuAlO4激光器产生飞秒脉冲，” Appl. Phys. B. 129(7), 114(2023).</p><h2>10. M. Tokurakawa, E . Fujita, and C . Krä nkel, “克尔透镜锁模</h2><p>Tm3+:Sc2O3单晶激光器，由1611 nm的Er:Yb光纤MOPA带内泵浦，” Opt. Lett. 42, 3185-3188 (2017).</p><h2>11. A. Suzuki, C. Krä nkel, and M. Tokurakawa, “亚6光学周期克尔-</h2><p>透镜锁模Tm:Lu2O3和Tm:Sc2O3组合增益介质激光器，在2.1 μm，” Opt. Express 29, 19465-19471 (2021).</p><h2>12. A. Suzuki, C. Krä nkel, and M. Tokurakawa, “高品质因子克尔-</h2><p>透镜锁模Tm:Sc 2O3单晶激光器，具有反常光谱展宽，” Appl. Phys. Express 13 052007(2020).</p><h2>13. Y. Zhao, Q. Hao, Z. Zhang, J. Dong, L. Tong, J. Liu, L. Zhao, J. Liu,</h2><p>and L. Su, “被动锁模Tm, La:CaF2晶体激光器，在1.9 µm水吸收带附近，” Chin. Opt. Lett. 23, 011401(2025).</p><h2>14. D. von der Linde, “连续</h2><p>运转锁模激光器中噪声的表征，” Appl. Phys. B 39, 201-217(1986).</p></article></div></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
