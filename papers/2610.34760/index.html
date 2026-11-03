@@ -1,0 +1,127 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>HWO类分段孔径中双盲傅里叶全息波前传感的实验验证</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style><style>
+.paper-reader{max-width:860px;margin:0 auto}
+.paper-reader h1{font-size:28px;line-height:1.35;margin:10px 0 6px}
+.paper-reader .original-title{color:var(--muted);font-size:14px;margin-bottom:18px}
+.paper-reader .meta{color:var(--muted);font-size:13px;margin-bottom:20px}
+.paper-reader .toc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:20px 0 28px;font-size:14px}
+.paper-reader .toc ol{margin:6px 0 0 18px;padding:0}
+.paper-reader .toc li{margin:3px 0}
+.paper-reader article{font-size:16px;line-height:1.9}
+.paper-reader h2{font-size:22px;margin:30px 0 10px}
+.paper-reader h3{font-size:18px;margin:22px 0 8px}
+.paper-reader figure{margin:20px 0;text-align:center}
+.paper-reader img{max-width:100%;height:auto}
+.paper-reader figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+.paper-reader table{display:block;overflow-x:auto;border-collapse:collapse;margin:16px 0;font-size:14px}
+.paper-reader math{overflow-x:auto;max-width:100%}
+.paper-reader pre{overflow-x:auto}
+</style></head><body class="">
+<header><a class="brand" href="../index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="../daily/index.html">日报</a><a href="../papers/index.html" aria-current="page">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 中文全文</div><h1>HWO类分段孔径中双盲傅里叶全息波前传感的实验验证</h1><div class="paper-reader"><h1>HWO类分段孔径中双盲傅里叶全息波前传感的实验验证</h1><p class="meta">arXiv 2610.34760 · 11 页</p><article><p>双盲傅里叶全息术在类 HWO 分段孔径中的实验验证 OREN PEDATZUR, 1,* NOAH SCHWARTZ, 2,† , D. SCOTT ACTON 2,‡ AND BEN BUKY 2 1Villanova University, Department of Physics, 800 E. Lancaster Ave, Villanova, 19085, PA, USA 2UK Astronomy Technology Centre, Edinburgh EH9 3HJ, United Kingdom *orenpedatzur@gmail.com †noah.schwartz@stfc.ac.uk ‡scottjwst@gmail.com 摘要：双盲傅里叶全息术（DBFH）是一种相位恢复方法，已在数值上被证明能够解决未来分段孔径空间望远镜（包括宜居世界天文台（HWO））的波前传感挑战。DBFH 使用一组精心选择的瞳面振幅掩模及其对应的焦面强度测量</p><p>以构建一个代数线性反问题，从而实现计算高效且稳定的复杂瞳场重建。在此，我们首次使用空间光调制器和类似 HWO EAC5 的分段孔径几何结构对 DBFH 进行了实验演示。我们重建了具有挑战性的伪随机波前，并将 DBFH 与成熟的聚焦分集相位恢复（FDPR）方法进行了比较。两种方法实现了相当的重建精度，同时展现出不同的优势和局限性。我们进一步演示了在双星源存在情况下的 DBFH 波前传感，这是传统 FDPR 无法自然应对的场景。这些结果提供了实验证明</p><p>的概念验证，并将 DBFH 作为分段主镜空间望远镜的波前传感方法的技术成熟度提升至 3 级。</p><h2>1. Introduction</h2><p>空间望远镜为解决天文学中一些最深层的未解问题提供了无与伦比的机会：宇宙是如何起源的？是什么驱动了宇宙膨胀？在我们的星球之外是否存在宜居行星，宇宙其他地方是否存在生命？我们有幸见证天文学的一个非凡时代，连续几代旗舰空间望远镜不断提供新的能力和见解，使我们更接近回答这些基本问题。最近发射的南希·格蕾丝·罗曼空间望远镜标志着这一进程的最新篇章，而注意力已经转向下一代旗舰天文台。展望未来，宜居世界天文台（HWO）计划</p><p>于 2040 年代发射，其主要目标之一是对潜在宜居的类地系外行星进行直接成像，并表征其大气以寻找可能的存在生命的迹象 [1]。基于詹姆斯·韦伯（JWST）和罗曼空间望远镜等先前任务的有力传承，当前的 HWO 概念将大型分段主镜与高性能日冕仪仪器相结合，以抑制来自宿主恒星的光，并能够探测附近极其微弱的行星。实现所需的日冕对比度对望远镜光学系统的稳定性提出了严格要求，包括在相关观测时间尺度上皮米级波前稳定性 [2,3]。满足这一要求将</p><p>需要高度稳定的结构与热设计，以及灵敏的波前传感与控制技术。焦平面波前传感对空间望远镜尤其具有吸引力，因为它通过形成科学图像所用的同一光路测量像差，从而减少对独立计量系统的依赖。焦点分集相位恢复（FDPR）[4,5] 是焦平面相位恢复中最成熟的方法之一。在 FDPR 中，强度测量 arXiv:2610.34760v1 [astro-ph.IM] 26 Oct 2026</p><p>在已知离焦量下获取，用于估计瞳面波前。FDPR 技术已在空间望远镜波前传感中发挥重要作用，目前用于 JWST 的精细相位调整，并已在该任务中演示了纳米级残余波前误差 [6,7]。FDPR 通常被表述为非线性逆问题，并通过对像差模型进行迭代数值优化来求解，该模型常用截断 Zernike 基表示，且可能带来可观的计算成本。双盲傅里叶全息（DBFH）为相位恢复提供了一种替代方法。DBFH 最早由 Raz 等人针对一维信号提出 [8,9]，随后</p><p>被扩展到无透镜成像 [10]。此后，该方法的变体已被应用于多个问题，包括使用 X 射线自由电子激光对纳米颗粒进行相干衍射成像 [11] 以及阿秒脉冲表征 [12]。最近，DBFH 被提出作为一种用于拼接式空间望远镜的焦平面波前传感方法，并在与 HWO 相关的条件下进行了数值研究 [13]。在 DBFH 的波前传感实现中，利用已知振幅掩模将光瞳划分为互补区域，并针对不同的光瞳配置获取焦平面强度测量。这些测量的线性组合给出了源自互补子孔径的场之间的干涉交叉项。一个</p><p>紧支撑约束编码了每个子孔径已知的有限空间范围，要求其对应的瞳面场在该区域之外处处为零。所测得的交叉项与光瞳掩模施加的已知紧支撑约束一起，构成一个超定线性方程组，其解给出复焦平面场。随后，直接的逆傅里叶变换可恢复复光瞳场，进而恢复波前。DBFH 利用非迭代线性重建，从焦面强度测量中原位恢复波前相位，既不需要 FDPR 中所用的刻意离焦，也不将波前限制在低维像差基上。在本工作中，我们首次在类似 HWO 的拼接式</p><p>孔径。我们使用基于可编程空间光调制器（SLM）的光学测试平台，生成基于 HWO EAC5 几何结构的 37 段孔径，并在光瞳上施加受控的非平凡波前误差。我们使用 DBFH 重建这些波前，并在相似实验条件下将结果与 FDPR 直接比较。我们进一步研究 DBFH 重建误差对信噪比（SNR）的依赖关系，并将测量结果与数值预测进行比较。最后，我们演示了在包含两个互不相干点源的视场中的 DBFH 波前传感。由于 DBFH 使用焦内强度测量，两个 PSF 可以在探测器上保持空间分离，并且它们的</p><p>波前估计可以独立恢复并组合。本文组织如下。第 2 节回顾 DBFH 用于波前传感的数学表述、假设和实现。第 3 节描述实验装置和数据采集流程。第 4 节给出实验 DBFH 重建、与 FDPR 的比较以及对信噪比的依赖关系。第 5 节演示使用双源的波前传感，第 6 节总结结果并讨论其意义。</p><h2>2. 用于波前传感的 DBFH</h2><p>双盲傅里叶全息（Double Blind Fourier Holography，DBFH）是一种相位恢复方法，它使用源自与有限范围区域相关联的两个相互相干光源的衍射图像。当应用于波前传感（WFS）问题时，我们希望表征的场是望远镜光瞳平面处的波前，而衍射图像对应于焦平面处的强度。通过使光瞳的互补区域曝光，我们有效地将复</p><p>场在光瞳平面处分成两个分量：𝐸(x)=𝐸 1(x)+𝐸 2(x),(1)，其中 𝐸𝑖(x) 在其对应的互补（不重叠）紧支撑区域（CS，或子孔径）𝐶𝑆 𝑖 之外为零，使得 𝐶𝑆 1∪𝐶𝑆 2 =𝑝𝑢𝑝𝑖𝑙。我们用 x 表示光瞳平面中的坐标。这些场使用二维傅里叶变换传播到焦平面：𝐴1(𝝃)=F[𝐸 1(x)],(2) 𝐴2(𝝃)=F[𝐸 2(x)],(3) 𝐴(𝝃)=F[𝐸(x)]=𝐴 1(𝝃)+𝐴 2(𝝃).(4) 其中我们用 𝐴𝑖 表示焦平面场，用 𝝃 表示焦平面坐标。来自完全曝光光瞳的焦平面强度图像就是 𝐴1 与 𝐴2 的相干叠加：𝐼1(𝝃)=|𝐴 1(𝝃)| 2,(5) 𝐼2(𝝃)=|𝐴 2(𝝃)| 2,(6) 𝐼(𝝃)=|𝐴 1(𝝃)+𝐴 2(𝝃)| 2 (7) 其中 𝐼𝑖 表示对应于子孔径的强度。该相位恢复中的目标</p><p>问题在于估计焦平面相位：𝜙1(𝝃)=arg(𝐴 1(𝝃)),(8) 𝜙2(𝝃)=arg(𝐴 2(𝝃)).(9) 然后我们对焦平面场进行逆傅里叶变换，以得到光瞳平面场，从而得到波前。对于 𝐶𝑆1 和 𝐶𝑆2 之间的直线边界，这三幅强度图像（式 (5-7)）连同已知支撑域一起，是 DBFH 的充分输入，这一点已在 [14] 中证明。为便于计算，我们加入第四个正交测量，其中在一个子孔径上施加四分之一波长延迟：𝐼 𝜋/2(𝝃)=|𝐴 1(𝝃)+𝑖𝐴 2(𝝃)| 2 (10) 在自适应光学系统中，特别是在分块镜望远镜中，施加该 𝜋/2 相位很容易实现。这些干涉图像使我们能够提取</p><p>涉及𝐴1 和𝐴 2 的交叉项：𝐶0(k)=𝐼−𝐼 1−𝐼 2=𝐴 1𝐴∗2+𝐴∗1𝐴2 (11) 𝐶 𝜋/2(k)=𝐼 𝜋/2−𝐼 1−𝐼 2=𝑖𝐴 ∗1𝐴2−𝑖𝐴 1𝐴∗2 (12) 单个交叉项可按如下方式轻松分离：𝑆= 12(𝐶0+𝑖𝐶 𝜋/2)=𝐴 1𝐴∗2 (13) 如上所述，𝐶𝑆 1 与 𝐶𝑆 2 之间的直线边界使得能够利用类似于 Kramers-Kronig 关系的算法步骤，从 𝑅𝑒(𝐴 1𝐴∗2) 中恢复 𝐴1𝐴∗2。DBFH 构建一个线性方程组，其未知量为每个空间频率对应的焦平面相量 𝑋1(𝝃)=𝑒 𝑖 𝜙1(𝝃) 和 𝑋2(𝝃)=𝑒 𝑖 𝜙2(𝝃)。其中一个线性方程子集强制与所测交叉项保持一致：𝑆𝑋 2−|𝐴 1||𝐴 2|𝑋 1=0.(14)</p><p>另外两个线性方程子集强制满足子孔径的 CS 约束。具体而言，每个焦平面场的逆傅里叶变换必须在相应 CS 之外消失：𝐸1(x)=F −1[|𝐴 1(𝝃)|𝑋 1(𝝃)](x)=0forx∉𝐶𝑆 1 (15) 𝐸2(x)=F −1[|𝐴 2(𝝃)|𝑋 2(𝝃)](x)=0forx∉𝐶𝑆 2 (16) 焦平面中的充分采样是必需的，以确保这三个方程子集共同构成一个超定线性系统。该齐次系统在两个未知场同时乘以任意非零复标量时保持不变。我们通过将𝑋1(𝝃) 的一个分量固定为 1 来消除这种共同尺度和全局相位模糊。具体而言，我们选择一个测量良好的焦平面像素作为锚点，并施加规范条件𝑋1(𝝃𝒂𝒏𝒄𝒉𝒐𝒓)=1。这将把</p><p>齐次系统转化为非齐次线性系统，我们以最小二乘意义求解该系统，从而恢复对𝑋1 和𝑋2 二者的估计。由于在线性求解过程中放宽了对𝑋1 和 𝑋2 的单位模约束，恢复出的相量解最终被投影到单位圆上：ˆ𝑋𝑖(𝝃)= 𝑋𝑖(𝝃)|𝑋 𝑖(𝝃)| (17)</p><h2>3. 实验装置与数据采集</h2><p>我们使用图1所示的实验装置验证了DBFH方法。该系统基于空间光调制器（SLM），可在代表HWO EAC-5架构的光瞳上实现DBFH和FDPR。该配置使得能够在相同实验条件下直接比较两种波前传感技术。光学平台由光源模块、可编程相位调制器和成像臂组成。光源模块包括一个635 nm激光二极管（Thorlabs CPS635R），其耦合到10 µm针孔，该针孔用作空间滤波器。发散光束传播500 mm后，由消色差双合透镜（Thorlabs AC254-500A）准直。光瞳形状和</p><p>波前像差通过Hamamatsu X15213-01硅基液晶（LCOS）空间光调制器（SLM）引入。该器件通过二维可寻址电极阵列局部改变液晶层的折射率，从而提供可编程相位调制。SLM包含1024×1272像素阵列，像素间距为12.5 µm，对应约12.8 mm的最大有效孔径。准直光束以与表面法线成5°的角度入射到SLM上。在所有相位图案上叠加线性相位斜坡，使一级衍射级偏转1.45°。这将调制光束与由有限像素填充因子、镜面反射以及更高</p><p>衍射级产生的不期望光分离，并可通过空间滤波器抑制这些分量。经过SLM后，光束由第二个消色差双合透镜（Thorlabs AC254-500A）中继，并通过50:50平板分束器（Thorlabs BSW10R）导向成像臂。反射光束由平凸透镜（Thorlabs LA1708）聚焦到探测器上。使用PointGrey Flea3 CMOS相机记录图像，该相机具有1280×1024像素阵列和5.3 µm像素间距。对于12 mm光瞳直径，图像采样约为每λ/D 4.08像素。随后应用像素合并以实现接近Nyquist采样。光学平台还包括一个真值传感臂，但本工作报告的测量未直接使用该臂。</p><p>该臂用于独立验证SLM产生的波前。该臂采用200×200金字塔波前传感器，可实现高分辨率波前表征。为与先前结果[13]保持一致，我们选择采用段数为奇数和偶数的子孔径来实现DBFH，如图2所示。该策略在奇数和偶数子孔径中以相近的均匀密度对光瞳区域进行采样。其他选择在其他方面可能更优，例如左右方案可跳过第4次正交捕获，如章节中所讨论</p><p>图1. 实验装置。NESSIE（Next-generation Extreme AO and Segmented Systems for Instrumentation in Edinburgh）自适应光学测试平台位于英国天文技术中心（UKATC）。该测试平台旨在研究分段空间望远镜的共相技术，其中像差由空间光调制器（SLM）引入，并由焦平面图像估计。图2. DBFH演示中使用的孔径配置。(a) 完全暴露的37段HWO EAC5孔径，并标注段编号。(b,c) 分别暴露奇数编号段和偶数编号段的互补振幅掩模；暴露段显示为白色，遮挡段显示为黑色。(d) 完全暴露的孔径，对偶数编号段（灰色）施加π/2相移，对应于</p><p>正交测量。</p><h2>2. 重要的是，我们必须在相邻六边形之间留出一条薄的遮光叶片，以避免</h2><p>奇数与偶数子孔径之间的能量溢出，这是由于SLM中最小相位斜坡单元的尺寸（3×3个SLM像素）所致。每个实验包括两个瞳面相位状态：(i) 施加相位为零的初始参考状态，以及 (ii) 待由波前传感恢复的非平凡相位图案。对于每个相位状态，我们采集DBFH所需的四项测量：奇数段、偶数段、全孔径和正交采集，以及对应于−8、−4、0、+4和+8波离焦的五幅FDPR图像。所有DBFH测量都必须使用相同的曝光时间采集，或者等效地按各自曝光时间归一化。为了改变有效峰值强度和信噪比（SNR），采集时使用1、</p><p>10、100和1000个共叠加帧进行每次采集。然后，将每种波前传感方法独立应用于零相位数据集和非平凡相位数据集。从恢复的非平凡相位中减去恢复的零相位估计值，并将所得差分相位与施加到SLM的相位图案进行比较，后者作为真值。</p><p>图3. DBFH输入强度图像。图2所示四种孔径配置的实测焦平面强度：奇数段孔径、偶数段孔径、全孔径，以及对偶数编号段施加π/2相移的正交孔径。上排（a–d）显示参考零SLM相位下的测量结果，下排（e–h）显示非平凡测试相位下的测量结果。强度以对数尺度显示，每幅图像上方报告峰值光子数𝑁peak。</p><h2>4. Results</h2><p>我们选择在一个具有挑战性的场景中演示 DBFH，该场景包含高达 3 阶的随机 Zernike 分量，以及高达一个波长的 WFE。图 3(a-d) 给出了焦平面强度图像，分别对应参考零相位下 DBFH 的奇、偶、全和正交输入，并共加了 1000 帧。类似地，图 3(e-h) 是施加非平凡 WFE 后的输入，其衍射图样对称性差得多。图 4 显示了 DBFH 恢复的瞳面场。顶行是相对平坦的重建参考相位以及振幅解。注意偶和奇振幅解如何通过向互补的泄漏最小能量来满足 CS 约束。</p><p>子孔径。在该解中还可以看到段间分隔叶片，但方程并未强制其存在，这展示了 DBFH 在瞳面恢复完整复场的能力。中间行给出了所施加非平凡测试相位的相位解和振幅解。我们将两个相位解之间的包裹差（左下）与 SLM 真值相位（中下）进行比较，得到重建相位误差（右下）。在这个具有挑战性的情形中，DBFH 达到的 RMSE 为 0.21 rad。然而，该误差是两次重建（参考和测试）的结果，因此单次 DBFH 解的 RMSE 为 0.15 rad，对应 15 nm。该结果与在该 SNR 下预期的 RMSE 非常吻合</p><p>正如我们的数值研究 [13] 所发表的那样。重要的是，DBFH 相位 RMSE 预期会随着 SNR 的改善而显著提高，而该装置无法实现更好的 SNR。接下来，我们使用完全相同的参考相位图和非平凡相位图来应用 FDPR。我们所用的相位恢复算法类似于 JWST 调试期间使用的算法 [7,15]。图 5 给出了参考零相位和非平凡 WFE 对应的离焦 PSF 输入，以及相应的优化器解。与之前一样，我们从非平凡解中减去参考相位解，并与 SLM 真值进行比较。使用 FDPR，我们获得的 RMSE 略低于 0.21 rad，同样对应单次相位重建 RMSE 为 15 nm。值得注意的是，对于该非平凡</p><p>图 4. DBFH 重建结果。(a) 重建的瞳面相位，以及 (b-c) 参考零 SLM 相位下奇段和偶段的场振幅 𝐸1 和 𝐸2。(d-f) 非平凡 SLM 相位及振幅重建。底行将重建的差分相位 (g) Δ𝜙=𝜙 2−𝜙 1 与 SLM 相位图真值 (h) 进行比较，并给出残余相位误差 (i)。整个分段瞳面上的残余标准差为 𝜎𝜙 =0.211 rad。相位图以及其他测试相位。这一成果使 DBFH 与成熟且可信的焦平面相位恢复方法处于同一水平。接下来，我们通过将 DBFH 应用于一系列强度</p><p>来自数量递增的共加帧的图像，即 1、10、100、1000。根据先前的数值结果 [13]，我们预计 RMSE 的渐近 1/√𝑁 改善仅在显著更高的 SNR 值下才会占主导。图 6 给出了仅包含泊松噪声的数值研究得到的预期 RMSE 与 SNR 关系曲线，以及我们的实验 SNR 扫描点。显然，在更高的帧共加数下，第二种噪声源（例如读出噪声）或偏置（例如模型失配、光源漂移）会主导误差，并阻碍获得更低的相位 RMSE。对于包含 1036957 个复数未知量的 1024×1024 重建，在 Intel(R) Core(TM) i7-8700K CPU @ 3.70GHz 上执行 CPU 计算时，一次完整的</p><p>DBFH 重建所需时间的中位数为 10.57 s，第 25–75 百分位范围为 10.54–10.65 s。该计时包括数据准备、线性系统与预条件器的构建、LSQR 求解以及光瞳重建。在系统与预条件器组装完成后，重复的 LSQR 求解所需时间的中位数为 10.28 s，第 25–75 百分位范围为 10.24–10.34 s，并在中位数 39 次迭代后收敛。计时来自 MATLAB R2025b 中的 20 次运行，这些运行是在</p><p>图 5. FDPR 重建结果。由 −8、−4、0、+4 和 +8 波离焦图像进行焦面分集相位恢复。(a-b) 分别对应于零参考和非平凡相位图案的 FDPR 重建。底部：差分相位 (c)，以及真值 SLM 相位 (d) 和残余相位误差 (e)。在整个分段光瞳上，残差的标准差为 𝜎𝜙 = 0.208 rad。图 6. 不同 SNR 下的相位解 RMSE。DBFH 相位解 RMSE 随积分光电子 SNR 增大的变化，其中给出了仅包含泊松噪声的数值模拟预期值，以及我们在 1、10、100 和 1000 次共加下的实验结果。</p><p>预热运行之后进行的。与 FDPR 相比，DBFH 有几个必须澄清的定性缺点。首先，由于有限的满阱容量，与 FDPR 的离焦图像相比，DBFH 的聚焦输入需要多得多的帧数才能达到相当的光电子计数。这意味着随帧数线性增长的读出噪声和暗电流需要由高满阱容量和低噪声传感器抑制（旗舰空间望远镜可望具备）。更高的帧数还可能延长采集时段，或许与光源稳定性冲突。这实际上是我们台架实验中的一个限制情形，使我们无法达到更高数量的有效共加帧。其次，正如</p><p>DBFH 本质上是一种干涉测量方法，其代数运算将来自不同测量的强度组合起来。因此，曝光归一化、光源亮度、探测器增益、背景扣除以及光瞳掩模透过率必须保持一致。与 FDPR 相比，DBFH 具有若干实际和计算上的优势。其重建被表述为线性逆问题，从而能够高效且确定性地恢复，而无需迭代非线性优化。它直接求解复光瞳场，并且不假设均匀光瞳照明或低维像差模型。在不宜向光束中引入可控相位元件的应用中，DBFH 提供了一种</p><p>仅基于振幅掩模的原位替代方案。</p><h2>5. Binary Source</h2><p>为了更好地约束 WFS 算法，通常使用单个明亮且未分辨的点源，例如孤立的参考亮星。这通常要求空间望远镜指向远离感兴趣科学目标的方向，并指向理想的定标场景。FOV 中出现多个互不相干的 PSF，甚至来自尘埃的非相干背景，都会限制任何干涉测量方法的能力。由于 DBFH 仅使用对焦图像，单个源的 PSF 所占的传感器面积相比离焦图像显著更小。虽然使用对焦 PSF 在有限满阱容量和读出噪声累积方面存在劣势，但它确实允许在 FOV 内容纳多个不重叠的</p><p>PSF（位于 FOV 中）。在此，我们使用等亮度双星源演示 DBFH 波前传感。双星系统中的单个恒星彼此互不相干，因此它们的焦面强度直接相加。于是，可以通过对独立获取的单源图像进行平移和求和来合成双星场景，并匹配曝光和光子统计。该过程能正确再现泊松噪声，因为独立泊松变量之和本身服从泊松分布。然而，它会高估读出噪声贡献，因此仅在泊松噪声占主导时才是合理的。使用同一输入图像的偏移副本仅相当于添加冗余信息（不会贡献关于</p><p>波前的）新信息，因此预计不会改善相位 RMSE。我们选择将 100 次共加的 DBFH 输入图像与一个偏移量以及 ×110 泊松抽稀的 1000 次共加图像相加。这两组图像是对同一波前的统计独立观测，因此提供非冗余信息。Fig. 7(a) 展示了融合后的 DBFH 输入，其间隔约为 ∼50𝜆/𝐷，同时还展示了一个 +8𝜆 离焦图像（相加），以强调对焦分析的优势。离焦 PSF 之间的显著重叠说明使用对焦测量具有空间优势。在这个简单演示中，我们只是将 DBFH 分别应用于两个 PSF，随后对估计的波前进行循环平均。其他方法包括配准</p><p>以及在应用 DBFH 之前对居中的 PSF 求和，或构建包含两个源测量的联合线性系统。后两种方法需要准确知道源的相对位移，而独立重建的波前可以在平均前进行去趋势处理。</p><p>图 7. 双源结果。(a) 使用奇、偶、全和正交 DBFH 光瞳掩模获取的相互非相干双星源的焦平面强度测量，以及一幅代表 FDPR 测量的 8λ 离焦图像。源之间的角间距约为 ∼50λ/𝐷，所有强度均已归一化，并使用同一对数尺度显示。(b) 由每颗星独立获得的差分光瞳相位重建及其等权圆周平均。(c) 相对于 SLM 真值的包裹相位误差（与单源相同）。将两个独立源重建结果合并后，RMSE 从 0.220 和 0.228 rad 降至 0.210 rad。这一改进与</p><p>该工作点处探测强度增至两倍的数值预测一致；在该工作点，尚不预期 RMSE 出现渐近的 √ 2 降低。图 7(b) 给出了各个波前重建结果，其流程与单源（第 4 节）所用流程类似，并给出了它们的圆周平均。图 7(c) 报告了相对于 SLM 真值的相应 RMSE 差异，显示联合情形下 RMSE 获得了符合预期的适度改善，这与图 6 的预期一致。更重要的是，该结果表明 DBFH 波前传感在双源场中仍然可行。独立的伴源测量还提供了次要益处，即降低</p><p>重建 RMSE，很像额外采集或更长有效积分时间。</p><h2>6. Conclusions</h2><p>在本工作中，我们通过实验验证了 DBFH 作为未来分段空间望远镜焦平面波前传感方法的可行性，尤其与 Habitable Worlds Observatory 相关。使用可编程 SLM，我们施加并重建了非平凡的分段孔径波前，并将 DBFH 估计与已知的 SLM 相位以及 FDPR 重建进行了比较；FDPR 重建是焦平面波前传感广泛使用的基准。对于所考虑的测试相位，DBFH 达到了与 FDPR 相当的重建精度。我们进一步在一系列曝光水平上评估了 DBFH，发现测得的相位 RMSE 在泊松噪声主导区域与数值预测一致。在等效输入下与 FDPR 相比，DBFH 实现了相当的 WFE 精度。这一比较</p><p>强调了两种方法之间明显的权衡，包括聚焦测量与离焦测量、振幅掩模与相位调制。由于 DBFH 被表述为一个代数线性逆问题，因此相较迭代相位恢复方法具有计算优势。最后，我们证明了聚焦 PSF 在探测器上占据更小面积，使得同一视场内空间分离的恒星能够被独立处理。来自伴源的额外统计独立测量提高了重建精度。总之，这些结果确立了 DBFH 的实验概念验证，并支持其作为一种波前传感方法推进至 TRL3。</p><p>用于分段式空间望远镜。</p><h2>7. Disclosures</h2><p>作者声明不存在利益冲突。参考文献 1. National Academies of Sciences, Engineering, and Medicine, Pathways to Discovery in Astronomy and Astrophysics for the 2020s (The National Academies Press, Washington, DC, 2021). 2. R. Juanola-Parramon, N. Zimmerman, T. Groff, et al., “Evaluating the luvoir coronagraph sensitivity to telescope aberrations,” in 2019 IEEE Aerospace Conference, (IEEE, 2019), pp. 1–8. 3. R. Juanola-Parramon, N. T. Zimmerman, L. Pueyo, et al., “Modeling and performance analysis of the luvoir coronagraph instrument,” J. Astron. Telesc. Instruments, Syst. 8, 034001–034001 (2022). 4. R. A. Gonsalves, “Phase retrieval and diversity in adaptive optics,” Opt. Eng. 21, 829–832 (1982).</p><p>5. R. A. Gonsalves, “Phase diversity: math, methods and prospects, including sequential diversity imaging,” in Unconventional Optical Imaging, vol. 10677 (SPIE, 2018), pp. 335–345. 6. D. S. Acton, P. D. Atcheson, M. Cermak, et al., “James webb space telescope wavefront sensing and control algorithms,” in Optical, Infrared, and Millimeter Space Telescopes, vol. 5487 (SPIE, 2004), pp. 887–896. 7. D. S. Acton, S. Knight, M. Carrasquilla, et al., “Phasing the webb telescope,” in Space Telescopes and Instrumentation 2022: Optical, Infrared, and Millimeter Wave, vol. 12180 (SPIE, 2022), pp. 329–352. 8. O. Raz, O. Schwartz, D. Austin, et al., “Vectorial phase retrieval for linear characterization of attosecond pulses,”</p><p>Phys. review letters 107, 133902 (2011). 9. O. Raz, N. Dudovich, and B. Nadler, “Vectorial phase retrieval of 1-d signals,” IEEE Trans. on Signal Process. 61, 1632–1643 (2013). 10. O. Raz, B. Leshem, J. Miao, et al., “Direct phase retrieval in double blind fourier holography,” Opt. express 22, 24935–24950 (2014). 11. B. Leshem, R. Xu, Y. Dallal, et al., “Direct single-shot phase retrieval from the diffraction pattern of separated objects,” Nat. communications 7, 10820 (2016). 12. O. Pedatzur, A. Trabattoni, B. Leshem, et al., “Double-blind holography of attosecond pulses,” Nat. Photonics 13, 91–95 (2019). 13. O. Pedatzur, “Double blind fourier holography for high-precision wavefront sensing in segmented mirror telescopes,”</p><p>Opt. Express34, 8223–8234 (2026)。14. O. Pedatzur 和 D. T. Chuss，“Differential double blind fourier holography (diff-dbfh),” arXiv preprint arXiv:2609.30183 (2026)。15. B. H. Dean、D. L. Aronstein、J. S. Smith 等，“Phase retrieval algorithm for jwst flight and testbed telescope,” 载于 Space telescopes and instrumentation I: optical, infrared, and millimeter，第 6265 卷（SPIE, 2006），第 314–330 页。</p></article></div></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
