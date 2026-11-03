@@ -1,0 +1,127 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>尺寸无关损耗判别的单模激光阵列</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style><style>
+.paper-reader{max-width:860px;margin:0 auto}
+.paper-reader h1{font-size:28px;line-height:1.35;margin:10px 0 6px}
+.paper-reader .original-title{color:var(--muted);font-size:14px;margin-bottom:18px}
+.paper-reader .meta{color:var(--muted);font-size:13px;margin-bottom:20px}
+.paper-reader .toc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:20px 0 28px;font-size:14px}
+.paper-reader .toc ol{margin:6px 0 0 18px;padding:0}
+.paper-reader .toc li{margin:3px 0}
+.paper-reader article{font-size:16px;line-height:1.9}
+.paper-reader h2{font-size:22px;margin:30px 0 10px}
+.paper-reader h3{font-size:18px;margin:22px 0 8px}
+.paper-reader figure{margin:20px 0;text-align:center}
+.paper-reader img{max-width:100%;height:auto}
+.paper-reader figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+.paper-reader table{display:block;overflow-x:auto;border-collapse:collapse;margin:16px 0;font-size:14px}
+.paper-reader math{overflow-x:auto;max-width:100%}
+.paper-reader pre{overflow-x:auto}
+</style></head><body class="">
+<header><a class="brand" href="../index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="../daily/index.html">日报</a><a href="../papers/index.html" aria-current="page">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 中文全文</div><h1>尺寸无关损耗判别的单模激光阵列</h1><div class="paper-reader"><h1>尺寸无关损耗判别的单模激光阵列</h1><p class="meta">arXiv 2610.26578 · 10 页</p><article><p>1 具有尺寸无关损耗鉴别的单模激光阵列 Wenwen Liu1, 2, Shuang Zhang1,2,3,4.5* 1香港大学物理系新基石科学实验室，香港 2香港大学光学量子材料国家重点实验室，999077 香港，中国 3香港大学电机电子工程系，999077 香港，中国 4粤港澳大湾区量子科学中心，中国深圳市槟榔路3号 5香港大学深圳研究院（HKU-SIRI）生命科学与能源材料创新研究院（MILES），深圳，中华人民共和国 *通讯作者。邮箱：shuzhang@hku.hk；摘要。在传统耦合振子晶格和激光阵列中，扩大有源体积</p><p>将不可避免地导致光谱拥挤并降低空间均匀性，从而对高功率单模工作构成长期障碍。我们揭示了稀疏星型网络中的一种耗散选择机制，该机制将模式选择性与晶格尺寸限制解耦。通过在中心枢纽与 N 个外围谐振器之间设计耗散辅助耦合，系统建立起精确的星型拉普拉斯对称性。这强制形成一个目标本征态，该本征态对所有有损通道免疫，同时在所有主节点上保持相等振幅。所有竞争本征态都会破坏这一对称性，驱动辅助损耗，并打开一个持续且与尺寸无关的模式损耗间隙，从而防止</p><p>多模竞争。真实微环仿真验证了这种暗态隔离在电磁色散下的稳健性，并且当满足系统的奇异点时，该机制可推广至任意阵列。通过利用图拓扑绕过模式竞争，这项工作为可扩展的高功率单超模激光阵列以及耦合非厄米系统中的稳健态选择建立了一条通用途径。</p><p>2</p><h2>I. INTRODUCTION</h2><p>在保持单模工作的同时提升半导体激光器的发射功率和有源孔径，是相干光子学中长期存在的挑战 [1-10]。在大面积发射器和传统耦合腔晶格中，增大物理尺寸会导致光谱拥挤，其中模式鉴别间隙随阵列尺寸增大而减小 [ 10,11]。因此，密集的模式竞争和空间烧孔会在泵浦水平提高时不可避免地引发多模成丝和光束退化 [1–3]。实现真正可扩展的高功率激光阵列需要同时满足两个本质上难以协调的条件：稳健、持续的鉴别</p><p>在目标态与其最近的竞争超模之间，同时在整个晶格上具有空间均匀的场分布，以在不引起局部增益饱和和热积累的情况下最大化能量提取。近年来，非厄米光子学的进展为超模工程提供了强大策略[11–20]。通过设计复耦合矩阵或引入选择性耗散，不需要的超模可通过增大的非厄米衰减速率被优先抑制。值得注意的是，超对称（SUSY）激光阵列利用有损伙伴网络对高阶横模进行相位匹配和衰减，从而隔离出基模激射模式[21–30]。同时，拓扑晶格、平带阵列和非厄米零模激光器利用边缘态，</p><p>子晶格对称性或受保护带隙谱来实现模式隔离[31–52]。尽管这些方案很优雅，但现有架构仍面临显著的可扩展性约束，同时实现可扩展的模式鉴别和空间均匀的超模仍然具有挑战性。具体而言，许多模式，例如选定的拓扑模和缺陷模，往往在空间上局域化，并表现出非均匀分布[31–36,41,42]。此外，增大系统尺寸并不能保持模隙，也不能确保所有有源元件的平等参与[11,26,28,40]。在此，我们提出一种图论方法，通过利用稀疏星型网络的耗散对称性来实现可扩展的单超模运行。从理想的星型拓扑出发</p><p>其中 N 个相同的周边节点通过固定虚耦合与中心枢纽耦合，集体相长干涉会选出低损耗目标态，打开一个随 𝑁 以平方根尺度展宽的虚模隙。我们通过在中枢与周边腔之间插入有损辅助谐振器来物理实现这些连接。在该架构中，目标超模在有损辅助腔内发生完全相消干涉，使其成为不受耗散影响的空间均匀态，并赋予其最低的激射阈值。相反，所有竞争超模都违反该相消条件，驱动有损辅助结构，并经历</p><p>强抑制，从而保持持续且与尺寸无关的模式鉴别间隙。微环谐振器阵列的全波仿真验证了具有均匀空间分布的低损耗目标态的存在。因此，所提出的耗散星型架构为高功率相干激光阵列以及分布式非厄米系统中的稳健模式选择提供了可扩展框架。</p><h2>II. 理想稀疏选择器</h2><p>中心腔选择机制可以从理想星图 𝑆𝑁+1 [图 1(a)] 理解，该星图由 N 个相同且互不耦合的外围腔 |𝑗⟩（𝑗 = 1, … , 𝑁）组成，这些外围腔通过相等、互易的虚耦合 𝑖𝜅𝑐 连接到一个公共中心腔 |𝐶⟩。态矢量表示为 |ψ⟩ = 𝑐|𝐶⟩ + 𝛴𝑗𝑎𝑗 |𝑗⟩，系统哈密顿量取形式： 𝐻𝑠𝑡𝑎𝑟 = 𝜔0𝐼𝑁+1 + 𝑖𝜅𝑐𝐴𝑠 (1) 其中 𝜔0 是未耦合谐振频率，邻接矩阵 𝐴𝑠 = ∑ ( |𝐶⟩⟨𝑗| + |𝑗⟩⟨𝐶| )𝑁𝑗=1 指定耦合拓扑。如图 1(b) 所示，该网络支持三个不同的模式族：一个具有净增益的选定同相目标超模 𝜓+、一个 (𝑁 − 1) 重简并流形</p><p>3 个空间非均匀模式，其虚部能量为零，以及一个高损耗径向反相模式 𝜓−。目标模式 𝜓+ 受益于最低的激射阈值，并且其与最近竞争模式的分离给出归一化虚部鉴别间隙 Δstar/𝜅𝑐 = √𝑁，从而建立一个可扩展的模式间隙，该间隙随阵列尺寸增大而展宽（图 1(c)）。图 1. 理想固定连接中心腔选择器。(a) 具有一个中心腔和 𝑁 个外环的星形结构。它们通过一个固定的互易耦合 𝑖𝜅𝑐 连接。(b) 虚部谱由位于 +𝜅𝑐√𝑁 的同相目标 𝜓+、位于零的 (𝑁 − 1) 重 PW 流形，以及位于 −𝜅𝑐√𝑁 的径向反相模式 𝜓− 组成。最大的 Im(E) 具有最低阈值。(c) 归一化</p><p>(d) 星形网络中三个模式族的本征矢分布。对于同相目标模式，相位均匀的外围场形成归一化集体态 |𝐵⟩，其以增强强度 𝑖𝜅𝑐√𝑁 耦合到中心 |𝐶⟩。满足 ∑ ⟨𝑗|𝑞⟩𝑗 = 0 的外围构型在中心处相消，并张成一个 (𝑁 − 1) 维中心盲流形。径向超模仍然中心可见，中心与外腔之间存在 π 相位偏移。当按 𝑁 个相同外围格点的循环置换对称性组织外围子空间时，选择机制变得清晰。在 2𝜋/𝑁 的离散旋转 R 下，归一化对称适配外围本征矢为</p><p>|𝑞⟩ = 1 √𝑁 ∑ exp (𝑖2𝜋𝑞𝑗𝑁 ) |𝑗⟩ 𝑗=0,…,𝑁−1 (2) 其中 𝑅|𝑞⟩ = exp (−𝑖2𝜋𝑞𝑁 ) |𝑞⟩。平凡表示（𝑞 = 0）对应于均匀的外围同相态 |𝐵⟩ = 1 √𝑁 𝛴𝑗 |𝑗⟩，其场在中心腔处相长干涉。相反，每个非平凡扇区（𝑞 ≠ 0）表现出满足局域抵消条件 ∑ 𝑎𝑗𝑗 = 0 的方位角相位缠绕。由于每个外围谐振器都通过相同的矩阵元 𝑖𝜅𝑐 耦合到枢纽，外围态的中心耦合为 ⟨𝐶|𝐻𝑠𝑡𝑎𝑟|𝑞⟩ = 𝑖𝜅𝑐 / √𝑁 ∑ exp (𝑖2𝜋𝑞𝑗𝑁 ) |𝑗⟩𝑗=0,…,𝑁−1 = 𝑖𝜅𝑐√𝑁𝛿𝑞0 。因此，中心枢纽起到对称滤波器的作用：所有</p><p>4 个相位缠绕（PW）模式（𝑞 ≠ 0）与其解耦，形成 (𝑁 − 1) 维的中心盲子空间，而均匀 𝑞 = 0 态仅与中心节点相互作用，并具有集体增强的强度 𝑖√𝑁𝜅𝑐。因此，完整的 (𝑁 + 1) 维哈密顿量分解为块对角的对称性扇区。每个非平凡 𝑞 ≠ 0 扇区形成一个具有零中心振幅的孤立一维块，在能量 𝐸𝑞≠0 = 𝜔0 处张成 (𝑁 − 1) 重简并流形。唯一的 2 × 2 块位于由 {|𝐶⟩ , |𝐵⟩} 张成的旋转对称子空间中：𝐻𝑞=0 = 𝜔0𝐼 + 𝑖𝜅𝑐 [ 0 √𝑁√𝑁 0 ] 对应的本征能量为 𝐸 = ±𝑖𝜅𝑐√𝑁，其向量为 |𝜓± ⟩ = (|𝐶⟩ ± |𝐵⟩)/√2 = 1/ √2𝑁 [√𝑁, ±1, ±1, … , ±1]</p><p>𝑇（图 1(d)）。目标态 𝜓+ 在方位角和径向上相位均匀，得益于最大集体相长干涉，将其虚能量提升至 +𝜅𝑐√𝑁（最低激射阈值）。一个代表性的 PW 态沿外环相位绕转，且没有中心场。因此，模式鉴别通过两种不同的干涉机制产生：PW（𝑞 ≠ 0）中心暗模式由于方位角相消干涉（∑ 𝑎𝑗𝑗 = 0）而对中心节点透明，而径向反相模式 𝜓− 与中心节点强耦合，但由于中心与外围阵列之间存在 𝜋 相移而获得最大耗散（−𝜅𝑐√𝑁）。图 2. 无源有损辅助的有效实现。(a)（左）具有 N 个有损</p><p>辅助谐振器 𝑅𝑗（紫色）插入在中心腔与外环（蓝色）之间。（右）单个连接结构的放大图。(b) 在条件 Γ𝑅 ≫ 𝑔 下的有效模型。中心有效接收 −𝑖𝑁𝜅𝑐 损耗，而外围谐振器接收 −𝑖𝜅𝑐 损耗。所有腔在目标模式下保持相同振幅。(c) 在固定 Γ𝑅 和 𝑔 时，有效模型的目标场分布效率（灰色）和间隙（蓝色）随系统尺寸增大的变化。</p><p>5</p><h2>III. 利用有损辅助单元的星型拉普拉斯实现</h2><p>为了在无需复杂主动增益工程的情况下物理实现式 (1) 理想星型模型中所假设的互易虚耦合，我们引入 𝑁 个有损辅助谐振器 𝑅𝑗（𝑗 = 1, … , 𝑁），每个辅助谐振器介导中心节点 C 与外围腔 j 之间的相互作用 [图 2(a)]。总 (2𝑁 + 1) 维希尔伯特空间自然划分为主腔子空间 𝑀 = {|𝐶⟩, |1⟩, … , |𝑁⟩ } 和辅助库子空间 𝐴 = {|𝑅1⟩, … , |𝑅𝑁⟩ }。在局域模式基下，其中从每个辅助谐振器到中心节点的相干耦合（𝑔1）以及其到对应外围腔的相干耦合（𝑔2）均为实数，共振时的完整哈密顿量取精确的块形式：𝐻full = (𝐻𝑀𝑀 𝐻𝑀𝐴𝐻𝐴𝑀 𝐻𝐴𝐴 ) = (0𝑁+1 𝑄𝑄𝑇 −𝑖𝛤𝑅𝐼𝑁) (3)</p><p>其中 Γ𝑅 是设计辅助衰减率，𝑄 = (𝑔11𝑁𝑇𝑔2𝐼𝑁) 是 (𝑁 + 1) × 𝑁 耦合矩阵。对于任意主腔场矢量 𝑎 = (𝑎𝑐, 𝑎1, … , 𝑎𝑁)𝑇，辅助谐振器 𝑅𝑗 上的驱动为 [𝑄𝑇𝒂]𝑗 = 𝑔1𝑎𝐶 + 𝑔2𝑎𝑗。选择相反的耦合符号，𝑔1𝑔2 &lt; 0，会引入相对 𝜋 相位差。当 𝑎𝐶/𝑎𝑗 = −𝑔2/𝑔1 &gt; 0 时，相消干涉会消除辅助激励，从而选择同相超模。对于平衡耦合幅度 𝑔1 = −𝑔2 = 𝑔，相互作用矩阵简化为 𝑄 = 𝑔𝑃，其中 P 的每一列在中心节点处为 +1，在每个外围节点处为 −1。在快衰减极限（𝛤𝑅 ≫ 𝑔）下，通过 Feshbach-Schur 投影消去辅助子空间 A，得到低能</p><p>有效哈密顿量：𝐻𝑒𝑓𝑓 = 𝐻𝑀𝑀 − 𝑄𝐻𝐴𝐴−1𝑄𝑇 = −𝑖𝜅𝑐𝐿𝑠 (4) 其中 Lₛ 是测量分支差异的星图拉普拉斯。与式 (1) 相比，它仅增加了与连接腔相关的、具有度依赖损耗的对角部分，同时保持（图 2(b)）。该对角损耗精确抵消网络的结构度不对称性，在拉普拉斯零空间（𝐿𝑠𝐚 = 0）中保留零损耗目标超模（𝑎𝐶 = 𝑎1 = ⋯ = 𝑎𝑁），同时将理想星型的尺寸相关缩放 [图 1(c)] 转化为持续且与尺寸无关的模式鉴别间隙 [图 2(c)]。在绝热近似 ΓR ≫ g 之外，完整的 2N + 1 维哈密顿量</p><p>在相同外围谐振器和辅助谐振器同时循环置换下保持不变：[Hfull, ℛ] = 0。因此我们引入对称适配态 |𝑃𝑞⟩ = 1 √𝑁 ∑ 𝑒𝑖2πqj/𝑁|𝑗⟩𝑁−1𝑗=0 和 |𝐴𝑞⟩ = 1√𝑁 ∑ 𝑒𝑖2πqj/𝑁|𝑅𝑗⟩𝑁−1𝑗=0 。由于对每个非平凡表示相位和为零，中心腔仅与均匀辅助态耦合，如 ⟨𝐶|𝐻full|𝐴𝑞⟩ = 𝑔1 √𝑁 ∑ 𝑒𝑖2πqj/𝑁𝑁−1𝑗=0 = √𝑁𝑔1𝛿𝑞0。因此，中心腔完全属于 𝑞 = 0 扇区。经离散傅里叶变换后，哈密顿量精确分解为一个旋转对称扇区和 𝑁 − 1 个相位缠绕扇区：𝐻𝑞=0 = ( 0 0 √𝑁𝑔1 0 0 𝑔2 √𝑁𝑔1 𝑔2 −𝑖𝛤𝑅 ) ，𝐻𝑞≠0 = ( 0 𝑔2𝑔2 −𝑖𝛤𝑅)。(5)</p><p>𝑞 = 0 扇区同时包含目标态和径向族。为识别目标态，考虑该扇区中的一般主腔态 𝑐|𝐶⟩ + 𝑝|𝑃0⟩。它以幅度 √𝑁 𝑔1𝑐 + 𝑔2𝑝 驱动均匀辅助态。将该幅度设为零可得到归一化暗态，并且可以</p><p>6 有 |𝐷0⟩ = −𝑔2|𝐶⟩+√𝑁 𝑔1|𝑃0 ⟩ √𝑔22+𝑁𝑔12，其中 𝐸0 = 0。该态满足每个分支上的局域抵消条件 𝑔1𝑎𝐶 + 𝑔2𝑎𝑗 = 0，因而对任意 𝛤𝑅 具有严格为零的辅助幅度。对于平衡耦合 𝑔1 = −𝑔2，它退化为所有主腔上的均匀同相态。更一般地，比值 |𝑔1/𝑔2| 根据 𝑈outer 𝑈center = 𝑁 ( 𝑔1 𝑔2 ) 2 (6) 在外围阵列与中心节点之间重新分配目标模能量，而在 𝑔2 和 𝛤𝑅 固定时不会改变最邻近的竞争损耗。𝑞 = 0 主腔子空间中的另一态为亮态 |𝐵0⟩ = √𝑁 𝑔1|𝐶⟩+𝑔2|𝑃0 ⟩𝜎𝑅，其与 |𝐷0⟩ 正交。它以强度 𝜎𝑅 = √𝑁𝑔12 + 𝑔22 与 |𝐴0⟩ 耦合，形成径向</p><p>有耗二聚体，其本征值为 𝐸𝑅,± = (−𝑖𝛤𝑅 ± √(4𝜎𝑅² − 𝛤𝑅²))/2。对于每个 𝑞 ≠ 0，相位和为零，因此 |𝐴𝑞⟩ 与中心腔无耦合。因而，{|𝑃𝑞⟩, |𝐴𝑞⟩} 对构成一个闭合的外围-辅助二聚体，其中心腔振幅恰好为零。尽管如此，这些模式仍是局域亮的，因为 𝑎𝐶 = 0 使得支路驱动 𝑔2𝑎𝑗 ≠ 0。所有 𝑁 − 1 个相位缠绕扇区因此都具有相同的耦合 𝜎𝐷 = |𝑔2| 和本征值 𝐸𝐷,± = (−𝑖𝛤𝑅 ± √(4𝑔2² − 𝛤𝑅²))/2。这种相位扇区分解等价于奇异值谱 𝜎0 = 0、𝜎𝐷 = |𝑔2|、𝜎𝑅 = √(𝑁𝑔1² + 𝑔2²)，同时直接揭示了潜在的干涉机制。因此，谱由三个物理族组成：精确的辅助暗目标</p><p>态、径向 𝑞 = 0 双重态以及 (𝑁 − 1) 重相位缠绕双重态。由于 𝜎𝑅 ≥ 𝜎𝐷，损耗最小的竞争模式始终是相位缠绕模式，而精确的模式损耗差为 Δ = (𝛤𝑅 − √(𝛤𝑅² − 4𝑔2²))/2 (7)，这意味着模式鉴别仅取决于局域外围链路参数，即损耗差 Δ 完全与发射器数量 𝑁 无关。其对 𝛤𝑅 和 𝑔2 的依赖关系揭示出 𝑔2 = 𝛤𝑅/2 处的奇异线；超过该处后，虚部间隙饱和（图 3(c)）。这种行为直接源于与每个奇异值扇区相关联的有效非厄米二聚体。在 2𝜎 = 𝛤𝑅 处出现奇异点（EP），此时两个本征值和本征矢发生简并。</p><p>径向模式具有集体增强的奇异值 𝜎𝑅，随着链路强度增加而最先达到该条件（图 3(d)）。随后，PW 扇区在 𝜎𝐷 = 𝛤𝑅/2 处达到其 EP。低于该阈值时，增大 |𝑔2| 会使损耗最小的竞争模式沿虚能量轴进一步下移，因此 Δ 按式 (9) 增大。高于该阈值时，成对模式在实频率上分裂，同时保持衰减速率 𝛤𝑅/2。因此，PW EP 标志着从损耗鉴别不断增强向模式损耗差饱和的转变；超过该点后，更强的耦合不会带来进一步改善。当满足 EP 条件时，将这种机制扩展到任意阵列也不会改变 Δ。如</p><p>图 3(e-f) 所示，在固定 𝑔/𝛤𝑅 = 1 时，损耗差保持为 Δ = 𝛤𝑅/2。（更多细节见补充材料。）</p><p>7 图 3. 完整星形结构的特性。(a) 完整 13 站点网络的场分布。均匀拉普拉斯目标具有相等的主腔振幅和恰好为零的辅助场，而 PW 竞争模式驱动辅助腔。(b) 中心腔处的场会随 𝑔1𝑔2 的增大而减小。(c-d) 在触及 EP 线 𝛤𝑅 = 2𝑔2 之前，损耗差会增大 (c)。在固定 𝛤𝑅 = 1 时，本征能量的实部和虚部随 𝑔2 的增大而出现 EP (d)。(e-f) 考虑 dice 晶格 (e) 和方形晶格 (f) 示例的机制扩展。在固定耦合系数时，损耗差保持为 𝛤𝑅/2。IV. 基于实际设计的验证 为验证理论框架，我们研究了一个微环谐振器系统，其工作于</p><p>在电信波长（1587 nm）附近，如图 4 所示。该器件由一个中心环、𝑁 个相同的 外围环以及 𝑁 个作为连接环节放置的有损辅助跑道型谐振器构成。所有谐振器共享折射率 3，并专门在辅助腔中引入了 Γ = 0.0026 的附加材料损耗。</p><p>8 图 4. 微环谐振器系统中的实现。(a-b) 目标模式（a）和两个代表性竞争模式（b）的归一化能量分布谱。竞争模式由近简并的 𝑞 和 −𝑞 态的类驻波组合表示。(c) 对于所有目标模式和竞争模式（包括所有 CW 和 CCW 模式），不同环上的能量参与。目标模式下几乎没有能量泄漏到辅助腔中，而竞争模式会激发辅助腔并 contribute to the imaginary gap。 (d) 仿真结果表明，随着系统尺寸增大，虚部带隙几乎保持不变。(e) 目标模式在外环上的能量占比随系统尺寸增大而增大。</p><p>中心环的半径为 𝑅 = 1482𝑛𝑚，宽度为 𝑤𝑐 = 200𝑛𝑚；外围环的半径为 𝑟 = 887𝑛𝑚，宽度为 𝑤𝑝 = 300𝜇𝑚。这些尺寸经过调节以使其谐振对准，其中中心环和外围环分别工作在 𝑚 = 126 和 𝑚 = 9 模式。类似地，辅助跑道型谐振器也被调节到相同的谐振。全波电磁场计算直接求解每个超模的复本征频率和场分布，从而使我们能够通过对中心（𝐶）、完整外围阵列（𝑃）和所有辅助腔（𝐴）上的场能量进行积分来计算能量参与。对于 𝑁 = 18 的阵列尺寸，目标态表现为具有顺时针</p><p>（CW）和逆时针（CCW）环行的简并双重态（图 4(c)）。这些目标模式表现出 0.08 GHz 的极低损耗，并伴随百分比为 𝐶/𝑃/𝐴 = 5.0/94.9/0.01 的能量参与 [图 4(a)]。这些值与理论均匀</p><p>9 拉普拉斯本征向量预测密切吻合，其给出中心参与份额 1/(𝑁 + 1) = 5.26% 和外围总份额 𝑁/(𝑁 + 1) = 94.74。泄漏到辅助腔中的可忽略能量证实，局域相消干涉条件在全波结构中仍得到稳健满足。在图 4(c) 中，模式 3 至 38 对应于最邻近的竞争态，图 4(b) 给出了两个代表性场分布。由于相位绕转态 𝑞 和 −𝑞 是简并的，全波本征求解器可能返回一个类驻波叠加 𝑎𝑗 = 𝐴𝑒𝑖𝑞𝜃𝑗 + 𝐵𝑒−𝑖𝑞𝜃𝑗，并带有强度调制。重要的是，两个分量在外围的求和均为零，因此它们的</p><p>叠加态仍与中心腔解耦。这些竞争模式承受约11.5 GHz的显著更高损耗。其参与比 𝐶/𝑃/𝐴 = 0.08/98.1/2.01 揭示了互补选择机制：这些模式在中心环处几乎为暗态，但具有方位角非均匀的外围场。由此在主腔连接上产生的场失衡驱动辅助谐振器，提高辅助参与度，并使竞争模式承受额外耗散。随着系统尺寸 𝑁 增大，在模拟范围内提取的模隙大致保持不变[图4(d)]，这与被动星-</p><p>Laplacian模型预测的尺寸无关模隙一致。同时，对于目标模式，总外围能量与中心环能量之比线性增加[图4(e)]，这与每个主环中能量参与相等时的预期一致。因此，结果证实了核心器件级概念：该架构在阵列扩展过程中成功维持低损耗、辅助暗的目标模式，而非均匀竞争者则产生有限的辅助加载并被优先抑制。总之，我们提出了一种星形-Laplacian辅助介导的模式选择器，用于具有均匀空间分布的可扩展单超模工作。该系统在系统尺寸增大时支持非零模隙。其被动实现产生辅助暗目标态，并具有</p><p>在所有主腔中的相等参与，而竞争模式经历额外损耗。在微环谐振器系统中的实现证实了强模式鉴别、尺寸无关的模隙，以及随系统尺寸线性增加的外围-中心能量比。这些发现为具有均匀单超模工作的可扩展激光阵列建立了一条途径。参考文献：[1] O. Hess, S. W. Koch, and J. V. Moloney, IEEE J. Quantum Electron. 31, 35 (1995). [2] J. R. Marciante and G. P. Agrawal, IEEE J. Quantum Electron. 32, 590 (1996). [3] E. Kapon, J. Katz, and A. Yariv, Opt. Lett. 9, 125 (1984). [4] S. S. Wang and H. G. Winful, Appl. Phys. Lett. 52, 1774 (1988). [5] K. Hirose et al., Nat. Photonics 8, 406 (2014).</p><p>[6] S.-L. Chua, L. Lu, J. Bravo-Abad, J. D. Joannopoulos, and M. Soljačić, Opt. Lett. 39, 2072 (2014). [7] A. Kodigala, T. Lepetit, Q. Gu, B. Bahari, Y. Fainman, and B. Kanté , Nature 541, 196 (2017). [8] R. Contractor, W. Noh, W. Redjem, W. Qarony, E. Martin, S. Dhuey, A. Schwartzberg, and B. Kanté , Nature 608, 692 (2022). [9] T. Inoue, M. Yoshida, J. Gelleta, K. Izumi, K. Yoshida, K. Ishizaki, M. De Zoysa, and S. Noda, Nat. Commun. 13, 3262 (2022). [10] S. Noda, T. Inoue, M. Yoshida, J. Gelleta, M. De Zoysa, and K. Ishizaki, Adv. Opt. Photonics 15, 977 (2023). [11] M. H. Teimourpour, L. Ge, D. N. Christodoulides, and R. El-Ganainy, Sci. Rep. 6, 33253 (2016). [12] J. Ding and M.-A. Miri, Opt. Lett. 44, 5021 (2019).</p><p>[13] S. Mukherjee, D. Mogilevtsev, G. Ya. Slepyan, T. H. Doherty, R. R. Thomson, and N. Korolkova, Nat. Commun. 8, 1909 (2017). [14] B. Peng et al., Nat. Phys. 10, 394 (2014). [15] B. Peng et al., Science 346, 328 (2014).</p><p>10 [16] L. Feng, Z. J. Wong, R.-M. Ma, Y. Wang, and X. Zhang, Science 346, 972 (2014). [17] H. Hodaei, M.-A. Miri, M. Heinrich, D. N. Christodoulides, and M. Khajavikhan, Science 346, 975 (2014). [18] R. El-Ganainy, K. G. Makris, M. Khajavikhan, Z . H. Musslimani, S. Rotter, and D. N. Christodoulides, Nat. Phys. 14, 11 (2018). [19] G. Madiot, Q. Chateiller, A. Bazin, P. Loren, K. Pantzas, G. Beaudoin, I. Sagnes, and F. Raineri, Sci. Adv. 10, eadr8283 (2024). [20] S. Longhi, Opt. Lett. 47, 2040 (2022). [21] R. El-Ganainy, L. Ge, M. Khajavikhan, and D. N. Christodoulides, Phys. Rev. A 92, 033818 (2015). [22] W. Walasik, B. Midya, L. Feng, and N. M. Litchinitser, Opt. Lett. 43, 3758 (2018). [23] B. Midya, W. Walasik, N. M. Litchinitser, and L. Feng, Opt. Lett. 43, 4927 (2018).</p><p>[24] M. P. Hokmabadi, N. S. Nye, R. El-Ganainy, D. N. Christodoulides, and M. Khajavikhan, Science 363, 623 (2019). [25] B. Midya, H. Zhao, X. Qiao, P. Miao, W. Walasik, Z. Zhang, N. M. Litchinitser, and L. Feng, Photon. Res. 7, 363 (2019). [26] X. Qiao, B. Midya, Z. Gao, Z. Zhang, H. Zhao, T. Wu, J. Yim, R. Agarwal, N. M. Litchinitser, and L. Feng, Science 372, 403 (2021). [27] T. Fu, J. Chen, Y. Wang, X. Zhou, A. Qi, X. Wang, Y. Dai, M. Wang, and W. Zheng, Opt. Express 31, 1858 (2023). [28] S. Datta, M. Alizadeh, R. El-Ganainy, and K. Roychowdhury, Commun. Phys. 7, 403 (2024). [29] R. Zhang, Y. Lu, T. Wu, S. Yang, K. Wang, Q. Hu, Y. Li, D. Liu, S. Zheng, and M. Zhang, IEEE Photonics J. 17, 1 (2025).</p><p>[30] T. Fu, H. Zhou, C. Xu, Z. Gao, R. Han, L. Wang, X. Zhou, A. Qi, F. Dong, and W. Zheng, Opt. Lett. 50, 7677 (2025). [31] H. Schomerus, Opt. Lett. 38, 1912 (2013). [32] P. St-Jean, V. Goblot, E. Galopin, A. Lemaî tre, T. Ozawa, L. Le Gratiet, I. Sagnes, J. Bloch, and A. Amo, Nat. Photonics 11, 651 (2017). [33] H. Zhao, P. Miao, M. H. Teimourpour, S. Malzard, R. El-Ganainy, H. Schomerus, and L. Feng, Nat. Commun. 9, 981 (2018). [34] M. Parto, S. Wittek, H. Hodaei, G. Harari, M. A. Bandres, J. Ren, M. C. Rechtsman, M. Segev, D. N. Ch ristodoulides, and M. Khajavikhan, Phys. Rev. Lett. 120, 113901 (2018). [35] M. A. Bandres, S. Wittek, G. Harari, M. Parto, J. Ren, M. Segev, D. N. Christodoulides, and M. Khajavikhan, Science 359,</p><p>eaar4005 (2018). [36] G. Harari, M. A. Bandres, Y. Lumer, M. C. Rechtsman, Y. D. Chong, M. Khajavikhan, D. N. Christodoulides, and M. Segev, Science 359, eaar4003 (2018). [37] B. Bahari, A. Ndao, F. Vallini, A. El Amili, Y. Fainman, and B. Kanté , Science 358, 636 (2017). [38] S. Longhi, Ann. Phys. (Berlin) 530, 1800023 (2018). [39] A. Dikopoltsev et al., Science 373, 1514 (2021). [40] L. Yang, G. Li, X. Gao, and L. Lu, Nat. Photonics 16, 279 (2022). [41] N. Ishida, Y. Ota, W. Lin, T. Byrnes, Y. Arakawa, and S. Iwamoto, Nanophotonics 11, 2169 (2022). [42] M. Scherrer, C.-W. Lee, H. Schmid, and K. E. Moselund, ACS Photonics 11, 1006 (2024). [43] J. Ma et al., Light Sci. Appl. 12, 255 (2023). [44] T. Zhou, J. Ma, M. Tang, H. Li, M. Martin, T. Baron, H. Liu, S. Chen, X. Sun, and Z. Zhang, ACS Photonics 9, 3824 (2022).</p><p>[45] S. Longhi, Opt. Lett. 44, 287 (2019). [46] J. Cui, S. Han, B. Zhu, C. Wang, Y. Chua, Q. Wang, L. Li, A. G. Davies, E. H. Linfield, and Q. J. Wang, Nat. Photonics 19, 643 (2025). [47] T. T. H. Do, Z. Yuan, E. G. Durmusoglu, H. K. Shamkhi, V. Valuckas, C. Zhao, A. I. Kuznetsov, H. V. Demir, C. Dang, H. S. Nguyen, et al., ACS Nano 19, 19287 (2025). [48] L. Qian, Y. Cui, and K. Wang, Opt. Lett. 51, 3569 (2026). [49] K. Ji, B. Garbin, M. Hedir, J. A. Levenson, and A. Yacomotti, Phys. Rev. A 107, L061502 (2023). [50] M. Alizadeh, S. K. Özdemir, A. M. Yacomotti, and R. El-Ganainy, Commun. Phys. 8, 473 (2025). [51] B. Wu, J. Ding, W. Yan, Y. Jia, H. Yu, X. Ni, and F. Chen, Nat. Commun. 17, 1426 (2026).</p><p>[52] S. Guo, W. Huang, F. Tian, Y. Zhou, Y. Wang, and T. Zhou, Nat. Commun. 17, 3238 (2026).</p></article></div></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
