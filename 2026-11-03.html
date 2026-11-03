@@ -1,0 +1,182 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>论文日报 · 2026-11-03</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style></head><body class="">
+<header><a class="brand" href="index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="daily/index.html" aria-current="page">日报</a><a href="papers/index.html">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 每日论文推荐</div><h1>论文日报 · 2026-11-03</h1><p class="lede">本期 9 篇，按阅读价值排序。</p><div class="metrics"><div><strong>9</strong>全文解读</div><div><strong>1</strong>优先团队</div><div><strong>0</strong>待重试</div></div><nav><a href="#trends">样本观察</a><a href="#briefs">今日速览</a><a href="#digest">全文解读</a><a href="#topic">今日专题</a></nav><section id="trends"><h2><span class="no">01</span>当日样本观察</h2><div class="trends"><article class="trend"><h3>样本中的计算反演设计链：把前向模型嵌入优化</h3><p>本日样本中，2610.17950用Fisher信息迹逆优化镜头，2610.17515以可微光线追迹反演透镜面形，2610.24393由光线轨迹反推GRIN，2610.26956用GS+FDTD设计超表面条纹投影。共同点是把前向模型嵌入优化，但验证多为仿真或数值，实测与工艺公差证据有限；这是样本观察，不足以断言全行业趋势。</p><div class="sources"><a href="#paper-2610.17950">基于Fisher信息的恢复导向光学系统设计</a> · <a href="#paper-2610.17515">基于光流与可微光线追迹的非接触透镜面形计量</a> · <a href="#paper-2610.24393">自由曲面梯度折射率介质的重建</a> · <a href="#paper-2610.26956">Gerchberg-Saxton优化硅超表面用于正弦结构光三维成像</a></div></article><article class="trend"><h3>干涉成像用计算补偿换硬件简化，但速度与稳定性边界不同</h3><p>2610.06566与2610.19245都把像差/运动补偿从硬件移到计算：前者用固定轴上参考、斜照明和交替最小二乘，把参考瞳孔扫描变为后处理，SBP约提高四倍；后者用112平面波矩阵成像、运动补偿和局部反演替代AO，采集1.12 s但后处理约15 min。两者测试条件差异大，不能互推临床或量产表现。</p><div class="sources"><a href="#paper-2610.06566">高空间带宽积全息光学相干断层成像中的数字共焦成像</a> · <a href="#paper-2610.19245">高分辨率视网膜矩阵成像：计算运动与像差校正</a></div></article><article class="trend"><h3>超快光源工程化：光谱与热-机械稳定成为显式指标</h3><p>2610.13427在Tm:Y2O3 KLM中用二向色镜反射带边抑制高反转波长竞争，换取107–112 fs、0.22–0.5 W稳定锁模；2610.14490用全保偏NALM、胶接光学立方和CSAC参考，把0.88 L光频梳的10 h重复频率漂移做到0.375 ppm。样本显示超快光源设计正把光谱/热-机械稳定作为显式指标，但仅两篇，不能外推全行业。</p><div class="sources"><a href="#paper-2610.13427">光谱控制辅助的Tm:Y2O3陶瓷Kerr透镜锁模激光器</a> · <a href="#paper-2610.14490">基于“光学立方”的低重复频率漂移便携式光频梳</a></div></article></div></section><section id="briefs"><h2><span class="no">02</span>今日速览</h2><ol class="briefs"><li><a href="#paper-2610.13427">光谱控制辅助的Tm:Y2O3陶瓷Kerr透镜锁模激光器</a><span>定制二向色镜压制2 μm Tm:Y2O3高反转波长竞争，实现107–112 fs、0.22–0.5 W稳定KLM。</span></li><li><a href="#paper-2610.17950">基于Fisher信息的恢复导向光学系统设计</a><span>用Fisher信息矩阵的迹逆作为镜头优化目标，使双分离非球面镜在去卷积与学习重建后优于传统RMS设计。</span></li><li><a href="#paper-2610.06566">高空间带宽积全息光学相干断层成像中的数字共焦成像</a><span>在Mach–Zehnder全视场傅里叶域OCT中用固定轴上参考与斜照明合成数字共焦体积，空间带宽积约提升四倍，并用交替最小二乘校正像差。</span></li><li><a href="#paper-2610.17515">基于光流与可微光线追迹的非接触透镜面形计量</a><span>用掩模图案位移和可微光线追迹反演折射透镜面形；平凸镜半径多数在±1%内，非球面与轮廓术差0.44 µm RMS。</span></li><li><a href="#paper-2610.14490">基于“光学立方”的低重复频率漂移便携式光频梳</a><span>0.88 L二氧化硅光学立方集成全保偏Er光纤光频梳，10 h重复频率漂移0.375 ppm，并用CPT芯片原子钟作RF参考。</span></li><li><a href="#paper-2610.19245">高分辨率视网膜矩阵成像：计算运动与像差校正</a><span>无需自适应光学硬件，以计算运动补偿和反射矩阵在活体人眼视网膜实现衍射极限三维成像。</span></li><li><a href="#paper-2610.24393">自由曲面梯度折射率介质的重建</a><span>提出逐点逆折射重建法：由给定三维光线轨迹反推自由曲面GRIN折射率分布，并用两种界面族证明界面几何是可调的设计自由度。</span></li><li><a href="#paper-2610.07988">面向高饱和色刺激的声光色度计</a><span>四通道 AOTF 从超连续谱激光选出 1.37–3.20 nm 窄带光，经两级匀光与 50 Hz 反馈，在 18 mm 场内实现五色中心 0.34–1.26 ΔE00 复现，模型色域覆盖 CIE 1964 光谱轨迹面积的 95%。</span></li><li><a href="#paper-2610.26956">Gerchberg-Saxton优化硅超表面用于正弦结构光三维成像</a><span>940 nm硅超表面经GS优化直接产生正弦条纹，数值验证四步相移三维重建；无实测。</span></li></ol></section><section id="digest"><h2><span class="no">03</span>重点论文 · 全文 insight</h2><input id="search" type="search" placeholder="筛选标题、机构、标签…" aria-label="筛选论文"><article class="paper" id="paper-2610.13427" data-search="Spectral-control-assisted Kerr-lens mode-locking in a Tm:Y2O3 ceramic laser 光谱控制辅助的Tm:Y2O3陶瓷Kerr透镜锁模激光器 SIOM SIOM laser">
+<div class="paper-meta"><span class="pill">SIOM</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>光谱控制辅助的Tm:Y2O3陶瓷Kerr透镜锁模激光器</h3><a class="original" href="https://arxiv.org/abs/2610.13427" target="_blank" rel="noopener noreferrer">Spectral-control-assisted Kerr-lens mode-locking in a Tm:Y2O3 ceramic laser ↗</a>
+<a class="reading-link" href="papers/2610.13427/index.html">阅读中文全文 →</a>
+<p class="muted">全文机构行（模型提取） · 论文更新于 2026-10-09（UTC）</p><p class="reason">可了解如何用腔内二向色镜反射带边抑制高反转波长竞争，以及输出耦合与KLM功率/脉宽的取舍，适合2 μm超快光源和腔内元件设计时参考。</p>
+<h4>研究问题</h4><p>2 μm Tm³⁺倍半氧化物激光在高反转下增益谱多峰并蓝移，易与1950 nm水汽吸收带重叠，导致KLM难启动或CW分量残留；高透输出耦合又受波长漂移限制，稳定锁模与功率扩展难以兼得。</p><h4>核心方法</h4><p>在Tm:Y2O3 KLM腔中加入定制45°二向色镜：低反转时对激光波长高反、高反转时高透，把激射波长钳制在2000 nm以上；对比宽带DM1与DM2（1900–1950 nm高透、2020–2200 nm高反）。3 mm、2 at.% Tm:Y2O3布儒斯特放置，1635 nm拉曼光纤泵浦（最大20 W），腔内GDD约-3000 fs²，腔长1.66 m、90 MHz，TOC 1%–7%。</p>
+<h4>实验结果</h4><ul><li>CW下7% TOC、16 W吸收泵浦时输出4.8 W，光-光效率30%。</li><li>最短脉宽107 fs，对应中心波长2084.3 nm、平均功率0.22 W。</li><li>3% TOC、8.2 W吸收泵浦时实现稳定KLM，平均功率0.5 W。</li><li>3% TOC下中心波长2081.3 nm、FWHM带宽41.6 nm、脉宽112 fs、TBP=0.322。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>把二向色镜反射带边与增益峰/水汽吸收带匹配，可在高反转时提供额外波长相关损耗，抑制1950 nm峰；适用条件是低反转目标波长仍保持高反，并需按TOC和腔工作点实测波长。</li><li>KLM功率扩展不能只增大TOC：3% TOC可到0.5 W，但继续增大使脉冲瞬时强度下降、Kerr效应减弱而失锁；应同步优化泵浦/腔内光斑和色散。</li><li>若要用同一方法压窄脉宽，二向色镜反射带宽是硬约束；在保持1950 nm高透下把反射带蓝移覆盖更多增益，可能同时改善脉宽与功率，但需重新平衡抑制比。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>最短脉宽受二向色镜反射带宽限制；仅调节GDD未进一步缩短。</li><li>KLM仅在≤3% TOC、0.5 W下稳定，继续增大TOC失锁；原文未给出M²、长期功率/温度稳定性与完整噪声数据，工程化适用性未知（分析者判断）。</li></ul></article><article class="paper" id="paper-2610.17950" data-search="Recovery-Oriented Optical System Design Based on Fisher Information 基于Fisher信息的恢复导向光学系统设计 机构待核验 optical_design">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>基于Fisher信息的恢复导向光学系统设计</h3><a class="original" href="https://arxiv.org/abs/2610.17950" target="_blank" rel="noopener noreferrer">Recovery-Oriented Optical System Design Based on Fisher Information ↗</a>
+<a class="reading-link" href="papers/2610.17950/index.html">阅读中文全文 →</a>
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-13（UTC）</p><p class="reason">读完可判断是否值得把Fisher信息/迹逆指标加入镜头merit function，以及它相对RMS与端到端联合优化的适用边界。</p>
+<h4>研究问题</h4><p>传统成像镜头以RMS弥散斑、波前误差和MTF为目标，默认传感器图像就是最终输出；在去卷积或学习重建管线中，几何最锐的镜头未必最利于信息恢复。论文要回答：能否用一个不依赖训练数据与重建网络、物理可解释的设计准则，把下游可恢复性前置到镜头优化中？</p><h4>核心方法</h4><p>建立线性成像模型 y=Hx+n，以高斯噪声下Fisher信息矩阵H^T H/σ²为基础，采用正则化迹逆 trace[(H^T H+εI)^−1] 作为ROD目标；用可微光线追迹逐物点、逐波长构建H，三波长（486/588/656 nm）求平均，随机Lanczos估计迹并用L-BFGS优化。验证对象为50 mm、F/2.0、38.8°视场、24.93 mm×24.93 mm传感器的双分离非球面镜；RMS与ROD从同一准平面初始结构、同变量同约束优化，仅目标不同。重建用NBS 1963与ISO 12233靶标，加σ=1e-4归一化高斯噪声，比较Tikhonov与MoDL。</p>
+<h4>实验结果</h4><ul><li>设计规格为50 mm焦距、F/2.0、38.8°视场、486/588/656 nm三波长、24.93 mm×24.93 mm传感器。</li><li>在相同约束下，RMS优化镜在多数视场点得到显著更小的弥散斑，直接成像锐度更高。</li><li>Tikhonov正则化反演中，ROD设计在大部分测试的γ范围内PSNR/SSIM均高于RMS设计，表明其前向算子更利于正则化反演。</li><li>在MoDL非线性重建下，ROD设计仍取得更高PSNR/SSIM，细线对与斜边结构保持更好。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>若镜头下游确定会做去卷积或学习重建，可把trace-inverse或条件数作为次级merit，与RMS、畸变、相对照度共同约束；本文ROD以周边畸变换取反演稳定性，说明该指标不宜单独使用。</li><li>RMS锐度高不等于信息保真：本文RMS镜直接图像更锐，但高频线对混叠更重；产线评估可加斜边/Siemens star及实际重建PSNR/SSIM，而非只看MTF或弥散斑。</li><li>ROD目标只依赖H与噪声模型，不依赖数据集或网络，适合重建后端可能更换的成像系统；但需噪声模型与正则化ε匹配，本文仅在σ=1e-4仿真噪声下验证。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>全文为仿真设计对比：用可微光线追迹生成传感器图像，未给出加工镜头的实测成像、公差/装调、杂散光或热分析，实际系统增益未知。</li><li>ROD目标未显式约束畸变，周边畸变明显增大；且正文只给PSNR/SSIM趋势，未列具体数值，增益幅度无法从文本量化。</li></ul></article><article class="paper" id="paper-2610.06566" data-search="Digital confocal imaging in holographic optical coherence tomography at high space-bandwidth product 高空间带宽积全息光学相干断层成像中的数字共焦成像 机构待核验 optical_design">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>高空间带宽积全息光学相干断层成像中的数字共焦成像</h3><a class="original" href="https://arxiv.org/abs/2610.06566" target="_blank" rel="noopener noreferrer">Digital confocal imaging in holographic optical coherence tomography at high space-bandwidth product ↗</a>
+<a class="reading-link" href="papers/2610.06566/index.html">阅读中文全文 →</a>
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-05（UTC）</p><p class="reason">可快速判断固定参考臂斜照明OCT的SBP收益、CLASS等价优化流程及活体运动/弱信号失效边界。</p>
+<h4>研究问题</h4><p>全视场傅里叶域OCT速度快但缺少点扫描OCT的共焦门；用多角度斜照明在重建中合成数字共焦体积时，已有反射矩阵成像实现常为时域、离轴或Michelson同步扫描参考瞳孔，限制灵敏度、速度和可用空间带宽积。</p><h4>核心方法</h4><p>作者搭建Mach–Zehnder型斜照明FF-FD-OCT：可调谐光源880–805 nm，双轴振镜经4f系统改变照明角度而不移动照明区域，参考臂独立准直器提供固定轴上参考波；所有数据在NA 0.13下采集。对每个角度做剪切相位补偿并相干叠加得到数字共焦体积。把散射体与输入/输出瞳孔像差写成过定最小二乘问题，用交替最小二乘闭式更新迭代求解，并证明等效于CLASS；对非等晕样品再分块局部优化。</p>
+<h4>实验结果</h4><ul><li>系统体积采集吞吐为18.3 gigavoxels/s。</li><li>相较于同步扫描参考瞳孔方案，固定轴上参考使SBP约提高四倍；同等像素下可换取更大视场或更高分辨率，或减少每幅图像所需像素。</li><li>USAF靶上，ODC图像中最小的可分辨元素为Group 8 Element 3（1.55 µm）。</li><li>透镜组织中，从图4a到4b的改善几乎全部来自输入像差校正，SNR提升15 dB。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>固定轴上参考加数值剪切把物理参考瞳孔扫描变为后处理，可在保持采样带宽的同时获得斜照明数据；迁移到其他全视场干涉系统时，前提是能精确配准各照明波矢并保持帧间相位稳定。</li><li>交替最小二乘与CLASS等价，说明无需导星即可联合估计物体与输入/输出瞳孔；但运动给每个体积附加的随机相位与输入像差不可区分，活体应用需先做相位稳定或把运动项显式建模。</li><li>分块局部优化在弱信号区会把噪声也相干增强；工程上可用稀疏正则或邻域瞳孔替代，并谨慎选择等晕块尺寸以平衡分辨率与拼接伪影。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>Mach–Zehnder加光纤耦合结构不支持多模照明；强活体运动还会扰动每个孔径的相位，需额外相位稳定或建模。</li><li>优化对弱信号或强非等晕区易陷入局部极小；文中需从表面逐层向下初始化，局部块在弱信号/强反射处会失稳并抬高噪声底。</li></ul></article><article class="paper" id="paper-2610.17515" data-search="Non-contact lens metrology from optical flow and differentiable ray tracing 基于光流与可微光线追迹的非接触透镜面形计量 机构待核验 optical_design">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>基于光流与可微光线追迹的非接触透镜面形计量</h3><a class="original" href="https://arxiv.org/abs/2610.17515" target="_blank" rel="noopener noreferrer">Non-contact lens metrology from optical flow and differentiable ray tracing ↗</a>
+<a class="reading-link" href="papers/2610.17515/index.html">阅读中文全文 →</a>
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-13（UTC）</p><p class="reason">能看清透射式面形测量的标定链、双面耦合限制和位移尺度偏差，对搭建非接触透镜检测或判断商业镜面形数据可信度有用。</p>
+<h4>研究问题</h4><p>研究如何用非接触透射测量，从透过折射透镜观察到的图案位移反演镜面几何；重点解决商业球面/非球面镜中面形、装调、远心标定与位移尺度误差的耦合，并给出可对照轮廓术的面形精度。</p><h4>核心方法</h4><p>用铬刻小波噪声掩模和0.184×近远心成像，先由物理径向模型初始化稠密位移场，再以图像一致性优化细化；随后用标定有限原点相机模型的可微光线追迹拟合透镜，球面镜走圆锥面→高度图→参数拟合，AL2550直接用共享旋转非球面参数并逐次采集拟合位姿。相对已有透射偏折术，关键是把非理想远心与面形联合反演，并用多姿态/垫片增加观测多样性。</p>
+<h4>实验结果</h4><ul><li>四组标定的RMS位移残差为0.60±0.05 µm，说明等效相机模型能拟合平板标定产生的位移场到亚微米级。</li><li>8片平凸镜、20 mm口径的重复测量中，6/8的平均前表面半径误差落在±1%带内。</li><li>双凸镜前表面平均半径误差为−0.80%和−1.5%，后表面分别为+8.6%和−6.9%；后表面置信区间窄于偏差，属稳定但系统偏置。</li><li>AL2550非球面在公共14 mm口径内，DRT相对厂商处方0.50 µm RMS、相对CCP旋转面0.44 µm RMS；CCP相对厂商处方0.09 µm RMS。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>近远心成像应按有限原点投影标定，而不是理想正交；平板标定同时给主轴姿态与等效原点，适合相机-图案相对固定的复用场景。</li><li>双面透镜的后表面是条件薄弱环节；即使增加姿态/垫片测量，形状法仍强病态，产线若只用透射单侧数据，应把后表面拟合值当作协变量而非独立面形。</li><li>优化目标下降不等于面形更准：位移尺度微小偏差会被低阶非球面吸收，导致额外优化后与独立轮廓术的差从0.44变0.52 µm；应把位移尺度/相机标定作为独立诊断项。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>作者指出：标定未包含场依赖图像畸变，双面镜尤其较平后表面条件数差，高空间频率像差受现有成像链限制；因此与厂商/CCP的一致不能当作不确定度上界。</li><li>合成可恢复性下限（真实成像链在2/4/8/12 cycles per aperture下为5/2/1/1 µm RMS）基于已知正弦基，不能外推为任意自由曲面的实验分辨率。</li></ul></article><article class="paper" id="paper-2610.14490" data-search="A Portable Optical Frequency Comb with Low Repetition-Rate Drift Based on &quot;Optical Cubes&quot; 基于“光学立方”的低重复频率漂移便携式光频梳 机构待核验 laser">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>基于“光学立方”的低重复频率漂移便携式光频梳</h3><a class="original" href="https://arxiv.org/abs/2610.14490" target="_blank" rel="noopener noreferrer">A Portable Optical Frequency Comb with Low Repetition-Rate Drift Based on &quot;Optical Cubes&quot; ↗</a>
+<a class="reading-link" href="papers/2610.14490/index.html">阅读中文全文 →</a>
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-10（UTC）</p><p class="reason">读完能判断光学立方胶接、全保偏NALM和CSAC参考在便携光频梳中的集成取舍，以及哪些稳定度指标只是in-loop残差。</p>
+<h4>研究问题</h4><p>便携光频梳需要同时缩小体积并降低重复频率漂移。传统金属机械支架体积大，热膨胀和应力松弛会引起光路偏移；非保偏NPR锁模又对偏振扰动敏感，而商用氢钟/铷钟作RF参考体积和功耗偏大，限制整机便携化。</p><h4>核心方法</h4><p>采用全保偏figure-9 NALM光纤振荡器：38 cm PM Er掺杂光纤作增益，约60 cm PM-SMF构成其余光路；PBS、准直器、法拉第旋转器和波片先胶接到二氧化硅基板形成“光学立方”，光纤盘入铝板槽并灌封固定。振荡器重复频率200 MHz，模块集成放大器、保偏高非线性光纤展宽、780 nm倍频支路和f-to-2f干涉仪；以17.22 mL CPT芯片原子钟作fCEO与fbeat锁定的公共RF参考。</p>
+<h4>实验结果</h4><ul><li>全保偏Er光纤光频梳模块体积0.88 L，集成振荡器、放大器、光谱展宽、780 nm倍频支路和f-to-2f干涉仪。</li><li>自由运转10 h重复频率峰峰漂移75 Hz，对应0.375 ppm；测试无主动温控。</li><li>fCEO归一化到光频后1 s相对频率稳定度为9.86×10^-18。</li><li>780 nm拍频锁定后1 s频率稳定度为2.75×10^-18。</li><li>以CPT芯片原子钟作公共RF参考时，锁定残差归一化到光频为6.03×10^-17@1 s、2.57×10^-18@10,000 s。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>把自由空间元件直接胶接到二氧化硅基板、再用铝槽+灌封固定光纤，能取消金属调整架并压缩光路，适合便携超快光源/光频梳；迁移时需评估胶层与基板热膨胀失配、长期蠕变和返修性。</li><li>全保偏NALM+光学立方在10 h自由运转下漂移0.375 ppm，比机械安装非保偏参考梳小6.2倍；但对比只在23±1°C、无主动温控、无振动条件下完成，现场鲁棒性不能直接外推。</li><li>CSAC作RF参考能缩小微波参考体积，但1 s–10,000 s的in-loop残差低于CSAC自身稳定度，说明该指标是锁定残差而非绝对稳定度；晶振参考在4000 s达5.90×10^-15，选参考应按平均时间权衡。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>论文明确当前为in-loop tracking residual，未来需独立out-of-loop验证及受控热/振动测试；不能把该残差等同于整机绝对频率稳定度。</li><li>自由运转漂移只测10 h、23±1°C、无主动温控单台样机；未给振动、温度循环、多台一致性和长期老化数据（分析者判断）。</li></ul></article><article class="paper" id="paper-2610.19245" data-search="High-resolution retinal matrix imaging via computational motion and aberration correction 高分辨率视网膜矩阵成像：计算运动与像差校正 CNRS / ESPCI Paris CNRS ESPCI Paris optical_design">
+<div class="paper-meta"><span class="pill">CNRS</span><span class="pill">ESPCI Paris</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>高分辨率视网膜矩阵成像：计算运动与像差校正</h3><a class="original" href="https://arxiv.org/abs/2610.19245" target="_blank" rel="noopener noreferrer">High-resolution retinal matrix imaging via computational motion and aberration correction ↗</a>
+<a class="reading-link" href="papers/2610.19245/index.html">阅读中文全文 →</a>
+<p class="muted">全文机构行（模型提取） · 论文更新于 2026-10-13（UTC）</p><p class="reason">读完可了解用多平面波/多波长全息矩阵和计算像差补偿替代AO硬件的完整后处理链，以及运动补偿、局部非等晕校正与GPU离线处理的工程取舍。</p>
+<h4>研究问题</h4><p>活体人眼视网膜细胞级成像依赖自适应光学与相干门控，但硬件复杂、昂贵且视场受限。反射矩阵成像可用数字方式校正像差与多次散射，却要求采集期间介质静止；人眼持续微动会破坏连续照明间的相位相干，阻碍其活体应用。</p><h4>核心方法</h4><p>采用Linnik型扫频干涉光路：800–875 nm扫频源经长多模光纤、扫描振镜和NA=0.25物镜，在7.5 mm瞳孔面扫描112个平面波；参考臂焦面置反射镜，CMOS记录干涉图，形成多光谱全息矩阵。后处理先用子带互相关补偿扫频内轴向运动，再用图像互相关校正逐照明轴向/横向位移；以Zernike二阶至三阶系数和Nelder-Mead熵最小化补偿等晕输出像差；最后在60.8×60.8 µm局部窗口对畸变矩阵做迭代相位反演，校正输入/输出高阶非等晕像差并复合。检测NA限至0.22，照明3.8 mW/4 mm（30 mW·cm⁻²）。</p>
+<h4>实验结果</h4><ul><li>112个平面波序列由相机在1.12 s内记录。</li><li>矩阵补偿后IS/OS处输入RPSF的共焦-背景比提升9 dB，FWHM达到衍射极限。</li><li>最终矩阵图像对比度较非相干复合提升2.5倍。</li><li>体素率3.6 MHz，作者称与AO-OCT成像速度相当。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>对多照明相干成像，可把运动估计并入原始干涉数据处理，先恢复照明间相位相干再做像差反演；这比增加硬件稳定更依赖过采样与离线算力。</li><li>低阶全局Zernike+熵最小化与高阶局部畸变矩阵/IPR两级校正的组合，适合大口径宽视场系统：全局项收敛稳，局部窗口补非等晕；窗口尺寸需在等晕近似与散斑平滑样本数之间折中。</li><li>长多模光纤引入部分空间相干可压制弥散多次散射背景，是简化干涉光路的一个可迁移手段；但会牺牲光通量/相干性，需按样品散射特性权衡。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>仅1名健康志愿者完成可行性验证，尚非患者队列或临床验证（E12）。</li><li>后处理处理整个体积约15 min，离实时尚有距离；脉络膜因血流去相关仍完全模糊（E13、E14）。</li></ul></article><article class="paper" id="paper-2610.24393" data-search="Freeform gradient-index media reconstruction 自由曲面梯度折射率介质的重建 机构待核验 optical_design">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>自由曲面梯度折射率介质的重建</h3><a class="original" href="https://arxiv.org/abs/2610.24393" target="_blank" rel="noopener noreferrer">Freeform gradient-index media reconstruction ↗</a>
+<a class="reading-link" href="papers/2610.24393/index.html">阅读中文全文 →</a>
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-17（UTC）</p><p class="reason">读完能判断该方法能否把你手上的目标光线路径转成可实现的GRIN折射率分布，以及哪些界面/轨迹组合会让重建结果落到不可用的折射率范围。</p>
+<h4>研究问题</h4><p>GRIN介质的逆问题：给定一条（或一组）期望的光线轨迹，求能产生该轨迹的空间折射率分布。已有方法依赖几何对称性与费马光线守恒量，只能处理轴对称、柱对称、球对称等对称GRIN；自由曲面GRIN的等折射率面无预设对称性，缺乏不依赖对称性的重建手段。</p><h4>核心方法</h4><p>选定一族几何已知的重建界面 Σ_j(u,v)（不必是等折射率面），求给定轨迹 γ(s) 与各界面的交点 P_m 及由参数化偏导叉积给出的局部法向；由相邻交点定义入射/透射单位矢量，得到 sinθ_i,m、sinθ_t,m，再用斯涅尔定律逐点递推 n_m=n_{m-1}·sinθ_i,m/sinθ_t,m。每个折射率值赋给以 δ 为直径、位于界面切平面的圆盘所构成的局部均匀“药盒”区域，不做整层均匀假设。方法不使用几何对称性、旁轴近似，也不需要预先知道等折射率面，且不积分光线微分方程。</p>
+<h4>实验结果</h4><ul><li>以Luneburg透镜（n(r)=√(2−r²)）为基准，用J=300层同心球界面、20条沿指数螺旋分布入射点的子午光线重建；取归一化入射高度0.0872的非轴光线做定量评估，RMSE由J=10（M=18）的2.700×10⁻²降到J=10⁵（M=199998）的2.404×10⁻⁶，约四个数量级，细分后每10倍J约降10倍误差，呈一阶收敛，未见误差平台。</li><li>自由曲面界面族（a=0.075、k₁=7、k₂=2）下，1876条沿x̂方向平行入射光线、外部折射率n₀=1、δ=0.04，沿给定平面轨迹重建的折射率范围：J=10为1.0360–2.6927，J=100为1.0272–2.8294。</li><li>同一轨迹改用同心球界面（a=0），J=10时折射率范围2.9725–286.8784，J=100时2.6753–5.9129×10³；部分交点因法向不满足共面条件而无法赋值（图9(b)黑点），并出现小于1的折射率值。</li><li>非平面轨迹（x分量加2.85s²）下：第一族界面J=10为1.5105–2.5373、J=100为1.5027–2.6692；同心球界面为2.3989–3.2601（J=10）和2.2797–3.3001（J=100），说明可达折射率范围同时取决于轨迹与界面几何。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>界面族的选择相当于给GRIN逆向设计增加一个自由度：同一目标轨迹可对应多个折射率分布，可据此把重建值压进实际材料/工艺可实现的折射率窗口；但必须先检查每个交点的共面性与掠入射条件，否则会出现无法赋值的死点或 sinθ_t 极小导致折射率爆涨。适合在GRIN预制棒离子交换或3D打印折射率写入前做可行性筛查。</li><li>递推式 n_m=n_{m-1}·sinθ_i/sinθ_t 使误差沿路径累积，界面数J不仅改变采样密度，还改变交点位置与局部角度，因此“加密界面”在无参考分布时并不保证结果更合理（球界面案例中J=100的最大折射率反而增至5.9×10³）。实践中应把J与界面几何、折射率上下限联合约束，而非单纯追求收敛。</li><li>δ 同时控制局部赋值的横向尺度与不同轨迹重建区域的重叠，可作为多视场设计时的兼容性旋钮：减小δ可消除空间分离轨迹间的重叠冲突，但无法化解真实光线交点处的折射率矛盾，多视场GRIN设计需要显式加入单值性约束。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>全文为几何光学数值重建，未涉及任何GRIN样件制备、折射率分布测量或成像性能（MTF、像差）验证；重建结果仅在光线路径附近的局部“药盒”区域内给出折射率，并非完整三维分布。</li><li>方法对轴上的光线失效：入射与透射均沿球界面法向时两角为零，式(6)变为不定式，该光线被排除在精度评估之外；此外重建出的折射率可远低于1或高达10³量级，论文明确指出需引入材料限定的 n_min≤n≤n_max 约束，而简单截断会改变既定光线轨迹。</li></ul></article><article class="paper" id="paper-2610.07988" data-search="An Acousto-Optic Colorimeter 面向高饱和色刺激的声光色度计 机构待核验 laser">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>面向高饱和色刺激的声光色度计</h3><a class="original" href="https://arxiv.org/abs/2610.07988" target="_blank" rel="noopener noreferrer">An Acousto-Optic Colorimeter ↗</a>
+<a class="reading-link" href="papers/2610.07988/index.html">阅读中文全文 →</a>
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-06（UTC）</p><p class="reason">读完能判断这套超连续谱+AOTF 窄带刺激源在标定、匀光、散斑抑制和闭环稳定上的工程取舍，以及色域面积与可达到亮度为何要分开约束。</p>
+<h4>研究问题</h4><p>高饱和色区是人类颜色感知中测量最稀疏的部分，而量子点、microLED 与激光显示正进入该区域；固定基色显示无法产生足够饱和、且空间均匀和辐亮度稳定的刺激。论文要构建并表征一台可电子切换窄带基色、覆盖大色度范围、适合视觉实验的声光色度计。</p><h4>核心方法</h4><p>用四通道 TeO2 AOTF（70–135 MHz）从超连续谱激光（滤波后 380–750 nm，M²&lt;1.2）选出窄带一级衍射光；两级扩散片–光管匀光器混合角度分离光束，旋转漫射面抑制散斑；反馈光谱仪采集匀光器入口反射光，50 Hz 比例控制调节各通道射频幅度。标定 19 个波长（443–660 nm）和 1% 幅度步进，建立主/反馈光谱仪配对查找表，以三通道三刺激值矩阵求逆迭代复现目标色。相对已有 AOTF 色度工作，增加超连续谱照明、紧凑匀光、空间误差图和连续反馈下五色中心重复测量。</p>
+<h4>实验结果</h4><ul><li>四通道 19 个射频设置共 76 条光谱的实测 FWHM 为 1.37–3.20 nm，总体均值 2.00 nm。</li><li>18 mm 观测场内，亮刺激的平均空间 ΔE00 为 0.913，95 分位 2.126，最大 2.561。</li><li>连续反馈下五个 Robertson 色中心各测 10 min，平均目标误差为 1.26、0.34、1.06、0.67、0.91 ΔE00（灰、红、绿、蓝、黄）。</li><li>按 19 个标定波长计算，三基色模型覆盖 CIE 1964 10°光谱轨迹所围面积的 95%。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>AOTF 的布拉格效率与四通道射频驱动输出在 70–135 MHz 内强烈不平坦，且过驱动会降低峰值并展宽谱线；工程上不能只用统一驱动刻度，需按通道/波长标定，并用选择性衰减把可用码位分配到目标辐亮度范围。</li><li>残余场不均匀以亮度梯度为主（等积分归一化使平均 NSE 降低约 70%）；对这类匀光器，优先优化光管/扩散片配准和辐亮度平坦度，比继续追求光谱混合更能降低 ΔE00。</li><li>几何色域覆盖 95% 不代表各色度都有高亮度：同一标定模型在黄绿区最大 1406 cd/m²，但灰色 Robertson 中心只有 328 cd/m²；选基色和设定实验亮度时需把 Ymax(x,y) 与色域一起约束。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>仅做仪器级光谱/色度表征，未报告观察者视觉判断，因此 0.34–1.26 ΔE00 只能说明仪器目标误差，不能证明感知不可分辨。</li><li>色再现与均匀性只用了三通道；四通道多目标优化未验证，色域/亮度图是标定模型预测而非逐点实测，且 50 Hz 只是更新率、闭环带宽未测。</li></ul></article><article class="paper" id="paper-2610.26956" data-search="Gerchberg-Saxton Optimized Silicon Metasurface for Sinusoidal Structured-Light Three-Dimensional Imaging Gerchberg-Saxton优化硅超表面用于正弦结构光三维成像 机构待核验 display">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>Gerchberg-Saxton优化硅超表面用于正弦结构光三维成像</h3><a class="original" href="https://arxiv.org/abs/2610.26956" target="_blank" rel="noopener noreferrer">Gerchberg-Saxton Optimized Silicon Metasurface for Sinusoidal Structured-Light Three-Dimensional Imaging ↗</a>
+<a class="reading-link" href="papers/2610.26956/index.html">阅读中文全文 →</a>
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-18（UTC）</p><p class="reason">可快速拿到GS+硅超表面结构光的设计参数与相移噪声敏感性，但不应期待实验样机或产线指标。</p>
+<h4>研究问题</h4><p>传统结构光投影依赖DMD、SLM或DOE等体块元件，增加系统复杂度、装调要求和体积，限制紧凑集成。论文试图用940 nm硅介质超表面直接编码正弦条纹，代替传统投影模块，并以四步相移数值重建三维轮廓。</p><h4>核心方法</h4><p>目标远场设为矩形窗内正弦条纹，用GS在超表面面与远场间迭代提取相位；将相位映射到蓝宝石上硅矩形纳米柱（周期370 nm、高500 nm、横向130–260 nm覆盖2π），用FDTD算远场；再将四幅π/2相移条纹数值投影到真值三维物体，四步相移解包裹并转深度，加高斯噪声评估鲁棒性。</p>
+<h4>实验结果</h4><ul><li>硅矩形纳米柱横向尺寸130–260 nm，在940 nm提供完整0–2π相位调制。</li><li>设计超表面含57,600个硅纳米结构，孔径118.4 μm×66.6 μm。</li><li>FDTD远场得到正弦条纹，周期16 μm；文中称1.28 mm×0.72 mm仿真视场内约80个条纹周期。</li><li>固定80条条纹，加性高斯噪声σ从0增至0.03时，数值重建深度RMSE由0.14 mm升至5.73 mm。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>GS把目标远场直接映射到纳米柱相位，适合把DOE替换为超薄投影片；但孔径仅约118.4 μm×66.6 μm，迁移到实际工作距离需核算发散角、投影视场与条纹对比度，当前FDTD未给衍射效率、零级和均匀性。</li><li>四步相移在仿真低噪声下较稳（σ≤0.01时RMSE&lt;2.34 mm），但σ=0.03即恶化到5.73 mm；实测需同时控制相机噪声、条纹非线性和标定误差，不能把0.14 mm当作样机精度。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>正文仅给出FDTD数值验证和数值重建，未报道制备流程、实测投影条纹、效率/对比度、深度精度或系统标定；摘要虽称“fabricated metasurface”，但缺少实测证据，实验有效性未知（分析者判断）。</li><li>噪声评估只是向仿真条纹加高斯噪声，未覆盖散斑、环境光、条纹非线性、相机gamma、运动误差和装调误差；孔径/视场与RMSE不能直接外推到实测模组（分析者判断）。</li></ul></article></section><section id="topic"><h2><span class="no">04</span>今日专题</h2><div class="topic"><h3>计算重建稳定性的三条路线：设计期Fisher约束、固定参考斜照明OCT与无AO视网膜矩阵成像</h3><p>共同线索是把下游重建的稳定性前置为系统指标。2610.17950在设计阶段以Fisher信息矩阵迹逆作merit，仿真中ROD镜头在Tikhonov与MoDL重建下优于RMS镜头，但周边畸变增大且无实测。2610.06566采用Mach–Zehnder固定轴上参考+斜照明，数值剪切把物理参考瞳孔扫描变为后处理，NA 0.13、SBP约4倍，交替最小二乘等效CLASS；适合静态/弱运动样品，活体运动破坏孔径相位。2610.19245采用Linnik扫频、112平面波、检测NA 0.22，先做帧间运动补偿，再全局Zernike熵最小化与局部矩阵反演，1.12 s采集但约15 min后处理，仅1名健康志愿者。工程建议（推断）：静止样品优先固定参考路线以换吞吐；活体运动显著时需高速多平面波采集、运动项显式建模和GPU，局部窗口与NA/像差范围联合标定；设计期可把Fisher条件数作次级约束，不应单独牺牲畸变。</p><div class="sources"><a href="#paper-2610.17950">基于Fisher信息的恢复导向光学系统设计</a> · <a href="#paper-2610.06566">高空间带宽积全息光学相干断层成像中的数字共焦成像</a> · <a href="#paper-2610.19245">高分辨率视网膜矩阵成像：计算运动与像差校正</a></div></div></section></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
