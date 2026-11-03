@@ -1,0 +1,861 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>自由曲面梯度折射率介质重建</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style><style>
+.paper-reader{max-width:860px;margin:0 auto}
+.paper-reader h1{font-size:28px;line-height:1.35;margin:10px 0 6px}
+.paper-reader .original-title{color:var(--muted);font-size:14px;margin-bottom:18px}
+.paper-reader .meta{color:var(--muted);font-size:13px;margin-bottom:20px}
+.paper-reader .toc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:20px 0 28px;font-size:14px}
+.paper-reader .toc ol{margin:6px 0 0 18px;padding:0}
+.paper-reader .toc li{margin:3px 0}
+.paper-reader article{font-size:16px;line-height:1.9}
+.paper-reader h2{font-size:22px;margin:30px 0 10px}
+.paper-reader h3{font-size:18px;margin:22px 0 8px}
+.paper-reader figure{margin:20px 0;text-align:center}
+.paper-reader img{max-width:100%;height:auto}
+.paper-reader figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+.paper-reader table{display:block;overflow-x:auto;border-collapse:collapse;margin:16px 0;font-size:14px}
+.paper-reader math{overflow-x:auto;max-width:100%}
+.paper-reader pre{overflow-x:auto}
+</style></head><body class="">
+<header><a class="brand" href="../index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="../daily/index.html">日报</a><a href="../papers/index.html" aria-current="page">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 中文全文</div><h1>自由曲面梯度折射率介质重建</h1><div class="paper-reader"><h1>自由曲面梯度折射率介质重建</h1><p class="original-title">Freeform gradient-index media reconstruction</p><p class="meta">arXiv 2610.24393 · 机器翻译，公式与图表保留原文</p><nav class="toc"><strong>目录</strong><ol></ol></nav><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">自由曲面梯度折射率介质重建</h1>
+<span class="ltx_pubnotes ltx_pubnotes_meta"><span class="ltx_pubnotes_content"><span class="ltx_pubnote ltx_role_preprint"><span class="ltx_note_name">Preprint: </span>APS/123-QED</span></span></span>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">V. Chávez-Islas
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Instituto Nacional de Astrofísica, Óptica y Electrónica, Coordinación de Óptica, Tonantzintla, Puebla 72840, Mexico
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">F. H. Maldonado-Villamizar
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>SECIHTI - Instituto Nacional de Astrofísica, Óptica y Electrónica, Coordinación de Óptica, Tonantzintla, Puebla 72840, Mexico
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">E. Espíndola-Ramos
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Instituto Nacional de Astrofísica, Óptica y Electrónica, Coordinación de Óptica, Tonantzintla, Puebla 72840, Mexico
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">S. Chávez-Cerda
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Instituto Nacional de Astrofísica, Óptica y Electrónica, Coordinación de Óptica, Tonantzintla, Puebla 72840, Mexico
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">J. E. Gómez-Correa
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_email"><span class="ltx_contact_name">Email: </span><a href="mailto:jgomez@inaoep.mx">jgomez@inaoep.mx</a>
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Instituto Nacional de Astrofísica, Óptica y Electrónica, Coordinación de Óptica, Tonantzintla, Puebla 72840, Mexico
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">摘要</h6>
+<p class="ltx_p" id="abstract1.1">重建梯度折射率（GRIN）介质在于确定一种空间折射率分布，使其产生规定的光线轨迹，这是几何光学中的一个逆问题。以往方法利用几何对称性和守恒的光线量来处理这一逆问题。将重建扩展到自由曲面介质，需要不依赖这些对称性的方法。在此，我们提出一种三维逐点方法，通过局部折射的逆向应用来重建自由曲面 GRIN 介质。该方法不需要几何对称性、傍轴近似或等折射率面的先验知识，并且易于实现。使用两种界面几何结构进行重建表明，可由同一规定轨迹函数获得不同的折射率分布。因此，界面的选择为光学设计提供了额外的自由度，但受局部折射条件以及重叠重建区域之间兼容性的约束。</p>
+</div>
+<section class="ltx_section" id="S1">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">I </span>引言</h2>
+<div class="ltx_para" id="S1.p1">
+<p class="ltx_p" id="S1.p1.1">梯度折射率（GRIN）介质的特征在于具有空间变化的折射率分布，该分布会在光传播过程中连续弯曲光线 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">11</a>, <a class="ltx_ref" href="#bib.bib3" title="">13</a>]</cite>。其内部结构可用等折射率面 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib15" title="">8</a>]</cite> 来描述，即在非均匀光学介质内部的假想三维层，其中每一点具有相同的折射率。根据这些表面的几何结构，GRIN 介质可大致分为对称型和自由曲面型 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib16" title="">9</a>]</cite>。在对称 GRIN 介质中，等折射率面表现出明确的几何对称性，如经典的轴向、圆柱和球面分布 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib3" title="">13</a>]</cite>。相比之下，自由曲面 GRIN 介质的特征在于其等折射率面没有预定义对称性，从而使折射率能够在三维空间中任意变化 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib4" title="">14</a>]</cite>。</p>
+</div>
+<div class="ltx_para" id="S1.p2">
+<p class="ltx_p" id="S1.p2.1">在几何光学中，确定光线通过已知 GRIN 分布的轨迹构成正问题，并且已通过解析和数值方法得到广泛研究 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib19" title="">19</a>, <a class="ltx_ref" href="#bib.bib20" title="">20</a>, <a class="ltx_ref" href="#bib.bib21" title="">18</a>, <a class="ltx_ref" href="#bib.bib22" title="">23</a>, <a class="ltx_ref" href="#bib.bib23" title="">31</a>, <a class="ltx_ref" href="#bib.bib24" title="">27</a>, <a class="ltx_ref" href="#bib.bib25" title="">5</a>, <a class="ltx_ref" href="#bib.bib29" title="">16</a>, <a class="ltx_ref" href="#bib.bib26" title="">29</a>, <a class="ltx_ref" href="#bib.bib27" title="">30</a>, <a class="ltx_ref" href="#bib.bib28" title="">28</a>, <a class="ltx_ref" href="#bib.bib15" title="">8</a>, <a class="ltx_ref" href="#bib.bib14" title="">10</a>, <a class="ltx_ref" href="#bib.bib30" title="">7</a>, <a class="ltx_ref" href="#bib.bib31" title="">6</a>]</cite>。相反，逆问题在于确定能够产生规定光线轨迹的折射率分布，并且仍是一个活跃的研究领域 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib6" title="">24</a>, <a class="ltx_ref" href="#bib.bib7" title="">22</a>, <a class="ltx_ref" href="#bib.bib8" title="">1</a>, <a class="ltx_ref" href="#bib.bib9" title="">2</a>, <a class="ltx_ref" href="#bib.bib10" title="">4</a>, <a class="ltx_ref" href="#bib.bib11" title="">3</a>, <a class="ltx_ref" href="#bib.bib5" title="">15</a>, <a class="ltx_ref" href="#bib.bib12" title="">25</a>, <a class="ltx_ref" href="#bib.bib13" title="">26</a>, <a class="ltx_ref" href="#bib.bib16" title="">9</a>]</cite>。</p>
+</div>
+<div class="ltx_para" id="S1.p3">
+<p class="ltx_p" id="S1.p3.1">早期方法推导出可产生规定二维光线路径的折射率分布，并表明不同的折射率分布可以支持同一规定轨迹，从而揭示了逆问题的非唯一性 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib6" title="">24</a>]</cite>。</p>
+</div>
+<div class="ltx_para" id="S1.p4">
+<p class="ltx_p" id="S1.p4.1">最近，提出了一种基于费马光线不变量的对称 GRIN 介质重建方法 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib16" title="">9</a>]</cite>。这些守恒量源于几何对称性，可解释为 Snell 定律的广义形式 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib15" title="">8</a>, <a class="ltx_ref" href="#bib.bib14" title="">10</a>]</cite>，使得能够沿指定轨迹恢复折射率而无需积分光线微分方程。该方法为自由曲面重建提供了物理联系：尽管相应的基于对称性的不变量通常不可用，但重建所依据的局部折射定律仍然适用。</p>
+</div>
+<div class="ltx_para" id="S1.p5">
+<p class="ltx_p" id="S1.p5.1">本文采用逐点重建方法处理三维自由曲面 GRIN 介质的逆问题。所提方法既不需要几何对称性，也不需要傍轴近似或等折射率曲面的先验知识。其实现依赖于简单局部折射关系的逐次应用，而无需积分光线微分方程。我们展示了逆问题的非唯一性如何通过重建界面的选择体现出来：对于同一指定轨迹，不同的界面几何可产生不同的折射率分布。这种几何灵活性为定制重建分布提供了额外自由度，但需满足局部折射条件。</p>
+</div>
+</section>
+<section class="ltx_section" id="S2">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">II </span>重建方法</h2>
+<div class="ltx_para" id="S2.p1">
+<p class="ltx_p" id="S2.p1.1">重建从指定光线轨迹和几何已知的选定曲面族出发。重建的折射率分布取决于这一选择，因为曲面决定了沿指定轨迹的交点和局部法线。这些交点将轨迹划分为连续线段，并将其近似为由局部折射事件连接的直线传播路径。在每个交点处，相邻线段的方向和曲面法线提供了通过 Snell 定律恢复折射率比所需的几何信息。从已知的输入折射率出发，逐次应用该关系，以构建沿指定轨迹的介质分段均匀表示。</p>
+</div>
+<figure class="ltx_figure" id="S2.F1"><object class="ltx_graphics ltx_centering ltx_img_landscape" data="assets/Fig1.svg" height="227" id="S2.F1.g1" style="aspect-ratio:476/227;" type="image/svg+xml" width="476"></object>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 1：</span>重建方法的示意图。指定轨迹 <math alttext="\bm{\gamma}(s)" class="ltx_Math" display="inline" id="S2.F1.m8" intent=":literal"><semantics><mrow><mi>𝜸</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\bm{\gamma}(s)</annotation></semantics></math> 与选定界面 <math alttext="\Sigma_{j}" class="ltx_Math" display="inline" id="S2.F1.m9" intent=":literal"><semantics><msub><mi mathvariant="normal">Σ</mi><mi>j</mi></msub><annotation encoding="application/x-tex">\Sigma_{j}</annotation></semantics></math> 相交于点 <math alttext="\mathbf{P}_{m}" class="ltx_Math" display="inline" id="S2.F1.m10" intent=":literal"><semantics><msub><mi>𝐏</mi><mi>m</mi></msub><annotation encoding="application/x-tex">\mathbf{P}_{m}</annotation></semantics></math>，这些点沿传播方向排序。相邻交点定义了折射率为 <math alttext="n_{m}" class="ltx_Math" display="inline" id="S2.F1.m11" intent=":literal"><semantics><msub><mi>n</mi><mi>m</mi></msub><annotation encoding="application/x-tex">n_{m}</annotation></semantics></math> 且横向范围由 <math alttext="\delta" class="ltx_Math" display="inline" id="S2.F1.m12" intent=":literal"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math> 控制的局部均匀线段。放大视图显示了局部法线 <math alttext="\hat{\mathbf{N}}_{m}" class="ltx_Math" display="inline" id="S2.F1.m13" intent=":literal"><semantics><msub><mover accent="true"><mi>𝐍</mi><mo>^</mo></mover><mi>m</mi></msub><annotation encoding="application/x-tex">\hat{\mathbf{N}}_{m}</annotation></semantics></math> 以及用于通过 Snell 定律恢复 <math alttext="n_{m}" class="ltx_Math" display="inline" id="S2.F1.m14" intent=":literal"><semantics><msub><mi>n</mi><mi>m</mi></msub><annotation encoding="application/x-tex">n_{m}</annotation></semantics></math> 的入射角和透射角。</figcaption>
+</figure>
+<div class="ltx_para" id="S2.p2">
+<p class="ltx_p" id="S2.p2.1">设 <math alttext="\bm{\gamma}(s)" class="ltx_Math" display="inline" id="S2.p2.m1" intent=":literal"><semantics><mrow><mi>𝜸</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\bm{\gamma}(s)</annotation></semantics></math> 表示给定的光线轨迹，其中 <math alttext="s" class="ltx_Math" display="inline" id="S2.p2.m2" intent=":literal"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math> 表示轨迹参数；并设 <math alttext="\{\Sigma_{j}\}_{j=1}^{J}" class="ltx_Math" display="inline" id="S2.p2.m3" intent=":literal"><semantics><msubsup><mrow><mo stretchy="false">{</mo><msub><mi mathvariant="normal">Σ</mi><mi>j</mi></msub><mo stretchy="false">}</mo></mrow><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>J</mi></msubsup><annotation encoding="application/x-tex">\{\Sigma_{j}\}_{j=1}^{J}</annotation></semantics></math> 为选定的一族重建界面，其中 <math alttext="J" class="ltx_Math" display="inline" id="S2.p2.m4" intent=":literal"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math> 为界面总数，见图 <a class="ltx_ref" href="#S2.F1" title="Figure 1 ‣ II Reconstruction method ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">1</span></a>。这些界面规定了施加局部折射条件的几何位置，且不限于等折射率面：折射率在每条光线与界面的交点处局部恢复，并可在给定界面内变化。每个界面由参数曲面描述</p>
+<table class="ltx_equation ltx_eqn_table" id="S2.E1">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\mathbf{\Sigma}_{j}(u,v)=\begin{bmatrix}X_{j}(u,v)\\
+Y_{j}(u,v)\\
+Z_{j}(u,v)\end{bmatrix}," class="ltx_Math" display="block" id="S2.E1.m1" intent=":literal"><semantics><mrow><mrow><mrow><msub><mi>𝚺</mi><mi>j</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mo>[</mo><mtable displaystyle="true" rowspacing="0pt"><mtr><mtd><mrow><msub><mi>X</mi><mi>j</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></mrow></mtd></mtr><mtr><mtd><mrow><msub><mi>Y</mi><mi>j</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></mrow></mtd></mtr><mtr><mtd><mrow><msub><mi>Z</mi><mi>j</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></mrow></mtd></mtr></mtable><mo>]</mo></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\mathbf{\Sigma}_{j}(u,v)=\begin{bmatrix}X_{j}(u,v)\\
+Y_{j}(u,v)\\
+Z_{j}(u,v)\end{bmatrix},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(1)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S2.p2.2">其中 <math alttext="u" class="ltx_Math" display="inline" id="S2.p2.m5" intent=":literal"><semantics><mi>u</mi><annotation encoding="application/x-tex">u</annotation></semantics></math> 和 <math alttext="v" class="ltx_Math" display="inline" id="S2.p2.m6" intent=":literal"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math> 为曲面参数，<math alttext="X_{j}(u,v)" class="ltx_Math" display="inline" id="S2.p2.m7" intent=":literal"><semantics><mrow><msub><mi>X</mi><mi>j</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">X_{j}(u,v)</annotation></semantics></math>、<math alttext="Y_{j}(u,v)" class="ltx_Math" display="inline" id="S2.p2.m8" intent=":literal"><semantics><mrow><msub><mi>Y</mi><mi>j</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">Y_{j}(u,v)</annotation></semantics></math> 和 <math alttext="Z_{j}(u,v)" class="ltx_Math" display="inline" id="S2.p2.m9" intent=":literal"><semantics><mrow><msub><mi>Z</mi><mi>j</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">Z_{j}(u,v)</annotation></semantics></math> 为第 <math alttext="j" class="ltx_Math" display="inline" id="S2.p2.m10" intent=":literal"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math> 个界面的笛卡尔坐标。</p>
+</div>
+<div class="ltx_para" id="S2.p3">
+<p class="ltx_p" id="S2.p3.1">给定轨迹与重建界面相交于点</p>
+<table class="ltx_equation ltx_eqn_table" id="S2.E2">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\mathbf{P}_{m}=\bm{\gamma}(s_{m})=\mathbf{\Sigma}_{j_{m}}(u_{m},v_{m})," class="ltx_Math" display="block" id="S2.E2.m1" intent=":literal"><semantics><mrow><mrow><msub><mi>𝐏</mi><mi>m</mi></msub><mo>=</mo><mrow><mi>𝜸</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><msub><mi>s</mi><mi>m</mi></msub><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><msub><mi>𝚺</mi><msub><mi>j</mi><mi>m</mi></msub></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msub><mi>u</mi><mi>m</mi></msub><mo>,</mo><msub><mi>v</mi><mi>m</mi></msub><mo stretchy="false">)</mo></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\mathbf{P}_{m}=\bm{\gamma}(s_{m})=\mathbf{\Sigma}_{j_{m}}(u_{m},v_{m}),</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S2.p3.2">其中 <math alttext="\mathbf{P}_{m}" class="ltx_Math" display="inline" id="S2.p3.m1" intent=":literal"><semantics><msub><mi>𝐏</mi><mi>m</mi></msub><annotation encoding="application/x-tex">\mathbf{P}_{m}</annotation></semantics></math> 是沿光线的第 <math alttext="m" class="ltx_Math" display="inline" id="S2.p3.m2" intent=":literal"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math> 个交点，<math alttext="s_{m}" class="ltx_Math" display="inline" id="S2.p3.m3" intent=":literal"><semantics><msub><mi>s</mi><mi>m</mi></msub><annotation encoding="application/x-tex">s_{m}</annotation></semantics></math> 是对应的轨迹参数，<math alttext="j_{m}" class="ltx_Math" display="inline" id="S2.p3.m4" intent=":literal"><semantics><msub><mi>j</mi><mi>m</mi></msub><annotation encoding="application/x-tex">j_{m}</annotation></semantics></math> 标识在该点穿过的界面。参数 <math alttext="(u_{m},v_{m})" class="ltx_Math" display="inline" id="S2.p3.m5" intent=":literal"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>u</mi><mi>m</mi></msub><mo>,</mo><msub><mi>v</mi><mi>m</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(u_{m},v_{m})</annotation></semantics></math> 确定 <math alttext="\mathbf{P}_{m}" class="ltx_Math" display="inline" id="S2.p3.m6" intent=":literal"><semantics><msub><mi>𝐏</mi><mi>m</mi></msub><annotation encoding="application/x-tex">\mathbf{P}_{m}</annotation></semantics></math> 在该界面上的位置。交点沿传播方向按 <math alttext="s_{m}" class="ltx_Math" display="inline" id="S2.p3.m7" intent=":literal"><semantics><msub><mi>s</mi><mi>m</mi></msub><annotation encoding="application/x-tex">s_{m}</annotation></semantics></math> 递增的顺序排列。因此，<math alttext="m" class="ltx_Math" display="inline" id="S2.p3.m8" intent=":literal"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math> 标记相继的交点，而 <math alttext="j" class="ltx_Math" display="inline" id="S2.p3.m9" intent=":literal"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math> 标记重建界面。这一区别允许同一界面被穿过不止一次，且每次穿过都被赋予不同的 <math alttext="m" class="ltx_Math" display="inline" id="S2.p3.m10" intent=":literal"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math> 值。</p>
+</div>
+<div class="ltx_para" id="S2.p4">
+<p class="ltx_p" id="S2.p4.1">在每个交点 <math alttext="\mathbf{P}_{m}" class="ltx_Math" display="inline" id="S2.p4.m1" intent=":literal"><semantics><msub><mi>𝐏</mi><mi>m</mi></msub><annotation encoding="application/x-tex">\mathbf{P}_{m}</annotation></semantics></math> 处，局部单位法线由界面参数化计算为</p>
+<table class="ltx_equation ltx_eqn_table" id="S2.E3">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\hat{\mathbf{N}}_{m}=\frac{\partial_{u}\mathbf{\Sigma}_{j_{m}}(u,v)\times\partial_{v}\mathbf{\Sigma}_{j_{m}}(u,v)}{\left\|\partial_{u}\mathbf{\Sigma}_{j_{m}}(u,v)\times\partial_{v}\mathbf{\Sigma}_{j_{m}}(u,v)\right\|}\Bigg|_{u=u_{m},\,v=v_{m}}," class="ltx_Math" display="block" id="S2.E3.m1" intent=":literal"><semantics><mrow><mrow><msub><mover accent="true"><mi>𝐍</mi><mo>^</mo></mover><mi>m</mi></msub><mo>=</mo><msub><mrow><mfrac><mrow><mrow><msub><mo>∂</mo><mi>u</mi></msub><mrow><msub><mi>𝚺</mi><msub><mi>j</mi><mi>m</mi></msub></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo rspace="0.055em" stretchy="false">)</mo></mrow></mrow></mrow><mo rspace="0.055em">×</mo><mrow><msub><mo>∂</mo><mi>v</mi></msub><mrow><msub><mi>𝚺</mi><msub><mi>j</mi><mi>m</mi></msub></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow><mrow><mo>‖</mo><mrow><mrow><msub><mo lspace="0em">∂</mo><mi>u</mi></msub><mrow><msub><mi>𝚺</mi><msub><mi>j</mi><mi>m</mi></msub></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo rspace="0.055em" stretchy="false">)</mo></mrow></mrow></mrow><mo rspace="0.055em">×</mo><mrow><msub><mo>∂</mo><mi>v</mi></msub><mrow><msub><mi>𝚺</mi><msub><mi>j</mi><mi>m</mi></msub></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow><mo>‖</mo></mrow></mfrac><mo maxsize="2.600em" minsize="2.600em" stretchy="true">|</mo></mrow><mrow><mrow><mi>u</mi><mo>=</mo><msub><mi>u</mi><mi>m</mi></msub></mrow><mo rspace="0.337em">,</mo><mrow><mi>v</mi><mo>=</mo><msub><mi>v</mi><mi>m</mi></msub></mrow></mrow></msub></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\hat{\mathbf{N}}_{m}=\frac{\partial_{u}\mathbf{\Sigma}_{j_{m}}(u,v)\times\partial_{v}\mathbf{\Sigma}_{j_{m}}(u,v)}{\left\|\partial_{u}\mathbf{\Sigma}_{j_{m}}(u,v)\times\partial_{v}\mathbf{\Sigma}_{j_{m}}(u,v)\right\|}\Bigg|_{u=u_{m},\,v=v_{m}},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(3)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S2.p4.2">其中记号 <math alttext="\partial_{\alpha}\mathbf{\Sigma}_{j_{m}}(u,v)" class="ltx_Math" display="inline" id="S2.p4.m2" intent=":literal"><semantics><mrow><msub><mo>∂</mo><mi>α</mi></msub><mrow><msub><mi>𝚺</mi><msub><mi>j</mi><mi>m</mi></msub></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\partial_{\alpha}\mathbf{\Sigma}_{j_{m}}(u,v)</annotation></semantics></math> 表示 <math alttext="\mathbf{\Sigma}_{j_{m}}(u,v)" class="ltx_Math" display="inline" id="S2.p4.m3" intent=":literal"><semantics><mrow><msub><mi>𝚺</mi><msub><mi>j</mi><mi>m</mi></msub></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>u</mi><mo>,</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{\Sigma}_{j_{m}}(u,v)</annotation></semantics></math> 对 <math alttext="\alpha\in\{u,v\}" class="ltx_Math" display="inline" id="S2.p4.m4" intent=":literal"><semantics><mrow><mi>α</mi><mo>∈</mo><mrow><mo stretchy="false">{</mo><mrow><mi>u</mi><mo>,</mo><mi>v</mi></mrow><mo stretchy="false">}</mo></mrow></mrow><annotation encoding="application/x-tex">\alpha\in\{u,v\}</annotation></semantics></math> 的偏导数。
+相邻轨迹段定义入射单位向量和透射单位向量，</p>
+<table class="ltx_equation ltx_eqn_table" id="S2.E4">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\hat{\mathbf{i}}_{m}=\frac{\mathbf{P}_{m}-\mathbf{P}_{m-1}}{\left\|\mathbf{P}_{m}-\mathbf{P}_{m-1}\right\|},\qquad\hat{\mathbf{t}}_{m}=\frac{\mathbf{P}_{m+1}-\mathbf{P}_{m}}{\left\|\mathbf{P}_{m+1}-\mathbf{P}_{m}\right\|}." class="ltx_Math" display="block" id="S2.E4.m1" intent=":literal"><semantics><mrow><mrow><mrow><msub><mover accent="true"><mi>𝐢</mi><mo>^</mo></mover><mi>m</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>𝐏</mi><mi>m</mi></msub><mo>−</mo><msub><mi>𝐏</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><mrow><mo>‖</mo><mrow><msub><mi>𝐏</mi><mi>m</mi></msub><mo>−</mo><msub><mi>𝐏</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><mo>‖</mo></mrow></mfrac></mrow><mo rspace="2.167em">,</mo><mrow><msub><mover accent="true"><mi>𝐭</mi><mo>^</mo></mover><mi>m</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>𝐏</mi><mrow><mi>m</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>𝐏</mi><mi>m</mi></msub></mrow><mrow><mo>‖</mo><mrow><msub><mi>𝐏</mi><mrow><mi>m</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>𝐏</mi><mi>m</mi></msub></mrow><mo>‖</mo></mrow></mfrac></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\hat{\mathbf{i}}_{m}=\frac{\mathbf{P}_{m}-\mathbf{P}_{m-1}}{\left\|\mathbf{P}_{m}-\mathbf{P}_{m-1}\right\|},\qquad\hat{\mathbf{t}}_{m}=\frac{\mathbf{P}_{m+1}-\mathbf{P}_{m}}{\left\|\mathbf{P}_{m+1}-\mathbf{P}_{m}\right\|}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S2.p4.3">这些向量与 <math alttext="\hat{\mathbf{N}}_{m}" class="ltx_Math" display="inline" id="S2.p4.m5" intent=":literal"><semantics><msub><mover accent="true"><mi>𝐍</mi><mo>^</mo></mover><mi>m</mi></msub><annotation encoding="application/x-tex">\hat{\mathbf{N}}_{m}</annotation></semantics></math> 一起通过下式确定入射角和透射角</p>
+<table class="ltx_equation ltx_eqn_table" id="S2.E5">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\sin\theta_{i,m}=\left\|{}\mathbf{\hat{i}}_{m}\times\mathbf{\hat{N}}_{m}\right\|{},\quad\sin\theta_{t,m}=\left\|{}\mathbf{\hat{t}}_{m}\times\mathbf{\hat{N}}_{m}\right\|{}" class="ltx_Math" display="block" id="S2.E5.m1" intent=":literal"><semantics><mrow><mrow><mrow><mi>sin</mi><mo lspace="0.167em">⁡</mo><msub><mi>θ</mi><mrow><mi>i</mi><mo>,</mo><mi>m</mi></mrow></msub></mrow><mo>=</mo><mrow><mo>‖</mo><mrow><msub><mover accent="true"><mi>𝐢</mi><mo>^</mo></mover><mi>m</mi></msub><mo lspace="0.222em" rspace="0.222em">×</mo><msub><mover accent="true"><mi>𝐍</mi><mo>^</mo></mover><mi>m</mi></msub></mrow><mo>‖</mo></mrow></mrow><mo rspace="1.167em">,</mo><mrow><mrow><mi>sin</mi><mo lspace="0.167em">⁡</mo><msub><mi>θ</mi><mrow><mi>t</mi><mo>,</mo><mi>m</mi></mrow></msub></mrow><mo>=</mo><mrow><mo>‖</mo><mrow><msub><mover accent="true"><mi>𝐭</mi><mo>^</mo></mover><mi>m</mi></msub><mo lspace="0.222em" rspace="0.222em">×</mo><msub><mover accent="true"><mi>𝐍</mi><mo>^</mo></mover><mi>m</mi></msub></mrow><mo>‖</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\sin\theta_{i,m}=\left\|{}\mathbf{\hat{i}}_{m}\times\mathbf{\hat{N}}_{m}\right\|{},\quad\sin\theta_{t,m}=\left\|{}\mathbf{\hat{t}}_{m}\times\mathbf{\hat{N}}_{m}\right\|{}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(5)</span></td></tr></tbody>
+</table>
+</div>
+<figure class="ltx_figure" id="S2.F2"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="281" id="S2.F2.g1" src="assets/Fig2.png" style="aspect-ratio:476/281;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 2：</span>重建界面上的局部折射率分配，分别对应较大（左）和较小（右）的 <math alttext="\delta" class="ltx_Math" display="inline" id="S2.F2.m4" intent=":literal"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math> 值。每个彩色色块表示一个被赋予恒定折射率 <math alttext="n_{m}" class="ltx_Math" display="inline" id="S2.F2.m5" intent=":literal"><semantics><msub><mi>n</mi><mi>m</mi></msub><annotation encoding="application/x-tex">n_{m}</annotation></semantics></math> 的区域，其横向范围由 <math alttext="\delta" class="ltx_Math" display="inline" id="S2.F2.m6" intent=":literal"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math> 控制。同一界面上的不同区域可具有不同的折射率，如色标所示。插图显示了较小色块的放大视图。</figcaption>
+</figure>
+<div class="ltx_para" id="S2.p5">
+<p class="ltx_p" id="S2.p5.1">为使这些方向描述一条透射光线，它们必须满足局部矢量折射条件：入射方向、透射方向和界面法线必须共面，两个方向的切向分量必须具有相同取向，且它们的法向分量必须对应于跨界面传播。一旦满足这些条件，斯涅尔定律给出所需的折射率 <math alttext="n_{m}" class="ltx_Math" display="inline" id="S2.p5.m1" intent=":literal"><semantics><msub><mi>n</mi><mi>m</mi></msub><annotation encoding="application/x-tex">n_{m}</annotation></semantics></math>（对应 <math alttext="\mathbf{P}_{m}" class="ltx_Math" display="inline" id="S2.p5.m2" intent=":literal"><semantics><msub><mi>𝐏</mi><mi>m</mi></msub><annotation encoding="application/x-tex">\mathbf{P}_{m}</annotation></semantics></math> 处）：</p>
+<table class="ltx_equation ltx_eqn_table" id="S2.E6">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="n_{m}=n_{m-1}\frac{\sin\theta_{i,m}}{\sin\theta_{t,m}}," class="ltx_Math" display="block" id="S2.E6.m1" intent=":literal"><semantics><mrow><mrow><msub><mi>n</mi><mi>m</mi></msub><mo>=</mo><mrow><msub><mi>n</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msub><mo lspace="0em" rspace="0em">​</mo><mfrac><mrow><mi>sin</mi><mo lspace="0.167em">⁡</mo><msub><mi>θ</mi><mrow><mi>i</mi><mo>,</mo><mi>m</mi></mrow></msub></mrow><mrow><mi>sin</mi><mo lspace="0.167em">⁡</mo><msub><mi>θ</mi><mrow><mi>t</mi><mo>,</mo><mi>m</mi></mrow></msub></mrow></mfrac></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">n_{m}=n_{m-1}\frac{\sin\theta_{i,m}}{\sin\theta_{t,m}},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S2.p5.2">其中<math alttext="n_{m-1}" class="ltx_Math" display="inline" id="S2.p5.m3" intent=":literal"><semantics><msub><mi>n</mi><mrow><mi>m</mi><mo>−</mo><mn>1</mn></mrow></msub><annotation encoding="application/x-tex">n_{m-1}</annotation></semantics></math>是紧邻交点之前的折射率，<math alttext="n_{m}" class="ltx_Math" display="inline" id="S2.p5.m4" intent=":literal"><semantics><msub><mi>n</mi><mi>m</mi></msub><annotation encoding="application/x-tex">n_{m}</annotation></semantics></math>对应于从<math alttext="\mathbf{P}_{m}" class="ltx_Math" display="inline" id="S2.p5.m5" intent=":literal"><semantics><msub><mi>𝐏</mi><mi>m</mi></msub><annotation encoding="application/x-tex">\mathbf{P}_{m}</annotation></semantics></math>延伸到<math alttext="\mathbf{P}_{m+1}" class="ltx_Math" display="inline" id="S2.p5.m6" intent=":literal"><semantics><msub><mi>𝐏</mi><mrow><mi>m</mi><mo>+</mo><mn>1</mn></mrow></msub><annotation encoding="application/x-tex">\mathbf{P}_{m+1}</annotation></semantics></math>的线段。相邻界面上的直径为<math alttext="\delta" class="ltx_Math" display="inline" id="S2.p5.m7" intent=":literal"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math>的圆盘定义了该线段所穿过的局部均匀药丸盒形区域。每个圆盘定义为界面局部切平面内的一个圆，与表面几何形状和光线入射角无关。参数<math alttext="\delta" class="ltx_Math" display="inline" id="S2.p5.m8" intent=":literal"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math>可调，以控制局部折射率赋值的横向范围。界面限定该区域的纵向范围，该局部体积内的所有点均被赋予相同的折射率值<math alttext="n_{m}" class="ltx_Math" display="inline" id="S2.p5.m9" intent=":literal"><semantics><msub><mi>n</mi><mi>m</mi></msub><annotation encoding="application/x-tex">n_{m}</annotation></semantics></math>。这种基于药丸盒的赋值避免在整个层上施加均匀折射率，并允许将光学元件的不同区域定制为不同的指定轨迹，前提是在局部体积重叠的任何位置所赋的折射率值相等。图<a class="ltx_ref" href="#S2.F2" title="Figure 2 ‣ II Reconstruction method ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">2</span></a>给出了<math alttext="\delta" class="ltx_Math" display="inline" id="S2.p5.m10" intent=":literal"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math>取较大值和较小值时重建的区域。</p>
+</div>
+</section>
+<section class="ltx_section" id="S3">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">III </span>重建精度</h2>
+<div class="ltx_para" id="S3.p1">
+<p class="ltx_p" id="S3.p1.1">为评估重建精度，我们考虑一个 Luneburg 透镜<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib2" title="">17</a>]</cite>，其折射率分布和光线轨迹均具有解析已知形式<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib2" title="">17</a>, <a class="ltx_ref" href="#bib.bib17" title="">12</a>]</cite>。虽然该透镜具有球对称性，但它提供了一个明确定义的基准：解析轨迹作为重建方法的输入，恢复的折射率可直接与精确分布进行比较。其折射率分布由<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib2" title="">17</a>]</cite>给出。</p>
+<table class="ltx_equation ltx_eqn_table" id="S3.E7">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="n(r)=\sqrt{2-r^{2}}," class="ltx_Math" display="block" id="S3.E7.m1" intent=":literal"><semantics><mrow><mrow><mrow><mi>n</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>r</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><msqrt><mrow><mn>2</mn><mo>−</mo><msup><mi>r</mi><mn>2</mn></msup></mrow></msqrt></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">n(r)=\sqrt{2-r^{2}},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(7)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S3.p1.2">其中<math alttext="r\in[0,1]" class="ltx_Math" display="inline" id="S3.p1.m1" intent=":literal"><semantics><mrow><mi>r</mi><mo>∈</mo><mrow><mo stretchy="false">[</mo><mrow><mn>0</mn><mo>,</mo><mn>1</mn></mrow><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">r\in[0,1]</annotation></semantics></math>是由透镜半径归一化的径向坐标，原点位于透镜中心。透镜内部的光线轨迹由<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib17" title="">12</a>]</cite>解析描述。</p>
+<table class="ltx_equation ltx_eqn_table" id="S3.E8">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="y(x)=y_{1}\cos\!\left[\sin^{-1}\!\left(\frac{x}{\Lambda_{1}}\right)-\sin^{-1}\!\left(\frac{x_{1}}{\Lambda_{1}}\right)\right]," class="ltx_Math" display="block" id="S3.E8.m1" intent=":literal"><semantics><mrow><mrow><mrow><mi>y</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><msub><mi>y</mi><mn>1</mn></msub><mo lspace="0.167em" rspace="0em">​</mo><mrow><mpadded style="width:1.216em;" width="1.216em"><mi>cos</mi></mpadded><mo>⁡</mo><mrow><mo>[</mo><mrow><mrow><msup><mi>sin</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo>⁡</mo><mrow><mo>(</mo><mfrac><mi>x</mi><msub><mi mathvariant="normal">Λ</mi><mn>1</mn></msub></mfrac><mo>)</mo></mrow></mrow><mo>−</mo><mrow><msup><mi>sin</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo>⁡</mo><mrow><mo>(</mo><mfrac><msub><mi>x</mi><mn>1</mn></msub><msub><mi mathvariant="normal">Λ</mi><mn>1</mn></msub></mfrac><mo>)</mo></mrow></mrow></mrow><mo>]</mo></mrow></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">y(x)=y_{1}\cos\!\left[\sin^{-1}\!\left(\frac{x}{\Lambda_{1}}\right)-\sin^{-1}\!\left(\frac{x_{1}}{\Lambda_{1}}\right)\right],</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S3.p1.3">其中<math alttext="\Lambda_{1}=\sqrt{1+x_{1}^{2}}" class="ltx_Math" display="inline" id="S3.p1.m2" intent=":literal"><semantics><mrow><msub><mi mathvariant="normal">Λ</mi><mn>1</mn></msub><mo>=</mo><msqrt><mrow><mn>1</mn><mo>+</mo><msubsup><mi>x</mi><mn>1</mn><mn>2</mn></msubsup></mrow></msqrt></mrow><annotation encoding="application/x-tex">\Lambda_{1}=\sqrt{1+x_{1}^{2}}</annotation></semantics></math>，且<math alttext="(x_{1},y_{1})" class="ltx_Math" display="inline" id="S3.p1.m3" intent=":literal"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>x</mi><mn>1</mn></msub><mo>,</mo><msub><mi>y</mi><mn>1</mn></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x_{1},y_{1})</annotation></semantics></math>
+是光线在其传播平面内的入射点。</p>
+</div>
+<figure class="ltx_figure" id="S3.F3"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="242" id="S3.F3.g1" src="assets/Fig3.png" style="aspect-ratio:476/242;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图3：</span>用于 Luneburg 重建的指定光线。(a) 前半球，显示入射点沿指数螺旋分布，在不同方位角处采样距光轴逐渐减小的距离；插图显示其三维排列。(b) 透镜内相应的解析光线轨迹。</figcaption>
+</figure>
+<div class="ltx_para" id="S3.p2">
+<p class="ltx_p" id="S3.p2.1">在量化重建精度之前，我们首先使用20条指定光线轨迹来演示该方法，这些光线的入射点沿前半球表面上的指数螺旋分布，如图<a class="ltx_ref" href="#S3.F3" title="Figure 3 ‣ III Reconstruction accuracy ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">3</span></a>(a)所示。这种布置同时改变距光轴的径向距离和方位角，使相继的入射点逐渐更靠近轴，同时避免径向位置重复<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib18" title="">21</a>]</cite>。因此，所选光线以有限数量的轨迹采样距透镜轴不同距离和不同方位角的入射点。相应的解析轨迹各自位于其各自的子午平面内，如图<a class="ltx_ref" href="#S3.F3" title="Figure 3 ‣ III Reconstruction accuracy ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">3</span></a>(b)所示。</p>
+</div>
+<figure class="ltx_figure" id="S3.F4"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="222" id="S3.F4.g1" src="assets/Fig4.png" style="aspect-ratio:476/222;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 4：</span>利用 <math alttext="J=300" class="ltx_Math" display="inline" id="S3.F4.m2" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>300</mn></mrow><annotation encoding="application/x-tex">J=300</annotation></semantics></math> 个同心球形界面重建 Luneburg 折射率分布。(a) 沿指定轨迹恢复的折射率。(b) 由单条光线恢复的径向分布，利用已知球对称性进行扩展，并显示在相应的入射位置。越靠近透镜中心的光线可恢复的径向区间越宽。颜色表示重建的折射率值。</figcaption>
+</figure>
+<div class="ltx_para" id="S3.p3">
+<p class="ltx_p" id="S3.p3.1">在该重建中，我们使用 <math alttext="J=300" class="ltx_Math" display="inline" id="S3.p3.m1" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>300</mn></mrow><annotation encoding="application/x-tex">J=300</annotation></semantics></math> 个同心球形界面作为指定的表面族，这与 Luneburg 透镜已知的球对称性一致。重建从球形透镜表面开始，初始折射率为 <math alttext="n_{1}=1" class="ltx_Math" display="inline" id="S3.p3.m2" intent=":literal"><semantics><mrow><msub><mi>n</mi><mn>1</mn></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n_{1}=1</annotation></semantics></math>，因为 Luneburg 折射率在透镜边界处与周围介质相匹配，并归一化到该值。图 <a class="ltx_ref" href="#S3.F4" title="Figure 4 ‣ III Reconstruction accuracy ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">4</span></a>(a) 显示了沿每条指定轨迹重建的折射率。如图 <a class="ltx_ref" href="#S3.F4" title="Figure 4 ‣ III Reconstruction accuracy ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">4</span></a>(b) 所示，重建的径向范围取决于轨迹接近透镜中心的程度。越靠近光轴入射的光线穿过越多同心界面，从而在更宽的径向区间内恢复折射率。边缘光线相交的界面较少，仅能恢复折射率分布的外部区域。这两种情况均在图 <a class="ltx_ref" href="#S3.F5" title="Figure 5 ‣ III Reconstruction accuracy ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">5</span></a> 的左图中示出。</p>
+</div>
+<figure class="ltx_figure" id="S3.F5"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="281" id="S3.F5.g1" src="assets/Fig5.png" style="aspect-ratio:476/281;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 5：</span>光线位置和界面数量对 Luneburg 重建的影响。图中给出了分别对应 <math alttext="J=10" class="ltx_Math" display="inline" id="S3.F5.m4" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">J=10</annotation></semantics></math>（左）和 <math alttext="J=300" class="ltx_Math" display="inline" id="S3.F5.m5" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>300</mn></mrow><annotation encoding="application/x-tex">J=300</annotation></semantics></math>（右）个同心球形界面的两条指定轨迹。从左图可以看出，越靠近光轴的光线穿过的界面越多，采样的径向区间也越宽。增大 <math alttext="J" class="ltx_Math" display="inline" id="S3.F5.m6" intent=":literal"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math> 可细化沿每条轨迹的重建，但不会扩展其可及径向区间。颜色表示恢复的折射率。</figcaption>
+</figure>
+<div class="ltx_para" id="S3.p4">
+<p class="ltx_p" id="S3.p4.1">对于给定轨迹，重建还取决于界面数量 <math alttext="J" class="ltx_Math" display="inline" id="S3.p4.m1" intent=":literal"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>，如图 <a class="ltx_ref" href="#S3.F5" title="Figure 5 ‣ III Reconstruction accuracy ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">5</span></a> 所示。增大 <math alttext="J" class="ltx_Math" display="inline" id="S3.p4.m2" intent=":literal"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math> 可细化光线所穿过区域内的径向采样，但不会扩展该轨迹可及的径向区间。因此，轨迹决定重建区域的范围，而界面密度控制用于恢复折射率分布的离散化程度。</p>
+</div>
+<div class="ltx_para" id="S3.p5">
+<p class="ltx_p" id="S3.p5.1">对于 Luneburg 透镜中的轴上光线，入射和透射均垂直于同心球形界面，因此两个角度均为零，式 (<a class="ltx_ref" href="#S2.E6" title="In II Reconstruction method ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">6</span></a>) 变为不定式。无论折射率取何值，该光线穿过界面时均不发生角度偏转，因此仅凭其轨迹无法恢复折射率。因此，轴上光线被排除在重建精度评估之外。</p>
+</div>
+<div class="ltx_para" id="S3.p6">
+<p class="ltx_p" id="S3.p6.1">由于越靠近透镜中心的光线可在越宽的径向区间内恢复折射率，我们选择入射点距光轴归一化径向距离最小的非轴向光线，<math alttext="0.0872" class="ltx_Math" display="inline" id="S3.p6.m1" intent=":literal"><semantics><mn>0.0872</mn><annotation encoding="application/x-tex">0.0872</annotation></semantics></math>，用于定量精度评估。重建误差采用均方根误差进行评估，</p>
+<table class="ltx_equation ltx_eqn_table" id="S3.E9">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\mathrm{RMSE}=\sqrt{\frac{1}{M}\sum_{m=1}^{M}\left[n_{m}-n(r_{m})\right]^{2}}," class="ltx_Math" display="block" id="S3.E9.m1" intent=":literal"><semantics><mrow><mrow><mi>RMSE</mi><mo>=</mo><msqrt><mrow><mfrac><mn>1</mn><mi>M</mi></mfrac><mo lspace="0em" rspace="0em">​</mo><mrow><munderover><mo movablelimits="false" rspace="0em">∑</mo><mrow><mi>m</mi><mo>=</mo><mn>1</mn></mrow><mi>M</mi></munderover><msup><mrow><mo>[</mo><mrow><msub><mi>n</mi><mi>m</mi></msub><mo>−</mo><mrow><mi>n</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><msub><mi>r</mi><mi>m</mi></msub><mo stretchy="false">)</mo></mrow></mrow></mrow><mo>]</mo></mrow><mn>2</mn></msup></mrow></mrow></msqrt></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\mathrm{RMSE}=\sqrt{\frac{1}{M}\sum_{m=1}^{M}\left[n_{m}-n(r_{m})\right]^{2}},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(9)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S3.p6.2">其中<math alttext="M=2J-2" class="ltx_Math" display="inline" id="S3.p6.m2" intent=":literal"><semantics><mrow><mi>M</mi><mo>=</mo><mrow><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><mi>J</mi></mrow><mo>−</mo><mn>2</mn></mrow></mrow><annotation encoding="application/x-tex">M=2J-2</annotation></semantics></math>是重构样本索引<math alttext="m" class="ltx_Math" display="inline" id="S3.p6.m3" intent=":literal"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>的最大值，<math alttext="n_{m}" class="ltx_Math" display="inline" id="S3.p6.m4" intent=":literal"><semantics><msub><mi>n</mi><mi>m</mi></msub><annotation encoding="application/x-tex">n_{m}</annotation></semantics></math>是恢复的折射率，<math alttext="n(r_{m})" class="ltx_Math" display="inline" id="S3.p6.m5" intent=":literal"><semantics><mrow><mi>n</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><msub><mi>r</mi><mi>m</mi></msub><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">n(r_{m})</annotation></semantics></math>是在相应径向位置<math alttext="r_{m}" class="ltx_Math" display="inline" id="S3.p6.m6" intent=":literal"><semantics><msub><mi>r</mi><mi>m</mi></msub><annotation encoding="application/x-tex">r_{m}</annotation></semantics></math>处利用式(<a class="ltx_ref" href="#S3.E7" title="In III Reconstruction accuracy ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">7</span></a>)计算得到的解析折射率。</p>
+</div>
+<figure class="ltx_figure" id="S3.F6"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="375" id="S3.F6.g1" src="assets/Fig6.png" style="aspect-ratio:476/375;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图6：</span>归一化入射高度为<math alttext="0.0872" class="ltx_Math" display="inline" id="S3.F6.m7" intent=":literal"><semantics><mn>0.0872</mn><annotation encoding="application/x-tex">0.0872</annotation></semantics></math>的非轴向光线重构Luneburg折射率分布的均方根误差。结果对应<math alttext="J=10" class="ltx_Math" display="inline" id="S3.F6.m8" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">J=10</annotation></semantics></math>至<math alttext="10^{5}" class="ltx_Math" display="inline" id="S3.F6.m9" intent=":literal"><semantics><msup><mn>10</mn><mn>5</mn></msup><annotation encoding="application/x-tex">10^{5}</annotation></semantics></math>个重构界面，图例中给出了相应的重构样本数<math alttext="M" class="ltx_Math" display="inline" id="S3.F6.m10" intent=":literal"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>。误差从<math alttext="2.700\times 10^{-2}" class="ltx_Math" display="inline" id="S3.F6.m11" intent=":literal"><semantics><mrow><mn>2.700</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2.700\times 10^{-2}</annotation></semantics></math>降至<math alttext="2.404\times 10^{-6}" class="ltx_Math" display="inline" id="S3.F6.m12" intent=":literal"><semantics><mrow><mn>2.404</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>6</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2.404\times 10^{-6}</annotation></semantics></math>，与该测试约一阶收敛的结果一致。</figcaption>
+</figure>
+<div class="ltx_para" id="S3.p7">
+<p class="ltx_p" id="S3.p7.1">图<a class="ltx_ref" href="#S3.F6" title="Figure 6 ‣ III Reconstruction accuracy ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">6</span></a>给出了RMSE随<math alttext="M" class="ltx_Math" display="inline" id="S3.p7.m1" intent=":literal"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math>的变化，其中重构界面数<math alttext="J" class="ltx_Math" display="inline" id="S3.p7.m2" intent=":literal"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>不断增加。误差从<math alttext="2.700\times 10^{-2}" class="ltx_Math" display="inline" id="S3.p7.m3" intent=":literal"><semantics><mrow><mn>2.700</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2.700\times 10^{-2}</annotation></semantics></math>（对应<math alttext="J=10" class="ltx_Math" display="inline" id="S3.p7.m4" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">J=10</annotation></semantics></math>，即<math alttext="M=18" class="ltx_Math" display="inline" id="S3.p7.m5" intent=":literal"><semantics><mrow><mi>M</mi><mo>=</mo><mn>18</mn></mrow><annotation encoding="application/x-tex">M=18</annotation></semantics></math>）单调降至<math alttext="2.404\times 10^{-6}" class="ltx_Math" display="inline" id="S3.p7.m6" intent=":literal"><semantics><mrow><mn>2.404</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>6</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2.404\times 10^{-6}</annotation></semantics></math>（对应<math alttext="J=10^{5}" class="ltx_Math" display="inline" id="S3.p7.m7" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><msup><mn>10</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">J=10^{5}</annotation></semantics></math>，即<math alttext="M=199998" class="ltx_Math" display="inline" id="S3.p7.m8" intent=":literal"><semantics><mrow><mi>M</mi><mo>=</mo><mn>199998</mn></mrow><annotation encoding="application/x-tex">M=199998</annotation></semantics></math>），降幅略大于四个数量级。对于更细的离散化，<math alttext="J" class="ltx_Math" display="inline" id="S3.p7.m9" intent=":literal"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>每增加十倍，RMSE约降低十倍，与该测试的一阶收敛一致。在评估范围内未观察到误差平台，表明继续细化仍能改善解析折射率分布的重构。</p>
+</div>
+</section>
+<section class="ltx_section" id="S4">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">IV </span>自由曲面GRIN重构</h2>
+<div class="ltx_para" id="S4.p1">
+<p class="ltx_p" id="S4.p1.1">在利用Luneburg透镜评估了重构精度之后，我们现在考虑一条折射率分布未知的指定轨迹。我们采用具有不同几何形状的两类重构界面来应用该方法，以考察这一选择如何影响恢复的折射率分布及其物理实现的适用性。这些界面并不受限于等折射率面，因此折射率可在每个界面内变化。我们首先考虑由下式定义的一类界面</p>
+<table class="ltx_equation ltx_eqn_table" id="S4.E10">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\mathbf{\Sigma}_{j}(\theta,\phi)=\rho_{j}\left[1+a\sin(k_{1}\theta)\cos(k_{2}\phi)\right]\begin{bmatrix}\sin\theta\cos\phi\\
+\sin\theta\sin\phi\\
+\cos\theta\end{bmatrix}," class="ltx_Math" display="block" id="S4.E10.m1" intent=":literal"><semantics><mrow><mrow><mrow><msub><mi>𝚺</mi><mi>j</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>θ</mi><mo>,</mo><mi>ϕ</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><msub><mi>ρ</mi><mi>j</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo>[</mo><mrow><mn>1</mn><mo>+</mo><mrow><mi>a</mi><mo lspace="0.167em" rspace="0em">​</mo><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mrow><msub><mi>k</mi><mn>1</mn></msub><mo lspace="0em" rspace="0em">​</mo><mi>θ</mi></mrow><mo stretchy="false">)</mo></mrow></mrow><mo lspace="0.167em" rspace="0em">​</mo><mrow><mi>cos</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mrow><msub><mi>k</mi><mn>2</mn></msub><mo lspace="0em" rspace="0em">​</mo><mi>ϕ</mi></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow><mo>]</mo></mrow><mo lspace="0em" rspace="0em">​</mo><mrow><mo>[</mo><mtable displaystyle="true" rowspacing="0pt"><mtr><mtd><mrow><mrow><mi>sin</mi><mo lspace="0.167em">⁡</mo><mi>θ</mi></mrow><mo lspace="0.167em" rspace="0em">​</mo><mrow><mi>cos</mi><mo lspace="0.167em">⁡</mo><mi>ϕ</mi></mrow></mrow></mtd></mtr><mtr><mtd><mrow><mrow><mi>sin</mi><mo lspace="0.167em">⁡</mo><mi>θ</mi></mrow><mo lspace="0.167em" rspace="0em">​</mo><mrow><mi>sin</mi><mo lspace="0.167em">⁡</mo><mi>ϕ</mi></mrow></mrow></mtd></mtr><mtr><mtd><mrow><mi>cos</mi><mo lspace="0.167em">⁡</mo><mi>θ</mi></mrow></mtd></mtr></mtable><mo>]</mo></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\mathbf{\Sigma}_{j}(\theta,\phi)=\rho_{j}\left[1+a\sin(k_{1}\theta)\cos(k_{2}\phi)\right]\begin{bmatrix}\sin\theta\cos\phi\\
+\sin\theta\sin\phi\\
+\cos\theta\end{bmatrix},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(10)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S4.p1.2">其中<math alttext="\theta\in[0,\pi]" class="ltx_Math" display="inline" id="S4.p1.m1" intent=":literal"><semantics><mrow><mi>θ</mi><mo>∈</mo><mrow><mo stretchy="false">[</mo><mrow><mn>0</mn><mo>,</mo><mi>π</mi></mrow><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">\theta\in[0,\pi]</annotation></semantics></math>、<math alttext="\phi\in[0,2\pi)" class="ltx_Math" display="inline" id="S4.p1.m2" intent=":literal"><semantics><mrow><mi>ϕ</mi><mo>∈</mo><mrow><mo stretchy="false">[</mo><mn>0</mn><mo>,</mo><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><mi>π</mi></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\phi\in[0,2\pi)</annotation></semantics></math>、<math alttext="a=0.075" class="ltx_Math" display="inline" id="S4.p1.m3" intent=":literal"><semantics><mrow><mi>a</mi><mo>=</mo><mn>0.075</mn></mrow><annotation encoding="application/x-tex">a=0.075</annotation></semantics></math>、<math alttext="k_{1}=7" class="ltx_Math" display="inline" id="S4.p1.m4" intent=":literal"><semantics><mrow><msub><mi>k</mi><mn>1</mn></msub><mo>=</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">k_{1}=7</annotation></semantics></math>和<math alttext="k_{2}=2" class="ltx_Math" display="inline" id="S4.p1.m5" intent=":literal"><semantics><mrow><msub><mi>k</mi><mn>2</mn></msub><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k_{2}=2</annotation></semantics></math>。整数<math alttext="j=1,\dots,J" class="ltx_Math" display="inline" id="S4.p1.m6" intent=":literal"><semantics><mrow><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mo>,</mo><mi mathvariant="normal">…</mi><mo>,</mo><mi>J</mi></mrow><annotation encoding="application/x-tex">j=1,\dots,J</annotation></semantics></math>标记各界面，而<math alttext="\rho_{j}\in(0,1]" class="ltx_Math" display="inline" id="S4.p1.m7" intent=":literal"><semantics><mrow><msub><mi>ρ</mi><mi>j</mi></msub><mo>∈</mo><mrow><mo stretchy="false">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">\rho_{j}\in(0,1]</annotation></semantics></math>指定它们相对于最外层表面的尺度，该最外层表面由<math alttext="\rho_{1}=1" class="ltx_Math" display="inline" id="S4.p1.m8" intent=":literal"><semantics><mrow><msub><mi>ρ</mi><mn>1</mn></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\rho_{1}=1</annotation></semantics></math>定义。因此，<math alttext="\rho_{j}" class="ltx_Math" display="inline" id="S4.p1.m9" intent=":literal"><semantics><msub><mi>ρ</mi><mi>j</mi></msub><annotation encoding="application/x-tex">\rho_{j}</annotation></semantics></math>尺度因子定义了一族由该表面界定的嵌套界面。图<a class="ltx_ref" href="#S4.F7" title="Figure 7 ‣ IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">7</span></a>(a)给出了沿<math alttext="x" class="ltx_Math" display="inline" id="S4.p1.m10" intent=":literal"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>轴观察（投影到<math alttext="y" class="ltx_Math" display="inline" id="S4.p1.m11" intent=":literal"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>–<math alttext="z" class="ltx_Math" display="inline" id="S4.p1.m12" intent=":literal"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>平面）的最外层界面，显示了介质的外部形状。我们将入射光线分布在整个介质的横向范围内，确保它们的交点采样到最外层界面的被照明部分。</p>
+</div>
+<figure class="ltx_figure" id="S4.F7"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_square" height="389" id="S4.F7.g1" src="assets/Fig7.png" style="aspect-ratio:429/389;" width="429"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图7：</span>采用由式(<a class="ltx_ref" href="#S4.E10" title="In IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">10</span></a>)定义、且<math alttext="a=0.075" class="ltx_Math" display="inline" id="S4.F7.m10" intent=":literal"><semantics><mrow><mi>a</mi><mo>=</mo><mn>0.075</mn></mrow><annotation encoding="application/x-tex">a=0.075</annotation></semantics></math>、<math alttext="k_{1}=7" class="ltx_Math" display="inline" id="S4.F7.m11" intent=":literal"><semantics><mrow><msub><mi>k</mi><mn>1</mn></msub><mo>=</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">k_{1}=7</annotation></semantics></math>和<math alttext="k_{2}=2" class="ltx_Math" display="inline" id="S4.F7.m12" intent=":literal"><semantics><mrow><msub><mi>k</mi><mn>2</mn></msub><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">k_{2}=2</annotation></semantics></math>的嵌套界面进行自由曲面GRIN重构。(a) 沿<math alttext="x" class="ltx_Math" display="inline" id="S4.F7.m13" intent=":literal"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>轴观察的最外层界面。(b) 使用1876条平行入射光线和随机指定的容许传输方向，在该界面上的局部折射率赋值。(c,d) 沿所选轨迹<math alttext="\bm{\gamma}(s)" class="ltx_Math" display="inline" id="S4.F7.m14" intent=":literal"><semantics><mrow><mi>𝜸</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\bm{\gamma}(s)</annotation></semantics></math>、分别在<math alttext="J=10" class="ltx_Math" display="inline" id="S4.F7.m15" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">J=10</annotation></semantics></math>和<math alttext="J=100" class="ltx_Math" display="inline" id="S4.F7.m16" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">J=100</annotation></semantics></math>条件下的重构。周围折射率为<math alttext="n_{0}=1" class="ltx_Math" display="inline" id="S4.F7.m17" intent=":literal"><semantics><mrow><msub><mi>n</mi><mn>0</mn></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n_{0}=1</annotation></semantics></math>，<math alttext="\delta=0.04" class="ltx_Math" display="inline" id="S4.F7.m18" intent=":literal"><semantics><mrow><mi>δ</mi><mo>=</mo><mn>0.04</mn></mrow><annotation encoding="application/x-tex">\delta=0.04</annotation></semantics></math>控制局部赋值的横向范围。颜色表示恢复的折射率。</figcaption>
+</figure>
+<div class="ltx_para" id="S4.p2">
+<p class="ltx_p" id="S4.p2.1">一组1876条平行光线表示沿<math alttext="\hat{x}" class="ltx_Math" display="inline" id="S4.p2.m1" intent=":literal"><semantics><mover accent="true"><mi>x</mi><mo>^</mo></mover><annotation encoding="application/x-tex">\hat{x}</annotation></semantics></math>方向传播的入射平面波前，分布在图<a class="ltx_ref" href="#S4.F7" title="Figure 7 ‣ IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">7</span></a>(a)所示介质的整个横向范围内。周围介质的折射率为<math alttext="n_{0}=1" class="ltx_Math" display="inline" id="S4.p2.m2" intent=":literal"><semantics><mrow><msub><mi>n</mi><mn>0</mn></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n_{0}=1</annotation></semantics></math>，这为重建提供了初始条件。为演示单个界面上折射率的局部恢复，我们以最外层表面为例，并在每个光线-界面交点处随机指定透射方向，但需满足局部折射条件。相应的折射率值由式(<a class="ltx_ref" href="#S2.E6" title="In II Reconstruction method ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">6</span></a>)计算，并赋给横向范围由<math alttext="\delta=0.04" class="ltx_Math" display="inline" id="S4.p2.m3" intent=":literal"><semantics><mrow><mi>δ</mi><mo>=</mo><mn>0.04</mn></mrow><annotation encoding="application/x-tex">\delta=0.04</annotation></semantics></math>控制的局部区域。图<a class="ltx_ref" href="#S4.F7" title="Figure 7 ‣ IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">7</span></a>(b)显示了该界面上的所得折射率分布。</p>
+</div>
+<div class="ltx_para" id="S4.p3">
+<p class="ltx_p" id="S4.p3.1">迄今为止所给出的重建仅限于单个界面。为说明重建如何穿过连续界面进行，我们考虑一条具有指定轨迹的单一光线</p>
+<table class="ltx_equation ltx_eqn_table" id="S4.E11">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\bm{\gamma}(s)=\begin{bmatrix}0\\
+-1.45+6.45s\\
+0.13+0.8(2s-1)^{3}\end{bmatrix},\qquad s\in[0.0872,0.3868]." class="ltx_Math" display="block" id="S4.E11.m1" intent=":literal"><semantics><mrow><mrow><mrow><mrow><mi>𝜸</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mo>[</mo><mtable displaystyle="true" rowspacing="0pt"><mtr><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mrow><mrow><mo>−</mo><mn>1.45</mn></mrow><mo>+</mo><mrow><mn>6.45</mn><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow></mrow></mtd></mtr><mtr><mtd><mrow><mn>0.13</mn><mo>+</mo><mrow><mn>0.8</mn><mo lspace="0em" rspace="0em">​</mo><msup><mrow><mo stretchy="false">(</mo><mrow><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow><mo>−</mo><mn>1</mn></mrow><mo stretchy="false">)</mo></mrow><mn>3</mn></msup></mrow></mrow></mtd></mtr></mtable><mo>]</mo></mrow></mrow><mo rspace="2.167em">,</mo><mrow><mi>s</mi><mo>∈</mo><mrow><mo stretchy="false">[</mo><mrow><mn>0.0872</mn><mo>,</mo><mn>0.3868</mn></mrow><mo stretchy="false">]</mo></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\bm{\gamma}(s)=\begin{bmatrix}0\\
+-1.45+6.45s\\
+0.13+0.8(2s-1)^{3}\end{bmatrix},\qquad s\in[0.0872,0.3868].</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(11)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S4.p3.2">图<a class="ltx_ref" href="#S4.F8" title="Figure 8 ‣ IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">8</span></a>显示了在<math alttext="s\in[0,1]" class="ltx_Math" display="inline" id="S4.p3.m1" intent=":literal"><semantics><mrow><mi>s</mi><mo>∈</mo><mrow><mo stretchy="false">[</mo><mrow><mn>0</mn><mo>,</mo><mn>1</mn></mrow><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">s\in[0,1]</annotation></semantics></math>上的指定轨迹，其中用于重建的区间<math alttext="s\in[0.0872,0.3868]" class="ltx_Math" display="inline" id="S4.p3.m2" intent=":literal"><semantics><mrow><mi>s</mi><mo>∈</mo><mrow><mo stretchy="false">[</mo><mrow><mn>0.0872</mn><mo>,</mo><mn>0.3868</mn></mrow><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">s\in[0.0872,0.3868]</annotation></semantics></math>以红色突出显示。该光线最初平行于<math alttext="y" class="ltx_Math" display="inline" id="S4.p3.m3" intent=":literal"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math>轴，并在<math alttext="\mathbf{P}_{1}=\bm{\gamma}(0.0872)\approx(0,-0.8875,-0.3202)" class="ltx_Math" display="inline" id="S4.p3.m4" intent=":literal"><semantics><mrow><msub><mi>𝐏</mi><mn>1</mn></msub><mo>=</mo><mrow><mi>𝜸</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mn>0.0872</mn><mo stretchy="false">)</mo></mrow></mrow><mo>≈</mo><mrow><mo stretchy="false">(</mo><mn>0</mn><mo>,</mo><mrow><mo>−</mo><mn>0.8875</mn></mrow><mo>,</mo><mrow><mo>−</mo><mn>0.3202</mn></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{P}_{1}=\bm{\gamma}(0.0872)\approx(0,-0.8875,-0.3202)</annotation></semantics></math>处进入介质。</p>
+</div>
+<figure class="ltx_figure" id="S4.F8"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_square" height="421" id="S4.F8.g1" src="assets/traj_ec11.png" style="aspect-ratio:476/421;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 8：</span>由式(<a class="ltx_ref" href="#S4.E11" title="In IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">11</span></a>)定义的平面轨迹，在<math alttext="s\in[0,1]" class="ltx_Math" display="inline" id="S4.F8.m4" intent=":literal"><semantics><mrow><mi>s</mi><mo>∈</mo><mrow><mo stretchy="false">[</mo><mrow><mn>0</mn><mo>,</mo><mn>1</mn></mrow><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">s\in[0,1]</annotation></semantics></math>上计算。红色实线段和绿色虚线段分别表示用于第一界面族<math alttext="s\in[0.0872,0.3868]" class="ltx_Math" display="inline" id="S4.F8.m5" intent=":literal"><semantics><mrow><mi>s</mi><mo>∈</mo><mrow><mo stretchy="false">[</mo><mrow><mn>0.0872</mn><mo>,</mo><mn>0.3868</mn></mrow><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">s\in[0.0872,0.3868]</annotation></semantics></math>和同心球面界面<math alttext="s\in[0.0794,0.3787]" class="ltx_Math" display="inline" id="S4.F8.m6" intent=":literal"><semantics><mrow><mi>s</mi><mo>∈</mo><mrow><mo stretchy="false">[</mo><mrow><mn>0.0794</mn><mo>,</mo><mn>0.3787</mn></mrow><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">s\in[0.0794,0.3787]</annotation></semantics></math>重建的部分。蓝色部分表示曲线的其余部分。灰色虚线表示在坐标平面上的投影。</figcaption>
+</figure>
+<div class="ltx_para" id="S4.p4">
+<p class="ltx_p" id="S4.p4.1">使用这一指定轨迹，我们针对同一界面族的两种离散化重建折射率分布：<math alttext="J=10" class="ltx_Math" display="inline" id="S4.p4.m1" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">J=10</annotation></semantics></math>和<math alttext="J=100" class="ltx_Math" display="inline" id="S4.p4.m2" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">J=100</annotation></semantics></math>，分别如图<a class="ltx_ref" href="#S4.F7" title="Figure 7 ‣ IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">7</span></a>(c)和图<a class="ltx_ref" href="#S4.F7" title="Figure 7 ‣ IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">7</span></a>(d)所示。在两种情况下，折射率沿光线路径依次恢复，并赋给其周围的局部区域。增加界面数量可细化介质的分段均匀表示，使传播段能够更紧密地跟随<math alttext="\bm{\gamma}" class="ltx_Math" display="inline" id="S4.p4.m3" intent=":literal"><semantics><mi>𝜸</mi><annotation encoding="application/x-tex">\bm{\gamma}</annotation></semantics></math>。对于<math alttext="J=10" class="ltx_Math" display="inline" id="S4.p4.m6" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">J=10</annotation></semantics></math>，恢复的折射率值范围为<math alttext="1.0360" class="ltx_Math" display="inline" id="S4.p4.m4" intent=":literal"><semantics><mn>1.0360</mn><annotation encoding="application/x-tex">1.0360</annotation></semantics></math>至<math alttext="2.6927" class="ltx_Math" display="inline" id="S4.p4.m5" intent=":literal"><semantics><mn>2.6927</mn><annotation encoding="application/x-tex">2.6927</annotation></semantics></math>；对于<math alttext="J=100" class="ltx_Math" display="inline" id="S4.p4.m9" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">J=100</annotation></semantics></math>，范围为<math alttext="1.0272" class="ltx_Math" display="inline" id="S4.p4.m7" intent=":literal"><semantics><mn>1.0272</mn><annotation encoding="application/x-tex">1.0272</annotation></semantics></math>至<math alttext="2.8294" class="ltx_Math" display="inline" id="S4.p4.m8" intent=":literal"><semantics><mn>2.8294</mn><annotation encoding="application/x-tex">2.8294</annotation></semantics></math>。每个界面上的颜色表示横向范围由<math alttext="\delta" class="ltx_Math" display="inline" id="S4.p4.m10" intent=":literal"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math>控制的区域内的局部折射率赋值，而不在整个界面上施加均匀折射率。</p>
+</div>
+<figure class="ltx_figure" id="S4.F9"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_square" height="424" id="S4.F9.g1" src="assets/Fig8.png" style="aspect-ratio:476/424;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 9：</span>使用同心球面界面的自由曲面 GRIN 重建，通过令式 (<a class="ltx_ref" href="#S4.E10" title="In IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">10</span></a>) 中的 <math alttext="a=0" class="ltx_Math" display="inline" id="S4.F9.m12" intent=":literal"><semantics><mrow><mi>a</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a=0</annotation></semantics></math> 获得。(a) 最外层界面。(b) 使用与图 <a class="ltx_ref" href="#S4.F7" title="Figure 7 ‣ IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">7</span></a>(b) 中相同的入射光线和指定透射方向进行局部折射率赋值，其中 <math alttext="n_{0}=1" class="ltx_Math" display="inline" id="S4.F9.m13" intent=":literal"><semantics><mrow><msub><mi>n</mi><mn>0</mn></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n_{0}=1</annotation></semantics></math> 和 <math alttext="\delta=0.04" class="ltx_Math" display="inline" id="S4.F9.m14" intent=":literal"><semantics><mrow><mi>δ</mi><mo>=</mo><mn>0.04</mn></mrow><annotation encoding="application/x-tex">\delta=0.04</annotation></semantics></math>。彩色点表示恢复的折射率值，包括小于 1 的值。黑点标记指定方向不满足局部折射条件且未赋予折射率值的位置。在面板 (b) 中，色标上限设为 <math alttext="n=3" class="ltx_Math" display="inline" id="S4.F9.m15" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">n=3</annotation></semantics></math>，以便使较低折射率值处的变化可见。高于该上限的值使用相同的上端颜色显示，而不修改恢复的折射率。(c,d) 使用相同轨迹函数 <math alttext="\bm{\gamma}(s)" class="ltx_Math" display="inline" id="S4.F9.m16" intent=":literal"><semantics><mrow><mi>𝜸</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\bm{\gamma}(s)</annotation></semantics></math> 分别针对 <math alttext="J=10" class="ltx_Math" display="inline" id="S4.F9.m17" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">J=10</annotation></semantics></math> 和 <math alttext="J=100" class="ltx_Math" display="inline" id="S4.F9.m18" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">J=100</annotation></semantics></math> 进行重建。恢复的折射率值在 (c) 中为 <math alttext="2.9725" class="ltx_Math" display="inline" id="S4.F9.m19" intent=":literal"><semantics><mn>2.9725</mn><annotation encoding="application/x-tex">2.9725</annotation></semantics></math> 至 <math alttext="286.8784" class="ltx_Math" display="inline" id="S4.F9.m20" intent=":literal"><semantics><mn>286.8784</mn><annotation encoding="application/x-tex">286.8784</annotation></semantics></math>，在 (d) 中为 <math alttext="2.6753" class="ltx_Math" display="inline" id="S4.F9.m21" intent=":literal"><semantics><mn>2.6753</mn><annotation encoding="application/x-tex">2.6753</annotation></semantics></math> 至 <math alttext="5.9129\times 10^{3}" class="ltx_Math" display="inline" id="S4.F9.m22" intent=":literal"><semantics><mrow><mn>5.9129</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">5.9129\times 10^{3}</annotation></semantics></math>。面板 (b)、(c) 和 (d) 使用各自的色标。</figcaption>
+</figure>
+<div class="ltx_para" id="S4.p5">
+<p class="ltx_p" id="S4.p5.1">为了说明界面选择对于物理实现的重要性，我们特意考虑第二种几何结构，其在最外层界面上得到的折射率小于1，而沿给定轨迹的折射率值非常大。该示例突出了需要将重建界面与给定光线方向一起选择，以获得处于期望范围内的折射率。我们在式(<a class="ltx_ref" href="#S4.E10" title="In IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">10</span></a>)中设置<math alttext="a=0" class="ltx_Math" display="inline" id="S4.p5.m1" intent=":literal"><semantics><mrow><mi>a</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a=0</annotation></semantics></math>，得到一族同心球面界面。图<a class="ltx_ref" href="#S4.F9" title="Figure 9 ‣ IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">9</span></a>(a)给出了最外层界面。为了重建该表面上的折射率分布，我们使用同一组1876条表示平面波前的平行入射光线，以及与前一示例相同的给定透射方向，并保持<math alttext="n_{0}=1" class="ltx_Math" display="inline" id="S4.p5.m2" intent=":literal"><semantics><mrow><msub><mi>n</mi><mn>0</mn></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n_{0}=1</annotation></semantics></math>和<math alttext="\delta=0.04" class="ltx_Math" display="inline" id="S4.p5.m3" intent=":literal"><semantics><mrow><mi>δ</mi><mo>=</mo><mn>0.04</mn></mrow><annotation encoding="application/x-tex">\delta=0.04</annotation></semantics></math>不变。尽管入射方向和透射方向保持不变，新的界面法线会同时改变入射角和透射角。</p>
+</div>
+<div class="ltx_para" id="S4.p6">
+<p class="ltx_p" id="S4.p6.1">因此，必须在每个光线–界面交点处重新检查局部折射条件。改变界面几何形状可能使局部法线位于由给定入射方向和透射方向所确定的平面之外，从而违反共面条件。在这些点处，对于各向同性介质，在 Snell 定律下不存在任何标量折射率能够重现给定的透射方向。这些点在图 <a class="ltx_ref" href="#S4.F9" title="Figure 9 ‣ IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">9</span></a>(b) 中以黑色示出，表示此处未赋予折射率值。凡是满足局部折射条件的位置，均使用式 (<a class="ltx_ref" href="#S2.E6" title="In II Reconstruction method ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">6</span></a>) 反演折射率。为便于可视化，图 <a class="ltx_ref" href="#S4.F9" title="Figure 9 ‣ IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">9</span></a>(b) 中的色标上限设为 <math alttext="n=3" class="ltx_Math" display="inline" id="S4.p6.m1" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">n=3</annotation></semantics></math>，所有更高值均用同一上限颜色表示。这可防止最大的反演折射率掩盖较低值处的变化，且不会改变所计算的折射率。</p>
+</div>
+<div class="ltx_para" id="S4.p7">
+<p class="ltx_p" id="S4.p7.1">恢复得到的值中包含小于 1 的折射率。在 <math alttext="n_{0}=1" class="ltx_Math" display="inline" id="S4.p7.m1" intent=":literal"><semantics><mrow><msub><mi>n</mi><mn>0</mn></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n_{0}=1</annotation></semantics></math> 下，对于可允许的折射事件，只要透射角超过入射角，就会出现这些值。因此，在保持指定光线方向不变的情况下改变界面几何结构，既会影响恢复得到的折射率值，也会影响重建可允许的位置。该结果突出表明，在寻求位于期望折射率范围内的分布时，需要同时考虑界面几何结构和指定光线方向。折射率在该球面界面上的变化还强调，重建表面的几何结构并不会对恢复得到的分布施加球对称性。</p>
+</div>
+<div class="ltx_para" id="S4.p8">
+<p class="ltx_p" id="S4.p8.1">随后，我们保留指定的轨迹函数 <math alttext="\bm{\gamma}(s)" class="ltx_Math" display="inline" id="S4.p8.m1" intent=":literal"><semantics><mrow><mi>𝜸</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\bm{\gamma}(s)</annotation></semantics></math> 来重建介质内部的折射率。外边界的变化改变了该轨迹包含在介质内的部分，这部分现在对应于 <math alttext="s\in[0.0794,0.3787]" class="ltx_Math" display="inline" id="S4.p8.m2" intent=":literal"><semantics><mrow><mi>s</mi><mo>∈</mo><mrow><mo stretchy="false">[</mo><mrow><mn>0.0794</mn><mo>,</mo><mn>0.3787</mn></mrow><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">s\in[0.0794,0.3787]</annotation></semantics></math>，入射光线在 <math alttext="\mathbf{P}_{1}=\bm{\gamma}(0.0794)\approx(0,-0.9379,-0.3462)" class="ltx_Math" display="inline" id="S4.p8.m3" intent=":literal"><semantics><mrow><msub><mi>𝐏</mi><mn>1</mn></msub><mo>=</mo><mrow><mi>𝜸</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mn>0.0794</mn><mo stretchy="false">)</mo></mrow></mrow><mo>≈</mo><mrow><mo stretchy="false">(</mo><mn>0</mn><mo>,</mo><mrow><mo>−</mo><mn>0.9379</mn></mrow><mo>,</mo><mrow><mo>−</mo><mn>0.3462</mn></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{P}_{1}=\bm{\gamma}(0.0794)\approx(0,-0.9379,-0.3462)</annotation></semantics></math> 处进入。因此，轨迹函数保持不变，但其入射点和出射点由新边界决定。相应的区间 <math alttext="s\in[0.0794,0.3787]" class="ltx_Math" display="inline" id="S4.p8.m4" intent=":literal"><semantics><mrow><mi>s</mi><mo>∈</mo><mrow><mo stretchy="false">[</mo><mrow><mn>0.0794</mn><mo>,</mo><mn>0.3787</mn></mrow><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">s\in[0.0794,0.3787]</annotation></semantics></math> 由图 <a class="ltx_ref" href="#S4.F8" title="Figure 8 ‣ IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">8</span></a> 中的绿色虚线段表示。</p>
+</div>
+<div class="ltx_para" id="S4.p9">
+<p class="ltx_p" id="S4.p9.1">图 <a class="ltx_ref" href="#S4.F9" title="Figure 9 ‣ IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">9</span></a>(c) 和图 <a class="ltx_ref" href="#S4.F9" title="Figure 9 ‣ IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">9</span></a>(d) 分别示出了 <math alttext="J=10" class="ltx_Math" display="inline" id="S4.p9.m1" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">J=10</annotation></semantics></math> 和 <math alttext="J=100" class="ltx_Math" display="inline" id="S4.p9.m2" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">J=100</annotation></semantics></math> 的重建结果。恢复得到的折射率值范围为 <math alttext="2.9725" class="ltx_Math" display="inline" id="S4.p9.m3" intent=":literal"><semantics><mn>2.9725</mn><annotation encoding="application/x-tex">2.9725</annotation></semantics></math> 至 <math alttext="286.8784" class="ltx_Math" display="inline" id="S4.p9.m4" intent=":literal"><semantics><mn>286.8784</mn><annotation encoding="application/x-tex">286.8784</annotation></semantics></math>（对应 <math alttext="J=10" class="ltx_Math" display="inline" id="S4.p9.m5" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">J=10</annotation></semantics></math>），以及 <math alttext="2.6753" class="ltx_Math" display="inline" id="S4.p9.m6" intent=":literal"><semantics><mn>2.6753</mn><annotation encoding="application/x-tex">2.6753</annotation></semantics></math> 至 <math alttext="5.9129\times 10^{3}" class="ltx_Math" display="inline" id="S4.p9.m7" intent=":literal"><semantics><mrow><mn>5.9129</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">5.9129\times 10^{3}</annotation></semantics></math>（对应 <math alttext="J=100" class="ltx_Math" display="inline" id="S4.p9.m8" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">J=100</annotation></semantics></math>），均大幅超过用先前界面族获得的值。改变界面几何结构会改变沿指定轨迹的交点和局部法线，从而改变相继交点处所需的折射角和折射率比。因此，尽管所得分布是由同一轨迹函数重建的，它们仍会不同。</p>
+</div>
+<div class="ltx_para" id="S4.p10">
+<p class="ltx_p" id="S4.p10.1">采用球面界面时得到的大折射率出现在透射段几乎与局部法线对齐的重建步骤中。在这些交点处，<math alttext="\sin\theta_{t,m}" class="ltx_Math" display="inline" id="S4.p10.m1" intent=":literal"><semantics><mrow><mi>sin</mi><mo lspace="0.167em">⁡</mo><msub><mi>θ</mi><mrow><mi>t</mi><mo>,</mo><mi>m</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\sin\theta_{t,m}</annotation></semantics></math> 变小，而 <math alttext="\sin\theta_{i,m}" class="ltx_Math" display="inline" id="S4.p10.m2" intent=":literal"><semantics><mrow><mi>sin</mi><mo lspace="0.167em">⁡</mo><msub><mi>θ</mi><mrow><mi>i</mi><mo>,</mo><mi>m</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\sin\theta_{i,m}</annotation></semantics></math> 没有成比例减小，从而在式 (<a class="ltx_ref" href="#S2.E6" title="In II Reconstruction method ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">6</span></a>) 中产生很大的折射率比。改变 <math alttext="J" class="ltx_Math" display="inline" id="S4.p10.m3" intent=":literal"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math> 会改变交点位置以及相邻段的方向，因而也会改变透射段与法线的对齐程度。这解释了在两种球面离散化之间最大恢复折射率的显著增加。由于重建是递归的，这些局部比值也会影响后续的折射率值。因此，界面几何结构及其离散化都会影响复现指定轨迹所需的折射率。</p>
+</div>
+<figure class="ltx_figure" id="S4.F10"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_square" height="404" id="S4.F10.g1" src="assets/traj_ec12.png" style="aspect-ratio:476/404;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 10：</span>由式 (<a class="ltx_ref" href="#S4.E12" title="In IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">12</span></a>) 定义的非平面轨迹，在 <math alttext="s\in[0,1]" class="ltx_Math" display="inline" id="S4.F10.m4" intent=":literal"><semantics><mrow><mi>s</mi><mo>∈</mo><mrow><mo stretchy="false">[</mo><mrow><mn>0</mn><mo>,</mo><mn>1</mn></mrow><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">s\in[0,1]</annotation></semantics></math> 上评估。红色实线段和绿色虚线段分别表示用于重建的部分：使用第一组界面族 <math alttext="s\in[0.0872,0.3724]" class="ltx_Math" display="inline" id="S4.F10.m5" intent=":literal"><semantics><mrow><mi>s</mi><mo>∈</mo><mrow><mo stretchy="false">[</mo><mrow><mn>0.0872</mn><mo>,</mo><mn>0.3724</mn></mrow><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">s\in[0.0872,0.3724]</annotation></semantics></math> 和使用同心球面界面 <math alttext="s\in[0.0794,0.3669]" class="ltx_Math" display="inline" id="S4.F10.m6" intent=":literal"><semantics><mrow><mi>s</mi><mo>∈</mo><mrow><mo stretchy="false">[</mo><mrow><mn>0.0794</mn><mo>,</mo><mn>0.3669</mn></mrow><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">s\in[0.0794,0.3669]</annotation></semantics></math> 的部分。蓝色部分表示曲线的其余部分。灰色虚线表示在坐标平面上的投影。</figcaption>
+</figure>
+<div class="ltx_para" id="S4.p11">
+<p class="ltx_p" id="S4.p11.1">迄今为止考虑的轨迹位于 <math alttext="y-z" class="ltx_Math" display="inline" id="S4.p11.m1" intent=":literal"><semantics><mrow><mi>y</mi><mo>−</mo><mi>z</mi></mrow><annotation encoding="application/x-tex">y-z</annotation></semantics></math> 平面内。为了将这些示例扩展到非平面路径，我们在其 <math alttext="x" class="ltx_Math" display="inline" id="S4.p11.m2" intent=":literal"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> 坐标中引入一个二次项，同时保留式 (<a class="ltx_ref" href="#S4.E11" title="In IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">11</span></a>) 中 <math alttext="y(s)" class="ltx_Math" display="inline" id="S4.p11.m3" intent=":literal"><semantics><mrow><mi>y</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">y(s)</annotation></semantics></math> 和 <math alttext="z(s)" class="ltx_Math" display="inline" id="S4.p11.m4" intent=":literal"><semantics><mrow><mi>z</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">z(s)</annotation></semantics></math> 的表达式：</p>
+<table class="ltx_equation ltx_eqn_table" id="S4.E12">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\bm{\gamma}_{\mathrm{3D}}(s)=\begin{bmatrix}2.85s^{2}\\
+-1.45+6.45s\\
+0.13+0.8(2s-1)^{3}\end{bmatrix}." class="ltx_Math" display="block" id="S4.E12.m1" intent=":literal"><semantics><mrow><mrow><mrow><msub><mi>𝜸</mi><mrow><mn>3</mn><mo lspace="0em" rspace="0em">​</mo><mi>D</mi></mrow></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mo>[</mo><mtable displaystyle="true" rowspacing="0pt"><mtr><mtd><mrow><mn>2.85</mn><mo lspace="0em" rspace="0em">​</mo><msup><mi>s</mi><mn>2</mn></msup></mrow></mtd></mtr><mtr><mtd><mrow><mrow><mo>−</mo><mn>1.45</mn></mrow><mo>+</mo><mrow><mn>6.45</mn><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow></mrow></mtd></mtr><mtr><mtd><mrow><mn>0.13</mn><mo>+</mo><mrow><mn>0.8</mn><mo lspace="0em" rspace="0em">​</mo><msup><mrow><mo stretchy="false">(</mo><mrow><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow><mo>−</mo><mn>1</mn></mrow><mo stretchy="false">)</mo></mrow><mn>3</mn></msup></mrow></mrow></mtd></mtr></mtable><mo>]</mo></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\bm{\gamma}_{\mathrm{3D}}(s)=\begin{bmatrix}2.85s^{2}\\
+-1.45+6.45s\\
+0.13+0.8(2s-1)^{3}\end{bmatrix}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(12)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S4.p11.2">该轨迹不包含在单一平面内，如图 <a class="ltx_ref" href="#S4.F10" title="Figure 10 ‣ IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">10</span></a> 所示，范围为 <math alttext="s\in[0,1]" class="ltx_Math" display="inline" id="S4.p11.m5" intent=":literal"><semantics><mrow><mi>s</mi><mo>∈</mo><mrow><mo stretchy="false">[</mo><mrow><mn>0</mn><mo>,</mo><mn>1</mn></mrow><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">s\in[0,1]</annotation></semantics></math>。用于重建的区间对于第一类界面族为 <math alttext="s\in[0.0872,0.3724]" class="ltx_Math" display="inline" id="S4.p11.m6" intent=":literal"><semantics><mrow><mi>s</mi><mo>∈</mo><mrow><mo stretchy="false">[</mo><mrow><mn>0.0872</mn><mo>,</mo><mn>0.3724</mn></mrow><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">s\in[0.0872,0.3724]</annotation></semantics></math>，对于同心球面界面为 <math alttext="s\in[0.0794,0.3669]" class="ltx_Math" display="inline" id="S4.p11.m7" intent=":literal"><semantics><mrow><mi>s</mi><mo>∈</mo><mrow><mo stretchy="false">[</mo><mrow><mn>0.0794</mn><mo>,</mo><mn>0.3669</mn></mrow><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">s\in[0.0794,0.3669]</annotation></semantics></math>，分别显示为红色实线段和绿色虚线段。</p>
+</div>
+<div class="ltx_para" id="S4.p12">
+<p class="ltx_p" id="S4.p12.1">我们使用两个界面族以及两种离散化 <math alttext="J=10" class="ltx_Math" display="inline" id="S4.p12.m1" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">J=10</annotation></semantics></math> 和 <math alttext="J=100" class="ltx_Math" display="inline" id="S4.p12.m2" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">J=100</annotation></semantics></math> 应用相同的重建过程。对于每种几何结构，重新计算光线-界面交点和相邻线段方向，并由外边界确定轨迹位于介质内的部分。</p>
+</div>
+<figure class="ltx_figure" id="S4.F11"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_square" height="434" id="S4.F11.g1" src="assets/Fig9.png" style="aspect-ratio:429/434;" width="429"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 11：</span>沿着指定非平面轨迹，使用由 Eq. Eq. (<a class="ltx_ref" href="#S4.E10" title="In IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">10</span></a>) 定义的界面，对自由曲面 GRIN 分布进行局部重建，其中 <math alttext="a=0.075" class="ltx_Math" display="inline" id="S4.F11.m5" intent=":literal"><semantics><mrow><mi>a</mi><mo>=</mo><mn>0.075</mn></mrow><annotation encoding="application/x-tex">a=0.075</annotation></semantics></math>（上排）和 <math alttext="a=0" class="ltx_Math" display="inline" id="S4.F11.m6" intent=":literal"><semantics><mrow><mi>a</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a=0</annotation></semantics></math>（下排）。左列和右列分别对应 <math alttext="J=10" class="ltx_Math" display="inline" id="S4.F11.m7" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">J=10</annotation></semantics></math> 和 <math alttext="J=100" class="ltx_Math" display="inline" id="S4.F11.m8" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">J=100</annotation></semantics></math>。每个面板具有独立的色标，仅表示沿光线路径重建的折射率值。半透明蓝色表面表示重建界面；其颜色不代表折射率值，也不意味着中间层内具有均匀折射率。</figcaption>
+</figure>
+<div class="ltx_para" id="S4.p13">
+<p class="ltx_p" id="S4.p13.1">图 <a class="ltx_ref" href="#S4.F11" title="Figure 11 ‣ IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">11</span></a> 显示了沿该非平面轨迹重建的局部折射率分布。对于由式 (<a class="ltx_ref" href="#S4.E10" title="In IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">10</span></a>) 定义、采用 <math alttext="a=0.075" class="ltx_Math" display="inline" id="S4.p13.m1" intent=":literal"><semantics><mrow><mi>a</mi><mo>=</mo><mn>0.075</mn></mrow><annotation encoding="application/x-tex">a=0.075</annotation></semantics></math> 的界面，恢复的折射率范围从 <math alttext="1.5105" class="ltx_Math" display="inline" id="S4.p13.m2" intent=":literal"><semantics><mn>1.5105</mn><annotation encoding="application/x-tex">1.5105</annotation></semantics></math> 至 <math alttext="2.5373" class="ltx_Math" display="inline" id="S4.p13.m3" intent=":literal"><semantics><mn>2.5373</mn><annotation encoding="application/x-tex">2.5373</annotation></semantics></math>（对应 <math alttext="J=10" class="ltx_Math" display="inline" id="S4.p13.m4" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">J=10</annotation></semantics></math>），以及从 <math alttext="1.5027" class="ltx_Math" display="inline" id="S4.p13.m5" intent=":literal"><semantics><mn>1.5027</mn><annotation encoding="application/x-tex">1.5027</annotation></semantics></math> 至 <math alttext="2.6692" class="ltx_Math" display="inline" id="S4.p13.m6" intent=":literal"><semantics><mn>2.6692</mn><annotation encoding="application/x-tex">2.6692</annotation></semantics></math>（对应 <math alttext="J=100" class="ltx_Math" display="inline" id="S4.p13.m7" intent=":literal"><semantics><mrow><mi>J</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">J=100</annotation></semantics></math>）。对于由 <math alttext="a=0" class="ltx_Math" display="inline" id="S4.p13.m8" intent=":literal"><semantics><mrow><mi>a</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a=0</annotation></semantics></math> 获得的同心球面界面，相应的范围分别为 <math alttext="2.3989" class="ltx_Math" display="inline" id="S4.p13.m9" intent=":literal"><semantics><mn>2.3989</mn><annotation encoding="application/x-tex">2.3989</annotation></semantics></math>–<math alttext="3.2601" class="ltx_Math" display="inline" id="S4.p13.m10" intent=":literal"><semantics><mn>3.2601</mn><annotation encoding="application/x-tex">3.2601</annotation></semantics></math> 和 <math alttext="2.2797" class="ltx_Math" display="inline" id="S4.p13.m11" intent=":literal"><semantics><mn>2.2797</mn><annotation encoding="application/x-tex">2.2797</annotation></semantics></math>–<math alttext="3.3001" class="ltx_Math" display="inline" id="S4.p13.m12" intent=":literal"><semantics><mn>3.3001</mn><annotation encoding="application/x-tex">3.3001</annotation></semantics></math>。与先前平面轨迹获得的大值不同，同一球面界面族对于该非平面路径产生显著更低的折射率。该比较表明，恢复的折射率范围取决于指定轨迹以及界面几何结构。</p>
+</div>
+</section>
+<section class="ltx_section" id="S5">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">V </span>折射率兼容性</h2>
+<div class="ltx_para" id="S5.p1">
+<p class="ltx_p" id="S5.p1.1">前面的示例沿各个指定轨迹局部重建折射率。将若干此类重建组合到单一光学介质中，要求它们的局部折射率赋值相容。尽管不同界面几何结构可能对同一轨迹产生不同分布，但在固定波长下，任何单个各向同性介质内的折射率必须是位置的単值函数。该要求确保重建介质内的一致性，但不意味着逆解的唯一性。</p>
+</div>
+<div class="ltx_para" id="S5.p2">
+<p class="ltx_p" id="S5.p2.1">考虑两条指定轨迹，它们在局部均匀区域内的一点 <math alttext="\mathbf{P}^{\ast}" class="ltx_Math" display="inline" id="S5.p2.m1" intent=":literal"><semantics><msup><mi>𝐏</mi><mo>∗</mo></msup><annotation encoding="application/x-tex">\mathbf{P}^{\ast}</annotation></semantics></math> 相交。它们独立恢复的折射率值必须满足</p>
+<table class="ltx_equation ltx_eqn_table" id="S5.E13">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="n^{(a)}(\mathbf{P}^{\ast})=n^{(b)}(\mathbf{P}^{\ast})," class="ltx_Math" display="block" id="S5.E13.m1" intent=":literal"><semantics><mrow><mrow><mrow><msup><mi>n</mi><mrow><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo></mrow></msup><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msup><mi>𝐏</mi><mo>∗</mo></msup><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><msup><mi>n</mi><mrow><mo stretchy="false">(</mo><mi>b</mi><mo stretchy="false">)</mo></mrow></msup><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msup><mi>𝐏</mi><mo>∗</mo></msup><mo stretchy="false">)</mo></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">n^{(a)}(\mathbf{P}^{\ast})=n^{(b)}(\mathbf{P}^{\ast}),</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(13)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S5.p2.2">其中上标用于标识两种重建。轨迹可以以不同传播方向相交，但不能要求在同一位置具有不同的折射率值。相互冲突的赋值会妨碍在所选条件下直接组合这些重建，并且需要修正界面几何、预设轨迹或初始条件。</p>
+</div>
+<div class="ltx_para" id="S5.p3">
+<p class="ltx_p" id="S5.p3.1">由于每个恢复值被赋予一个有限局部体积，因此在重建区域重叠的任何位置也必须满足兼容性，即使光线轨迹本身并不相交。将两种重建对应的区域分别记为<math alttext="V_{a}" class="ltx_Math" display="inline" id="S5.p3.m1" intent=":literal"><semantics><msub><mi>V</mi><mi>a</mi></msub><annotation encoding="application/x-tex">V_{a}</annotation></semantics></math>和<math alttext="V_{b}" class="ltx_Math" display="inline" id="S5.p3.m2" intent=":literal"><semantics><msub><mi>V</mi><mi>b</mi></msub><annotation encoding="application/x-tex">V_{b}</annotation></semantics></math>，该条件变为</p>
+<table class="ltx_equation ltx_eqn_table" id="S5.E14">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="n^{(a)}(\mathbf{r})=n^{(b)}(\mathbf{r}),\qquad\mathbf{r}\in V_{a}\cap V_{b}." class="ltx_Math" display="block" id="S5.E14.m1" intent=":literal"><semantics><mrow><mrow><mrow><mrow><msup><mi>n</mi><mrow><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo></mrow></msup><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>𝐫</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><msup><mi>n</mi><mrow><mo stretchy="false">(</mo><mi>b</mi><mo stretchy="false">)</mo></mrow></msup><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>𝐫</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><mo rspace="2.167em">,</mo><mrow><mi>𝐫</mi><mo>∈</mo><mrow><msub><mi>V</mi><mi>a</mi></msub><mo>∩</mo><msub><mi>V</mi><mi>b</mi></msub></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">n^{(a)}(\mathbf{r})=n^{(b)}(\mathbf{r}),\qquad\mathbf{r}\in V_{a}\cap V_{b}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(14)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S5.p3.2">因此，参数<math alttext="\delta" class="ltx_Math" display="inline" id="S5.p3.m3" intent=":literal"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math>同时控制重建的横向范围和局部赋值之间的重叠。减小<math alttext="\delta" class="ltx_Math" display="inline" id="S5.p3.m4" intent=":literal"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math>可能消除空间分离轨迹之间的重叠，但无法解决实际光线交点处相互冲突的折射率要求。</p>
+</div>
+<div class="ltx_para" id="S5.p4">
+<p class="ltx_p" id="S5.p4.1">这些条件确保局部折射率赋值的一致性。实际设计还可能施加一个容许范围<math alttext="n_{\min}\leq n(\mathbf{r})\leq n_{\max}" class="ltx_Math" display="inline" id="S5.p4.m1" intent=":literal"><semantics><mrow><msub><mi>n</mi><mi>min</mi></msub><mo>≤</mo><mrow><mi>n</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>𝐫</mi><mo stretchy="false">)</mo></mrow></mrow><mo>≤</mo><msub><mi>n</mi><mi>max</mi></msub></mrow><annotation encoding="application/x-tex">n_{\min}\leq n(\mathbf{r})\leq n_{\max}</annotation></semantics></math>，其由可用材料和工作波长决定。必须将这些边界纳入重建约束，因为简单替换该范围之外的恢复值通常会改变预设光线轨迹。</p>
+</div>
+</section>
+<section class="ltx_section" id="S6">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">VI </span>讨论</h2>
+<div class="ltx_para" id="S6.p1">
+<p class="ltx_p" id="S6.p1.1">结果表明，重建界面的选择如何为从预设光线轨迹恢复折射率分布提供几何自由度。在保持相同轨迹函数的情况下，从第一种界面几何改为同心球面界面，会产生不同的局部折射率赋值。这种依赖性反映了逆问题的非唯一性，并使界面几何成为重建过程中的一项设计选择。此外，球面重建界面不一定产生球对称分布，因为恢复的折射率可能在各球面层内变化。</p>
+</div>
+<div class="ltx_para" id="S6.p2">
+<p class="ltx_p" id="S6.p2.1">这种几何自由度受局部折射条件的约束。当入射方向和透射方向保持不变时，改变界面法线会改变它们的相对取向，并可能影响在给定交点处是否存在容许的重建。图<a class="ltx_ref" href="#S4.F9" title="Figure 9 ‣ IV Freeform GRIN reconstruction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">9</span></a>(b)中的黑点标识了不满足这些条件且未赋予折射率的位置。在容许交点处，几何变化还可能产生小于1的折射率值，正如在球面界面中观察到的那样。这些结果表明，必须将界面几何和预设光线方向一起考虑，以便既满足折射条件，又获得处于期望折射率范围内的值。</p>
+</div>
+<div class="ltx_para" id="S6.p3">
+<p class="ltx_p" id="S6.p3.1">Luneburg 基准表明，细化重构界面可改善与解析折射率分布的一致性，在所考察的更细离散化下具有约一阶收敛性。在该测试中，界面遵循参考分布的已知球对称性。对于第 4 节中考虑的两个界面几何结构，由于未给定参考分布，增加界面数量会改变轨迹的采样以及重构中使用的局部折射角。因此，更细的离散化本身并不能确保恢复的折射率保持在适合特定应用的范围内。在采用球形界面时沿所选轨迹获得的大数值强调了需要将离散化与界面几何结构和折射率约束一起考虑。</p>
+</div>
+<div class="ltx_para" id="S6.p4">
+<p class="ltx_p" id="S6.p4.1">该方法重构给定轨迹周围的局部区域。如第 5 节所述，要将这些区域组合成单一光学介质，就需要在它们重叠的任何位置给出一致的折射率赋值。实际应用还可能要求恢复的折射率位于可接受范围内。这些界限约束了重构界面和给定轨迹的选择，因为简单替换期望范围之外的值通常会改变折射条件，并因此改变所得光线路径。</p>
+</div>
+<div class="ltx_para" id="S6.p5">
+<p class="ltx_p" id="S6.p5.1">非平面示例进一步说明了这种联合依赖性：同一类球形界面在平面轨迹下会产生非常大的折射率，而当给定路径改变时则会产生低得多的数值。因此，评估某界面几何结构是否适合物理实现时，必须结合其旨在再现的轨迹来进行。</p>
+</div>
+</section>
+<section class="ltx_section" id="S7">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">VII </span>结论</h2>
+<div class="ltx_para" id="S7.p1">
+<p class="ltx_p" id="S7.p1.1">我们提出了一种逐点方法，通过局部折射的逆应用，从给定光线轨迹重构梯度折射率介质。该公式适用于三维几何结构，二维重构是其特例，并且既不需要几何对称性，也不需要等折射率面的先验知识。一个关键优势是其实现直接：每个重构步骤利用相邻光线方向和局部界面法线，通过简单的代数关系恢复折射率，而无需对光线微分方程进行积分。Luneburg 透镜基准表明其与解析折射率分布一致，对于所考察的更细离散化具有约一阶收敛性。</p>
+</div>
+<div class="ltx_para" id="S7.p2">
+<p class="ltx_p" id="S7.p2.1">两种界面几何结构之间的比较表明，可以从同一预设轨迹函数中恢复出不同的折射率分布。因此，重建界面为光学设计提供了额外的自由度，但受局部折射条件的约束。在寻求期望的折射率范围时，必须综合考虑其几何结构、预设轨迹和离散化。对于多条轨迹，在重建区域重叠处，局部赋值也必须保持一致。在这些约束下，该方法为对称和自由形式 GRIN 介质的局部重建提供了一个易于实现的框架。</p>
+</div>
+</section>
+<section class="ltx_section" id="Sx1">
+<h2 class="ltx_title ltx_title_section">CRediT 作者贡献声明</h2>
+<div class="ltx_para" id="Sx1.p1">
+<p class="ltx_p" id="Sx1.p1.1"><span class="ltx_text ltx_font_bold" id="Sx1.p1.1.1">V. Chávez-Islas：</span> 形式分析、研究、方法学、软件、可视化、写作—初稿。 <span class="ltx_text ltx_font_bold" id="Sx1.p1.1.2">F. H. Maldonado-Villamizar：</span> 形式分析、研究、方法学、可视化、写作—初稿。 <span class="ltx_text ltx_font_bold" id="Sx1.p1.1.3">E. Espíndola-Ramos：</span> 形式分析、研究、方法学、可视化、写作—初稿。 <span class="ltx_text ltx_font_bold" id="Sx1.p1.1.4">S. Chávez-
+Cerda：</span> 研究、方法学、监督、验证、可视化、写作—初稿。 <span class="ltx_text ltx_font_bold" id="Sx1.p1.1.5">J. E. Gómez-Correa：</span> 概念化、形式分析、研究、方法学、项目管理、监督、验证、可视化、写作—初稿。</p>
+</div>
+</section>
+<section class="ltx_section" id="Sx2">
+<h2 class="ltx_title ltx_title_section">致谢</h2>
+<div class="ltx_para" id="Sx2.p1">
+<p class="ltx_p" id="Sx2.p1.1">第一作者和第三作者感谢 Secretaría de Ciencia, Humanidades, Tecnología e Innovación（SECIHTI）通过授予的奖学金（VCI: 1348421；EER: 640385）提供的支持。FHMV 也感谢 SECIHTI 通过项目 IIxM 7309（CIR/072/2024）给予的支持。</p>
+</div>
+</section>
+<section class="ltx_section" id="Sx3">
+<h2 class="ltx_title ltx_title_section">数据可用性</h2>
+<div class="ltx_para" id="Sx3.p1">
+<p class="ltx_p" id="Sx3.p1.1">本文所述研究未使用数据。</p>
+</div>
+</section>
+<section class="ltx_section" id="Sx4">
+<h2 class="ltx_title ltx_title_section">利益冲突声明</h2>
+<div class="ltx_para" id="Sx4.p1">
+<p class="ltx_p" id="Sx4.p1.1">作者声明，他们不存在任何可能影响本文工作的已知竞争性经济利益或个人关系。</p>
+</div>
+</section>
+<section class="ltx_bibliography" id="bib">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+<ul class="ltx_biblist" id="bib.L1">
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib8"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. Borghero and G. Bozis</span><span class="ltx_text ltx_bib_year"> (2004)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A two-dimensional inverse problem of geometrical optics</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Physics A: Mathematical and General</span> <span class="ltx_text ltx_bib_volume">38</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 175</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1088/0305-4470/38/1/012" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://dx.doi.org/10.1088/0305-4470/38/1/012" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib9"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. Borghero and G. Bozis</span><span class="ltx_text ltx_bib_year"> (2006)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Two solvable problems of planar geometrical optics</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">J. Opt. Soc. Am. A</span> <span class="ltx_text ltx_bib_volume">23</span> (<span class="ltx_text ltx_bib_number">12</span>), <span class="ltx_text ltx_bib_pages">pp. 3133–3138</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/josaa/abstract.cfm?URI=josaa-23-12-3133" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/JOSAA.23.003133" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib11"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. Borghero and F. Demontis</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Three-dimensional inverse problem of geometrical optics: a mathematical comparison between Fermat’s principle and the eikonal equation</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">J. Opt. Soc. Am. A</span> <span class="ltx_text ltx_bib_volume">33</span> (<span class="ltx_text ltx_bib_number">9</span>), <span class="ltx_text ltx_bib_pages">pp. 1710–1722</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/josaa/abstract.cfm?URI=josaa-33-9-1710" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/JOSAA.33.001710" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib10"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. Borghero and T. Kotoulas</span><span class="ltx_text ltx_bib_year"> (2011)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Refractive-index distributions generating as light rays a given family of curves lying on a surface</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">J. Opt. Soc. Am. A</span> <span class="ltx_text ltx_bib_volume">28</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 278–283</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/josaa/abstract.cfm?URI=josaa-28-2-278" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/JOSAA.28.000278" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib25"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">H. A. Buchdahl</span><span class="ltx_text ltx_bib_year"> (1973)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Rays in gradient-index media: separable systems</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">J. Opt. Soc. Am.</span> <span class="ltx_text ltx_bib_volume">63</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 46–49</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="http://www.osapublishing.org/abstract.cfm?URI=josa-63-1-46" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/JOSA.63.000046" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib31"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">V. Chávez-Islas, E. Espíndola-Ramos, F. Maldonado-Villamizar, S. Chávez-Cerda, and J. Gómez-Correa</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Generalized vectorial ray tracing for optical analysis and design in freeform gradient-index media</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2606.22655</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib30"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">V. Chávez-Islas, E. Espíndola-Ramos, F. H. Maldonado-Villamizar, S. Chávez-Cerda, and J. E. Gómez-Correa</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Ray tracing method beyond idealized gradient-index lenses</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Opt. Express</span> <span class="ltx_text ltx_bib_volume">33</span> (<span class="ltx_text ltx_bib_number">26</span>), <span class="ltx_text ltx_bib_pages">pp. 54867–54878</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/oe/abstract.cfm?URI=oe-33-26-54867" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OE.577925" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib15"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. E. Gómez-Correa, A. L. Padilla-Ortiz, A. Jaimes-Nájera, J. P. Trevino, and S. Chávez-Cerda</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Generalization of ray tracing in symmetric gradient-index media by fermat’s ray invariants</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Opt. Express</span> <span class="ltx_text ltx_bib_volume">29</span> (<span class="ltx_text ltx_bib_number">21</span>), <span class="ltx_text ltx_bib_pages">pp. 33009–33026</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/oe/abstract.cfm?URI=oe-29-21-33009" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OE.440410" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S1.p4.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib16"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. E. Gómez-Correa, A. L. Padilla-Ortiz, J. P. Trevino, A. Jaimes-Nájera, N. Lozano-Crisóstomo, A. Cornejo-Rodriguez, and S. Chavez-Cerda</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Symmetric gradient-index media reconstruction</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics Express</span> <span class="ltx_text ltx_bib_volume">31</span> (<span class="ltx_text ltx_bib_number">18</span>), <span class="ltx_text ltx_bib_pages">pp. 29196–29212</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S1.p4.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib14"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. E. Gómez-Correa</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Geometrical-light-propagation in non-normalized symmetric gradient-index media</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Opt. Express</span> <span class="ltx_text ltx_bib_volume">30</span> (<span class="ltx_text ltx_bib_number">19</span>), <span class="ltx_text ltx_bib_pages">pp. 33896–33910</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/oe/abstract.cfm?URI=oe-30-19-33896" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OE.465957" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S1.p4.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_book" id="bib.bib1"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Gómez-Reino, M. V. Pérez, and C. Bao</span><span class="ltx_text ltx_bib_year"> (2002)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Gradient-index optics: fundamentals and applications</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">Springer</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib17"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. A. Grzesik</span><span class="ltx_text ltx_bib_year"> (2005)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Focusing properties of a three-parameter class of oblate, Luneburg-like inhomogeneous lenses</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Electromagnetic Waves and Applications</span> <span class="ltx_text ltx_bib_volume">19</span> (<span class="ltx_text ltx_bib_number">8</span>), <span class="ltx_text ltx_bib_pages">pp. 1005–1019</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1163/156939305775526089" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1163/156939305775526089" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.p1.1" title="III Reconstruction accuracy ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§III</span></a>,
+<a class="ltx_ref" href="#S3.p1.2" title="III Reconstruction accuracy ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§III</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_book" id="bib.bib3"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">V. Lakshminarayanan, A. K. Ghatak, and K. Thyagarajan</span><span class="ltx_text ltx_bib_year"> (2002)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Lagrangian optics</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">Springer</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib4"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. H. Lippman, N. S. Kochan, T. Yang, G. R. Schmidt, J. L. Bentley, and D. T. Moore</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Freeform gradient-index media: a new frontier in freeform optics</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Opt. Express</span> <span class="ltx_text ltx_bib_volume">29</span> (<span class="ltx_text ltx_bib_number">22</span>), <span class="ltx_text ltx_bib_pages">pp. 36997–37012</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/oe/abstract.cfm?URI=oe-29-22-36997" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OE.443427" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib5"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">W. Liu, H. Hu, F. Liu, and H. Zhao</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Manipulating light trace in a gradient-refractive-index medium: a Lagrangian optics method</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Opt. Express</span> <span class="ltx_text ltx_bib_volume">27</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages">pp. 4714–4726</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="http://www.opticsexpress.org/abstract.cfm?URI=oe-27-4-4714" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OE.27.004714" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib29"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">W. Liu, Y. Ren, and F. Liu</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Analytical ray tracing based on hamilton principal function and conjugate variable pairs</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">J. Opt. Soc. Am. A</span> <span class="ltx_text ltx_bib_volume">40</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 78–84</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/josaa/abstract.cfm?URI=josaa-40-1-78" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/JOSAA.477881" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_book" id="bib.bib2"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[17]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. K. Luneburg</span><span class="ltx_text ltx_bib_year"> (1964)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Mathematical theory of optics</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">University of California</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.p1.1" title="III Reconstruction accuracy ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§III</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib21"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[18]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. W. Marchand</span><span class="ltx_text ltx_bib_year"> (1972)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Ray tracing in cylindrical gradient-index media</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Appl. Opt.</span> <span class="ltx_text ltx_bib_volume">11</span> (<span class="ltx_text ltx_bib_number">5</span>), <span class="ltx_text ltx_bib_pages">pp. 1104–1106</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="http://ao.osa.org/abstract.cfm?URI=ao-11-5-1104" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/AO.11.001104" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib19"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[19]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. W. Marchand</span><span class="ltx_text ltx_bib_year"> (1970)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Ray tracing in gradient-index media</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">J. Opt. Soc. Am.</span> <span class="ltx_text ltx_bib_volume">60</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 1–7</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="http://www.osapublishing.org/abstract.cfm?URI=josa-60-1-1" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/JOSA.60.000001" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib20"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[20]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. W. Marchand</span><span class="ltx_text ltx_bib_year"> (1988)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Rapid ray tracing in radial gradients</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Appl. Opt.</span> <span class="ltx_text ltx_bib_volume">27</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages">pp. 465–467</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="http://ao.osa.org/abstract.cfm?URI=ao-27-3-465" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/AO.27.000465" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib18"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[21]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Mazzaferri and R. Navarro</span><span class="ltx_text ltx_bib_year"> (2012)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Wide two-dimensional field laser ray-tracing aberrometer</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Vision</span> <span class="ltx_text ltx_bib_volume">12</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 2–2</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1534-7362</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1167/12.2.2" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1167/12.2.2" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.p2.1" title="III Reconstruction accuracy ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§III</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib7"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[22]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. C. Miñano</span><span class="ltx_text ltx_bib_year"> (1985)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Refractive-index distribution in two-dimensional geometry for a given one-parameter manifold of rays</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">J. Opt. Soc. Am. A</span> <span class="ltx_text ltx_bib_volume">2</span> (<span class="ltx_text ltx_bib_number">11</span>), <span class="ltx_text ltx_bib_pages">pp. 1821–1825</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/josaa/abstract.cfm?URI=josaa-2-11-1821" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/JOSAA.2.001821" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib22"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[23]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. T. Moore</span><span class="ltx_text ltx_bib_year"> (1975)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Ray tracing in gradient-index media</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">J. Opt. Soc. Am.</span> <span class="ltx_text ltx_bib_volume">65</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages">pp. 451–455</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="http://www.osapublishing.org/abstract.cfm?URI=josa-65-4-451" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/JOSA.65.000451" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib6"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[24]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Nemoto and T. Makimoto</span><span class="ltx_text ltx_bib_year"> (1979)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Refractive-index distribution for a prescribed ray path</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">J. Opt. Soc. Am.</span> <span class="ltx_text ltx_bib_volume">69</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages">pp. 450–454</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/abstract.cfm?URI=josa-69-3-450" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/JOSA.69.000450" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S1.p3.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib12"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[25]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">H. Ohno and T. Usui</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Neural network gradient-index mapping</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">OSA Continuum</span> <span class="ltx_text ltx_bib_volume">4</span> (<span class="ltx_text ltx_bib_number">10</span>), <span class="ltx_text ltx_bib_pages">pp. 2543–2551</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/osac/abstract.cfm?URI=osac-4-10-2543" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OSAC.437395" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib13"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[26]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">H. Ohno and T. Usui</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Design method of gradient-index optics in homogeneous medium using neural network gradient-index mapping</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optical Review</span> <span class="ltx_text ltx_bib_volume"></span> (<span class="ltx_text ltx_bib_number"></span>), <span class="ltx_text ltx_bib_pages">pp. 1–6</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1007/s10043-023-00803-1" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib24"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[27]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. B. Paxton and W. Streifer</span><span class="ltx_text ltx_bib_year"> (1971)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Analytic solution of ray equations in cylindrically inhomogeneous guiding media. part 2: skew rays</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Appl. Opt.</span> <span class="ltx_text ltx_bib_volume">10</span> (<span class="ltx_text ltx_bib_number">5</span>), <span class="ltx_text ltx_bib_pages">pp. 1164–1171</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="http://ao.osa.org/abstract.cfm?URI=ao-10-5-1164" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/AO.10.001164" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib28"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[28]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Sakamoto</span><span class="ltx_text ltx_bib_year"> (1987)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Ray trace algorithms for GRIN media</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Appl. Opt.</span> <span class="ltx_text ltx_bib_volume">26</span> (<span class="ltx_text ltx_bib_number">15</span>), <span class="ltx_text ltx_bib_pages">pp. 2943–2946</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="http://ao.osa.org/abstract.cfm?URI=ao-26-15-2943" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/AO.26.002943" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib26"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[29]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Sharma, D. V. Kumar, and A. K. Ghatak</span><span class="ltx_text ltx_bib_year"> (1982)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Tracing rays through graded-index media: a new method</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Appl. Opt.</span> <span class="ltx_text ltx_bib_volume">21</span> (<span class="ltx_text ltx_bib_number">6</span>), <span class="ltx_text ltx_bib_pages">pp. 984–987</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="http://ao.osa.org/abstract.cfm?URI=ao-21-6-984" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/AO.21.000984" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib27"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[30]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Sharma</span><span class="ltx_text ltx_bib_year"> (1985)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Computing optical path length in gradient-index media: a fast and accurate method</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Appl. Opt.</span> <span class="ltx_text ltx_bib_volume">24</span> (<span class="ltx_text ltx_bib_number">24</span>), <span class="ltx_text ltx_bib_pages">pp. 4367–4370</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="http://ao.osa.org/abstract.cfm?URI=ao-24-24-4367" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/AO.24.004367" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib23"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[31]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">W. Streifer and K. B. Paxton</span><span class="ltx_text ltx_bib_year"> (1971)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Analytic solution of ray equations in cylindrically inhomogeneous guiding media. 1: meridional rays</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Appl. Opt.</span> <span class="ltx_text ltx_bib_volume">10</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages">pp. 769–775</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="http://ao.osa.org/abstract.cfm?URI=ao-10-4-769" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/AO.10.000769" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Freeform gradient-index media reconstruction"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+</ul>
+</section>
+</article></div></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
