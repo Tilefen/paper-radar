@@ -1,0 +1,127 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>扩展双波长注入种子激光可用波长范围的激光设计方法</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style><style>
+.paper-reader{max-width:860px;margin:0 auto}
+.paper-reader h1{font-size:28px;line-height:1.35;margin:10px 0 6px}
+.paper-reader .original-title{color:var(--muted);font-size:14px;margin-bottom:18px}
+.paper-reader .meta{color:var(--muted);font-size:13px;margin-bottom:20px}
+.paper-reader .toc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:20px 0 28px;font-size:14px}
+.paper-reader .toc ol{margin:6px 0 0 18px;padding:0}
+.paper-reader .toc li{margin:3px 0}
+.paper-reader article{font-size:16px;line-height:1.9}
+.paper-reader h2{font-size:22px;margin:30px 0 10px}
+.paper-reader h3{font-size:18px;margin:22px 0 8px}
+.paper-reader figure{margin:20px 0;text-align:center}
+.paper-reader img{max-width:100%;height:auto}
+.paper-reader figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+.paper-reader table{display:block;overflow-x:auto;border-collapse:collapse;margin:16px 0;font-size:14px}
+.paper-reader math{overflow-x:auto;max-width:100%}
+.paper-reader pre{overflow-x:auto}
+</style></head><body class="">
+<header><a class="brand" href="../index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="../daily/index.html">日报</a><a href="../papers/index.html" aria-current="page">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 中文全文</div><h1>扩展双波长注入种子激光可用波长范围的激光设计方法</h1><div class="paper-reader"><h1>扩展双波长注入种子激光可用波长范围的激光设计方法</h1><p class="meta">arXiv 2610.30897 · 20 页</p><article><p>0 用于扩展双波长注入种子激光器可用波长范围的激光器设计方法 Ayaka Hashimoto,1 Tetsuto Watanabe,1 Sota Kobayashi,1 Megumi Otose,1 Ken’ichi Nakagawa,1,2 和 Masayuki Katsuragawa1,2,3,4,* 1 日本东京都调布市调布丘 1-5-1，电气通信大学工程科学系，182-8585 2 日本东京都调布市调布丘 1-5-1，电气通信大学激光科学研究所，182-8585 3 日本东京都调布市调布丘 1-5-1，电气通信大学先进科学研究所，182-8585 4 日本东京都立川市绿町 10-3，国立极地研究所，182-8585 *katsuragawa@uec.ac.jp</p><p>摘要：本文描述了一种扩展双波长振荡注入锁定激光器适用波长范围的方法。特别关注能够同时在增益中心和增益尾部实现振荡的激光器设计，因为这种情况的要求最为严苛。我们表明，通过将波长依赖特性引入输出耦合镜，而不在激光谐振腔内引入任何损耗，即可获得足够的性能。我们还表明，如何根据实验测量确定这种波长依赖特性。在实际中，使用所设计的输出耦合器，我们演示了在多种波长组合下具有相等输出功率的同时振荡</p><p>这些组合位于增益中心附近和增益尾部附近，其中波长间隔最大可达 60 nm。</p><p>1 图 1. Ti: sapphire 激光器的基本特性，以及扩展双波长注入种子 Ti: sapphire 激光器可用波长带宽的概念性思路。灰色虚线：Ti: sapphire 激光晶体的增益曲线。灰色光谱：采用标准输出耦合器（normal-OC，绿色曲线）时的自由运转振荡光谱，该耦合器在 750 - 850 nm 范围内具有 66.5% 的恒定反射率。橙色曲线：为扩展双波长振荡可用波长带宽而设计的输出耦合器（dual-OC）的预期反射率特性。</p><p>注入锁定激光器是一种极其通用的激光系统，可同时实现高频率纯度和高输出功率 [1] [2] [3] [4] [5]。虽然其基本工作模式基于单波长振荡，但这一概念可推广至多波长振荡。事实上，此类概念已在纳秒脉冲 [6] [7] [8] [9] 和连续波激光器 [10] 中得到成功实现。在涉及非线性光学过程的研究中，通常会涉及具有不同波长的激光辐射。因此，多波长注入锁定激光器在此类应用中特别有用 [11] [12]。可根据具体应用最优选择波长组合。</p><p>然而，单个激光系统所能允许的可用波长范围未必很宽。图1展示了将双波长运转应用于钛蓝宝石（Ti:sapphire）激光器的情况，该激光器在近红外区（670 – 1000 nm）具有非常宽的增益带宽[13]。在使用普通输出耦合镜、且其反射率特性随波长保持恒定的标准激光器配置中，可用波长范围通常限制在约 750 – 820 nm。例如，对于 λ1（790 nm）和 λ2（820 nm）的波长组合，可以实现双波长运转；但如果我们选择 λ1 与一个远离增益峰的波长（如 λ3（840 nm））的组合，则激光输出不再</p><p>被牵引到波长 λ3 [14]，因此无法实现双波长振荡。扩展以多波长注入种子振荡运行的可用波长范围，可能会显著拓宽潜在应用，因此这是激光技术中一项有价值的挑战。这里，我们以采用 Ti:sapphire 激光器实现双波长注入种子振荡为例，描述扩展适用波长范围的方法。</p><p>3 图2. 通过增加远离增益中心的波长（846 nm）处的种子激光注入功率来抑制自由振荡的测试。</p><p>在可能的双波长组合中，对增益中心波长与增益尾部波长组合（例如图1中的 λ1 与 λ3 组合）的同时振荡提出了最严格的要求。在多波长振荡的情况下也是如此。下面，我们将围绕这种情况讨论该方法。扩展适用的增益边缘波长有两种可能的机制：提高增益边缘波长处的种子激光功率，以及降低增益中心处的增益以缓解增益中心与边缘之间的增益不平衡。图2给出了按照前一种思路进行的测试。我们注入了一束种子激光</p><p>辐射，其波长位于增益尾部（λ3：846 nm），注入到 Ti:sapphire 激光器中，同时提高种子激光功率。在增益中心波长（λ1：787 nm）附近，我们观察到了由自发辐射建立起来的宽自由振荡光谱（图2中的灰色光谱）。虽然随着 λ3 处种子功率的增加，自由振荡略有减弱，但即使种子功率提高到 4.7 mW，自由振荡光谱几乎仍未受到抑制。相比之下，在增益中心波长 λ1 处，即使种子功率低于 100 μW，自由振荡也被完全抑制。也就是说，上述结果意味着，增益中心波长与增益尾部波长处的同时振荡也永远无法实现，即使</p><p>我们已在增益中心与增益尾端波长之间提供了1:40的种子光功率比。前一种方法不切实际。接下来，我们考虑一种能够缓解增益中心与增益尾端波长之间增益不平衡的替代方法。该方法可能涉及两种方式：在激光谐振腔内插入波长相关光学元件[14]，或在输出耦合镜上引入波长相关反射率。前一种方式虽被普遍采用，但在激光谐振腔内插入此类光学元件不可避免地会引入损耗，从而显著降低输出功率。相比之下，后一种方法中，引入波长相关的</p><p>输出耦合镜反射率；对反射率的抑制绝不会引入功率损耗，反而可以很容易地转化为输出功率。鉴于这些考虑，我们选择后一种方法，即在输出耦合镜上实现波长相关反射率。为此，最优反射率特性在定性上应预期为：在增益中心波长处抑制反射率，同时在增益尾端保持高反射率（图1，dual-OC）。于是关键问题变为如何定量确定这些反射率特性。在此，我们提出该方法，并进一步利用一个基于</p><p>此方法制作的实际输出耦合镜，证明双波长振荡的适用波长范围确实如设计所预期得到扩展。</p><p>5 图3. 用于实验估计扩展双波长注入种子Ti:sapphire激光器可用波长范围所需的波长相关损耗的示意图。M1、M2为凹面全反射镜（曲率半径100 mm），M3为平面全反射镜，它们在750–850 nm范围内的反射率&gt;99%。M4为输出耦合镜，具有在750–850 nm范围内反射率恒定为66.5%的标准特性。蓝色板为用作有效陷波型滤光器的光学器件，安装在旋转台上。</p><p>6 作为设计输出耦合镜反射率特性的第一步，我们估计了增益中心（λ1：787 nm）附近所需的增益衰减率，以抑制自由运转振荡，同时能够在增益尾端附近以单波长（λ3：846 nm）实现注入种子运行。如图3所示，我们在蝴蝶结形环形Ti:sapphire激光谐振腔中插入了一个用作有效陷波滤光器的光学元件（ENF：633 nm标准全反射镜，入射角45°）。该元件具有这样的透射特性：在增益中心处引入损耗，而在增益尾端附近的影响最小。通过逐渐调节</p><p>对于该光学元件，从正入射方向，我们控制添加到增益中心的衰减率。在该配置中，蝶形环形 Ti:sapphire 激光器由三面全反射镜（反射率 &gt; 99%；M1、M2：曲率半径为 100 mm 的凹面镜，M3：平面镜）和一面输出耦合镜 M4（反射率：66.5 ± 0.5%）组成。每个光学元件在 750 - 850 nm 范围内均具有标准平坦反射率特性。环形谐振腔内光束在 Ti:sapphire 晶体处的直径按 1/e2 设计为 1.2 mm。（激光谐振腔的更多细节将另文报道）</p><p>7 a b 图 4. 用于扩展双波长注入种子 Ti:sapphire 激光器可用波长范围所需的波长相关损耗估计。注入种子脉冲振荡测试：a，单种子激光注入波长远偏离增益中心，846 nm；b，双波长种子激光分别注入到增益中心附近和远离增益中心的波长 787 nm 和 846 nm 处。精细度标注是在 787 nm 处测得的。</p><p>8 在实际操作中，加在增益中心波长 λ1（787 nm）处的损耗在 7%–84% 之间进行调控。为了根据与激光运行直接相关的总谐振腔损耗来量化这些损耗，我们使用 787 nm 种子激光在每个安装角度下精确测量了谐振腔精细度。上述附加损耗对应于 4.19 至 12.4 的谐振腔精细度，其中包括其他谐振腔元件的全部损耗。图 4 显示了在 λ3（846 nm）处引入种子激光辐射以在增益尾部波长处引导单波长注入种子振荡时的结果。这里，532 nm 泵浦激光的能量设为 56 mJ（重复频率 10 Hz），而 λ3 处的种子激光功率在</p><p>增益尾部被调整到 3.2 mW。使用紧凑型光谱仪（USB4000-UV-VIS，Ocean Optics Co.）测量了脉冲输出光谱。如图 4 所示，当在增益中心波长处加入超过精细度 8.17 的损耗（附加损耗为 33%）时，源于增益中心波长处自发辐射的自由运转振荡几乎被抑制，脉冲输出被牵引到注入增益尾部的种子激光辐射上。需要注意的是，在附加损耗对应精细度低于 8.17 的条件下，在增益中心的长波长侧仍观察到残余的自由运转振荡光谱，因为由 ENF 引起的损耗是在围绕的有限波长宽度内给出的</p><p>增益中心（取决于插入角）。由于本评估的目的是确定能够抑制增益中心（787 nm）处自由运转振荡、同时实现增益尾部（846 nm）单波长注入种子振荡的附加损耗，因此残留在较长波长侧的自由运转振荡光谱并未影响本评估测试。（更详细的信息见补充材料。）</p><p>9 在估算了抑制由增益中心附近自发辐射建立起来的自由运转振荡所需条件之后，我们在图4a所示每种配置中引入787 nm（增益中心）的种子激光辐射，以考察增益中心波长和增益尾部波长处的双波长注入种子振荡（具体而言，确定实现注入种子脉冲输出功率比1:1所需的条件）。这里，我们将增益中心种子功率与增益尾部种子功率之间最大为1:15的比例视为实际可行，尽管就脉冲输出功率比的可控性而言，理想比例为1:1 [7]。</p><p>正如由图4a所得结果所预期的那样，当增益中心处的精细度大于8.34时，施加到增益中心的损耗被证明不足，因此，即使我们提供的增益中心与增益尾部之间的种子功率比达到最大值，增益尾部处的注入种子振荡仍会因被增益中心处的振荡所压制而无法建立。这表明抑制自由运转振荡是一个先决条件。与此同时，当在增益中心处进一步增加损耗以达到8.17的精细度——足以充分抑制增益中心处的自由运转振荡——时，如图4b所示，在增益中心处和增益尾部处均实现了注入种子脉冲振荡，其功率</p><p>比接近1:1。这种双波长注入种子振荡一直维持到提供对应于7.53精细度的损耗为止。然而，超过该点进一步增加损耗（精细度为7.13–7.20）会导致过大损耗，使增益中心处的注入种子振荡被增益尾部处的振荡压制。此外，当引入等于或大于对应于6.47精细度的损耗时，不再观察到增益中心处的注入种子振荡。由这些结果，我们得出结论：为在增益中心处和</p><p>增益尾部处获得相当的注入锁定脉冲输出功率，施加到增益中心的合适损耗范围（以精细度计）应为7.53–8.17。在该评估测试中，增益尾部处846 nm的精细度保持在11.0–11.5范围内。</p><p>10 图5. 带有双OC（M4）的双波长注入种子钛蓝宝石激光器示意图。全反射镜（M1、M2为曲率半径100 mm的凹面镜，M3为平面镜）在750–850 nm范围内的反射率&gt;99%。图6. 双OC的设计反射率和实测反射率。带误差棒的橙色曲线为设计反射率曲线，允许范围为+2.5%。实心圆为双OC的实测反射率，蓝色表示增益中心附近，红色表示远离增益中心。绿色曲线为普通OC的反射率，用于比较。</p><p>11 在使用 ENF 的评估实验中，我们将用于扩展双波长注入种子振荡可用波长范围的合适精细度确定为：787 nm 处为 7.53–8.17，同时将 846 nm 处的精细度保持在 11.0–11.42 范围内。随后利用公式 (1) 将这些值转换为输出耦合镜的反射率 R。其中，系数 A 表示激光腔内部固有的总损耗（晶体表面和镜面的反射损耗）——787 nm 处为 8.2%，846 nm 处为 8.0%。𝐹𝑖𝑛𝑒𝑠𝑠𝑒 = 𝜋4√𝑅 1 − √𝑅𝐴 (1) 推导得到的反射率为 787 nm 处 46.7–49.9%，846 nm 处 60.8–62.1%。制造过程中需纳入的公差最大为 ±2.5%。由于抑制</p><p>增益中心处的自由振荡是首要考虑，我们将 787 nm 处反射率的上限规定为 49.9%（包含 ±2.5% 的公差），也就是说，要求 787 nm 的反射率规格为 47.4 ± 2.5%。类似地，我们将 846 nm 处反射率的下限视为 60.8%，从而规定 846 nm 的反射率规格为 63.3 ± 2.5%。对于增益中心与增益尾部之间的反射率，我们要求其随波长变长而平滑变化，结构由下凸过渡到上凸（图 6，双 OC 配置）。实际制作出的输出耦合镜的反射率测量值为 787 nm 处 47%</p><p>846 nm 处为 63%，确认处于设计反射率范围内。</p><p>12 图 7. 采用多种双波长组合的注入种子 Ti:sapphire 激光器的脉冲输出光谱。a: (786.9537 nm, 824.3666 nm)，b: (786.9545 nm, 827.8072 nm)，c: (786.9534 nm, 832.7388 nm)，d: (786.9537 nm, 837.9514 nm)，e: (786.9536 nm, 840.3978 nm)，f: (786.9530 nm, 845.5836 nm)。还显示了自由振荡的光谱；浅灰色光谱为采用标准输出耦合镜（normal-OC）运行所得，深灰色光谱为采用设计输出耦合镜（dual-OC）所得。</p><p>13 我们将制作出的输出耦合镜（dual-OC）集成到激光腔中，如图 5 所示，并对增益中心处和增益尾部处的双波长振荡进行了测试。532 nm 激光器的泵浦能量设置为 57 mJ，在 Ti:蓝宝石晶体表面处 1/e² 下的光束直径为 1.2 mm，其中脉冲持续时间和重复频率分别为 10 ns 和 10 Hz。图 7 中的深灰色线表示未引入种子激光辐射时观测到的自由振荡光谱。与使用……的情况相比，增益中心波长附近精细度的降低导致增益窄化行为不那么明显。</p><p>normal-OC（图1和图7中的浅灰色线）表现出更宽的振荡光谱。这里，我们在增益中心波长（786.9530 nm）和增益尾部波长（845.5836 nm）处同时注入种子激光辐射，以诱导双波长注入种子振荡。通过调节种子激光功率比以获得几乎相等的脉冲输出功率，我们在增益中心与尾部之间的种子功率比为1:7时获得了这些输出（图7中的橙色光谱f）。随后，我们测试了其他双波长注入种子振荡，采用增益中心波长（787 nm）与增益尾部波长（824–840 nm，图7中的a–e）的多种组合。对于所有组合，均可通过适当调节</p><p>在2:1–1:7之间适当调节种子功率比。</p><p>14 图 8. 双波长注入种子Ti:蓝宝石激光器在dual-OC工作时的脉冲输出特性，注入的双种子波长分别位于增益中心附近（蓝色实心圆）和远离中心（红色实心圆），其中橙色实心圆表示蓝色和红色实心圆对应输出功率之和。为比较，还给出了采用normal-OC（绿色实心圆）的输出特性，其中Ti:蓝宝石激光器在增益中心附近以单波长种子激光工作。</p><p>15 最后，我们给出双波长注入种子振荡的输出功率特性，对应图7中的情况f。测量在增益中心和增益尾部获得几乎相等输出功率的条件下进行。输出功率特性在增益中心和增益尾部几乎相同，包括振荡阈值、斜率效率、最大输出功率和最大能量效率；对于787 nm（图8中的蓝色实心圆）和846 nm（图8中的红色实心圆）的注入种子振荡，它们分别为42 mJ、29%、11.2 mJ/14.2%；以及41 mJ、28%、10.6 mJ/13.4%，其中</p><p>最大泵浦能量设为79 mJ。在取787 nm和846 nm输出功率之和得到的总输出功率特性中，它们达到41 mJ、57%、21.8 mJ/27.6%（图8中的橙色实心圆）。为比较，我们还列出了采用普通输出耦合镜配置腔体的增益中心787 nm单波长注入种子振荡的输出特性（图8中的绿色实心圆）。振荡阈值、斜率效率、最大输出功率和最大效率分别为27 mJ、41%、18.0 mJ/25.0%，其中最大泵浦能量设为72 mJ。由于所设计的输出耦合镜（dual-OC）本身需要较低的输出耦合</p><p>在反射率方面，双波长振荡的振荡阈值相比常规 OC 配置有所提高（27 -&gt; 41 mJ）。然而反过来，斜率效率显著改善（41% -&gt; 57%），因此在提供足够泵浦能量（&gt; 70 mJ）时，输出功率几乎保持不变，如图 8 所示。波长相关腔特性的设计并非通过将波长相关元件置于激光腔内这一会引入显著损耗的常规方法实现，而是通过将波长相关特性设计到输出耦合镜的反射率中来实现。该方法使我们实现了目标，即扩展双波长注入-</p><p>种子振荡的可用波长范围，且不在腔内引入任何损耗。</p><p>16 结论 我们描述了扩展双波长注入锁定激光器适用波长范围的方法。我们已表明，通过基于实验测量适当设计输出耦合镜的波长相关特性，可以在不向谐振腔引入损耗的情况下实现这一点。在实践中，使用所设计的输出耦合镜，我们已在增益中心附近和增益尾部附近的各种波长组合下，演示了具有相等输出功率的双波长振荡，其中波长间隔最大达 60 nm。注入种子纳秒脉冲激光器可同时实现高功率（&gt;</p><p>MW）和高光谱纯度（&lt; 数十 MHz），使其特别适用于研究非线性光学现象——包括涉及孤立原子/分子系统的现象——以及研究大气物理。本文提出的激光技术，即扩展双波长注入种子激光器的适用波长范围，可能开辟多种应用，包括同时测量源自流星体、出现在高层大气（高度：&gt;80 km）中的 Ca（422.7918 nm × 2 = 845.5836 nm）层和 Ca+（393.4770 nm × 2 = 786.9540 nm）层 [15]。</p><p>17 资助。本工作得到 Grant-in-Aid for Scientific Research (S) No. 20H05642 的支持。我们也感谢 Nichia Corp. 的财务支持。致谢。作者感谢 S. Miyoshi 对本工作实验的支持。他们还感谢 T. Nakamura 和 M. Ejiri 的有益讨论。利益冲突声明。作者声明无利益冲突。数据可用性。本文所呈现结果所依据的数据目前不公开，但可在合理请求下向作者获取。</p><p>18 补充图 S1。图4a的详细结构。随着所加损耗增大，可以详细观察到增益中心787 nm处自由运转振荡的抑制。由于用作陷波滤波器的光学器件具有一种特性，当通过改变该光学器件的入射角来增大损耗时，自由运转振荡分布会被推向更长波长范围。当所加损耗大于增益中心787 nm处对应精细度为8.17的损耗量时，自由运转振荡被充分抑制。</p><p>19 参考文献 [1] Y . K. Park, G. Giuliani and R. L. Byer, &quot;Stable signal-axial-mode operation of an unstable-resonator Nd:YAG oscillator by injection locking,&quot; OPTICS LETTERS, vol. 5, no. 3, pp. 96-98, 1980. [2] T. D. Raymond and A. V. Smith, “Injection-seeded titanium-doped-sapphire laser “, Opt. Lett. Vol. 16, 819, 33- 35, 1991. [3] C. E. Hamilton, “ Single-frequency, injection-seeded Ti:sapphire ring laser with high temporal precision“, Opt. Lett. Vol. 17, 728 – 730, 1992. [4] E. A. Cummings, M. S. Hicken and S. D. Bergeson, &quot;Demonstration of a 1 -W injection -locked continuous-wave titanium:sapphire laser,&quot; APPLIED OPTICS, vol. 41, no. 36, pp. 7583-7587, 2002. [5] S.-W. Chiow, S. Herrmann, H. M¨uller and S. Chu, &quot;6 W , 1 kHz linewidth, tunable continuous-wave</p><p>near-infrared laser,&quot; OPTICS EXPRESS, vol. 17, no. 7, pp. 5246-5250, 2009. [6] M. Katsuragawa and T. Onose, &quot;Dual-wavelength injection-locked pulsed laser,&quot; OPTICS LETTERS, vol. 30, no. 18, pp. 2421-2423, 2005. [7] T . Onose and M. Katsuragawa, &quot;Dual -wavelength injection -locked pulsed laser with highly predictable performance,&quot; OPTICS EXPRESS, vol. 15, no. 4, pp. 1600-1605, 2007. [8] Y . Fujii and M. Katsuragawa, &quot;Dual-frequency pulsed laser with an accurate gigahertz-beat note,&quot; OPTICS LETTERS, vol. 32, no. 21, pp. 3065-3067, 2007. [9] T. Nakano, K. Koizumi, T . Onose, K. Abe and M. Katsuragawa, &quot;Dual-frequencyinjection-locked nanosecond pulsed laser with arbitrary combination of two oscillation frequencies,&quot; OPTICS EXPRESS,</p><p>vol. 18, no. 25, pp. 26409-26416, 2010. [10] T. Gavara, T. Ohashi, Y . Sasaki, T. Kawashima, H. Hamano, R. Yoshizaki, Y . Fujimura, K. Yoshii, C. Ohae and M. Katsuragawa, &quot;Dual -frequency injection-locked continuous-wave near-infrared laser,&quot; OPTICS LETTERS, vol. 41, no. 13, pp. 2994-2997, 2016. [11] A. V. Sokolov, D. R. Walker, D. D. Yavuz, G. Y . Yin and S. E. Harris, &quot;Raman Generation by Phased and Antiphased Molecular States,&quot; PHYSICAL REVIEW LETTERS, vol. 85, no. 3, pp. 562-565, 2000. [12] J. Q. Liang, M. Katsuragawa, F. L. Kien and K. Hakuta, &quot;Sideband generation using strongly driven raman coherence in solid hydrogen,&quot; PHYSICAL REVIEW LETTERS, vol. 85, no. 12, pp. 3065-3067, 2000. [13] P . F. Moulton, &quot;Spectroscopic and laser characteristics of Ti:Al2O3,&quot; J. Opt. Soc. Am. B: Opt. Phys.,</p><p>第 3 卷，第 1 期，第 125–133 页，1986 年。[14] A. Kasapi、G. Y . Yin 和 M. Jain，“增益峰外种子注入的脉冲 Ti:sapphire 激光器”，APPLIED OPTICS，第 35 卷，第 12 期，第 1999–2004 页，61998。[15] A. Hashimoto、M. K. Ejiri、S. Kobayashi、S. Miyoshi、M. Otose、C. Ohae、T. Nakamura 和 M. Katsuragawa：“基于 Ti:sapphire 激光器的共振散射激光雷达系统，用于同时观测高层大气中出现的 Ca 层和 Ca+ 层”，第 31 届国际激光雷达会议（ILRC 31）与第 22 届相干激光雷达会议（CLRC 22）联合举办。EPJ Web of Conferences 第 362 卷，04010，2026）。https://doi.org/10.1051/epjconf/202636204010</p></article></div></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
