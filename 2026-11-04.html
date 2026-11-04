@@ -162,7 +162,7 @@ li{margin:5px 0}
 <h4>局限与阅读提醒</h4><ul><li>单受试者、单次代表性记录（n=1），未量化生理特异性、技术重复性或临床价值；方法不能分离视网膜/脉络膜、特定血管丛，也不能转为绝对灌注或速度。</li><li>空间/跨beat中值只能削弱孤立伪影，不能去除持续污染；加性背景、小参考区、配准误差与残余眼动会影响SE(t)和SEI。</li></ul></article><article class="paper" id="paper-2611.02755" data-search="Phase-locked beam splitting with continuously tunable intensity ratio using stochastic phase masks 基于随机相位掩模的相位锁定连续可调强度比分束 机构待核验 display">
 <div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★★☆</span></div>
 <h3>基于随机相位掩模的相位锁定连续可调强度比分束</h3><a class="original" href="https://arxiv.org/abs/2611.02755" target="_blank" rel="noopener noreferrer">Phase-locked beam splitting with continuously tunable intensity ratio using stochastic phase masks ↗</a>
-
+<a class="reading-link" href="papers/2611.02755/index.html">阅读中文全文 →</a>
 <p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-11-02（UTC）</p><p class="reason">读完可判断随机patch SLM分束能否替代固定相位板/光栅，并掌握强度比、相位稳定性、halo与patch尺寸的取舍。</p>
 <h4>研究问题</h4><p>现有共路相位锁定分束方案（π相位板、二值光栅、棋盘SLM）的强度比由掩模几何固定为50/50，无法在不引入独立光路衰减器的情况下独立调节两焦点强度，同时保持空间模式和相对相位不变。</p><h4>核心方法</h4><p>在反射式相位型LCoS SLM（1920×1200，8 µm像素，2π相位深度）孔径上划分方形patch，每个patch随机分配给A、B、D三个线性相位斜坡之一；A/B沿X反向倾斜，在f=200 mm透镜焦面形成相距100 µm的两个相位锁定焦点，D沿Y以10倍斜率偏置作功率dump。由目标强度反解patch分数ξ_A、ξ_B，用随机分区替代周期棋盘；推导集合平均焦面强度为相干焦点（峰值∝ξ_c²）加由patch尺寸决定的散斑halo，并用100个随机mask的相机平均与Fraunhofer数值传播验证。</p>
 <h4>实验结果</h4><ul><li>实验演示两焦点强度比可在0→1连续调谐而不畸变空间模式，相对相位保持在几十mrad内。</li><li>在强度比扫描中，两焦点相对相位保持48 mrad rms。</li><li>patch尺寸s从8增至64时，halo总功率不变但向焦点附近集中，焦点附近电平从约−38 dB升至−22 dB。</li><li>论文给出patch尺寸操作窗口s≈4–16，为定性边界。</li></ul>
@@ -170,7 +170,7 @@ li{margin:5px 0}
 <h4>局限与阅读提醒</h4><ul><li>实验仅在线性光学、λ=1030 nm、单SLM上完成；作者明确高阶谐波产生相位表征为后续工作，未验证非线性/高功率条件。</li><li>随机编码的代价是halo携带1−Σξ²总功率；固定强度比时确定性光栅效率更高但不可调；patch尺寸上下界为定性边界且受SLM边缘场影响，非通用规则。</li></ul></article><article class="paper" id="paper-2611.01675" data-search="Learned optical compression for single-pixel quantitative phase imaging 面向单像素定量相位成像的学习型光学压缩 机构待核验 display">
 <div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★★☆</span></div>
 <h3>面向单像素定量相位成像的学习型光学压缩</h3><a class="original" href="https://arxiv.org/abs/2611.01675" target="_blank" rel="noopener noreferrer">Learned optical compression for single-pixel quantitative phase imaging ↗</a>
-
+<a class="reading-link" href="papers/2611.01675/index.html">阅读中文全文 →</a>
 <p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-11-01（UTC）</p><p class="reason">可了解光学编码器与解码器联合优化在单像素相位成像中的实际收益、20测量预算下的编码策略对比，以及冻结编码器后仅调解码器的迁移边界。</p>
 <h4>研究问题</h4><p>定量相位成像通常依赖空间分辨强度图；单像素方案虽避开阵列探测器，却需要高效的光学编码。相位到强度映射是非线性的，随机、Hadamard、Fourier等预设图案未必能在少量标量测量中保留足够相位信息。论文要解决的是：如何学习一种与物体统计和数字重建器联合优化的紧凑光学测量表示，在实验可实现的单像素系统里用远少于重建像素数的测量获得高保真定量相位图，并能复用同一编码器适应新数据。</p><h4>核心方法</h4><p>系统用单个可重构相位SLM作为光学编码器：20个学习到的相位图案（0–2π）依次与待测相位物体叠加，635 nm相干光经4f中继后传播5.2 cm，CMOS相机上约0.1 mm宽ROI的平均强度给出一个标量测量；20个图案形成20维测量向量。数字解码器由全连接层和转置卷积层组成，与编码器通过可微衍射传播模型端到端联合训练，损失为相位重建MSE加探测器孔径能量惩罚。部署时编码图案冻结，并可仅用实验数据微调解码器。与已有单像素QPI使用预设随机/Hadamard/Fourier图案不同，这里光学编码与解码器一起学习，且编码图案与输入物体无关。</p>
 <h4>实验结果</h4><ul><li>635 nm实验用20个标量强度测量重建28×28像素定量相位图，测量/输出像素比2.55%，对应约40倍维度压缩。</li><li>盲测MNIST相位物体，实验迁移学习T=900后PCC 0.945±0.034、PSNR 22.2±2.9 dB。</li><li>光栅类相位物体在T=900实验迁移后PCC 0.848±0.233、PSNR 19.6±4.3 dB，20个光学编码图案保持冻结。</li><li>同20测量预算、同解码器架构的仿真盲测中，联合优化编码器比随机、Hadamard、Fourier编码的mean PSNR分别高11.4、11.9、12.7 dB。</li></ul>
@@ -178,7 +178,7 @@ li{margin:5px 0}
 <h4>局限与阅读提醒</h4><ul><li>采集为时间复用串行：20个SLM图案逐个显示，速度主要受SLM刷新与稳定时间限制；原文提出空间并行/多通道可提升吞吐，但未实验验证。</li><li>重建分辨率仅28×28，最短周期171 µm bin的零样本PCC 0.351、迁移后0.447，细结构仍受限；实验用SLM显示相位物体，尚未用独立物理相位样品验证。</li></ul></article><article class="paper" id="paper-2611.02225" data-search="Nondestructive 3D Metrology of Through-Glass Via Geometry and Internal Wall Texture Using Holotomography 基于全息层析的玻璃通孔三维几何与内壁纹理无损计量 机构待核验 vision">
 <div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★☆☆</span></div>
 <h3>基于全息层析的玻璃通孔三维几何与内壁纹理无损计量</h3><a class="original" href="https://arxiv.org/abs/2611.02225" target="_blank" rel="noopener noreferrer">Nondestructive 3D Metrology of Through-Glass Via Geometry and Internal Wall Texture Using Holotomography ↗</a>
-
+<a class="reading-link" href="papers/2611.02225/index.html">阅读中文全文 →</a>
 <p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-11-01（UTC）</p><p class="reason">读完能判断折射率匹配、MP-HT端点定位和ISO L滤波这套流程是否可迁移到透明微孔/内壁的无损检测。</p>
 <h4>研究问题</h4><p>未金属化玻璃通孔（TGV）的内部腰部与侧壁形貌难以无损表征：表面观察只能看到开口，截面检查需破坏样品。论文要在完整TGV中同时获得三维几何（顶/腰/底径、锥角、长度）和内壁纹理/粗糙度，并评估测量重复性与跨模态差异。</p><h4>核心方法</h4><p>在两类基板共192个未金属化TGV上，用450 nm LED、照明NA 0.68/收集NA 0.7、轴向步进0.703 µm，每层4幅强度图经3D PSF去卷积和TV正则重建折射率；以折射率匹配油降低壁面折射；RI分割结合MP-HT定位轴向端点；圆/沙漏拟合提取顶/腰/底径与锥角；ISO 16610-61高斯L滤波分离波纹和纹理，以Sa表征侧壁粗糙度。</p>
 <h4>实验结果</h4><ul><li>两类基板的锥角趋势不同：HR壁更接近轴向（更接近90°），LR通孔的沙漏形更明显。</li><li>侧壁粗糙度Sa均值：HR为0.841±0.028 µm，LR为0.272±0.098 µm（HR离散度更小）。</li><li>物理翻转/重装比较的合并偏差仅+0.002 µm，95%一致性界限为−0.094至+0.097 µm，6个点落在界限外。</li><li>HT与micro-CT的Sa差异呈类别依赖：HR较micro-CT高+0.124 µm，LR低−0.164 µm。</li></ul>
