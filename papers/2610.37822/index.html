@@ -1,0 +1,1060 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>𝟑 × 𝟏𝟎 − 𝟏𝟔 \mathbf{3\times 10^{-16}} 部署于4.3 km高山的稳定激光器</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style><style>
+.paper-reader{max-width:860px;margin:0 auto}
+.paper-reader h1{font-size:28px;line-height:1.35;margin:10px 0 6px}
+.paper-reader .original-title{color:var(--muted);font-size:14px;margin-bottom:18px}
+.paper-reader .meta{color:var(--muted);font-size:13px;margin-bottom:20px}
+.paper-reader .toc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:20px 0 28px;font-size:14px}
+.paper-reader .toc ol{margin:6px 0 0 18px;padding:0}
+.paper-reader .toc li{margin:3px 0}
+.paper-reader article{font-size:16px;line-height:1.9}
+.paper-reader h2{font-size:22px;margin:30px 0 10px}
+.paper-reader h3{font-size:18px;margin:22px 0 8px}
+.paper-reader figure{margin:20px 0;text-align:center}
+.paper-reader img{max-width:100%;height:auto}
+.paper-reader figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+.paper-reader table{display:block;overflow-x:auto;border-collapse:collapse;margin:16px 0;font-size:14px}
+.paper-reader math{overflow-x:auto;max-width:100%}
+.paper-reader pre{overflow-x:auto}
+</style></head><body class="">
+<header><a class="brand" href="../index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="../daily/index.html">日报</a><a href="../papers/index.html" aria-current="page">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 中文全文</div><h1>𝟑 × 𝟏𝟎 − 𝟏𝟔 \mathbf{3\times 10^{-16}} 部署于4.3 km高山的稳定激光器</h1><div class="paper-reader"><h1>𝟑 × 𝟏𝟎 − 𝟏𝟔 \mathbf{3\times 10^{-16}} 部署于4.3 km高山的稳定激光器</h1><p class="original-title">𝟑 × 𝟏𝟎 − 𝟏𝟔 \mathbf{3\times 10^{-16}} Stable Laser Deployed on a 4.3 km Mountain</p><p class="meta">arXiv 2610.37822 · 机器翻译，公式与图表保留原文</p><nav class="toc"><strong>目录</strong><ol></ol></nav><article class="ltx_document">
+<h1 class="ltx_title ltx_font_bold ltx_title_document"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" id="m1" intent=":literal"><semantics><mrow><mn>𝟑</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>𝟏𝟎</mn><mrow><mo>−</mo><mn>𝟏𝟔</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium" id="id1"> </span>部署于4.3 km高山的稳定激光器</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Tanner Grogan
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>National Institute of Standards and Technology, 325 Broadway, Boulder, Colorado 80305, USA
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Department of Physics, University of Colorado, Boulder, Colorado 80309, USA
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Eric Swiler
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>National Institute of Standards and Technology, 325 Broadway, Boulder, Colorado 80305, USA
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Department of Physics, University of Colorado, Boulder, Colorado 80309, USA
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Tristan Rojo
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>National Institute of Standards and Technology, 325 Broadway, Boulder, Colorado 80305, USA
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Department of Physics, University of Colorado, Boulder, Colorado 80309, USA
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Tobias Bothwell
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>National Institute of Standards and Technology, 325 Broadway, Boulder, Colorado 80305, USA
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Robert J. Fasano
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>National Institute of Standards and Technology, 325 Broadway, Boulder, Colorado 80305, USA
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Adam Halaoui
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>National Institute of Standards and Technology, 325 Broadway, Boulder, Colorado 80305, USA
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Roger C. Brown
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>National Institute of Standards and Technology, 325 Broadway, Boulder, Colorado 80305, USA
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Andrew D. Ludlow
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>National Institute of Standards and Technology, 325 Broadway, Boulder, Colorado 80305, USA
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Department of Physics, University of Colorado, Boulder, Colorado 80309, USA
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Electrical, Computer &amp; Energy Engineering, University of Colorado, Boulder, Colorado, USA
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>andrew.ludlow@nist.gov
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">摘要</h6>
+<p class="ltx_p" id="abstract1.1">我们提出了一种可搬运稳定激光器系统，该系统基于10 cm参考谐振腔和用于<math alttext="\mathrm{{}^{171}Yb}" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><mmultiscripts><mi>Yb</mi><mprescripts></mprescripts><mrow></mrow><mn>171</mn></mmultiscripts><annotation encoding="application/x-tex">\mathrm{{}^{171}Yb}</annotation></semantics></math>钟波长的全光纤相位稳定分配网络。我们重点介绍一种扩展长方体谐振腔几何结构，其间隔物体积比同长度传统立方谐振腔小4倍<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib15" title="">30</a>]</cite>。我们在所有轴向上均实现了低于<math alttext="2\times 10^{-10}g^{-1}" class="ltx_Math" display="inline" id="abstract1.m2" intent=":literal"><semantics><mrow><mrow><mn>2</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>10</mn></mrow></msup></mrow><mo lspace="0em" rspace="0em">​</mo><msup><mi>g</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2\times 10^{-10}g^{-1}</annotation></semantics></math>的可重复加速度灵敏度，以及低至<math alttext="3\times 10^{-16}" class="ltx_Math" display="inline" id="abstract1.m3" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">3\times 10^{-16}</annotation></semantics></math>的分数频率不稳定度。我们还展示了在全光纤光学系统中，将稳定光在10 m光纤上分配，准确度低于<math alttext="1\times 10^{-18}" class="ltx_Math" display="inline" id="abstract1.m4" intent=":literal"><semantics><mrow><mn>1</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1\times 10^{-18}</annotation></semantics></math>水平。我们报告了将激光器系统成功部署到海拔4300 m的Mount Blue Sky山顶，并首次报告了在实验室外测得的16位激光器不稳定度。</p>
+</div>
+<div class="ltx_para" id="p1">
+<p class="ltx_p" id="p1.1">过去十年，利用最先进相干光的量子传感器和光学传感器取得了快速发展。特别是，光钟已展示出第18位及更高位的不确定度，超越了当前<math alttext="\mathrm{{}^{133}Cs}" class="ltx_Math" display="inline" id="p1.m1" intent=":literal"><semantics><mmultiscripts><mi>Cs</mi><mprescripts></mprescripts><mrow></mrow><mn>133</mn></mmultiscripts><annotation encoding="application/x-tex">\mathrm{{}^{133}Cs}</annotation></semantics></math>标准<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib26" title="">25</a>, <a class="ltx_ref" href="#bib.bib7" title="">2</a>, <a class="ltx_ref" href="#bib.bib3" title="">14</a>, <a class="ltx_ref" href="#bib.bib5" title="">24</a>]</cite>。重新定义国际单位制（SI）秒的主要障碍之一，是需要跨洲进行钟比对<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib17" title="">7</a>]</cite>。全球计量学家正在建造可搬运光钟，这些光钟可运往海外，用于SI重新定义和计时水准测量<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib16" title="">29</a>, <a class="ltx_ref" href="#bib.bib18" title="">10</a>, <a class="ltx_ref" href="#bib.bib13" title="">3</a>, <a class="ltx_ref" href="#bib.bib8" title="">4</a>]</cite>。与此同时，GRACE Follow-On任务利用激光测距干涉测量以纳米级精密度定位两颗卫星的成功<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib12" title="">1</a>]</cite>，激发了大量空间精密测量提案。这两项技术都依赖稳健的稳定激光器，在恶劣环境中提供高度相干的探测光。</p>
+</div>
+<div class="ltx_para" id="p2">
+<p class="ltx_p" id="p2.1">最先进的参考谐振腔已在室温下展示出低于<math alttext="5\times 10^{-17}" class="ltx_Math" display="inline" id="p2.m1" intent=":literal"><semantics><mrow><mn>5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>17</mn></mrow></msup></mrow><annotation encoding="application/x-tex">5\times 10^{-17}</annotation></semantics></math>的分数频率不稳定度<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib22" title="">20</a>, <a class="ltx_ref" href="#bib.bib29" title="">27</a>]</cite>，并在低温下展示出低于<math alttext="3\times 10^{-17}" class="ltx_Math" display="inline" id="p2.m2" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>17</mn></mrow></msup></mrow><annotation encoding="application/x-tex">3\times 10^{-17}</annotation></semantics></math>的分数频率不稳定度<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib6" title="">17</a>, <a class="ltx_ref" href="#bib.bib11" title="">34</a>]</cite>。然而，这些谐振腔以精确几何结构进行松散支撑，以最小化振动灵敏度。可搬运谐振腔必须在运输过程中锁定到位，同时保持低振动灵敏度<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib15" title="">30</a>, <a class="ltx_ref" href="#bib.bib9" title="">5</a>]</cite>。此外，可搬运激光器系统必须考虑尺寸、重量和功率约束，同时不能过多牺牲性能。目前，最好的可搬运稳定激光器系统已在实验室中展示出低至16位数字的频率稳定度<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib16" title="">29</a>, <a class="ltx_ref" href="#bib.bib19" title="">12</a>, <a class="ltx_ref" href="#bib.bib2" title="">32</a>, <a class="ltx_ref" href="#bib.bib23" title="">16</a>]</cite>，并在现场报告了至少15位稳定度<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib18" title="">10</a>, <a class="ltx_ref" href="#bib.bib13" title="">3</a>, <a class="ltx_ref" href="#bib.bib21" title="">6</a>, <a class="ltx_ref" href="#bib.bib8" title="">4</a>, <a class="ltx_ref" href="#bib.bib14" title="">28</a>, <a class="ltx_ref" href="#bib.bib20" title="">13</a>]</cite>。</p>
+</div>
+<div class="ltx_para" id="p3">
+<p class="ltx_p" id="p3.1">我们展示了一种可运输稳定激光系统（TSLS），该系统在 <math alttext="\mathrm{{}^{171}Yb}" class="ltx_Math" display="inline" id="p3.m1" intent=":literal"><semantics><mmultiscripts><mi>Yb</mi><mprescripts></mprescripts><mrow></mrow><mn>171</mn></mmultiscripts><annotation encoding="application/x-tex">\mathrm{{}^{171}Yb}</annotation></semantics></math> 钟波长处生成 16 位稳定的光。TSLS 由具有 <math alttext="3\times 10^{-16}" class="ltx_Math" display="inline" id="p3.m2" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">3\times 10^{-16}</annotation></semantics></math> 不稳定度的可运输谐振腔（CavT）和时钟激光路由中心（CLaRC）组成，后者以 5,000 s 时高达 <math alttext="1\times 10^{-18}" class="ltx_Math" display="inline" id="p3.m3" intent=":literal"><semantics><mrow><mn>1</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1\times 10^{-18}</annotation></semantics></math> 的精度，通过光纤噪声消除（FNC）分发腔参考或钟参考光。我们将该系统从 NIST 实验室运输 105 km 至蓝天空山山顶（4300 m），在那里我们使用可运输 <math alttext="\mathrm{{}^{171}Yb}" class="ltx_Math" display="inline" id="p3.m4" intent=":literal"><semantics><mmultiscripts><mi>Yb</mi><mprescripts></mprescripts><mrow></mrow><mn>171</mn></mmultiscripts><annotation encoding="application/x-tex">\mathrm{{}^{171}Yb}</annotation></semantics></math> 晶格钟作为频率鉴别器确认了激光稳定性。此外，CavT 的成功验证了一种强调可制造性而不牺牲重复性的间隔器设计。</p>
+</div>
+<figure class="ltx_figure" id="S0.F1">
+<p class="ltx_p ltx_align_center" id="S0.F1.1"><span class="ltx_text ltx_framed ltx_framed_rectangle" id="S0.F1.1.1" style="--ltx-border-color:#000000;padding:3.0pt;"><img alt="Refer to caption" class="ltx_graphics ltx_img_landscape" height="249" id="S0.F1.g1" src="assets/ULETfig1.PNG" style="aspect-ratio:476/249;" width="476"/></span></p>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 1：</span>可运输稳定激光系统示意图（右）及组装好的移动封装照片（左）。IR-FMI：红外光纤迈克尔逊干涉仪。VIS-FMI：可见光纤迈克尔逊干涉仪。在稳定激光器 enclosure 中，1156 nm 光纤激光器通过 Pound-Drever-Hall（PDH）锁定到 CavT。稳定光通过“种子”FNC 链路传输到路由 enclosure。在路由 enclosure 中，光被放大以种子周期性极化 <math alttext="\mathrm{LiNbO_{3}}" class="ltx_Math" display="inline" id="S0.F1.m3" intent=":literal"><semantics><msub><mi>LiNbO</mi><mn>3</mn></msub><annotation encoding="application/x-tex">\mathrm{LiNbO_{3}}</annotation></semantics></math>（PPLN）倍频器，产生 <math alttext="\mathrm{{}^{171}Yb}" class="ltx_Math" display="inline" id="S0.F1.m4" intent=":literal"><semantics><mmultiscripts><mi>Yb</mi><mprescripts></mprescripts><mrow></mrow><mn>171</mn></mmultiscripts><annotation encoding="application/x-tex">\mathrm{{}^{171}Yb}</annotation></semantics></math> 钟波长 578 nm 的光。“时钟”FNC 链路将稳定光输送到原子。提供两条 1156 nm FNC 链路（“comb”和“aux”），以便在现场进行灵活的测量配置。</figcaption>
+</figure>
+<figure class="ltx_figure" id="S0.F2">
+<p class="ltx_p ltx_align_center" id="S0.F2.1"><span class="ltx_text ltx_framed ltx_framed_rectangle" id="S0.F2.1.1" style="--ltx-border-color:#000000;padding:3.0pt;"><img alt="Refer to caption" class="ltx_graphics ltx_img_landscape" height="133" id="S0.F2.g1" src="assets/ULETFig2b.png" style="aspect-ratio:476/133;" width="476"/></span></p>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 2：</span>左：安装在带热屏蔽的笼式结构中的 CavT。中：CavT 的计算热噪声预算。右：CavT 的测量技术不稳定度预算。注意省略了自发双折射噪声 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib32" title="">23</a>]</cite>，因为尚无针对此噪声过程的定量理论。</figcaption>
+</figure>
+<div class="ltx_para" id="p4">
+<p class="ltx_p" id="p4.1">我们对 CavT 的目标是采用紧凑设计实现低 16 位不稳定度，以便在未来的迭代中轻松复制。可复制性的一个众所周知的障碍是每次将谐振腔安装到其支撑结构时谐振腔的加速度灵敏度会发生变化 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib31" title="">19</a>, <a class="ltx_ref" href="#bib.bib30" title="">11</a>]</cite>。为避免此问题，我们优先考虑简单的安装几何形状和组装过程。尽管在 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib19" title="">12</a>]</cite> 中开发的线安装谐振腔在小体积内表现出优越且非常一致的加速度灵敏度（在低 <math alttext="10^{-11}g^{-1}" class="ltx_Math" display="inline" id="p4.m1" intent=":literal"><semantics><mrow><msup><mn>10</mn><mrow><mo>−</mo><mn>11</mn></mrow></msup><mo lspace="0em" rspace="0em">​</mo><msup><mi>g</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">10^{-11}g^{-1}</annotation></semantics></math> 范围内）<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib19" title="">12</a>, <a class="ltx_ref" href="#bib.bib23" title="">16</a>]</cite>，但将谐振腔安装在电线（或 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib2" title="">32</a>]</cite> 中的螺纹 Invar 杆）上涉及一些额外的复杂性（电线、定制紧固件、电弧焊）。另一方面，Webster 等人开发的立方体谐振腔 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib15" title="">30</a>]</cite> 只有四个固定螺钉，以更大的间隔器为代价简化了组装。我们的扩展长方体设计（图 <a class="ltx_ref" href="#S0.F3" title="Figure 3 ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">3</span></a>）继承了这种简单性，同时在给定腔长的情况下将间隔器的体积减少了 4 倍。</p>
+</div>
+<figure class="ltx_figure" id="S0.F3">
+<p class="ltx_p ltx_align_center" id="S0.F3.1"><span class="ltx_text ltx_framed ltx_framed_rectangle" id="S0.F3.1.1" style="--ltx-border-color:#000000;padding:3.0pt;"><img alt="Refer to caption" class="ltx_graphics ltx_img_landscape" height="150" id="S0.F3.g1" src="assets/ULETFig2a.jpg" style="aspect-ratio:238/150;" width="238"/></span></p>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 3：</span>CavT 几何形状和安装组件。CavT 由四个带氟橡胶球头的调节螺钉固定在不锈钢笼中。笼上加工的参考表面允许在安装过程中用量块将谐振腔居中。</figcaption>
+</figure>
+<div class="ltx_para" id="p5">
+<p class="ltx_p" id="p5.1">继 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib15" title="">30</a>]</cite> 之后，我们采用有限元分析优化 CavT 的间隔体几何结构，使其对惯性力和所施加的夹持力不敏感（见补充材料）<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib27" title="">9</a>]</cite>。我们选择氟橡胶（Viton）作为安装球材料以避免塑性变形。我们可重复地实现了量级为 <math alttext="1\times 10^{-10}g^{-1}" class="ltx_Math" display="inline" id="p5.m1" intent=":literal"><semantics><mrow><mrow><mn>1</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>10</mn></mrow></msup></mrow><mo lspace="0em" rspace="0em">​</mo><msup><mi>g</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1\times 10^{-10}g^{-1}</annotation></semantics></math> 的加速度灵敏度，如表 <a class="ltx_ref" href="#S0.T1" title="Table 1 ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">1</span></a> 所示。稳定激光器外壳内的加速度通过集成的主动隔振（AVI）平台加以抑制。正如我们的不稳定度预算（图 <a class="ltx_ref" href="#S0.F2" title="Figure 2 ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">2</span></a>，右图）所反映的，这足以实现低 16 位数的性能。我们尝试通过真空腔的旋转馈通装置原位（in situ）调节安装螺钉来进一步改善加速度灵敏度（详见补充材料）。</p>
+</div>
+<figure class="ltx_table" id="S0.T1">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">表 1：</span><span class="ltx_text ltx_font_bold" id="S0.T1.2">CavT 加速度灵敏度（<math alttext="10^{-10}g^{-1}" class="ltx_Math" display="inline" id="S0.T1.m2" intent=":literal"><semantics><mrow><msup><mn>10</mn><mrow><mo>−</mo><mn>10</mn></mrow></msup><mo lspace="0em" rspace="0em">​</mo><msup><mi>g</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">10^{-10}g^{-1}</annotation></semantics></math>）</span></figcaption>
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle" id="S0.T1.3">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="S0.T1.3.1">
+<td class="ltx_td ltx_border_t" id="S0.T1.3.1.1"></td>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="S0.T1.3.1.2"><math alttext="\mathrm{k_{axial}}" class="ltx_Math" display="inline" id="S0.T1.m3" intent=":literal"><semantics><msub><mi>k</mi><mi>axial</mi></msub><annotation encoding="application/x-tex">\mathrm{k_{axial}}</annotation></semantics></math></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="S0.T1.3.1.3"><math alttext="\mathrm{k_{vertical}}" class="ltx_Math" display="inline" id="S0.T1.m4" intent=":literal"><semantics><msub><mi>k</mi><mi>vertical</mi></msub><annotation encoding="application/x-tex">\mathrm{k_{vertical}}</annotation></semantics></math></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="S0.T1.3.1.4"><math alttext="\mathrm{k_{horizontal}}" class="ltx_Math" display="inline" id="S0.T1.m5" intent=":literal"><semantics><msub><mi>k</mi><mi>horizontal</mi></msub><annotation encoding="application/x-tex">\mathrm{k_{horizontal}}</annotation></semantics></math></th></tr>
+<tr class="ltx_tr" id="S0.T1.3.2">
+<td class="ltx_td ltx_align_center ltx_border_t" id="S0.T1.3.2.1">1st time mounting</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S0.T1.3.2.2"><math alttext="0.98(.17)" class="ltx_Math" display="inline" id="S0.T1.m6" intent=":literal"><semantics><mrow><mn>0.98</mn><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>.17</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">0.98(.17)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S0.T1.3.2.3"><math alttext="1.12(.15)" class="ltx_Math" display="inline" id="S0.T1.m7" intent=":literal"><semantics><mrow><mn>1.12</mn><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>.15</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">1.12(.15)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S0.T1.3.2.4"><math alttext="0.41(.05)" class="ltx_Math" display="inline" id="S0.T1.m8" intent=":literal"><semantics><mrow><mn>0.41</mn><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>.05</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">0.41(.05)</annotation></semantics></math></td></tr>
+<tr class="ltx_tr" id="S0.T1.3.3">
+<td class="ltx_td ltx_align_center" id="S0.T1.3.3.1">2nd time mounting</td>
+<td class="ltx_td ltx_align_center" id="S0.T1.3.3.2"><math alttext="1.72(.11)" class="ltx_Math" display="inline" id="S0.T1.m9" intent=":literal"><semantics><mrow><mn>1.72</mn><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>.11</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">1.72(.11)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="S0.T1.3.3.3"><math alttext="0.50(.30)" class="ltx_Math" display="inline" id="S0.T1.m10" intent=":literal"><semantics><mrow><mn>0.50</mn><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>.30</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">0.50(.30)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="S0.T1.3.3.4">—</td></tr>
+<tr class="ltx_tr" id="S0.T1.3.4">
+<td class="ltx_td ltx_align_center ltx_border_b" id="S0.T1.3.4.1">As deployed</td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="S0.T1.3.4.2"><math alttext="1.44(.10)" class="ltx_Math" display="inline" id="S0.T1.m11" intent=":literal"><semantics><mrow><mn>1.44</mn><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>.10</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">1.44(.10)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="S0.T1.3.4.3"><math alttext="0.60(.11)" class="ltx_Math" display="inline" id="S0.T1.m12" intent=":literal"><semantics><mrow><mn>0.60</mn><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>.11</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">0.60(.11)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="S0.T1.3.4.4"><math alttext="0.15(.02)" class="ltx_Math" display="inline" id="S0.T1.m13" intent=":literal"><semantics><mrow><mn>0.15</mn><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>.02</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">0.15(.02)</annotation></semantics></math></td></tr>
+</tbody>
+</table>
+</figure>
+<div class="ltx_para" id="p6">
+<p class="ltx_p" id="p6.1">为了在小型封装内实现低 16 位数的不稳定度，CavT 的长度选为 10 cm。为最小化热机械噪声，我们在曲率半径为 10.2 m 的熔融石英（FS）基底上采用了 <math alttext="\mathrm{Al_{0.92}Ga_{0.08}As/GaAs}" class="ltx_Math" display="inline" id="p6.m1" intent=":literal"><semantics><mrow><mrow><msub><mi>Al</mi><mn>0.92</mn></msub><mo lspace="0em" rspace="0em">​</mo><msub><mi>Ga</mi><mn>0.08</mn></msub><mo lspace="0em" rspace="0em">​</mo><mi>As</mi></mrow><mo>/</mo><mi>GaAs</mi></mrow><annotation encoding="application/x-tex">\mathrm{Al_{0.92}Ga_{0.08}As/GaAs}</annotation></semantics></math> 高反射（HR）镀膜。我们测得 TEM<sub class="ltx_sub" id="p6.1.1"><span class="ltx_text ltx_font_italic" id="p6.1.1.1">00</span></sub> 模的精细度为 253,000。继 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">15</a>]</cite> 之后，我们采用有限元分析（FEA）估算 ULE 间隔体的布朗运动。热噪声贡献汇总于图 <a class="ltx_ref" href="#S0.F2" title="Figure 2 ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">2</span></a> 中图（详见补充材料）。</p>
+</div>
+<div class="ltx_para" id="p7">
+<p class="ltx_p" id="p7.1">为稳定漂移率，CavT 的间隔体由康宁 7973 ULE 玻璃加工而成。我们在反射镜上增设了 6.35 mm 的 ULE 背衬环，将热膨胀系数零交叉点（ZCTE）移至 30 <sup class="ltx_sup" id="p7.1.1">∘</sup>C <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib24" title="">18</a>]</cite>。我们测得的 ZCTE 接近 20 <sup class="ltx_sup" id="p7.1.2">∘</sup>C，这一差异在补充材料中讨论。内部带电部件耗散的热量使稳定激光器外壳内的温度升至约 30 <sup class="ltx_sup" id="p7.1.3">∘</sup>C。为便于实际运行，真空腔采用加热器稳定在 32 <sup class="ltx_sup" id="p7.1.4">∘</sup>C。我们依靠三层被动热屏蔽（图 <a class="ltx_ref" href="#S0.F2" title="Figure 2 ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">2</span></a>）来减小温度波动。腔漂移率受热漂移限制，典型值约为 100 mHz/s，通过施加到种子 FNC 链路射频参考上的相位连续频率斜坡在一阶上予以抵消（图 <a class="ltx_ref" href="#S0.F1" title="Figure 1 ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">1</span></a>）。通过以约 30 分钟的间隔调整补偿斜坡，我们能够将未补偿的漂移率限制在 3 mHz/s 以下。</p>
+</div>
+<figure class="ltx_figure" id="S0.F4">
+<p class="ltx_p ltx_align_center" id="S0.F4.1"><span class="ltx_text ltx_framed ltx_framed_rectangle" id="S0.F4.1.1" style="--ltx-border-color:#000000;padding:3.0pt;"><img alt="Refer to caption" class="ltx_graphics ltx_img_landscape" height="176" id="S0.F4.g1" src="assets/ULETFig3.png" style="aspect-ratio:476/176;" width="476"/></span></p>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 4：</span>左图：FNC 链路的环外性能。comb 与 aux 的测量是在稳定的外部自由空间干涉仪中对这两条链路间拍频的直接稳定度测量。图中显示了多次相同的测量结果，以突出重现性。右图：利用实验室激光系统测量时钟 FNC 链路环外相位涨落的实验装置。CavT 光纤激光器与实验室的 1156 nm 激光器实现相位偏置锁定。实验室激光器在自由空间中倍频，该 578 nm 光经一条 FNC 链路传输，与 CLaRC 的时钟 FNC 链路产生环外拍频。我们独立验证了相位锁定不会导致 <math alttext="\tau" class="ltx_Math" display="inline" id="S0.F4.m4" intent=":literal"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math>&gt;200 s 时 mod <math alttext="\sigma_{y}" class="ltx_Math" display="inline" id="S0.F4.m3" intent=":literal"><semantics><msub><mi>σ</mi><mi>y</mi></msub><annotation encoding="application/x-tex">\sigma_{y}</annotation></semantics></math> 的上升。</figcaption>
+</figure>
+<div class="ltx_para" id="p8">
+<p class="ltx_p" id="p8.1">CavT 的稳定度是相对于 NIST 一台固定的 29 cm ULE 谐振腔进行测量的（<math alttext="\mathrm{mod}" class="ltx_Math" display="inline" id="p8.m1" intent=":literal"><semantics><mi>mod</mi><annotation encoding="application/x-tex">\mathrm{mod}</annotation></semantics></math> <math alttext="\sigma_{y}=1\times 10^{-16}" class="ltx_Math" display="inline" id="p8.m2" intent=":literal"><semantics><mrow><msub><mi>σ</mi><mi>y</mi></msub><mo>=</mo><mrow><mn>1</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow></mrow><annotation encoding="application/x-tex">\sigma_{y}=1\times 10^{-16}</annotation></semantics></math> 对应 <math alttext="\tau&gt;1" class="ltx_Math" display="inline" id="p8.m3" intent=":literal"><semantics><mrow><mi>τ</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\tau&gt;1</annotation></semantics></math> s）<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib26" title="">25</a>]</cite>。在 1 Hz 及以下的时间尺度上，不稳定度预算（图 <a class="ltx_ref" href="#S0.F2" title="Figure 2 ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">2</span></a>）由光强起伏主导。光强依赖性主要来源于反射镜镀膜的光致双折射响应、基底的光热弹性响应以及反射镜镀膜的光热折射响应 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib23" title="">16</a>, <a class="ltx_ref" href="#bib.bib28" title="">22</a>]</cite>。我们通过优化选择相位调制器并进行温度稳定来被动控制残余幅度调制（RAM），方法与 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib19" title="">12</a>]</cite> 相同。为简化起见，我们通常不采用主动 RAM 抵消。我们实现的频率稳定度为 <math alttext="3.0\times 10^{-16}" class="ltx_Math" display="inline" id="p8.m4" intent=":literal"><semantics><mrow><mn>3.0</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">3.0\times 10^{-16}</annotation></semantics></math>，来自 ** 我们推测性地指出，<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib32" title="">23</a>]</cite> 中观察到的自发双折射噪声在 48 cm 腔中于 1 s 时贡献了 <math alttext="5\times 10^{-17}" class="ltx_Math" display="inline" id="p8.m5" intent=":literal"><semantics><mrow><mn>5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>17</mn></mrow></msup></mrow><annotation encoding="application/x-tex">5\times 10^{-17}</annotation></semantics></math>，若其他所有变量相同，在我们 10 cm 腔中将贡献 <math alttext="2.4\times 10^{-16}" class="ltx_Math" display="inline" id="p8.m6" intent=":literal"><semantics><mrow><mn>2.4</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2.4\times 10^{-16}</annotation></semantics></math>。这与我们在 1 s 时观测到的不稳定度非常吻合。</p>
+</div>
+<div class="ltx_para" id="p9">
+<p class="ltx_p" id="p9.1">我们对 CLaRC 的设计目标是以 <math alttext="1\times 10^{-18}" class="ltx_Math" display="inline" id="p9.m1" intent=":literal"><semantics><mrow><mn>1</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1\times 10^{-18}</annotation></semantics></math> 或更优的准确度分发稳定光，并保证长期可靠性。我们生成一路 578 nm 光用于 interrogating 一台 <math alttext="{}^{171}\mathrm{Yb}" class="ltx_Math" display="inline" id="p9.m2" intent=":literal"><semantics><mmultiscripts><mi>Yb</mi><mprescripts></mprescripts><mrow></mrow><mn>171</mn></mmultiscripts><annotation encoding="application/x-tex">{}^{171}\mathrm{Yb}</annotation></semantics></math> 光晶格钟，并生成两路 1156 nm 光用于与其他光参考进行频率比对。CLaRC 完全由保偏（PM）光纤光学器件构建，其设计受 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib25" title="">26</a>, <a class="ltx_ref" href="#bib.bib21" title="">6</a>]</cite> 的启发。与自由空间分发系统 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib19" title="">12</a>, <a class="ltx_ref" href="#bib.bib8" title="">4</a>]</cite> 不同，光纤光学组件在运输后无需重新装调，而且选用保偏光纤有助于在温度变化和机械扰动下保持 FNC 链路的输出偏振。</p>
+</div>
+<div class="ltx_para" id="p10">
+<p class="ltx_p" id="p10.1">为了进一步降低环境对相位稳定度的影响，我们通过熔接将所有未补偿光纤的长度减至最小。为容纳这些未补偿的光纤光学器件，我们设计了一个具有 25 dB 声学屏蔽能力的机箱，内部配有采用 Peltier 制冷器进行温度稳定的面包板，整体全部容纳在 2 个机架单位、深 76 cm 的空间内（图 <a class="ltx_ref" href="#S0.F5" title="Figure 5 ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">5</span></a>）。为兼顾设计灵活性与稳定性，我们将每个光纤迈克尔逊干涉仪安置在垫圈密封的盒子中。我们还将种子逆反射器、SOA 和必要的法拉第隔离器安置在垫圈密封的盒子中，以进一步屏蔽其中 7 m 的未补偿光纤。</p>
+</div>
+<div class="ltx_para" id="p11">
+<p class="ltx_p" id="p11.1">与 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib25" title="">26</a>]</cite> 不同，我们在光纤耦合的 PPLN 倍频器中进行二次谐波产生。这样做的优点是省去了时钟物理组件上的自由空间倍频器和转向光学元件，否则这些元件需要定期重新装调。此外，我们的架构还有一个优点，即能够补偿物理组件上光纤出射端与时钟晶格逆反射器之间自由空间光路的起伏。这降低了因物理组件光学元件上与实验循环同步的振动（例如，由磁场开关驱动的光路偏转）而引起时钟跃迁表观频移的风险 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib4" title="">8</a>]</cite>。图 <a class="ltx_ref" href="#S0.F4" title="Figure 4 ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">4</span></a> 给出了这些链路的稳定度和准确度，与 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib25" title="">26</a>, <a class="ltx_ref" href="#bib.bib21" title="">6</a>]</cite> 相当。我们在“comb”和“aux”链路中产生 &gt;4 mW 的 1156 nm 光功率，在时钟链路中产生 0.7 mW 的 578 nm 光功率，适用于时钟谱探测和纵向边带冷却。</p>
+</div>
+<figure class="ltx_figure" id="S0.F5">
+<p class="ltx_p ltx_align_center" id="S0.F5.1"><span class="ltx_text ltx_framed ltx_framed_rectangle" id="S0.F5.1.1" style="--ltx-border-color:#000000;padding:3.0pt;"><img alt="Refer to caption" class="ltx_graphics ltx_img_landscape" height="230" id="S0.F5.g1" src="assets/ULETFig3p.PNG" style="aspect-ratio:381/230;" width="381"/></span></p>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 5：</span>CLaRC 的实物与光学结构，位于图 <a class="ltx_ref" href="#S0.F1" title="Figure 1 ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">1</span></a> 所示的路由机箱内。</figcaption>
+</figure>
+<figure class="ltx_figure" id="S0.F6">
+<p class="ltx_p ltx_align_center" id="S0.F6.1"><span class="ltx_text ltx_framed ltx_framed_rectangle" id="S0.F6.1.1" style="--ltx-border-color:#000000;padding:3.0pt;"><img alt="Refer to caption" class="ltx_graphics ltx_img_landscape" height="128" id="S0.F6.g1" src="assets/ULETfig4.jpg" style="aspect-ratio:476/128;" width="476"/></span></p>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 6：</span>左：部署团队正在将 YbT 装上厢式货车，准备离开蓝山（Mount Blue Sky）。中：在蓝山上采集的可搬运激光器对 YbT 时钟谱线的扫描，拉比探测时间为 418 ms。每个数据点是 18 次测量的平均值，并穿插时钟测量以补偿漂移。红色虚线为理想拉比线型，其对比度根据我们的数据拟合。右：CavT 在 NIST 和蓝山上的稳定度测量，拉比探测时间为 240 ms，已扣除 5.9 mHz/s（2025 年）和 2.4 mHz/s（2026 年）的残差漂移。残差漂移反映了谐振腔漂移与施加在种子 FNC 射频参考上的相位连续频率斜坡之间的差异。外场原子谱线一侧数据反映的是谐振腔的不稳定性，以及短时间尺度上的检测噪声和 Dick 效应。在山上测得的较长时间尺度上的额外不稳定性，很可能源于热环境稳定性较差。</figcaption>
+</figure>
+<div class="ltx_para" id="p12">
+<p class="ltx_p" id="p12.1">2025 年 8 月 8 日，我们的可搬运激光系统被装上厢式货车，行程 105 km，从科罗拉多州博尔德的 NIST 园区（海拔 1,655 m）前往蓝山山顶的 Meyer-Womble 天文台（海拔 4,326 m）（图 <a class="ltx_ref" href="#S0.F6" title="Figure 6 ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">6</span></a>）。该天文台没有气候控制设施。在天文台内，部署团队搭建了一个配有恒温控制风扇的帐篷，以保护可搬运时钟系统免受剧烈温度变化的影响。帐篷内的温度仍呈昼夜变化，变化幅度为 <math alttext="\pm 5" class="ltx_Math" display="inline" id="p12.m1" intent=":literal"><semantics><mrow><mo>±</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">\pm 5</annotation></semantics></math> <sup class="ltx_sup" id="p12.1.1">∘</sup>C。稳频激光组件在该环境下未出现任何问题。补偿 CavT 的热漂移所需的人工干预频率，在山上与在实验室内大致相同。2026 年 6 月 11 日，该系统再次被运往蓝山，我们重复了 2025 年的测量。为 2026 年部署对 TSLS 所做的修改见补充材料。</p>
+</div>
+<div class="ltx_para" id="p13">
+<p class="ltx_p" id="p13.1">在山顶，我们以可搬运的<math alttext="\mathrm{{}^{171}Yb}" class="ltx_Math" display="inline" id="p13.m1" intent=":literal"><semantics><mmultiscripts><mi>Yb</mi><mprescripts></mprescripts><mrow></mrow><mn>171</mn></mmultiscripts><annotation encoding="application/x-tex">\mathrm{{}^{171}Yb}</annotation></semantics></math>光晶格钟（YbT）作为独立频率参考，测量了 TSLS 的稳定度。我们用来自 CLaRC “时钟”通道的 578 nm 光，以 240 ms 拉比脉冲照射 YbT，并将激光器频率失谐到谱线一侧，在该处激发态<math alttext="\mathrm{{}^{171}Yb}" class="ltx_Math" display="inline" id="p13.m2" intent=":literal"><semantics><mmultiscripts><mi>Yb</mi><mprescripts></mprescripts><mrow></mrow><mn>171</mn></mmultiscripts><annotation encoding="application/x-tex">\mathrm{{}^{171}Yb}</annotation></semantics></math>原子的比例对 TSLS 频率最为灵敏。每次脉冲时，我们在拉比谱线（单一塞曼态）的上升侧与下降侧之间交替。通过从谱线上升侧测得的激发态比例中减去下降侧测得的激发态比例，我们估计 TSLS 相对于原子谱线的频率误差。为防止 TSLS 在长时间测量中漂离谱线一侧，每当测得的频率误差超过原子线宽的四分之一时，我们就对 TSLS 施加一次频率修正。在图 <a class="ltx_ref" href="#S0.F6" title="Figure 6 ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">6</span></a> 所示的数据中，这些自动修正大约每分钟施加一次。为估计 TSLS 的绝对频率偏差，我们将相对于原子谱线测得的频率误差与累计的自动频率修正相加。在扣除线性漂移后，我们计算测得激光频率的修正阿伦偏差，结果示于图 <a class="ltx_ref" href="#S0.F6" title="Figure 6 ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">6</span></a> 右 panel。此外，在山顶，我们还通过将光束在自由空间中合束并对检测到的拍频进行计数，比较了“Aux”和“Comb”两条 1156 nm FNC 链路，如图 <a class="ltx_ref" href="#S0.F4" title="Figure 4 ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">4</span></a> 所示。</p>
+</div>
+<div class="ltx_para" id="p14">
+<p class="ltx_p" id="p14.1">总之，我们演示了一种与野外<math alttext="10^{-18}" class="ltx_Math" display="inline" id="p14.m1" intent=":literal"><semantics><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup><annotation encoding="application/x-tex">10^{-18}</annotation></semantics></math>量级光晶格钟运行兼容的先进水平 TSLS。稳定参考谐振腔在 1 s 平均时间下达到<math alttext="\mathrm{mod}\ \sigma_{y}=3\times 10^{-16}" class="ltx_Math" display="inline" id="p14.m2" intent=":literal"><semantics><mrow><mrow><mi>mod</mi><mo lspace="0.500em" rspace="0em">​</mo><msub><mi>σ</mi><mi>y</mi></msub></mrow><mo>=</mo><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow></mrow><annotation encoding="application/x-tex">\mathrm{mod}\ \sigma_{y}=3\times 10^{-16}</annotation></semantics></math>。时钟光路由网络在紧凑且稳健的封装中实现了<math alttext="1\times 10^{-18}" class="ltx_Math" display="inline" id="p14.m3" intent=":literal"><semantics><mrow><mn>1</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1\times 10^{-18}</annotation></semantics></math>路由准确度，且不含自由空间光学元件。最后，我们首次在实验室外的极端环境中演示了低 16 位量级的频率稳定度。</p>
+</div>
+<div class="ltx_para" id="p15">
+<p class="ltx_p" id="p15.1"><span class="ltx_text ltx_font_bold" id="p15.1.1">资助</span> 本工作得到 NIST、DARPA、ONR 以及 NSF QLCI 奖 OMA-2016244 的支持。</p>
+</div>
+<div class="ltx_para" id="p16">
+<p class="ltx_p" id="p16.1"><span class="ltx_text ltx_font_bold" id="p16.1.1">致谢</span> 我们感谢 Theodora Triano、Grace Jenkins、William Swann、Ian Coddington、Marco Pomponio、Craig Nelson 和 Archita Hati 的技术贡献。</p>
+</div>
+<div class="ltx_para" id="p17">
+<p class="ltx_p" id="p17.1"><span class="ltx_text ltx_font_bold" id="p17.1.1">披露</span> 作者声明无利益冲突。本工作不暗示或表明任何美国政府对任何公司的认可。</p>
+</div>
+<div class="ltx_para" id="p18">
+<p class="ltx_p" id="p18.1"><span class="ltx_text ltx_font_bold" id="p18.1.1">数据可用性</span> 本文结果所依据的数据可在合理请求下提供。</p>
+</div>
+<div class="ltx_para" id="p19">
+<p class="ltx_p" id="p19.1">支持性信息见补充材料。</p>
+</div>
+<div class="ltx_pagination ltx_role_newpage"></div>
+<section class="ltx_part" id="Ptx1">
+<h2 class="ltx_title ltx_title_part">补充信息</h2>
+<section class="ltx_appendix" id="A1">
+<h3 class="ltx_title ltx_title_appendix"><span class="ltx_tag ltx_tag_appendix">附录 A </span>谐振腔热噪声</h3>
+<div class="ltx_para" id="A1.p1">
+<p class="ltx_p" id="A1.p1.1">按照<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">15</a>]</cite>，CavT 的热噪声可分解为来自间隔件、基底和反射镜镀膜的布朗热力学贡献，以及来自基底的热弹性贡献和来自镀膜的热折射贡献。</p>
+<table class="ltx_equation ltx_eqn_table" id="A1.E1">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="S_{y}(f)=2S^{(coat)}_{y,Br}(f)+2S^{(sub)}_{y,Br}(f)+S^{(spac)}_{y,Br}(f)+2S^{(coat)}_{y,TR}(f)+2S^{(subs)}_{y,TE}(f)" class="ltx_Math" display="block" id="A1.E1.m1" intent=":literal"><semantics><mrow><mrow><msub><mi>S</mi><mi>y</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>f</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><msubsup><mi>S</mi><mrow><mi>y</mi><mo>,</mo><mrow><mi>B</mi><mo lspace="0em" rspace="0em">​</mo><mi>r</mi></mrow></mrow><mrow><mo stretchy="false">(</mo><mrow><mi>c</mi><mo lspace="0em" rspace="0em">​</mo><mi>o</mi><mo lspace="0em" rspace="0em">​</mo><mi>a</mi><mo lspace="0em" rspace="0em">​</mo><mi>t</mi></mrow><mo stretchy="false">)</mo></mrow></msubsup><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>f</mi><mo stretchy="false">)</mo></mrow></mrow><mo>+</mo><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><msubsup><mi>S</mi><mrow><mi>y</mi><mo>,</mo><mrow><mi>B</mi><mo lspace="0em" rspace="0em">​</mo><mi>r</mi></mrow></mrow><mrow><mo stretchy="false">(</mo><mrow><mi>s</mi><mo lspace="0em" rspace="0em">​</mo><mi>u</mi><mo lspace="0em" rspace="0em">​</mo><mi>b</mi></mrow><mo stretchy="false">)</mo></mrow></msubsup><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>f</mi><mo stretchy="false">)</mo></mrow></mrow><mo>+</mo><mrow><msubsup><mi>S</mi><mrow><mi>y</mi><mo>,</mo><mrow><mi>B</mi><mo lspace="0em" rspace="0em">​</mo><mi>r</mi></mrow></mrow><mrow><mo stretchy="false">(</mo><mrow><mi>s</mi><mo lspace="0em" rspace="0em">​</mo><mi>p</mi><mo lspace="0em" rspace="0em">​</mo><mi>a</mi><mo lspace="0em" rspace="0em">​</mo><mi>c</mi></mrow><mo stretchy="false">)</mo></mrow></msubsup><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>f</mi><mo stretchy="false">)</mo></mrow></mrow><mo>+</mo><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><msubsup><mi>S</mi><mrow><mi>y</mi><mo>,</mo><mrow><mi>T</mi><mo lspace="0em" rspace="0em">​</mo><mi>R</mi></mrow></mrow><mrow><mo stretchy="false">(</mo><mrow><mi>c</mi><mo lspace="0em" rspace="0em">​</mo><mi>o</mi><mo lspace="0em" rspace="0em">​</mo><mi>a</mi><mo lspace="0em" rspace="0em">​</mo><mi>t</mi></mrow><mo stretchy="false">)</mo></mrow></msubsup><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>f</mi><mo stretchy="false">)</mo></mrow></mrow><mo>+</mo><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><msubsup><mi>S</mi><mrow><mi>y</mi><mo>,</mo><mrow><mi>T</mi><mo lspace="0em" rspace="0em">​</mo><mi>E</mi></mrow></mrow><mrow><mo stretchy="false">(</mo><mrow><mi>s</mi><mo lspace="0em" rspace="0em">​</mo><mi>u</mi><mo lspace="0em" rspace="0em">​</mo><mi>b</mi><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow><mo stretchy="false">)</mo></mrow></msubsup><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>f</mi><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">S_{y}(f)=2S^{(coat)}_{y,Br}(f)+2S^{(sub)}_{y,Br}(f)+S^{(spac)}_{y,Br}(f)+2S^{(coat)}_{y,TR}(f)+2S^{(subs)}_{y,TE}(f)</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(1)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="A1.p1.2">遵循<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">15</a>]</cite>，我们通过解析方法估计镀膜和基片布朗贡献的 1/f 系数（图 2 中间面板）。我们还通过解析方法估计基片热弹性和镀膜热折射贡献 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib19" title="">12</a>]</cite>。</p>
+</div>
+<figure class="ltx_table" id="A1.T2">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">表 2：</span><span class="ltx_text ltx_font_bold" id="A1.T2.2">在 32 <math alttext="{}^{\circ}\mathrm{C}" class="ltx_math_unparsed" display="inline" id="A1.T2.m2" intent=":literal"><semantics><mrow><msup><mrow></mrow><mo>∘</mo></msup><mi mathvariant="normal">C</mi></mrow><annotation encoding="application/x-tex">{}^{\circ}\mathrm{C}</annotation></semantics></math> 下热噪声计算的材料属性 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib19" title="">12</a>]</cite></span></figcaption>
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle" id="A1.T2.3">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="A1.T2.3.1">
+<th class="ltx_td ltx_th ltx_th_row ltx_border_t" id="A1.T2.3.1.1"></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="A1.T2.3.1.2">ULE</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="A1.T2.3.1.3">Fused silica</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="A1.T2.3.1.4"><math alttext="\mathrm{Al_{0.92}Ga_{0.08}As/GaAs}" class="ltx_Math" display="inline" id="A1.T2.m3" intent=":literal"><semantics><mrow><mrow><msub><mi>Al</mi><mn>0.92</mn></msub><mo lspace="0em" rspace="0em">​</mo><msub><mi>Ga</mi><mn>0.08</mn></msub><mo lspace="0em" rspace="0em">​</mo><mi>As</mi></mrow><mo>/</mo><mi>GaAs</mi></mrow><annotation encoding="application/x-tex">\mathrm{Al_{0.92}Ga_{0.08}As/GaAs}</annotation></semantics></math></th>
+<td class="ltx_td ltx_border_t" id="A1.T2.3.1.5"></td></tr>
+<tr class="ltx_tr" id="A1.T2.3.2">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_t" id="A1.T2.3.2.1"><math alttext="Y" class="ltx_Math" display="inline" id="A1.T2.m4" intent=":literal"><semantics><mi>Y</mi><annotation encoding="application/x-tex">Y</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center ltx_border_t" id="A1.T2.3.2.2">67.6</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="A1.T2.3.2.3">72</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="A1.T2.3.2.4">100</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="A1.T2.3.2.5">Young’s modulus (GPa)</td></tr>
+<tr class="ltx_tr" id="A1.T2.3.3">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row" id="A1.T2.3.3.1"><math alttext="\phi" class="ltx_Math" display="inline" id="A1.T2.m5" intent=":literal"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.3.2">16.7</td>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.3.3">1</td>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.3.4">0.24</td>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.3.5">Loss angle (<math alttext="10^{-6}" class="ltx_Math" display="inline" id="A1.T2.m6" intent=":literal"><semantics><msup><mn>10</mn><mrow><mo>−</mo><mn>6</mn></mrow></msup><annotation encoding="application/x-tex">10^{-6}</annotation></semantics></math>)</td></tr>
+<tr class="ltx_tr" id="A1.T2.3.4">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row" id="A1.T2.3.4.1"><math alttext="\eta" class="ltx_Math" display="inline" id="A1.T2.m7" intent=":literal"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.4.2">0.17</td>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.4.3">0.17</td>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.4.4">0.32</td>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.4.5">Poisson ratio</td></tr>
+<tr class="ltx_tr" id="A1.T2.3.5">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row" id="A1.T2.3.5.1"><math alttext="C" class="ltx_Math" display="inline" id="A1.T2.m8" intent=":literal"><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.5.2">1.7</td>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.5.3">1.64</td>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.5.4">1.70/1.75</td>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.5.5">体积热容（<math alttext="\mathrm{MJ\&gt;m^{-3}\&gt;K^{-1}}" class="ltx_Math" display="inline" id="A1.T2.m9" intent=":literal"><semantics><mrow><mi>MJ</mi><mo lspace="0.220em" rspace="0em">​</mo><msup><mi>m</mi><mrow><mo>−</mo><mn>3</mn></mrow></msup><mo lspace="0em" rspace="0em">​</mo><msup><mi>K</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathrm{MJ\&gt;m^{-3}\&gt;K^{-1}}</annotation></semantics></math>）</td></tr>
+<tr class="ltx_tr" id="A1.T2.3.6">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row" id="A1.T2.3.6.1"><math alttext="\alpha" class="ltx_Math" display="inline" id="A1.T2.m10" intent=":literal"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.6.2">0.06(3)</td>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.6.3">0.51</td>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.6.4">5.2/5.7</td>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.6.5">热膨胀系数（<math alttext="10^{-6}" class="ltx_Math" display="inline" id="A1.T2.m11" intent=":literal"><semantics><msup><mn>10</mn><mrow><mo>−</mo><mn>6</mn></mrow></msup><annotation encoding="application/x-tex">10^{-6}</annotation></semantics></math>）</td></tr>
+<tr class="ltx_tr" id="A1.T2.3.7">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row" id="A1.T2.3.7.1"><math alttext="\kappa" class="ltx_Math" display="inline" id="A1.T2.m12" intent=":literal"><semantics><mi>κ</mi><annotation encoding="application/x-tex">\kappa</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.7.2">1.38</td>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.7.3">1.38</td>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.7.4">70/55</td>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.7.5">Thermal conductivity (<math alttext="\mathrm{W\&gt;m^{-1}\&gt;K^{-1}})" class="ltx_Math" display="inline" id="A1.T2.m13" intent=":literal"><semantics><mrow><mo fence="true" rspace="0em">OPEN</mo><mrow><mi>W</mi><mo lspace="0.220em" rspace="0em">​</mo><msup><mi>m</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo lspace="0em" rspace="0em">​</mo><msup><mi>K</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{W\&gt;m^{-1}\&gt;K^{-1}})</annotation></semantics></math></td></tr>
+<tr class="ltx_tr" id="A1.T2.3.8">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row" id="A1.T2.3.8.1"><math alttext="\beta" class="ltx_Math" display="inline" id="A1.T2.m14" intent=":literal"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.8.2">-</td>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.8.3">-</td>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.8.4">179/366</td>
+<td class="ltx_td ltx_align_center" id="A1.T2.3.8.5">有效热折射率（<math alttext="10^{-6}\&gt;\mathrm{K^{-1}}" class="ltx_Math" display="inline" id="A1.T2.m15" intent=":literal"><semantics><mrow><msup><mn>10</mn><mrow><mo>−</mo><mn>6</mn></mrow></msup><mo lspace="0.220em" rspace="0em">​</mo><msup><mi>K</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">10^{-6}\&gt;\mathrm{K^{-1}}</annotation></semantics></math>）</td></tr>
+<tr class="ltx_tr" id="A1.T2.3.9">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_b" id="A1.T2.3.9.1"><math alttext="n" class="ltx_Math" display="inline" id="A1.T2.m16" intent=":literal"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center ltx_border_b" id="A1.T2.3.9.2">-</td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="A1.T2.3.9.3">-</td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="A1.T2.3.9.4">2.96/3.39</td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="A1.T2.3.9.5">Index of refraction</td></tr>
+</tbody>
+</table>
+</figure>
+<figure class="ltx_table" id="A1.T3">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">表 3：</span><span class="ltx_text ltx_font_bold" id="A1.T3.2">热噪声计算的谐振腔参数</span></figcaption>
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle" id="A1.T3.3">
+<thead class="ltx_thead">
+<tr class="ltx_tr" id="A1.T3.3.1">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_th_row ltx_border_t" id="A1.T3.3.1.1">Symbol</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="A1.T3.3.1.2">Value</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="A1.T3.3.1.3">Description</th></tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="A1.T3.3.2">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_tt" id="A1.T3.3.2.1"><math alttext="\lambda" class="ltx_Math" display="inline" id="A1.T3.m1" intent=":literal"><semantics><mi>λ</mi><annotation encoding="application/x-tex">\lambda</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center ltx_border_tt" id="A1.T3.3.2.2">1156 nm</td>
+<td class="ltx_td ltx_align_center ltx_border_tt" id="A1.T3.3.2.3">Operating wavelength</td></tr>
+<tr class="ltx_tr" id="A1.T3.3.3">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row" id="A1.T3.3.3.1"><math alttext="w" class="ltx_Math" display="inline" id="A1.T3.m2" intent=":literal"><semantics><mi>w</mi><annotation encoding="application/x-tex">w</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center" id="A1.T3.3.3.2">513 <math alttext="\mu\mathrm{m}" class="ltx_Math" display="inline" id="A1.T3.m3" intent=":literal"><semantics><mrow><mi>μ</mi><mo lspace="0em" rspace="0em">​</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">\mu\mathrm{m}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="A1.T3.3.3.3">Spot size at mirror</td></tr>
+<tr class="ltx_tr" id="A1.T3.3.4">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_t" id="A1.T3.3.4.1"><math alttext="d_{subs}" class="ltx_Math" display="inline" id="A1.T3.m4" intent=":literal"><semantics><msub><mi>d</mi><mrow><mi>s</mi><mo lspace="0em" rspace="0em">​</mo><mi>u</mi><mo lspace="0em" rspace="0em">​</mo><mi>b</mi><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow></msub><annotation encoding="application/x-tex">d_{subs}</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center ltx_border_t" id="A1.T3.3.4.2">6.35 mm</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="A1.T3.3.4.3">Substrate thickness</td></tr>
+<tr class="ltx_tr" id="A1.T3.3.5">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row" id="A1.T3.3.5.1"><math alttext="r_{subs}" class="ltx_Math" display="inline" id="A1.T3.m5" intent=":literal"><semantics><msub><mi>r</mi><mrow><mi>s</mi><mo lspace="0em" rspace="0em">​</mo><mi>u</mi><mo lspace="0em" rspace="0em">​</mo><mi>b</mi><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow></msub><annotation encoding="application/x-tex">r_{subs}</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center" id="A1.T3.3.5.2">25.4 mm</td>
+<td class="ltx_td ltx_align_center" id="A1.T3.3.5.3">Substrate outer diameter</td></tr>
+<tr class="ltx_tr" id="A1.T3.3.6">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row" id="A1.T3.3.6.1"><math alttext="ROC" class="ltx_Math" display="inline" id="A1.T3.m6" intent=":literal"><semantics><mrow><mi>R</mi><mo lspace="0em" rspace="0em">​</mo><mi>O</mi><mo lspace="0em" rspace="0em">​</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">ROC</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center" id="A1.T3.3.6.2">10.2 m</td>
+<td class="ltx_td ltx_align_center" id="A1.T3.3.6.3">基片曲率半径</td></tr>
+<tr class="ltx_tr" id="A1.T3.3.7">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_t" id="A1.T3.3.7.1"><math alttext="d_{coat}" class="ltx_Math" display="inline" id="A1.T3.m7" intent=":literal"><semantics><msub><mi>d</mi><mrow><mi>c</mi><mo lspace="0em" rspace="0em">​</mo><mi>o</mi><mo lspace="0em" rspace="0em">​</mo><mi>a</mi><mo lspace="0em" rspace="0em">​</mo><mi>t</mi></mrow></msub><annotation encoding="application/x-tex">d_{coat}</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center ltx_border_t" id="A1.T3.3.7.2">6.6 <math alttext="\mu\mathrm{m}" class="ltx_Math" display="inline" id="A1.T3.m8" intent=":literal"><semantics><mrow><mi>μ</mi><mo lspace="0em" rspace="0em">​</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">\mu\mathrm{m}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="A1.T3.3.7.3">Coating thickness</td></tr>
+<tr class="ltx_tr" id="A1.T3.3.8">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_t" id="A1.T3.3.8.1"><math alttext="l" class="ltx_Math" display="inline" id="A1.T3.m9" intent=":literal"><semantics><mi>l</mi><annotation encoding="application/x-tex">l</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center ltx_border_t" id="A1.T3.3.8.2">10 cm</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="A1.T3.3.8.3">Spacer length</td></tr>
+<tr class="ltx_tr" id="A1.T3.3.9">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_b" id="A1.T3.3.9.1"><math alttext="F_{h}" class="ltx_Math" display="inline" id="A1.T3.m10" intent=":literal"><semantics><msub><mi>F</mi><mi>h</mi></msub><annotation encoding="application/x-tex">F_{h}</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center ltx_border_b" id="A1.T3.3.9.2">40 N</td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="A1.T3.3.9.3">Holding force</td></tr>
+</tbody>
+</table>
+</figure>
+<div class="ltx_para" id="A1.p2">
+<p class="ltx_p" id="A1.p2.1">我们遵循<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">15</a>]</cite>的方法来估计间隔件的布朗噪声，并考虑其独特几何结构。使用有限元模型，我们对每个反射镜表面施加一个跟随 TEM<sub class="ltx_sub" id="A1.p2.1.1"><span class="ltx_text ltx_font_italic" id="A1.p2.1.1.1">00</span></sub> 光束分布的拉伸压力分布：</p>
+<table class="ltx_equation ltx_eqn_table" id="A1.E2">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="p(r)=\pm\frac{2F}{\pi w^{2}}e^{-2r^{2}/w^{2}}" class="ltx_math_unparsed" display="block" id="A1.E2.m1" intent=":literal"><semantics><mrow><mi>p</mi><mrow><mo stretchy="false">(</mo><mi>r</mi><mo stretchy="false">)</mo></mrow><mo rspace="0em">=</mo><mo lspace="0em">±</mo><mfrac><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><mi>F</mi></mrow><mrow><mi>π</mi><mo lspace="0em" rspace="0em">​</mo><msup><mi>w</mi><mn>2</mn></msup></mrow></mfrac><msup><mi>e</mi><mrow><mo>−</mo><mn>2</mn><mi>r</mi><msup><mrow></mrow><mn>2</mn></msup><mo>/</mo><mi>w</mi><msup><mrow></mrow><mn>2</mn></msup></mrow></msup></mrow><annotation encoding="application/x-tex">p(r)=\pm\frac{2F}{\pi w^{2}}e^{-2r^{2}/w^{2}}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="A1.p2.2">其中<math alttext="F" class="ltx_Math" display="inline" id="A1.p2.m2" intent=":literal"><semantics><mi>F</mi><annotation encoding="application/x-tex">F</annotation></semantics></math>是设为 1 N 的测试力。我们评估间隔件在模拟测试力作用下的应变能<math alttext="U" class="ltx_Math" display="inline" id="A1.p2.m3" intent=":literal"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math>变化，并由<math alttext="U" class="ltx_Math" display="inline" id="A1.p2.m4" intent=":literal"><semantics><mi>U</mi><annotation encoding="application/x-tex">U</annotation></semantics></math>估计间隔件的布朗噪声贡献。</p>
+<table class="ltx_equation ltx_eqn_table" id="A1.E3">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="S^{(spac)}_{y,Br}(f)=\frac{4k_{B}TU\phi_{spac}}{\pi fF^{2}}" class="ltx_Math" display="block" id="A1.E3.m1" intent=":literal"><semantics><mrow><mrow><msubsup><mi>S</mi><mrow><mi>y</mi><mo>,</mo><mrow><mi>B</mi><mo lspace="0em" rspace="0em">​</mo><mi>r</mi></mrow></mrow><mrow><mo stretchy="false">(</mo><mrow><mi>s</mi><mo lspace="0em" rspace="0em">​</mo><mi>p</mi><mo lspace="0em" rspace="0em">​</mo><mi>a</mi><mo lspace="0em" rspace="0em">​</mo><mi>c</mi></mrow><mo stretchy="false">)</mo></mrow></msubsup><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>f</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mfrac><mrow><mn>4</mn><mo lspace="0em" rspace="0em">​</mo><msub><mi>k</mi><mi>B</mi></msub><mo lspace="0em" rspace="0em">​</mo><mi>T</mi><mo lspace="0em" rspace="0em">​</mo><mi>U</mi><mo lspace="0em" rspace="0em">​</mo><msub><mi>ϕ</mi><mrow><mi>s</mi><mo lspace="0em" rspace="0em">​</mo><mi>p</mi><mo lspace="0em" rspace="0em">​</mo><mi>a</mi><mo lspace="0em" rspace="0em">​</mo><mi>c</mi></mrow></msub></mrow><mrow><mi>π</mi><mo lspace="0em" rspace="0em">​</mo><mi>f</mi><mo lspace="0em" rspace="0em">​</mo><msup><mi>F</mi><mn>2</mn></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">S^{(spac)}_{y,Br}(f)=\frac{4k_{B}TU\phi_{spac}}{\pi fF^{2}}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(3)</span></td></tr></tbody>
+</table>
+</div>
+<div class="ltx_para" id="A1.p3">
+<p class="ltx_p" id="A1.p3.1">对我们热噪声估计贡献最大的项是间隔件的布朗噪声，紧随其后的是基片的布朗噪声（图 2 中间面板）。我们通过将我们间隔件的估计布朗贡献与尺寸相近的标准圆柱几何结构的相应贡献（长 10 cm、直径 5 cm、相同光学孔径以及相同反射镜参数）进行比较，来评估扩展立方间隔件几何结构的影响。我们发现，扩展立方间隔件的贡献（1 N 测试力下弹性应变能为 1.20 nJ）与圆柱间隔件的贡献（0.98 nJ）相当。扩展立方间隔件中轻微的增强似乎与反射镜附近通气孔的存在相关。在更长的谐振腔中，例如在<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib19" title="">12</a>, <a class="ltx_ref" href="#bib.bib34" title="">33</a>, <a class="ltx_ref" href="#bib.bib23" title="">16</a>]</cite>中，扩展立方间隔件的布朗噪声贡献可能会降低。</p>
+</div>
+</section>
+<section class="ltx_appendix" id="A2">
+<h3 class="ltx_title ltx_title_appendix"><span class="ltx_tag ltx_tag_appendix">附录 B </span>力不敏感扩展间隔件</h3>
+<div class="ltx_para" id="A2.p1">
+<p class="ltx_p" id="A2.p1.1">为最小化谐振腔的加速度灵敏度，必须使用有限元分析（FEA）优化间隔件几何结构。间隔件几何结构受 NPL 的立方设计<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib15" title="">30</a>]</cite>启发，并遵循类似的工程设计流程<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib27" title="">9</a>]</cite>。在 NPL 立方谐振腔的设计过程中，作者改变顶点深度以抵消腔长对保持力的灵敏度（力灵敏度），随后他们验证了加速度灵敏度也被抵消<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib15" title="">30</a>]</cite>。在我们的扩展长方体设计中，我们发现沿光轴延长谐振腔会使力灵敏度向负方向偏移，因此仅靠顶点深度无法抵消力灵敏度。我们还将间隔件的通气孔拆分为对称的通气孔对，并改变通气孔之间的偏移量以及顶点深度，以最小化力灵敏度（图 <a class="ltx_ref" href="#A2.F7" title="Figure 7 ‣ Appendix B Force-Insensitive Extended Spacer ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">7</span></a>）。与 NPL 的情形一样，我们发现对于针对力灵敏度优化的几何结构，加速度灵敏度也被控制在<math alttext="10^{-11}g^{-1}" class="ltx_Math" display="inline" id="A2.p1.m1" intent=":literal"><semantics><mrow><msup><mn>10</mn><mrow><mo>−</mo><mn>11</mn></mrow></msup><mo lspace="0em" rspace="0em">​</mo><msup><mi>g</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">10^{-11}g^{-1}</annotation></semantics></math>水平。</p>
+</div>
+<figure class="ltx_figure" id="A2.F7">
+<p class="ltx_p ltx_align_center" id="A2.F7.1"><span class="ltx_text ltx_framed ltx_framed_rectangle" id="A2.F7.1.1" style="--ltx-border-color:#000000;padding:3.0pt;"><img alt="Refer to caption" class="ltx_graphics ltx_img_landscape" height="229" id="A2.F7.g1" src="assets/VertexDepth.jpg" style="aspect-ratio:333/229;" width="333"/></span></p>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 7：</span>改变顶点深度时的受力灵敏度研究。不同的颜色及对应的 mm 尺寸对应不同的通孔偏移量。通孔偏移量定义为通气孔中心到与光轴正交的中平面的距离。等价地，通孔偏移量为相邻通气孔纵向间距的一半。在本文给出的最终设计中，通孔偏移量为 40 mm，顶点深度为 10 mm。</figcaption>
+</figure>
+<div class="ltx_para" id="A2.p2">
+<p class="ltx_p" id="A2.p2.1">我们在隔块的四个角上设置了 4 个 1.5 mm 盲孔，以便在装配时用定位销将隔块对准其安装笼。但我们发现，用量块将隔块在安装笼上居中能得到更一致的结果，因此这 4 个盲孔未被使用。另外 4 个角则预留给安装球。</p>
+</div>
+<div class="ltx_para" id="A2.p3">
+<p class="ltx_p" id="A2.p3.1">隔块的机械图纸如图 <a class="ltx_ref" href="#A2.F8" title="Figure 8 ‣ Appendix B Force-Insensitive Extended Spacer ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">8</span></a> 所示。我们让加工方尽其所能对隔块的所有棱边（内部和外部）进行倒角，以消除应力集中。此外，我们对隔块的所有内表面进行了抛光，以减少高精细度反射镜附近的粉尘产生，并对端面进行了抛光，以便与反射镜基板实现光学接触。</p>
+</div>
+<figure class="ltx_figure" id="A2.F8">
+<p class="ltx_p ltx_align_center" id="A2.F8.1"><span class="ltx_text ltx_framed ltx_framed_rectangle" id="A2.F8.1.1" style="--ltx-border-color:#000000;padding:3.0pt;"><img alt="Refer to caption" class="ltx_graphics ltx_img_portrait" height="605" id="A2.F8.g1" src="assets/DrawingFig.png" style="aspect-ratio:452/605;" width="452"/></span></p>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 8：</span>CavT 隔块的机械图纸。所有尺寸均以毫米为单位。顶点深度定义为垂直于角切平面方向的距离。</figcaption>
+</figure>
+</section>
+<section class="ltx_appendix" id="A3">
+<h3 class="ltx_title ltx_title_appendix"><span class="ltx_tag ltx_tag_appendix">附录 C </span>加速度灵敏度的测量</h3>
+<div class="ltx_para" id="A3.p1">
+<p class="ltx_p" id="A3.p1.1">为测量加速度灵敏度，我们测量谐振腔翻转 180 度时的相对频率变化，再除以 2g。这些测量使用一套带旋转台面的原型装置完成（图 <a class="ltx_ref" href="#A3.F9" title="Figure 9 ‣ Appendix C Measurement of Acceleration Sensitivity ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">9</span></a>）。整个过程中，CavT 由离子泵维持在低于 <math alttext="1\times 10^{-3}" class="ltx_Math" display="inline" id="A3.p1.m1" intent=":literal"><semantics><mrow><mn>1</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1\times 10^{-3}</annotation></semantics></math> mPa 的真空中。每次翻转后，我们等待所有弛豫过程结束（例如翻转期间 CavT 的 PDH 锁丢失后的光热弛豫），然后再记录频率变化。</p>
+</div>
+<figure class="ltx_figure" id="A3.F9">
+<p class="ltx_p ltx_align_center" id="A3.F9.1"><span class="ltx_text ltx_framed ltx_framed_rectangle" id="A3.F9.1.1" style="--ltx-border-color:#000000;padding:3.0pt;"><img alt="Refer to caption" class="ltx_graphics ltx_img_landscape" height="178" id="A3.F9.g1" src="assets/fliptesting.jpg" style="aspect-ratio:452/178;" width="452"/></span></p>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 9：</span>左：用于测量 CavT 加速度灵敏度的翻转台上原型光学装置的照片。右：CavT 加速度灵敏度的代表性测量结果，显示在转动翻转台时相对于稳定光学参考测得的 CavT 频率。</figcaption>
+</figure>
+</section>
+<section class="ltx_appendix" id="A4">
+<h3 class="ltx_title ltx_title_appendix"><span class="ltx_tag ltx_tag_appendix">附录 D </span><span class="ltx_text ltx_font_italic" id="A4.1">原位（In Situ）</span>调节加速度灵敏度</h3>
+<div class="ltx_para" id="A4.p1">
+<p class="ltx_p" id="A4.p1.1">我们尝试利用旋转馈通件在不破坏真空的情况下转动安装螺钉，从而进一步<span class="ltx_text ltx_font_italic" id="A4.p1.1.1">原位</span>改善加速度灵敏度。真空腔上有四个与谐振腔安装螺钉对准的小型 ConFlat 法兰，用于安装旋转馈通件，如图 <a class="ltx_ref" href="#A4.F10" title="Figure 10 ‣ Appendix D In Situ Adjustment of the Acceleration Sensitivity ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">10</span></a> 所示。</p>
+</div>
+<figure class="ltx_figure" id="A4.F10">
+<p class="ltx_p ltx_align_center" id="A4.F10.1"><span class="ltx_text ltx_framed ltx_framed_rectangle" id="A4.F10.1.1" style="--ltx-border-color:#000000;padding:3.0pt;"><img alt="Refer to caption" class="ltx_graphics ltx_img_landscape" height="208" id="A4.F10.g1" src="assets/feedthroughdrift.jpg" style="aspect-ratio:452/208;" width="452"/></span></p>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 10：</span>左：调节其中一个安装螺钉后 CavT 加速度灵敏度随时间的变化。右：真空腔内 CavT 的照片，腔内耦合轴配合真空密封旋转馈通件用于调节安装螺钉。</figcaption>
+</figure>
+<div class="ltx_para" id="A4.p2">
+<p class="ltx_p" id="A4.p2.1">转动任何一颗螺丝后，我们观察到加速度灵敏度随时间发生很大变化，并在数天后达到新的稳态（图 <a class="ltx_ref" href="#A4.F10" title="Figure 10 ‣ Appendix D In Situ Adjustment of the Acceleration Sensitivity ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">10</span></a>）。由于调节与测量之间存在很长的延迟，<span class="ltx_text ltx_font_italic" id="A4.p2.1.1">原位</span>补偿将耗费很长时间。我们推测这种以天为尺度的稳定行为可能源于与腔体接触的氟橡胶（viton）球的机械弛豫。在尝试<span class="ltx_text ltx_font_italic" id="A4.p2.1.2">原位</span>调节后，我们破真空，将镜架笼组件转移到另一个没有馈通件的真空腔室中以便部署。转移对加速度灵敏度的影响总结于表 <a class="ltx_ref" href="#A4.T4" title="Table 4 ‣ Appendix D In Situ Adjustment of the Acceleration Sensitivity ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">4</span></a>。</p>
+</div>
+<figure class="ltx_table" id="A4.T4">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">表 4：</span><span class="ltx_text ltx_font_bold" id="A4.T4.2">CavT 在真空腔室之间转移镜架笼前后的加速度灵敏度（<math alttext="10^{-10}g^{-1}" class="ltx_Math" display="inline" id="A4.T4.m2" intent=":literal"><semantics><mrow><msup><mn>10</mn><mrow><mo>−</mo><mn>10</mn></mrow></msup><mo lspace="0em" rspace="0em">​</mo><msup><mi>g</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">10^{-10}g^{-1}</annotation></semantics></math>）</span></figcaption>
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle" id="A4.T4.3">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="A4.T4.3.1">
+<td class="ltx_td ltx_border_t" id="A4.T4.3.1.1"></td>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="A4.T4.3.1.2"><math alttext="\mathrm{k_{axial}}" class="ltx_Math" display="inline" id="A4.T4.m3" intent=":literal"><semantics><msub><mi>k</mi><mi>axial</mi></msub><annotation encoding="application/x-tex">\mathrm{k_{axial}}</annotation></semantics></math></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="A4.T4.3.1.3"><math alttext="\mathrm{k_{vertical}}" class="ltx_Math" display="inline" id="A4.T4.m4" intent=":literal"><semantics><msub><mi>k</mi><mi>vertical</mi></msub><annotation encoding="application/x-tex">\mathrm{k_{vertical}}</annotation></semantics></math></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="A4.T4.3.1.4"><math alttext="\mathrm{k_{horizontal}}" class="ltx_Math" display="inline" id="A4.T4.m5" intent=":literal"><semantics><msub><mi>k</mi><mi>horizontal</mi></msub><annotation encoding="application/x-tex">\mathrm{k_{horizontal}}</annotation></semantics></math></th></tr>
+<tr class="ltx_tr" id="A4.T4.3.2">
+<td class="ltx_td ltx_align_center ltx_border_t" id="A4.T4.3.2.1">Before cage transfer</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="A4.T4.3.2.2"><math alttext="0.92(.18)" class="ltx_Math" display="inline" id="A4.T4.m6" intent=":literal"><semantics><mrow><mn>0.92</mn><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>.18</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">0.92(.18)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="A4.T4.3.2.3"><math alttext="0.54(.24)" class="ltx_Math" display="inline" id="A4.T4.m7" intent=":literal"><semantics><mrow><mn>0.54</mn><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>.24</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">0.54(.24)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="A4.T4.3.2.4">–</td></tr>
+<tr class="ltx_tr" id="A4.T4.3.3">
+<td class="ltx_td ltx_align_center ltx_border_b" id="A4.T4.3.3.1">After cage transfer</td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="A4.T4.3.3.2"><math alttext="1.44(.10)" class="ltx_Math" display="inline" id="A4.T4.m8" intent=":literal"><semantics><mrow><mn>1.44</mn><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>.10</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">1.44(.10)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="A4.T4.3.3.3"><math alttext="0.60(.11)" class="ltx_Math" display="inline" id="A4.T4.m9" intent=":literal"><semantics><mrow><mn>0.60</mn><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>.11</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">0.60(.11)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="A4.T4.3.3.4"><math alttext="0.15(.02)" class="ltx_Math" display="inline" id="A4.T4.m10" intent=":literal"><semantics><mrow><mn>0.15</mn><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mn>.02</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">0.15(.02)</annotation></semantics></math></td></tr>
+</tbody>
+</table>
+</figure>
+</section>
+<section class="ltx_appendix" id="A5">
+<h3 class="ltx_title ltx_title_appendix"><span class="ltx_tag ltx_tag_appendix">附录 E </span>CavT 的热膨胀</h3>
+<div class="ltx_para" id="A5.p1">
+<p class="ltx_p" id="A5.p1.1">如正文所述，我们将 CavT 设计为在 30 <sup class="ltx_sup" id="A5.p1.1.1">∘</sup>C 处具有热膨胀系数过零点（ZCTE），但实测 ZCTE 位于 20.0 <sup class="ltx_sup" id="A5.p1.1.2">∘</sup>C。我们在图 <a class="ltx_ref" href="#A5.F11" title="Figure 11 ‣ Appendix E Thermal Expansion of CavT ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">11</span></a> 中给出了 CavT 及其前代腔体 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib8" title="">4</a>]</cite>（昵称 Oscar）的热膨胀测量结果。两个腔体的间隔体和支撑环均切割自同一锭料。我们订购了本征 ZCTE 为 <math alttext="40" class="ltx_Math" display="inline" id="A5.p1.m3" intent=":literal"><semantics><mn>40</mn><annotation encoding="application/x-tex">40</annotation></semantics></math> <sup class="ltx_sup" id="A5.p1.1.3">∘</sup>C、容差为 <math alttext="\pm 5^{\circ}" class="ltx_Math" display="inline" id="A5.p1.m5" intent=":literal"><semantics><mrow><mo>±</mo><msup><mn>5</mn><mo>∘</mo></msup></mrow><annotation encoding="application/x-tex">\pm 5^{\circ}</annotation></semantics></math>C 的 7973 ULE 材料。</p>
+</div>
+<div class="ltx_para" id="A5.p2">
+<p class="ltx_p" id="A5.p2.1">这些腔体的设计基于用有限元模型对腔组件热膨胀的仿真。在该模型中，ULE 元件的热膨胀由下式给出：</p>
+<table class="ltx_equation ltx_eqn_table" id="A5.E4">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\alpha_{ULE}(T)=a^{\prime}_{ULE}(T-T_{ZCTE})" class="ltx_Math" display="block" id="A5.E4.m1" intent=":literal"><semantics><mrow><mrow><msub><mi>α</mi><mrow><mi>U</mi><mo lspace="0em" rspace="0em">​</mo><mi>L</mi><mo lspace="0em" rspace="0em">​</mo><mi>E</mi></mrow></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>T</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><msubsup><mi>a</mi><mrow><mi>U</mi><mo lspace="0em" rspace="0em">​</mo><mi>L</mi><mo lspace="0em" rspace="0em">​</mo><mi>E</mi></mrow><mo>′</mo></msubsup><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mrow><mi>T</mi><mo>−</mo><msub><mi>T</mi><mrow><mi>Z</mi><mo lspace="0em" rspace="0em">​</mo><mi>C</mi><mo lspace="0em" rspace="0em">​</mo><mi>T</mi><mo lspace="0em" rspace="0em">​</mo><mi>E</mi></mrow></msub></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\alpha_{ULE}(T)=a^{\prime}_{ULE}(T-T_{ZCTE})</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="A5.p2.2">而熔融石英基底则用恒定的 CTE <math alttext="\alpha_{FS}=500" class="ltx_Math" display="inline" id="A5.p2.m1" intent=":literal"><semantics><mrow><msub><mi>α</mi><mrow><mi>F</mi><mo lspace="0em" rspace="0em">​</mo><mi>S</mi></mrow></msub><mo>=</mo><mn>500</mn></mrow><annotation encoding="application/x-tex">\alpha_{FS}=500</annotation></semantics></math> <math alttext="\mathrm{ppb/K}" class="ltx_Math" display="inline" id="A5.p2.m2" intent=":literal"><semantics><mrow><mi>ppb</mi><mo>/</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">\mathrm{ppb/K}</annotation></semantics></math> 建模。仿真返回腔镜之间的相对长度变化 <math alttext="\Delta y" class="ltx_Math" display="inline" id="A5.p2.m3" intent=":literal"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">\Delta y</annotation></semantics></math>，我们将 <math alttext="\Delta y" class="ltx_Math" display="inline" id="A5.p2.m4" intent=":literal"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">\Delta y</annotation></semantics></math> 拟合为如下形式：</p>
+<table class="ltx_equation ltx_eqn_table" id="A5.E5">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\Delta y=\frac{1}{2}a^{\prime}(T-T_{ZCTE})^{2}+\frac{1}{3}a^{\prime\prime}(T-T_{ZCTE})^{3}" class="ltx_Math" display="block" id="A5.E5.m1" intent=":literal"><semantics><mrow><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow><mo>=</mo><mrow><mrow><mfrac><mn>1</mn><mn>2</mn></mfrac><mo lspace="0em" rspace="0em">​</mo><msup><mi>a</mi><mo>′</mo></msup><mo lspace="0em" rspace="0em">​</mo><msup><mrow><mo stretchy="false">(</mo><mrow><mi>T</mi><mo>−</mo><msub><mi>T</mi><mrow><mi>Z</mi><mo lspace="0em" rspace="0em">​</mo><mi>C</mi><mo lspace="0em" rspace="0em">​</mo><mi>T</mi><mo lspace="0em" rspace="0em">​</mo><mi>E</mi></mrow></msub></mrow><mo stretchy="false">)</mo></mrow><mn>2</mn></msup></mrow><mo>+</mo><mrow><mfrac><mn>1</mn><mn>3</mn></mfrac><mo lspace="0em" rspace="0em">​</mo><msup><mi>a</mi><mo>′′</mo></msup><mo lspace="0em" rspace="0em">​</mo><msup><mrow><mo stretchy="false">(</mo><mrow><mi>T</mi><mo>−</mo><msub><mi>T</mi><mrow><mi>Z</mi><mo lspace="0em" rspace="0em">​</mo><mi>C</mi><mo lspace="0em" rspace="0em">​</mo><mi>T</mi><mo lspace="0em" rspace="0em">​</mo><mi>E</mi></mrow></msub></mrow><mo stretchy="false">)</mo></mrow><mn>3</mn></msup></mrow></mrow></mrow><annotation encoding="application/x-tex">\Delta y=\frac{1}{2}a^{\prime}(T-T_{ZCTE})^{2}+\frac{1}{3}a^{\prime\prime}(T-T_{ZCTE})^{3}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(5)</span></td></tr></tbody>
+</table>
+</div>
+<div class="ltx_para" id="A5.p3">
+<p class="ltx_p" id="A5.p3.1">有限元计算中假定 ULE 的 CTE 斜率为 <math alttext="a^{\prime}_{ULE}=2.4" class="ltx_Math" display="inline" id="A5.p3.m1" intent=":literal"><semantics><mrow><msubsup><mi>a</mi><mrow><mi>U</mi><mo lspace="0em" rspace="0em">​</mo><mi>L</mi><mo lspace="0em" rspace="0em">​</mo><mi>E</mi></mrow><mo>′</mo></msubsup><mo>=</mo><mn>2.4</mn></mrow><annotation encoding="application/x-tex">a^{\prime}_{ULE}=2.4</annotation></semantics></math> <math alttext="\mathrm{ppb/K^{2}}" class="ltx_Math" display="inline" id="A5.p3.m2" intent=":literal"><semantics><mrow><mi>ppb</mi><mo>/</mo><msup><mi>K</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\mathrm{ppb/K^{2}}</annotation></semantics></math>，该值取自 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib24" title="">18</a>]</cite>，该文献使用了一种来源不明的掺钛玻璃。如图 <a class="ltx_ref" href="#A5.F11" title="Figure 11 ‣ Appendix E Thermal Expansion of CavT ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">11</span></a> 所示，相对于我们实测的 CTE 斜率，该参考文献对 CavT 高估了 2 倍，对 Oscar 高估了 3 倍。康宁 7973 ULE 数据手册曲线给出的 CTE 斜率为 <math alttext="1.7" class="ltx_Math" display="inline" id="A5.p3.m3" intent=":literal"><semantics><mn>1.7</mn><annotation encoding="application/x-tex">1.7</annotation></semantics></math> <math alttext="\mathrm{ppb/K^{2}}" class="ltx_Math" display="inline" id="A5.p3.m4" intent=":literal"><semantics><mrow><mi>ppb</mi><mo>/</mo><msup><mi>K</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\mathrm{ppb/K^{2}}</annotation></semantics></math>。然而，我们自己的测量结合近期同样使用康宁 7973 ULE 的 ULE 腔体文献 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib19" title="">12</a>, <a class="ltx_ref" href="#bib.bib23" title="">16</a>]</cite>，表明 CTE 斜率的典型值更小，约为 <math alttext="1.2" class="ltx_Math" display="inline" id="A5.p3.m5" intent=":literal"><semantics><mn>1.2</mn><annotation encoding="application/x-tex">1.2</annotation></semantics></math> <math alttext="\mathrm{ppb/K^{2}}" class="ltx_Math" display="inline" id="A5.p3.m6" intent=":literal"><semantics><mrow><mi>ppb</mi><mo>/</mo><msup><mi>K</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\mathrm{ppb/K^{2}}</annotation></semantics></math>。CavT（Oscar）总共 10 <sup class="ltx_sup" id="A5.p3.1.3">∘</sup>C（8 <sup class="ltx_sup" id="A5.p3.1.4">∘</sup>C）的 ZCTE 偏差中，有 4 <sup class="ltx_sup" id="A5.p3.1.1">∘</sup>C（9 <sup class="ltx_sup" id="A5.p3.1.2">∘</sup>C）可由这一 CTE 斜率差异解释。剩余的偏差可归因于 ULE 本征 ZCTE 的 <math alttext="\pm 5" class="ltx_Math" display="inline" id="A5.p3.m11" intent=":literal"><semantics><mrow><mo>±</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">\pm 5</annotation></semantics></math> <sup class="ltx_sup" id="A5.p3.1.5">∘</sup>C 容差。</p>
+</div>
+<figure class="ltx_figure" id="A5.F11">
+<p class="ltx_p ltx_align_center" id="A5.F11.1"><span class="ltx_text ltx_framed ltx_framed_rectangle" id="A5.F11.1.1" style="--ltx-border-color:#000000;padding:3.0pt;"><img alt="Refer to caption" class="ltx_graphics ltx_img_landscape" height="342" id="A5.F11.g1" src="assets/ThermalExpansion.png" style="aspect-ratio:471/342;" width="471"/></span></p>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 11：</span>CavT 及其前代腔体 Oscar <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib8" title="">4</a>]</cite> 的热膨胀。</figcaption>
+</figure>
+</section>
+<section class="ltx_appendix" id="A6">
+<h3 class="ltx_title ltx_title_appendix"><span class="ltx_tag ltx_tag_appendix">附录 F </span>优化腔体光响应</h3>
+<div class="ltx_para" id="A6.p1">
+<p class="ltx_p" id="A6.p1.1">我们发现，CavT 技术噪声的主要来源之一是系统对光功率变化的响应，如图 2 所示。Kraus 等人和 Ma 等人展示了一种新技术，通过优化选择偏振轴和腔内光强来补偿带有 <math alttext="\mathrm{Al_{0.92}Ga_{0.08}As}" class="ltx_Math" display="inline" id="A6.p1.m1" intent=":literal"><semantics><mrow><msub><mi>Al</mi><mn>0.92</mn></msub><mo lspace="0em" rspace="0em">​</mo><msub><mi>Ga</mi><mn>0.08</mn></msub><mo lspace="0em" rspace="0em">​</mo><mi>As</mi></mrow><annotation encoding="application/x-tex">\mathrm{Al_{0.92}Ga_{0.08}As}</annotation></semantics></math>:<math alttext="\mathrm{GaAs}" class="ltx_Math" display="inline" id="A6.p1.m2" intent=":literal"><semantics><mi>GaAs</mi><annotation encoding="application/x-tex">\mathrm{GaAs}</annotation></semantics></math> 反射镜的谐振腔的光响应 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib23" title="">16</a>, <a class="ltx_ref" href="#bib.bib28" title="">22</a>]</cite>。由于时间进度压力，我们于 2025 年将系统部署到蓝山（Mt. Blue Sky），当时还未能将这项技术应用于 CavT。正文中，图 2 的技术不稳定度预算和图 6 中标注为“Mountain 2025”的稳定度测量结果，反映的是我们优化 CavT 光响应之前的性能。</p>
+</div>
+<div class="ltx_para" id="A6.p2">
+<p class="ltx_p" id="A6.p2.1">从蓝山返回后，我们测量了 CavT 对光功率阶跃变化的响应随透射光功率和偏振轴的变化关系（图 <a class="ltx_ref" href="#A6.F12" title="Figure 12 ‣ Appendix F Optimizing Cavity Photoresponse ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">12</span></a>）。我们观察到了明显的光致双折射特征，如 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib23" title="">16</a>, <a class="ltx_ref" href="#bib.bib28" title="">22</a>]</cite> 所示；然而，在快轴上我们观察到了光致双折射效应与光热效应的部分抵消。相比之下，Kraus 等人在 20 cm 可搬运谐振腔的慢轴上观察到了抵消现象 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib23" title="">16</a>]</cite>，而 Ma 等人在 48 cm 实验室谐振腔的快轴上发现了抵消现象 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib10" title="">21</a>]</cite>。尽管 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib28" title="">22</a>]</cite> 中的公式 6 提供了光致双折射效应时间依赖性的详细模型，但我们发现更简单的双指数传递函数能很好地拟合我们测得的光响应，并且足以评估谐振腔的光强预算。CavT 部署到蓝山时，光耦合到慢轴，透射功率为 690 nW，低频光灵敏度为 1.4 kHz/<math alttext="\mu" class="ltx_Math" display="inline" id="A6.p2.m1" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>W，时间常数为 7.3 s 和 0.42 s。我们发现最佳配置是耦合到快轴，透射功率为 86 nW，低频光灵敏度为 0.3 Hz/<math alttext="\mu" class="ltx_Math" display="inline" id="A6.p2.m2" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>W，时间常数为 3.5 s 和 0.16 s。</p>
+</div>
+<figure class="ltx_figure" id="A6.F12">
+<p class="ltx_p ltx_align_center" id="A6.F12.1"><span class="ltx_text ltx_framed ltx_framed_rectangle" id="A6.F12.1.1" style="--ltx-border-color:#000000;padding:3.0pt;"><img alt="Refer to caption" class="ltx_graphics ltx_img_landscape" height="186" id="A6.F12.g1" src="assets/SuppFig3.png" style="aspect-ratio:471/186;" width="471"/></span></p>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 12：</span>CavT 光响应随偏振本征模和透射光功率的变化。透射光功率以颜色编码标注在每条对应测量曲线旁边。左图：偏振对准 CavT 慢轴时的光响应。右图：偏振对准 CavT 快轴时的光响应。</figcaption>
+</figure>
+<div class="ltx_para" id="A6.p3">
+<p class="ltx_p" id="A6.p3.1">图 <a class="ltx_ref" href="#A6.F13" title="Figure 13 ‣ Appendix F Optimizing Cavity Photoresponse ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">13</span></a> 总结了 CavT 相对于 NIST 参考激光器的稳定度，包括我们实施部分光响应抵消前后的情况以及两次部署期间的数据。我们在科罗拉多大学博尔德分校部署期间实施了部分光响应抵消。虽然在 <math alttext="\tau&gt;1" class="ltx_Math" display="inline" id="A6.p3.m1" intent=":literal"><semantics><mrow><mi>τ</mi><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\tau&gt;1</annotation></semantics></math> s 时耦合到慢轴的 CavT 稳定度存在一些变化，但在耦合到快轴并实施部分光响应抵消的情况下，我们尚未观察到 CavT 稳定度的显著变化。系统在科罗拉多大学博尔德分校期间 <math alttext="\tau&lt;1" class="ltx_Math" display="inline" id="A6.p3.m2" intent=":literal"><semantics><mrow><mi>τ</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\tau&lt;1</annotation></semantics></math> s 稳定度的恶化，很可能是由于 NIST 与该大学之间 3.2 km 光纤频率传递所引入的额外噪声。</p>
+</div>
+<figure class="ltx_figure" id="A6.F13">
+<p class="ltx_p ltx_align_center" id="A6.F13.1"><span class="ltx_text ltx_framed ltx_framed_rectangle" id="A6.F13.1.1" style="--ltx-border-color:#000000;padding:3.0pt;"><img alt="Refer to caption" class="ltx_graphics ltx_img_landscape" height="234" id="A6.F13.g1" src="assets/SuppMDEVFigure.jpg" style="aspect-ratio:381/234;" width="381"/></span></p>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 13：</span>TSLS 在 NIST 以 29 cm ULE 参考腔为基准的随时间稳定度测量。虚线表示腔耦合慢轴光，实线表示腔耦合快轴光且光响应经过优化。红色曲线是 TSLS 位于 NIST 实验室时测得的稳定度，经 10 m 光纤与参考腔比较。蓝色曲线是 TSLS 部署于科罗拉多大学博尔德分校期间测得的，经 3.2 km 光纤链路与位于 NIST 的同一参考激光器比较，该链路属于博尔德研究与行政网络（BRAN）。参考激光器的稳定度以黑色虚线给出。</figcaption>
+</figure>
+</section>
+<section class="ltx_appendix" id="A7">
+<h3 class="ltx_title ltx_title_appendix"><span class="ltx_tag ltx_tag_appendix">附录 G </span>2026 年部署至蓝天山的其他改动</h3>
+<div class="ltx_para" id="A7.p1">
+<p class="ltx_p" id="A7.p1.1">除优化 CavT 的光响应外，在 2026 年部署至蓝天山之前及期间，我们还对 TSLS 进行了若干其他改动。</p>
+</div>
+<section class="ltx_subsection" id="A7.SS1">
+<h4 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">G.1 </span>缓解 CLaRC 中的热梯度波动</h4>
+<div class="ltx_para" id="A7.SS1.p1">
+<p class="ltx_p" id="A7.SS1.p1.1">我们观察到，每隔 22.5 小时，578 nm“Clock”光纤噪声消除（FNC）链路的频率会偏离至峰值 <math alttext="1\times 10^{-17}" class="ltx_Math" display="inline" id="A7.SS1.p1.m1" intent=":literal"><semantics><mrow><mn>1</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>17</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1\times 10^{-17}</annotation></semantics></math>，然后在大约 10 分钟内恢复原值；这一现象见于 CLaRC 578 nm 链路与实验室 578 nm 激光链路之间的外差拍频，如正文图 4 所示。该行为正是正文图 4 中“Clock”链路环外稳定度在 <math alttext="\tau" class="ltx_Math" display="inline" id="A7.SS1.p1.m2" intent=":literal"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math> = 1000 s 附近出现凸起的根源。经查明，这一高度可重复的现象源于一个每日发生的热事件，其来源是位于 CLaRC 封装正下方、TSLS 服务器机架上的不间断电源（UPS）（见正文图 1）。在该事件期间，我们观察到为稳定 CLaRC 底板温度所需的加热功率下降，表明存在峰值 20 mW 的瞬态外部热负载。该瞬态热负载会使 CLaRC 底板前端上升约 30mK，后端下降约 30mK。CLaRC 的 FNC 链路之间最长的未补偿光纤段是 PPLN 倍频器的输入与输出光纤。PPLN 位于 CLaRC 前端，因此会随瞬态梯度经历局部温度变化。我们通过将 UPS 从 CLaRC 附近移走消除了这一特定现象。为防止任何其他瞬态热梯度源耦合进“Clock”FNC 链路，我们将 PPLN 的输入与输出光纤抬高到一个独立小平台上，该平台配有独立的珀尔帖元件，可进行与底板无关的温度控制。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="A7.SS2">
+<h4 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">G.2 </span>基于 FPGA 的 PDH 伺服</h4>
+<div class="ltx_para" id="A7.SS2.p1">
+<p class="ltx_p" id="A7.SS2.p1.1">在 2025 年蓝山（Mount Blue-Sky）部署期间，光纤激光器通过一个由快、慢两路输出组成的模拟控制器锁定到 CavT 上：快输出控制位于光纤激光器输出端的反馈光纤声光调制器（AOM，正文中图 1 未画出）上的频率调制（FM），慢输出控制光纤激光器谐振腔上的压电换能器。该实现方案受困于相对频繁的 Pound-Drever-Hall（PDH）失锁，只能通过调节快控制器的输入失调来解决。在我们将模拟控制器更换为以商用现场可编程门阵列（FPGA）平台为核心的数字控制器（与 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib21" title="">6</a>]</cite> 类似）之后，这些问题得以解决。PDH 误差信号由 14 bit 模数转换器（ADC）以每秒 250 兆采样率读取。对 ADC 输入进行多样本平均以提高分辨率，从而能够以百万分之一（ppm）量级劈分腔线。数字化后的误差信号随后送入作为快反馈级的 PI<sup class="ltx_sup" id="A7.SS2.p1.1.1">2</sup>D 控制器。该快控制器对驱动反馈 AOM 的片上直接数字合成器（DDS）进行频率调制。快 PI<sup class="ltx_sup" id="A7.SS2.p1.1.2">2</sup>D 级的输出还被送入一级 PI<sup class="ltx_sup" id="A7.SS2.p1.1.3">2</sup> 控制（作为慢反馈级），再经 16 bit 数模转换器（DAC）以每秒 250 兆采样率产生压电换能器的控制电压。我们观察到，完成这一替换后，TSLS 的稳定度没有统计上显著的下降，且 PDH 失锁的时间间隔从几天改善到一周以上。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="A7.SS3">
+<h4 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">G.3 </span>CavT 主动 RAM 稳定</h4>
+<div class="ltx_para" id="A7.SS3.p1">
+<p class="ltx_p" id="A7.SS3.p1.1">图 2 右图所示的 RAM 不稳定度，是在无光路主动 RAM 控制、且 TSLS 仍位于温控实验室时，将光失谐偏离腔共振后，在 PDH 探测器上进行环外测量得到的 RAM。在 2026 年蓝山部署期间，观测到的 TSLS 不稳定度比 2025 年部署期间更差。作为一种临时解决方案，我们实施了主动 RAM 伺服，经验上看它似乎在短时间尺度上改善了 TSLS 的稳定度。图 6 右图所示的 2026 年部署稳定度数据是在主动 RAM 控制开启的情况下采集的。该主动 RAM 控制的结构基于 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib33" title="">31</a>]</cite>。</p>
+</div>
+</section>
+</section>
+<section class="ltx_bibliography" id="bib">
+<h3 class="ltx_title ltx_title_bibliography">References</h3>
+<ul class="ltx_biblist" id="bib.L1">
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib12"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Abich, A. Abramovici, B. Amparan, A. Baatzsch, B. B. Okihiro, D. C. Barr, M. P. Bize, C. Bogan, C. Braxmaier, M. J. Burke, K. C. Clark, C. Dahl, K. Dahl, K. Danzmann, M. A. Davis, G. De Vine, J. A. Dickson, S. Dubovitsky, A. Eckardt, T. Ester, G. F. Barranco, R. Flatscher, F. Flechtner, W. M. Folkner, S. Francis, M. S. Gilbert, F. Gilles, M. Gohlke, N. Grossard, B. Guenther, P. Hager, J. Hauden, F. Heine, G. Heinzel, M. Herding, M. Hinz, J. Howell, M. Katsumura, M. Kaufer, W. Klipstein, A. Koch, M. Kruger, K. Larsen, A. Lebeda, A. Lebeda, T. Leikert, C. C. Liebe, J. Liu, L. Lobmeyer, C. Mahrdt, T. Mangoldt, K. McKenzie, M. Misfeldt, P. R. Morton, V. Müller, A. T. Murray, D. J. Nguyen, K. Nicklaus, R. Pierce, J. A. Ravich, G. Reavis, J. Reiche, J. Sanjuan, D. Schütze, C. Seiter, D. Shaddock, B. Sheard, M. Sileo, R. Spero, G. Spiers, G. Stede, M. Stephens, A. Sutton, J. Trinh, K. Voss, D. Wang, R. T. Wang, B. Ware, H. Wegener, S. Windisch, C. Woodruff, B. Zender, and M. Zimmermann</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">In-Orbit Performance of the GRACE Follow-on Laser Ranging Interferometer</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review Letters</span> <span class="ltx_text ltx_bib_volume">123</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages">pp. 031101</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0031-9007, 1079-7114</span>,
+<a class="ltx_ref ltx_bib_external" href="https://link.aps.org/doi/10.1103/PhysRevLett.123.031101" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevLett.123.031101" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#p1.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib7"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Aeppli, K. Kim, W. Warfield, M. S. Safronova, and J. Ye</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Clock with 8 × 10−19 Systematic Uncertainty</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review Letters</span> <span class="ltx_text ltx_bib_volume">133</span> (<span class="ltx_text ltx_bib_number">2</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevLett.133.023401" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#p1.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib13"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Amy-Klein, E. Benkler, P. Blondé, K. Bongs, E. Cantin, C. Chardonnet, H. Denker, S. Dörscher, C. Feng, J. Gaudron, P. Gill, I. R. Hill, W. Huang, M. Y. H. Johnson, Y. B. Kale, H. Katori, J. Klose, J. Kronjäger, A. Kuhl, R. L. Targat, C. Lisdat, O. Lopez, T. Lücke, M. Mazouth, S. Mukherjee, I. Nosske, B. Pointard, P. Pottie, M. Schioppo, Y. Singh, K. Stahl, M. Takamoto, M. Tønnes, J. Tunesi, I. Ushijima, and C. Vishwakarma</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">International comparison of optical frequencies with transportable optical lattice clocks</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">arXiv</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">arXiv:2410.22973 [physics]Comment: 29 pages, 5 figures</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="http://arxiv.org/abs/2410.22973" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.48550/arXiv.2410.22973" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#p1.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>,
+<a class="ltx_ref" href="#p2.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib8"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Bothwell, W. Brand, R. Fasano, T. Akin, J. Whalen, T. Grogan, Y. Chen, M. Pomponio, T. Nakamura, B. Rauf, I. Baldoni, M. Giunta, R. Holzwarth, C. Nelson, A. Hati, F. Quinlan, R. Fox, S. Peil, and A. Ludlow</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Deployment of a transportable Yb optical lattice clock</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics Letters</span> <span class="ltx_text ltx_bib_volume">50</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 646</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0146-9592, 1539-4794</span>,
+<a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/abstract.cfm?URI=ol-50-2-646" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OL.543310" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#A5.F11" title="In Appendix E Thermal Expansion of CavT ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">Figure 11</span></a>,
+<a class="ltx_ref" href="#A5.p1.1" title="Appendix E Thermal Expansion of CavT ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">Appendix E</span></a>,
+<a class="ltx_ref" href="#p1.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>,
+<a class="ltx_ref" href="#p2.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>,
+<a class="ltx_ref" href="#p9.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib9"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Q. Chen, A. Nevsky, M. Cardace, S. Schiller, T. Legero, S. Häfner, A. Uhde, and U. Sterr</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A compact, robust, and transportable ultra-stable laser with a fractional frequency instability of 1 × 10−15</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Review of Scientific Instruments</span> <span class="ltx_text ltx_bib_volume">85</span> (<span class="ltx_text ltx_bib_number">11</span>), <span class="ltx_text ltx_bib_pages">pp. 113107</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0034-6748, 1089-7623</span>,
+<a class="ltx_ref ltx_bib_external" href="https://pubs.aip.org/rsi/article/85/11/113107/356271/A-compact-robust-and-transportable-ultra-stable" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1063/1.4898334" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#p2.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib21"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">G. D. Cole, S. Koller, C. Greve, G. P. Barwood, C. Deutsch, P. Gaynor, M. Ghulinyan, P. Gill, R. Hendricks, I. Hill, S. Kundermann, R. L. Goff, S. Lecomte, C. Meier, G. Pepponi, S. Schilt, C. Stenzel, R. Sütterlin, K. Voss, and A. Zhukov</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Towards space-deployable laser stabilization systems based on vibration-insensitive cubic cavities with crystalline coatings</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics Express</span> <span class="ltx_text ltx_bib_volume">32</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages">pp. 5380–5396</span> (<span class="ltx_text ltx_bib_language">EN</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1094-4087</span>,
+<a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/oe/abstract.cfm?uri=oe-32-4-5380" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OE.506833" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#A7.SS2.p1.1" title="G.2 FPGA-Based PDH Servo ‣ Appendix G Other Changes for the 2026 Deployment to Mount Blue Sky ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">§G.2</span></a>,
+<a class="ltx_ref" href="#p11.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>,
+<a class="ltx_ref" href="#p2.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>,
+<a class="ltx_ref" href="#p9.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib17"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">N. Dimarcq, M. Gertsvolf, G. Mileti, S. Bize, C. W. Oates, E. Peik, D. Calonico, T. Ido, P. Tavella, F. Meynadier, G. Petit, G. Panfilo, J. Bartholomew, P. Defraigne, E. A. Donley, P. O. Hedekvist, I. Sesia, M. Wouters, P. Dubé, F. Fang, F. Levi, J. Lodewyck, H. S. Margolis, D. Newell, S. Slyusarev, S. Weyers, J. Uzan, M. Yasuda, D. Yu, C. Rieck, H. Schnatz, Y. Hanado, M. Fujieda, P. Pottie, J. Hanssen, A. Malimon, and N. Ashby</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Roadmap towards the redefinition of the second</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Metrologia</span> <span class="ltx_text ltx_bib_volume">61</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 012001</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0026-1394, 1681-7575</span>,
+<a class="ltx_ref ltx_bib_external" href="https://iopscience.iop.org/article/10.1088/1681-7575/ad17d2" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1088/1681-7575/ad17d2" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#p1.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib4"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Falke, M. Misera, U. Sterr, and C. Lisdat</span><span class="ltx_text ltx_bib_year"> (2012)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Delivering pulsed and phase stable light to atoms of an optical clock</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Applied Physics B</span> <span class="ltx_text ltx_bib_volume">107</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 301–311</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0946-2171, 1432-0649</span>,
+<a class="ltx_ref ltx_bib_external" href="http://link.springer.com/10.1007/s00340-012-4952-6" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1007/s00340-012-4952-6" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#p11.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_thesis" id="bib.bib27"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. Fasano</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A Transportable Ytterbium Optical Lattice Clock</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_type">PhD Thesis</span>, <span class="ltx_text ltx_bib_publisher">University of Colorado Boulder</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://scholar.colorado.edu/concern/graduate_thesis_or_dissertations/5t34sk714" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#A2.p1.1" title="Appendix B Force-Insensitive Extended Spacer ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">Appendix B</span></a>,
+<a class="ltx_ref" href="#p5.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib18"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Grotti, I. Nosske, S.B. Koller, S. Herbers, H. Denker, L. Timmen, G. Vishnyakova, G. Grosche, T. Waterholter, A. Kuhl, S. Koke, E. Benkler, M. Giunta, L. Maisenbacher, A. Matveev, S. Dörscher, R. Schwarz, A. Al-Masoudi, T.W. Hänsch, Th. Udem, R. Holzwarth, and C. Lisdat</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Long-distance chronometric leveling with a portable optical clock</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review Applied</span> <span class="ltx_text ltx_bib_volume">21</span> (<span class="ltx_text ltx_bib_number">6</span>), <span class="ltx_text ltx_bib_pages">pp. L061001</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 2331-7019</span>,
+<a class="ltx_ref ltx_bib_external" href="https://link.aps.org/doi/10.1103/PhysRevApplied.21.L061001" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevApplied.21.L061001" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#p1.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>,
+<a class="ltx_ref" href="#p2.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib30"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Häfner, S. Falke, C. Grebing, S. Vogt, T. Legero, M. Merimaa, C. Lisdat, and U. Sterr</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">8 × 10^−17 fractional laser frequency instability with a long room-temperature cavity</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics Letters</span> <span class="ltx_text ltx_bib_volume">40</span> (<span class="ltx_text ltx_bib_number">9</span>), <span class="ltx_text ltx_bib_pages">pp. 2112</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0146-9592, 1539-4794</span>,
+<a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/abstract.cfm?URI=ol-40-9-2112" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OL.40.002112" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#p4.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib19"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Herbers, S. Häfner, S. Dörscher, T. Lücke, U. Sterr, and C. Lisdat</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Transportable clock laser system with an instability of 1.6 × 10<math alttext="{}^{\textrm{−16}}" class="ltx_Math" display="inline" id="bib.bib19.m1" intent=":literal"><semantics><msup><mrow></mrow><mtext>−16</mtext></msup><annotation encoding="application/x-tex">{}^{\textrm{−16}}</annotation></semantics></math></span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics Letters</span> <span class="ltx_text ltx_bib_volume">47</span> (<span class="ltx_text ltx_bib_number">20</span>), <span class="ltx_text ltx_bib_pages">pp. 5441</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0146-9592, 1539-4794</span>,
+<a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/abstract.cfm?URI=ol-47-20-5441" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OL.470984" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#A1.T2.1" title="In Appendix A Cavity Thermal Noise ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">Table 2</span></a>,
+<a class="ltx_ref" href="#A1.T2.2" title="In Appendix A Cavity Thermal Noise ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">Table 2</span></a>,
+<a class="ltx_ref" href="#A1.p1.2" title="Appendix A Cavity Thermal Noise ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">Appendix A</span></a>,
+<a class="ltx_ref" href="#A1.p3.1" title="Appendix A Cavity Thermal Noise ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">Appendix A</span></a>,
+<a class="ltx_ref" href="#A5.p3.1" title="Appendix E Thermal Expansion of CavT ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">Appendix E</span></a>,
+<a class="ltx_ref" href="#p2.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>,
+<a class="ltx_ref" href="#p4.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>,
+<a class="ltx_ref" href="#p8.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>,
+<a class="ltx_ref" href="#p9.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib20"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. P. Hilton, R. F. Offer, E. Klantsataya, S. K. Scholten, N. Bourbeau Hébert, C. J. Billington, C. Locke, C. Perrella, M. Nelligan, J. W. Allison, B. White, E. Ahern, K. W. Martin, R. Beard, J. D. Elgin, B. M. Sparkes, and A. N. Luiten</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Demonstration of a mobile optical clock ensemble at sea</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nature Communications</span> <span class="ltx_text ltx_bib_volume">16</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 6063</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 2041-1723</span>,
+<a class="ltx_ref ltx_bib_external" href="https://www.nature.com/articles/s41467-025-61140-2" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/s41467-025-61140-2" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#p2.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib3"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Z. Jia, J. Li, D. Kong, X. Zhang, H. Yu, X. Liu, Y. Zhang, Y. Wang, X. Zhu, J. Zhang, M. Zhu, P. Feng, X. Cui, P. Xu, X. Jiang, X. Liu, P. Liu, H. Dai, Y. Chen, and J. Pan</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Improved systematic evaluation of a strontium optical clock with uncertainty below 1 × 10-18</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">arXiv</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">arXiv:2509.13991 [physics]Comment: 11 pages, 10 figures</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="http://arxiv.org/abs/2509.13991" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.48550/arXiv.2509.13991" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#p1.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib1"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Kessler, T. Legero, and U. Sterr</span><span class="ltx_text ltx_bib_year"> (2012)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Thermal noise in optical cavities revisited</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">J. Opt. Soc. Am. B</span> <span class="ltx_text ltx_bib_volume">29</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 178–184</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/josab/abstract.cfm?URI=josab-29-1-178" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/JOSAB.29.000178" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#A1.p1.1" title="Appendix A Cavity Thermal Noise ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">Appendix A</span></a>,
+<a class="ltx_ref" href="#A1.p1.2" title="Appendix A Cavity Thermal Noise ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">Appendix A</span></a>,
+<a class="ltx_ref" href="#A1.p2.1" title="Appendix A Cavity Thermal Noise ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">Appendix A</span></a>,
+<a class="ltx_ref" href="#p6.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib23"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">B. Kraus, S. Herbers, C. Nauk, U. Sterr, C. Lisdat, and P. O. Schmidt</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Ultra-stable transportable ultraviolet clock laser using cancellation between photo-thermal and photo-birefringence noise</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Opt. Lett.</span> <span class="ltx_text ltx_bib_volume">50</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 658–661</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/ol/abstract.cfm?URI=ol-50-2-658" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OL.544907" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#A1.p3.1" title="Appendix A Cavity Thermal Noise ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">Appendix A</span></a>,
+<a class="ltx_ref" href="#A5.p3.1" title="Appendix E Thermal Expansion of CavT ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">Appendix E</span></a>,
+<a class="ltx_ref" href="#A6.p1.1" title="Appendix F Optimizing Cavity Photoresponse ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">Appendix F</span></a>,
+<a class="ltx_ref" href="#A6.p2.1" title="Appendix F Optimizing Cavity Photoresponse ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">Appendix F</span></a>,
+<a class="ltx_ref" href="#p2.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>,
+<a class="ltx_ref" href="#p4.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>,
+<a class="ltx_ref" href="#p8.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib6"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[17]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Lee, Z. Z. Hu, B. Lewis, A. Aeppli, K. Kim, Z. Yao, T. Legero, D. Nicolodi, F. Riehle, U. Sterr, and J. Ye</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Frequency stability of 2.5 × 10-17 in a Si cavity with AlGaAs crystalline mirrors</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">arXiv</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">arXiv:2509.13503 [physics]</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="http://arxiv.org/abs/2509.13503" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.48550/arXiv.2509.13503" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#p2.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib24"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[18]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Legero, T. Kessler, and U. Sterr</span><span class="ltx_text ltx_bib_year"> (2010)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Tuning the thermal expansion properties of optical reference cavities with fused silica mirrors</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">J. Opt. Soc. Am. B</span> <span class="ltx_text ltx_bib_volume">27</span> (<span class="ltx_text ltx_bib_number">5</span>), <span class="ltx_text ltx_bib_pages">pp. 914–919</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/josab/abstract.cfm?URI=josab-27-5-914" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/JOSAB.27.000914" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#A5.p3.1" title="Appendix E Thermal Expansion of CavT ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">Appendix E</span></a>,
+<a class="ltx_ref" href="#p7.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib31"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[19]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. R. Leibrandt, J. C. Bergquist, and T. Rosenband</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Cavity-stabilized laser with acceleration sensitivity below 10 − 12 g − 1</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review A</span> <span class="ltx_text ltx_bib_volume">87</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 023829</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1050-2947, 1094-1622</span>,
+<a class="ltx_ref ltx_bib_external" href="https://link.aps.org/doi/10.1103/PhysRevA.87.023829" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevA.87.023829" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#p4.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib22"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[20]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Y. Ma, J. Yu, T. Legero, S. Herbers, D. Nicolodi, M. Kempkes, F. Riehle, J. Ye, and U. Sterr</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Ultrastable laser based on a room temperature ule cavity with crystalline algaas coatings</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">2025 CLEO/Europe-EQEC</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume"></span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#p2.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib10"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[21]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Y. Ma, J. Yu, T. Legero, S. Herbers, D. Nicolodi, M. Kempkes, F. Riehle, D. Kedar, J. M. Robinson, J. Ye, and U. Sterr</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Ultrastable lasers: investigations of crystalline mirrors and closed cycle cooling at 124 K</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">arXiv</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">arXiv:2404.02647 [physics]</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="http://arxiv.org/abs/2404.02647" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.48550/arXiv.2404.02647" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#A6.p2.1" title="Appendix F Optimizing Cavity Photoresponse ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">Appendix F</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib28"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[22]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Y. Ma, J. Yu, T. Legero, S. Herbers, D. Nicolodi, M. Kempkes, F. Riehle, and U. Sterr</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Photo-birefringent effects in crystalline AlGaAs mirror coatings</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics Express</span> <span class="ltx_text ltx_bib_volume">34</span> (<span class="ltx_text ltx_bib_number">14</span>), <span class="ltx_text ltx_bib_pages">pp. 25456</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1094-4087</span>,
+<a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/abstract.cfm?URI=oe-34-14-25456" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OE.593424" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#A6.p1.1" title="Appendix F Optimizing Cavity Photoresponse ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">Appendix F</span></a>,
+<a class="ltx_ref" href="#A6.p2.1" title="Appendix F Optimizing Cavity Photoresponse ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">Appendix F</span></a>,
+<a class="ltx_ref" href="#p8.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib32"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[23]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Y. Ma, J. Yu, S. Sauer, T. Legero, D. Nicolodi, M. Kempkes, S. Herbers, F. Riehle, and U. Sterr</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Laser stabilized to a room temperature cavity with AlGaAs coatings reaching $4.2 \times 10^{-17}$ fractional frequency instability</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">arXiv</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">Version Number: 1</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://arxiv.org/abs/2607.01406" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.48550/ARXIV.2607.01406" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S0.F2" title="In 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">Figure 2</span></a>,
+<a class="ltx_ref" href="#p8.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib5"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[24]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. C. Marshall, D. A. R. Castillo, W. J. Arthur-Dworschack, A. Aeppli, K. Kim, D. Lee, W. Warfield, J. Hinrichs, N. V. Nardelli, T. M. Fortier, J. Ye, D. R. Leibrandt, and D. B. Hume</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">High-Stability Single-Ion Clock with 5.5 × 10 − 19 Systematic Uncertainty</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review Letters</span> <span class="ltx_text ltx_bib_volume">135</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages">pp. 033201</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0031-9007, 1079-7114</span>,
+<a class="ltx_ref ltx_bib_external" href="https://link.aps.org/doi/10.1103/hb3c-dk28" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/hb3c-dk28" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#p1.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib26"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[25]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">W. F. McGrew, X. Zhang, R. J. Fasano, S. A. Schäffer, K. Beloy, D. Nicolodi, R. C. Brown, N. Hinkley, G. Milani, M. Schioppo, T. H. Yoon, and A. D. Ludlow</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Atomic clock performance enabling geodesy below the centimetre level</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nature</span> <span class="ltx_text ltx_bib_volume">564</span> (<span class="ltx_text ltx_bib_number">7734</span>), <span class="ltx_text ltx_bib_pages">pp. 87–90</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1476-4687</span>,
+<a class="ltx_ref ltx_bib_external" href="https://www.nature.com/articles/s41586-018-0738-2" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/s41586-018-0738-2" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#p1.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>,
+<a class="ltx_ref" href="#p8.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib25"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[26]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">N. Ohmae, S. Sakama, and H. Katori</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">High-stability optical frequency transfer with all-fiber architecture for optical lattice clocks</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Electronics and Communications in Japan</span> <span class="ltx_text ltx_bib_volume">102</span> (<span class="ltx_text ltx_bib_number">5</span>), <span class="ltx_text ltx_bib_pages">pp. 43–48</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/https%3A//doi.org/10.1002/ecj.12167" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://onlinelibrary.wiley.com/doi/abs/10.1002/ecj.12167" title="">Link</a>,
+<span class="ltx_text ltx_bib_external">https://onlinelibrary.wiley.com/doi/pdf/10.1002/ecj.12167</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#p11.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>,
+<a class="ltx_ref" href="#p9.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib29"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[27]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. L. Parke, E. Clulow, W. Huang, N. Kaur, R. Karembera, J. Gaudron, X. Zhang, M. Risaro, J. Tunesi, H. Bourne, and M. Schioppo</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Laser fractional frequency instability at 4 ×10<math alttext="{}^{\textrm{-17}}" class="ltx_Math" display="inline" id="bib.bib29.m1" intent=":literal"><semantics><msup><mrow></mrow><mtext>-17</mtext></msup><annotation encoding="application/x-tex">{}^{\textrm{-17}}</annotation></semantics></math> with a room temperature optical reference cavity</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optica</span> <span class="ltx_text ltx_bib_volume">13</span> (<span class="ltx_text ltx_bib_number">7</span>), <span class="ltx_text ltx_bib_pages">pp. 1190</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 2334-2536</span>,
+<a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/abstract.cfm?URI=optica-13-7-1190" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OPTICA.591175" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#p2.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib14"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[28]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. D. Roslund, A. Cingöz, W. D. Lunden, G. B. Partridge, A. S. Kowligy, F. Roller, D. B. Sheredy, G. E. Skulason, J. P. Song, J. R. Abo-Shaeer, and M. M. Boyd</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Optical clocks at sea</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nature</span> <span class="ltx_text ltx_bib_volume">628</span> (<span class="ltx_text ltx_bib_number">8009</span>), <span class="ltx_text ltx_bib_pages">pp. 736–740</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0028-0836, 1476-4687</span>,
+<a class="ltx_ref ltx_bib_external" href="https://www.nature.com/articles/s41586-024-07225-2" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/s41586-024-07225-2" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#p2.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib16"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[29]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Takamoto, I. Ushijima, N. Ohmae, T. Yahagi, K. Kokado, H. Shinkai, and H. Katori</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Test of general relativity by a pair of transportable optical lattice clocks</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nature Photonics</span> <span class="ltx_text ltx_bib_volume">14</span> (<span class="ltx_text ltx_bib_number">7</span>), <span class="ltx_text ltx_bib_pages">pp. 411–415</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1749-4885, 1749-4893</span>,
+<a class="ltx_ref ltx_bib_external" href="https://www.nature.com/articles/s41566-020-0619-8" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/s41566-020-0619-8" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#p1.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>,
+<a class="ltx_ref" href="#p2.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib15"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[30]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Webster and P. Gill</span><span class="ltx_text ltx_bib_year"> (2011)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Force-insensitive optical cavity</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics Letters</span> <span class="ltx_text ltx_bib_volume">36</span> (<span class="ltx_text ltx_bib_number">18</span>), <span class="ltx_text ltx_bib_pages">pp. 3572</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0146-9592, 1539-4794</span>,
+<a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/abstract.cfm?URI=ol-36-18-3572" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OL.36.003572" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#A2.p1.1" title="Appendix B Force-Insensitive Extended Spacer ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">Appendix B</span></a>,
+<a class="ltx_ref" href="#abstract1.1" title="Abstract ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title">Abstract</span></a>,
+<a class="ltx_ref" href="#p2.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>,
+<a class="ltx_ref" href="#p4.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>,
+<a class="ltx_ref" href="#p5.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib33"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[31]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">N. C. Wong and J. L. Hall</span><span class="ltx_text ltx_bib_year"> (1985)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Servo control of amplitude modulation in frequency-modulation spectroscopy: demonstration of shot-noise-limited detection</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of the Optical Society of America B</span> <span class="ltx_text ltx_bib_volume">2</span> (<span class="ltx_text ltx_bib_number">9</span>), <span class="ltx_text ltx_bib_pages">pp. 1527</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0740-3224, 1520-8540</span>,
+<a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/abstract.cfm?URI=josab-2-9-1527" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/JOSAB.2.001527" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#A7.SS3.p1.1" title="G.3 CavT Active RAM Stabilization ‣ Appendix G Other Changes for the 2026 Deployment to Mount Blue Sky ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">§G.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib2"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[32]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. Xiao, Y. Xu, Y. Wang, H. Sun, and Q. Chen</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Transportable 30 cm optical cavity based ultrastable lasers with beating instability of 2 × 10-16</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Applied Physics B</span> <span class="ltx_text ltx_bib_volume">128</span> (<span class="ltx_text ltx_bib_number">12</span>), <span class="ltx_text ltx_bib_pages">pp. 220</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1432-0649</span>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1007/s00340-022-07938-0" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1007/s00340-022-07938-0" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#p2.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>,
+<a class="ltx_ref" href="#p4.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib34"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[33]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. Xiao, Y. Xu, Y. Wang, H. Sun, and Q. Chen</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Transportable 30 cm optical cavity based ultrastable lasers with beating instability of 2 × 10-16</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Applied Physics B</span> <span class="ltx_text ltx_bib_volume">128</span> (<span class="ltx_text ltx_bib_number">12</span>), <span class="ltx_text ltx_bib_pages">pp. 220</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1432-0649</span>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1007/s00340-022-07938-0" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1007/s00340-022-07938-0" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#A1.p3.1" title="Appendix A Cavity Thermal Noise ‣ Supplementary Information ‣ 3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_tag">Appendix A</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib11"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[34]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Yu, S. Häfner, T. Legero, S. Herbers, D. Nicolodi, C. Y. Ma, F. Riehle, U. Sterr, D. Kedar, J. M. Robinson, E. Oelker, and J. Ye</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Excess Noise and Photoinduced Effects in Highly Reflective Crystalline Mirror Coatings</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review X</span> <span class="ltx_text ltx_bib_volume">13</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages">pp. 041002</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 2160-3308</span>,
+<a class="ltx_ref ltx_bib_external" href="https://link.aps.org/doi/10.1103/PhysRevX.13.041002" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevX.13.041002" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#p2.1" title="3×10^{-16} Stable Laser Deployed on a 4.3 km Mountain"><span class="ltx_text ltx_ref_title"><math alttext="\mathbf{3\times 10^{-16}}" class="ltx_Math" display="inline" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{3\times 10^{-16}}</annotation></semantics></math><span class="ltx_text ltx_font_medium"> </span>Stable Laser Deployed on a 4.3 km Mountain</span></a>.
+</span></li>
+</ul>
+</section>
+</section>
+</article></div></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
