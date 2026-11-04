@@ -1,0 +1,1521 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>人视网膜高速激光散斑对比度成像</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style><style>
+.paper-reader{max-width:860px;margin:0 auto}
+.paper-reader h1{font-size:28px;line-height:1.35;margin:10px 0 6px}
+.paper-reader .original-title{color:var(--muted);font-size:14px;margin-bottom:18px}
+.paper-reader .meta{color:var(--muted);font-size:13px;margin-bottom:20px}
+.paper-reader .toc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:20px 0 28px;font-size:14px}
+.paper-reader .toc ol{margin:6px 0 0 18px;padding:0}
+.paper-reader .toc li{margin:3px 0}
+.paper-reader article{font-size:16px;line-height:1.9}
+.paper-reader h2{font-size:22px;margin:30px 0 10px}
+.paper-reader h3{font-size:18px;margin:22px 0 8px}
+.paper-reader figure{margin:20px 0;text-align:center}
+.paper-reader img{max-width:100%;height:auto}
+.paper-reader figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+.paper-reader table{display:block;overflow-x:auto;border-collapse:collapse;margin:16px 0;font-size:14px}
+.paper-reader math{overflow-x:auto;max-width:100%}
+.paper-reader pre{overflow-x:auto}
+</style></head><body class="">
+<header><a class="brand" href="../index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="../daily/index.html">日报</a><a href="../papers/index.html" aria-current="page">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 中文全文</div><h1>人视网膜高速激光散斑对比度成像</h1><div class="paper-reader"><h1>人视网膜高速激光散斑对比度成像</h1><p class="original-title">High-speed laser speckle contrast imaging of the human retina</p><p class="meta">arXiv 2610.34605 · 机器翻译，公式与图表保留原文</p><nav class="toc"><strong>目录</strong><ol></ol></nav><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">人视网膜高速激光散斑对比度成像</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Zacharie Auray
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Institut Langevin, CNRS, ESPCI Paris, PSL University, Paris, France
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Jules Guillou
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>EPITA Research Laboratory, Le Kremlin-Bicêtre, France
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Basile Malbois
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Institut Langevin, CNRS, ESPCI Paris, PSL University, Paris, France
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Maxime Boy-Arnould
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Institut Langevin, CNRS, ESPCI Paris, PSL University, Paris, France
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Michael Atlan
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Institut Langevin, CNRS, ESPCI Paris, PSL University, Paris, France
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>EPITA Research Laboratory, Le Kremlin-Bicêtre, France
+</span></span></span></span></div>
+<div class="ltx_dates">October 25, 2026</div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">摘要</h6>
+<p class="ltx_p" id="abstract1.1">我们展示了人视网膜的实时激光散斑对比度成像，使用 Phantom S980 流式相机，在 <math alttext="3840\times 2160" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><mrow><mn>3840</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>2160</mn></mrow><annotation encoding="application/x-tex">3840\times 2160</annotation></semantics></math> 像素、8 位位深和 1000 帧/秒下，采用 <math alttext="988\,\mu\mathrm{s}" class="ltx_Math" display="inline" id="abstract1.m2" intent=":literal"><semantics><mrow><mn>988</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">988\,\mu\mathrm{s}</annotation></semantics></math> 曝光。我们报告了来自一名健康 25 岁正视男性右眼视盘周围视网膜的四段记录，在未使用药物散瞳的情况下采集，使用 852-nm 漫射麦克斯韦照明，入射光功率为 5.0 mW。每段记录包含 4096 帧（4.10 s），所报告记录中的全部 16384 帧均被保留。在 NVIDIA RTX 5090 上运行的开源 Holoflow 软件，在 <math alttext="5\times 5" class="ltx_Math" display="inline" id="abstract1.m4" intent=":literal"><semantics><mrow><mn>5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">5\times 5</annotation></semantics></math> 个空间像素和 16 帧非重叠块上计算 <math alttext="K=\sigma/\mu" class="ltx_Math" display="inline" id="abstract1.m3" intent=":literal"><semantics><mrow><mi>K</mi><mo>=</mo><mrow><mi>σ</mi><mo>/</mo><mi>μ</mi></mrow></mrow><annotation encoding="application/x-tex">K=\sigma/\mu</annotation></semantics></math>，产生 62.5 幅对比度图/s，渲染速率为 60 帧/s，且无额外平均。标称原始输入吞吐量为 8.29 Gpixel/s。视网膜主要动脉和静脉分支以及更小的视盘周围血管均被可视化。如补充视频所示，在主要视网膜动脉和静脉中可见心动周期内的变化。区域逆对比度曲线显示动脉重搏切迹和自发性静脉搏动。这项单志愿者演示为高通量视网膜散斑对比度可视化确立了一个工作点。生理学观察为描述性的；对比度是依赖仪器的可观测量，而非经过校准的血流速度。</p>
+</div>
+<section class="ltx_section" id="S1">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">I </span>引言</h2>
+<div class="ltx_para" id="S1.p1">
+<p class="ltx_p" id="S1.p1.1">血流动力学提供关于视网膜循环的功能信息，补充血管形态学。有用的测量必须捕捉时间变化，同时保留足够的空间信息以区分血管区域。激光散斑对比度成像（LSCI）通过相干光强度图案的统计特性来解决这一问题。早期工作展示了基于单次曝光散斑摄影的流可视化，包括早期人眼底成像，随后是数字激光散斑对比度分析（LASCA）<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">16</a>, <a class="ltx_ref" href="#bib.bib20" title="">3</a>, <a class="ltx_ref" href="#bib.bib2" title="">4</a>]</cite>。视网膜实现随后采用时间统计和内窥镜成像来研究血流相关信号和生理响应<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib3" title="">8</a>, <a class="ltx_ref" href="#bib.bib21" title="">9</a>, <a class="ltx_ref" href="#bib.bib22" title="">48</a>, <a class="ltx_ref" href="#bib.bib9" title="">37</a>]</cite>。千赫兹相机采集也已用于非视网膜多曝光散斑成像，其处理输出具有不同的速率<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib13" title="">18</a>, <a class="ltx_ref" href="#bib.bib42" title="">19</a>]</cite>。高效滚动统计算法、图形处理器实现和专用可编程硬件是实时散斑处理的既有先例<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib45" title="">53</a>, <a class="ltx_ref" href="#bib.bib46" title="">28</a>, <a class="ltx_ref" href="#bib.bib47" title="">58</a>, <a class="ltx_ref" href="#bib.bib48" title="">22</a>]</cite>。</p>
+</div>
+<div class="ltx_para" id="S1.p2">
+<p class="ltx_p" id="S1.p2.1">激光散斑对比度成像（LSCI）这一术语描述的是成像模式，而激光散斑对比度分析（LASCA）强调对比度计算。空间、时间以及合并的时空估计器使用不同的光强样本集合。时空对比度估计在一个统计邻域内组合相邻像素和连续帧 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib7" title="">39</a>]</cite>。其精密度取决于所采样散斑的数量与相关性、探测器采样以及数值实现 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib60" title="">14</a>, <a class="ltx_ref" href="#bib.bib5" title="">25</a>, <a class="ltx_ref" href="#bib.bib8" title="">52</a>, <a class="ltx_ref" href="#bib.bib18" title="">7</a>]</cite>。因此，一个核内的样本数并不等同于独立观测数。</p>
+</div>
+<div class="ltx_para" id="S1.p3">
+<p class="ltx_p" id="S1.p3.1">人视网膜散斑成像已支持搏动性测量。一种临床激光散斑血流图（LSFG）实现以 30 frames/s 在约四秒内采集 118 幅图像，相机曝光时间为 2-ms，并报告平均模糊率作为相对血流指数 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib11" title="">31</a>]</cite>。手持式视网膜 LSCI 也已得到研究 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib14" title="">40</a>]</cite>。XyCAM RI 实现以 82 frames/s 采集人视网膜图像，并使用跨 15 帧的 <math alttext="5\times 5" class="ltx_Math" display="inline" id="S1.p3.m1" intent=":literal"><semantics><mrow><mn>5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">5\times 5</annotation></semantics></math> 空间邻域估计对比度，从而实现动脉和静脉波形分析 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib15" title="">10</a>]</cite>。多曝光人视网膜成像则结合多个相机曝光时间，以估计与去相关有关的量并评估重复性 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib17" title="">38</a>]</cite>。</p>
+</div>
+<div class="ltx_para" id="S1.p4">
+<p class="ltx_p" id="S1.p4.1">这些方法的数值输出相互关联但彼此不同。LSFG 报告平均模糊率（MBR）及其区域或脉搏波汇总指标，而相对血流量（RFV）对经背景校正的血管轮廓进行积分 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib23" title="">49</a>, <a class="ltx_ref" href="#bib.bib24" title="">45</a>]</cite>。与激光多普勒测速和 Doppler 光学相干层析成像的验证支持 RFV 作为相对视网膜血流指数，其响应取决于工作范围 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib24" title="">45</a>, <a class="ltx_ref" href="#bib.bib25" title="">30</a>]</cite>。视网膜和视神经乳头自调节反应也已使用 LSFG 研究 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib31" title="">56</a>]</cite>。因此，应将数值定量与重复性同以绝对速度或体积流量单位进行的校准区分开来。</p>
+</div>
+<div class="ltx_para" id="S1.p5">
+<p class="ltx_p" id="S1.p5.1">临床前研究已确立视网膜 LSCI 的更多应用，包括药理性血管反应和血管运动 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib10" title="">32</a>, <a class="ltx_ref" href="#bib.bib12" title="">33</a>]</cite>，以及相对血流测量和宽场仪器的实验验证 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib16" title="">36</a>, <a class="ltx_ref" href="#bib.bib28" title="">35</a>]</cite>。最近，Tate 及其同事报告了在 376.2 frames/s 和 2.5-ms 曝光下的小鼠视网膜记录，并分析了详细的搏动波形 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib19" title="">51</a>]</cite>。这些结果促使人们仔细表征人视网膜测量中的时间采样。</p>
+</div>
+<div class="ltx_para" id="S1.p6">
+<p class="ltx_p" id="S1.p6.1">目前的人体应用包括青光眼血流动力学分析、早产儿视网膜病变婴儿中与荧光素血管造影的比较，以及非渗出性年龄相关性黄斑变性中的视网膜/脉络膜血流指数 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib29" title="">54</a>, <a class="ltx_ref" href="#bib.bib38" title="">44</a>, <a class="ltx_ref" href="#bib.bib30" title="">26</a>]</cite>。近期工作进一步评估了以视盘和黄斑为中心的人体激光散斑对比成像（LSCI）测量的日内和日间重复性 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib37" title="">55</a>]</cite>。这些研究既推动了区域性和时间性终点的提出，也要求明确说明每个指数所依据的血管区域和光学采样。</p>
+</div>
+<div class="ltx_para" id="S1.p7">
+<p class="ltx_p" id="S1.p7.1">在此，我们展示一项单名志愿者演示，涉及持续计算吞吐量、视网膜血管可视化以及快速生理动态的评估。人体视网膜图像以 1000 帧/s 采集，所有输入帧均在不重叠时间块中采用池化 <math alttext="5\times 5\times 16" class="ltx_Math" display="inline" id="S1.p7.m1" intent=":literal"><semantics><mrow><mn>5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>16</mn></mrow><annotation encoding="application/x-tex">5\times 5\times 16</annotation></semantics></math> 对比度估计器处理。该方案产生 62.5 幅对比度图/s，渲染速度为 60 帧/s。标称聚合时长为 16 ms，而已发表的 15 帧 XyCAM 分析约为 183 ms。该比较描述的是采样参数。本演示报告了采集与处理配置、定性血管可视化，以及同一受试者四次视盘周围记录中视网膜主要动脉和静脉的可见心动周期变化（补充视频）。</p>
+</div>
+<figure class="ltx_table" id="S1.T1">
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_table">表 1：</span>代表性视网膜散斑成像实现。采集速率、曝光时长和统计聚合是相互独立的量。各条目描述已发表的配置，而非通用设备极限。该表并非声称穷尽性优先权或性能匹配。</figcaption>
+<table class="ltx_tabular ltx_guessed_headers ltx_align_middle" id="S1.T1.2">
+<thead class="ltx_thead">
+<tr class="ltx_tr" id="S1.T1.2.1">
+<th class="ltx_td ltx_align_left ltx_align_top ltx_th ltx_th_column ltx_border_t" id="S1.T1.2.1.1" style="padding:0.55pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.1.1.1" style="width:103.5pt;">
+<span class="ltx_p ltx_align_left" id="S1.T1.2.1.1.1.1"><span class="ltx_text" id="S1.T1.2.1.1.1.1.1" style="font-size:90%;">Implementation</span></span>
+</span></th>
+<th class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top ltx_th ltx_th_column ltx_border_t" id="S1.T1.2.1.2" style="padding:0.55pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.1.2.1" style="width:220.8pt;">
+<span class="ltx_p ltx_align_left" id="S1.T1.2.1.2.1.1"><span class="ltx_text" id="S1.T1.2.1.2.1.1.1" style="font-size:90%;">Acquisition and analysis</span></span>
+</span></th></tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="S1.T1.2.2">
+<td class="ltx_td ltx_align_left ltx_align_top ltx_border_t" id="S1.T1.2.2.1" style="padding:0.55pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.2.1.1" style="width:103.5pt;">
+<span class="ltx_p ltx_align_left" id="S1.T1.2.2.1.1.1"><span class="ltx_text" id="S1.T1.2.2.1.1.1.1" style="font-size:90%;">Human LSFG-NAVI </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" id="S1.T1.2.2.1.1.1.2" style="font-size:90%;">[</span><a class="ltx_ref" href="#bib.bib11" title="">31</a><span class="ltx_text" id="S1.T1.2.2.1.1.1.3" style="font-size:90%;">]</span></cite></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top ltx_border_t" id="S1.T1.2.2.2" style="padding:0.55pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.2.2.1" style="width:220.8pt;">
+<span class="ltx_p ltx_align_left" id="S1.T1.2.2.2.1.1"><span class="ltx_text" id="S1.T1.2.2.2.1.1.1" style="font-size:90%;">30 帧/s；2-ms 曝光。约 4 s 内采集 118 幅图像；心动周期处理。</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S1.T1.2.3">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S1.T1.2.3.1" style="padding:0.55pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.3.1.1" style="width:103.5pt;">
+<span class="ltx_p ltx_align_left" id="S1.T1.2.3.1.1.1"><span class="ltx_text" id="S1.T1.2.3.1.1.1.1" style="font-size:90%;">Human XyCAM RI </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" id="S1.T1.2.3.1.1.1.2" style="font-size:90%;">[</span><a class="ltx_ref" href="#bib.bib15" title="">10</a><span class="ltx_text" id="S1.T1.2.3.1.1.1.3" style="font-size:90%;">]</span></cite></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S1.T1.2.3.2" style="padding:0.55pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.3.2.1" style="width:220.8pt;">
+<span class="ltx_p ltx_align_left" id="S1.T1.2.3.2.1.1"><span class="ltx_text" id="S1.T1.2.3.2.1.1.1" style="font-size:90%;">82 帧/s；所引研究未说明相机曝光。</span><math alttext="5\times 5\times 15" class="ltx_Math" display="inline" id="S1.T1.m1" intent=":literal"><semantics><mrow><mn mathsize="0.900em">5</mn><mo lspace="0.222em" mathsize="0.900em" rspace="0.222em">×</mo><mn mathsize="0.900em">5</mn><mo lspace="0.222em" mathsize="0.900em" rspace="0.222em">×</mo><mn mathsize="0.900em">15</mn></mrow><annotation encoding="application/x-tex">5\times 5\times 15</annotation></semantics></math><span class="ltx_text" id="S1.T1.2.3.2.1.1.2" style="font-size:90%;"> 核；标称支撑约 183 ms。</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S1.T1.2.4">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S1.T1.2.4.1" style="padding:0.55pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.4.1.1" style="width:103.5pt;">
+<span class="ltx_p ltx_align_left" id="S1.T1.2.4.1.1.1"><span class="ltx_text" id="S1.T1.2.4.1.1.1.1" style="font-size:90%;">Human retinal MESI </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" id="S1.T1.2.4.1.1.1.2" style="font-size:90%;">[</span><a class="ltx_ref" href="#bib.bib17" title="">38</a><span class="ltx_text" id="S1.T1.2.4.1.1.1.3" style="font-size:90%;">]</span></cite></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S1.T1.2.4.2" style="padding:0.55pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.4.2.1" style="width:220.8pt;">
+<span class="ltx_p ltx_align_left" id="S1.T1.2.4.2.1.1"><span class="ltx_text" id="S1.T1.2.4.2.1.1.1" style="font-size:90%;">多曝光序列：采集 0.5–64 ms。约 4.7 s 内采集 104 幅图像；保留 2–64 ms 用于拟合血流图。</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S1.T1.2.5">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S1.T1.2.5.1" style="padding:0.55pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.5.1.1" style="width:103.5pt;">
+<span class="ltx_p ltx_align_left" id="S1.T1.2.5.1.1.1"><span class="ltx_text" id="S1.T1.2.5.1.1.1.1" style="font-size:90%;">Murine retinal LSCI </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" id="S1.T1.2.5.1.1.1.2" style="font-size:90%;">[</span><a class="ltx_ref" href="#bib.bib19" title="">51</a><span class="ltx_text" id="S1.T1.2.5.1.1.1.3" style="font-size:90%;">]</span></cite></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S1.T1.2.5.2" style="padding:0.55pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.5.2.1" style="width:220.8pt;">
+<span class="ltx_p ltx_align_left" id="S1.T1.2.5.2.1.1"><span class="ltx_text" id="S1.T1.2.5.2.1.1.1" style="font-size:90%;">376.2 帧/s；2.5-ms 曝光。</span><math alttext="5\times 5" class="ltx_Math" display="inline" id="S1.T1.m2" intent=":literal"><semantics><mrow><mn mathsize="0.900em">5</mn><mo lspace="0.222em" mathsize="0.900em" rspace="0.222em">×</mo><mn mathsize="0.900em">5</mn></mrow><annotation encoding="application/x-tex">5\times 5</annotation></semantics></math><span class="ltx_text" id="S1.T1.2.5.2.1.1.2" style="font-size:90%;"> 空间对比度，随后进行信号滤波。</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S1.T1.2.6">
+<td class="ltx_td ltx_align_left ltx_align_top ltx_border_b" id="S1.T1.2.6.1" style="padding:0.55pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.6.1.1" style="width:103.5pt;">
+<span class="ltx_p ltx_align_left" id="S1.T1.2.6.1.1.1"><span class="ltx_text" id="S1.T1.2.6.1.1.1.1" style="font-size:90%;">Present human recordings</span></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top ltx_border_b" id="S1.T1.2.6.2" style="padding:0.55pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.6.2.1" style="width:220.8pt;">
+<span class="ltx_p ltx_align_left" id="S1.T1.2.6.2.1.1"><math alttext="3840\times 2160" class="ltx_Math" display="inline" id="S1.T1.m3" intent=":literal"><semantics><mrow><mn mathsize="0.900em">3840</mn><mo lspace="0.222em" mathsize="0.900em" rspace="0.222em">×</mo><mn mathsize="0.900em">2160</mn></mrow><annotation encoding="application/x-tex">3840\times 2160</annotation></semantics></math><span class="ltx_text" id="S1.T1.2.6.2.1.1.1" style="font-size:90%;"> 以 1000 帧/s；</span><math alttext="988\,\mu\mathrm{s}" class="ltx_Math" display="inline" id="S1.T1.m4" intent=":literal"><semantics><mrow><mn mathsize="0.900em">988</mn><mo lspace="0.170em" rspace="0em">​</mo><mi mathsize="0.900em">μ</mi><mo lspace="0em" rspace="0em">​</mo><mi mathsize="0.900em">s</mi></mrow><annotation encoding="application/x-tex">988\,\mu\mathrm{s}</annotation></semantics></math><span class="ltx_text" id="S1.T1.2.6.2.1.1.2" style="font-size:90%;"> 曝光。</span><math alttext="5\times 5\times 16" class="ltx_Math" display="inline" id="S1.T1.m5" intent=":literal"><semantics><mrow><mn mathsize="0.900em">5</mn><mo lspace="0.222em" mathsize="0.900em" rspace="0.222em">×</mo><mn mathsize="0.900em">5</mn><mo lspace="0.222em" mathsize="0.900em" rspace="0.222em">×</mo><mn mathsize="0.900em">16</mn></mrow><annotation encoding="application/x-tex">5\times 5\times 16</annotation></semantics></math><span class="ltx_text" id="S1.T1.2.6.2.1.1.3" style="font-size:90%;"> 池化对比度；标称支撑 16 ms；62.5 幅对比度图/s；60 帧/s 渲染。</span></span>
+</span></td></tr>
+</tbody>
+</table>
+</figure>
+</section>
+<section class="ltx_section" id="S2">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">II </span>材料与方法</h2>
+<section class="ltx_subsection" id="S2.SS1">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">II.1 </span>参与者与实验方案</h3>
+<div class="ltx_para" id="S2.SS1.p1">
+<p class="ltx_p" id="S2.SS1.p1.1">本文报告同一名健康 25 岁正视眼男性右眼的四次记录。图像在获得书面知情同意后采集。操作遵循《赫尔辛基宣言》。成像在暗室中未使用药物散瞳进行，使用标准头托和下颌托，且不设固视目标。各次记录间隔数秒，以便眨眼。成像目标为视盘邻近区域的视盘周围视网膜。每次记录包含以 1-ms 间隔连续采集的 4096 帧，对应标称时长 4.10 s。所报告的四次记录中的全部 16384 帧均被保留。未记录任何生理参考信号。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S2.SS2">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">II.2 </span>光学采集与探测器采样</h3>
+<div class="ltx_para" id="S2.SS2.p1">
+<p class="ltx_p" id="S2.SS2.p1.1">照明由中心波长 <math alttext="\lambda=852" class="ltx_Math" display="inline" id="S2.SS2.p1.m1" intent=":literal"><semantics><mrow><mi>λ</mi><mo>=</mo><mn>852</mn></mrow><annotation encoding="application/x-tex">\lambda=852</annotation></semantics></math> nm 的体全息光栅激光二极管（Thorlabs FPV852P）提供。在照明臂中，工程扩散器（Thorlabs <a class="ltx_ref ltx_href" href="https://www.thorlabs.com/item/ED1-C20-MD" title="">ED1-C20-MD</a>；直径 25.4 mm，<math alttext="20^{\circ}" class="ltx_Math" display="inline" id="S2.SS2.p1.m2" intent=":literal"><semantics><msup><mn>20</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">20^{\circ}</annotation></semantics></math> 圆形平顶分布，SM1 螺纹镜架）之后是已安装的 N-BK7 双凸透镜（Thorlabs <a class="ltx_ref ltx_href" href="https://www.thorlabs.com/item/LB1811-B-ML" title="">LB1811-B-ML</a>；直径 25.4 mm，焦距 35 mm，650–1050 nm 增透膜），用于准直漫射光束。双凸目镜（Thorlabs <a class="ltx_ref ltx_href" href="https://www.thorlabs.com/item/LB1106-B" title="">LB1106-B</a>；直径 50.8 mm，焦距 125 mm）提供漫射麦克斯韦照明并收集眼底返回光，采用 Bratasz 等人的漫射照明方法 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib56" title="">2</a>]</cite>。由眼底后向散射的正交偏振光经目镜收集，用激光线偏振立方分束器（PBS；Edmund Optics，库存号 <a class="ltx_ref ltx_href" href="https://www.edmundoptics.com/p/35mm-850nm-laser-line-polarizing-cube-beamsplitter/7649/" title="">47-570</a>；35 mm 立方体，设计波长 850 nm）选通，并由 Phantom S980 相机（Ametek Vision Research）以 <math alttext="5\,\mu\mathrm{m}" class="ltx_Math" display="inline" id="S2.SS2.p1.m3" intent=":literal"><semantics><mrow><mn>5</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi><mo lspace="0em" rspace="0em">​</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">5\,\mu\mathrm{m}</annotation></semantics></math> 的传感器像素间距记录。传感器置于目镜焦平面处，光学系统使视网膜平面与传感器平面共轭。角膜位于目镜前方 125 mm 处。未使用参考光束；相机直接记录眼底光强序列。激光线宽、光瞳直径和有效光阑直径以及散斑尺寸均未独立表征。下文的视网膜采样与视场为标称几何估计值。</p>
+</div>
+<div class="ltx_para" id="S2.SS2.p2">
+<p class="ltx_p" id="S2.SS2.p2.1">视网膜光强序列以 <math alttext="f_{\mathrm{s}}=1000" class="ltx_Math" display="inline" id="S2.SS2.p2.m1" intent=":literal"><semantics><mrow><msub><mi>f</mi><mi>s</mi></msub><mo>=</mo><mn>1000</mn></mrow><annotation encoding="application/x-tex">f_{\mathrm{s}}=1000</annotation></semantics></math> 帧/s（<math alttext="\Delta t=1" class="ltx_Math" display="inline" id="S2.SS2.p2.m2" intent=":literal"><semantics><mrow><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>t</mi></mrow><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\Delta t=1</annotation></semantics></math> ms）覆盖 <math alttext="W\times H=3840\times 2160" class="ltx_Math" display="inline" id="S2.SS2.p2.m3" intent=":literal"><semantics><mrow><mrow><mi>W</mi><mo lspace="0.222em" rspace="0.222em">×</mo><mi>H</mi></mrow><mo>=</mo><mrow><mn>3840</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>2160</mn></mrow></mrow><annotation encoding="application/x-tex">W\times H=3840\times 2160</annotation></semantics></math> 个像素记录，光强位深为 8 位。曝光时间为 <math alttext="T_{\mathrm{e}}=988\,\mu\mathrm{s}" class="ltx_Math" display="inline" id="S2.SS2.p2.m4" intent=":literal"><semantics><mrow><msub><mi>T</mi><mi>e</mi></msub><mo>=</mo><mrow><mn>988</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow></mrow><annotation encoding="application/x-tex">T_{\mathrm{e}}=988\,\mu\mathrm{s}</annotation></semantics></math>，标称帧间间隔为 <math alttext="12\,\mu\mathrm{s}" class="ltx_Math" display="inline" id="S2.SS2.p2.m5" intent=":literal"><semantics><mrow><mn>12</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">12\,\mu\mathrm{s}</annotation></semantics></math>，积分占空比为 98.8%。两块 Euresys Coaxlink QSFP+ 图像采集卡将数据传输至 Intel Xeon 工作站的 CPU RAM，再传输至 NVIDIA RTX 5090 GPU。所有输入帧均被处理，对应 8.29 Gpixel/s，即未压缩的 8 位有效负载为 8.29 GB/s（66.35 Gbit/s），不含传输开销。
+原始光强记录以 8 位位深保存；对比度图实时显示。</p>
+</div>
+<div class="ltx_para" id="S2.SS2.p3">
+<p class="ltx_p" id="S2.SS2.p3.1">假设正视眼中从后节点到视网膜的距离为 17 mm，则估计的视网膜像素间距为每像素 <math alttext="p_{\mathrm{r}}=(5\,\mu\mathrm{m})(17/125)\simeq 0.68\,\mu\mathrm{m}" class="ltx_Math" display="inline" id="S2.SS2.p3.m1" intent=":literal"><semantics><mrow><msub><mi>p</mi><mi>r</mi></msub><mo>=</mo><mrow><mrow><mo stretchy="false">(</mo><mrow><mn>5</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi><mo lspace="0em" rspace="0em">​</mo><mi>m</mi></mrow><mo stretchy="false">)</mo></mrow><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mrow><mn>17</mn><mo>/</mo><mn>125</mn></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>≃</mo><mrow><mn>0.68</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi><mo lspace="0em" rspace="0em">​</mo><mi>m</mi></mrow></mrow><annotation encoding="application/x-tex">p_{\mathrm{r}}=(5\,\mu\mathrm{m})(17/125)\simeq 0.68\,\mu\mathrm{m}</annotation></semantics></math> <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib58" title="">17</a>]</cite>。由此得到约 <math alttext="2.61\times 1.47" class="ltx_Math" display="inline" id="S2.SS2.p3.m2" intent=":literal"><semantics><mrow><mn>2.61</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>1.47</mn></mrow><annotation encoding="application/x-tex">2.61\times 1.47</annotation></semantics></math> mm 的全画幅覆盖范围（<math alttext="8.78^{\circ}\times 4.95^{\circ}" class="ltx_Math" display="inline" id="S2.SS2.p3.m3" intent=":literal"><semantics><mrow><msup><mn>8.78</mn><mo>∘</mo></msup><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>4.95</mn><mo>∘</mo></msup></mrow><annotation encoding="application/x-tex">8.78^{\circ}\times 4.95^{\circ}</annotation></semantics></math>）以及 <math alttext="5\times 5" class="ltx_Math" display="inline" id="S2.SS2.p3.m5" intent=":literal"><semantics><mrow><mn>5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">5\times 5</annotation></semantics></math> 核的 <math alttext="3.4\times 3.4\,\mu\mathrm{m}" class="ltx_Math" display="inline" id="S2.SS2.p3.m4" intent=":literal"><semantics><mrow><mrow><mn>3.4</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>3.4</mn></mrow><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi><mo lspace="0em" rspace="0em">​</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">3.4\times 3.4\,\mu\mathrm{m}</annotation></semantics></math> 覆盖范围。这些基于几何的估计假设传感器置于焦平面且无额外放大。未进行单独校准和可用视场评估。像素间距并不代表光学分辨率。</p>
+</div>
+<figure class="ltx_figure" id="S2.F1"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="343" id="S2.F1.g1" src="assets/LSCI_setup.png" style="aspect-ratio:476/343;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 1：</span>人视网膜高速激光散斑对比度成像的采集装置。波长为 <math alttext="\lambda=852" class="ltx_Math" display="inline" id="S2.F1.m7" intent=":literal"><semantics><mrow><mi>λ</mi><mo>=</mo><mn>852</mn></mrow><annotation encoding="application/x-tex">\lambda=852</annotation></semantics></math> nm 的光纤传输激光（PM780-HP 光纤，数值孔径 <math alttext="\simeq 0.12" class="ltx_Math" display="inline" id="S2.F1.m8" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>≃</mo><mn>0.12</mn></mrow><annotation encoding="application/x-tex">\simeq 0.12</annotation></semantics></math>）经过一个 <math alttext="20^{\circ}" class="ltx_Math" display="inline" id="S2.F1.m9" intent=":literal"><semantics><msup><mn>20</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">20^{\circ}</annotation></semantics></math> 工程漫射器（Thorlabs ED1-C20-MD）、一个准直透镜（Thorlabs LB1811-B-ML，<math alttext="f=35" class="ltx_Math" display="inline" id="S2.F1.m10" intent=":literal"><semantics><mrow><mi>f</mi><mo>=</mo><mn>35</mn></mrow><annotation encoding="application/x-tex">f=35</annotation></semantics></math> mm）和一个中性密度滤光片。偏振分束器（PBS；Edmund Optics 47-570）将照明引导至照明与收集共用的目镜（Thorlabs LB1106-B，<math alttext="f=125" class="ltx_Math" display="inline" id="S2.F1.m11" intent=":literal"><semantics><mrow><mi>f</mi><mo>=</mo><mn>125</mn></mrow><annotation encoding="application/x-tex">f=125</annotation></semantics></math> mm）。角膜置于距该透镜 125 mm 处，以实现漫射麦克斯韦式照明。交叉偏振眼底后向散射经同一透镜收集，并由 Phantom S980 相机（<math alttext="5\,\mu\mathrm{m}" class="ltx_Math" display="inline" id="S2.F1.m12" intent=":literal"><semantics><mrow><mn>5</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi><mo lspace="0em" rspace="0em">​</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">5\,\mu\mathrm{m}</annotation></semantics></math> 传感器像素间距）直接记录，无需参考光束。纵向距离以毫米表示。</figcaption>
+</figure>
+</section>
+<section class="ltx_subsection" id="S2.SS3">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">II.3 </span>照明与眼部暴露</h3>
+<div class="ltx_para" id="S2.SS3.p1">
+<p class="ltx_p" id="S2.SS3.p1.1">激光连续开启，在 852 nm 处进入眼内的标称光功率为 5.0 mW。漫射照明遵循 Bratasz 等人所述方法 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib56" title="">2</a>]</cite>，所报道的目镜焦距为 125 mm。相机曝光与照明持续时间是两个独立量：<math alttext="988\,\mu\mathrm{s}" class="ltx_Math" display="inline" id="S2.SS3.p1.m1" intent=":literal"><semantics><mrow><mn>988</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">988\,\mu\mathrm{s}</annotation></semantics></math> 积分和 98.8% 探测器占空比不对连续照明形成门控。所报道的四次记录代表 16.38 s 的总采集时间，不包括其间的照明和装调时段。总照明持续时间约为 2 min。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S2.SS4">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">II.4 </span>散斑对比度处理与时序</h3>
+<div class="ltx_para" id="S2.SS4.p1">
+<p class="ltx_p" id="S2.SS4.p1.1">散斑对比度按 <math alttext="K=\sigma/\mu" class="ltx_Math" display="inline" id="S2.SS4.p1.m1" intent=":literal"><semantics><mrow><mi>K</mi><mo>=</mo><mrow><mi>σ</mi><mo>/</mo><mi>μ</mi></mrow></mrow><annotation encoding="application/x-tex">K=\sigma/\mu</annotation></semantics></math> 计算，其中 <math alttext="\mu" class="ltx_Math" display="inline" id="S2.SS4.p1.m2" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math> 和 <math alttext="\sigma" class="ltx_Math" display="inline" id="S2.SS4.p1.m3" intent=":literal"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math> 是跨 16 帧的 <math alttext="5\times 5" class="ltx_Math" display="inline" id="S2.SS4.p1.m4" intent=":literal"><semantics><mrow><mn>5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">5\times 5</annotation></semantics></math> 像素邻域内光强的均值和总体标准差 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib7" title="">39</a>]</cite>。所有输入帧均按不重叠的 16 帧块处理，每个内部邻域获得 400 个样本，并且每 16 ms 生成一幅对比度图（<math alttext="f_{\mathrm{map}}=62.5" class="ltx_Math" display="inline" id="S2.SS4.p1.m5" intent=":literal"><semantics><mrow><msub><mi>f</mi><mi>map</mi></msub><mo>=</mo><mn>62.5</mn></mrow><annotation encoding="application/x-tex">f_{\mathrm{map}}=62.5</annotation></semantics></math> 幅/s）。每次 4096 帧记录包含 256 个完整块。一个块的曝光支撑为 15.99 ms。图以 60 帧/s 显示，未进行额外平均。</p>
+</div>
+<div class="ltx_para" id="S2.SS4.p2">
+<p class="ltx_p" id="S2.SS4.p2.1">处理使用 Holoflow 的直接 CUDA 内核后端，分支 <span class="ltx_text ltx_font_typewriter" id="S2.SS4.p2.1.1">feat/contrast-pipeline</span>，提交 <span class="ltx_text ltx_font_typewriter" id="S2.SS4.p2.1.2">3d87195eb124</span> <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib59" title="">12</a>]</cite>。该实现使用 32 位浮点，在图像边界处裁剪空间邻域，对非正局部均值返回零，并将计算出的负方差截断为零。块节奏和曝光支撑描述采集时序；处理和从采集到显示的延迟未独立进行基准测试。</p>
+</div>
+<figure class="ltx_table" id="S2.T2">
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_table">表 2：</span>实验配置及导出的采样量。像素速率和时间支撑不同于测得的延迟和生理带宽。视网膜尺度和视场为标称几何估计，未经个体校准。</figcaption>
+<table class="ltx_tabular ltx_guessed_headers ltx_align_middle" id="S2.T2.2">
+<thead class="ltx_thead">
+<tr class="ltx_tr" id="S2.T2.2.1">
+<th class="ltx_td ltx_align_left ltx_align_top ltx_th ltx_th_column ltx_border_t" id="S2.T2.2.1.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.1.1.1" style="width:158.7pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.1.1.1.1"><span class="ltx_text" id="S2.T2.2.1.1.1.1.1" style="font-size:80%;">Quantity</span></span>
+</span></th>
+<th class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top ltx_th ltx_th_column ltx_border_t" id="S2.T2.2.1.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.1.2.1" style="width:165.6pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.1.2.1.1"><span class="ltx_text" id="S2.T2.2.1.2.1.1.1" style="font-size:80%;">Value</span></span>
+</span></th></tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="S2.T2.2.2">
+<td class="ltx_td ltx_align_left ltx_align_top ltx_border_t" id="S2.T2.2.2.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.2.1.1" style="width:158.7pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.2.1.1.1"><span class="ltx_text" id="S2.T2.2.2.1.1.1.1" style="font-size:80%;">Participant</span></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top ltx_border_t" id="S2.T2.2.2.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.2.2.1" style="width:165.6pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.2.2.1.1"><span class="ltx_text" id="S2.T2.2.2.2.1.1.1" style="font-size:80%;">健康男性，25 岁；右眼</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S2.T2.2.3">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S2.T2.2.3.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.3.1.1" style="width:158.7pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.3.1.1.1"><span class="ltx_text" id="S2.T2.2.3.1.1.1.1" style="font-size:80%;">Pupil / imaged region</span></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S2.T2.2.3.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.3.2.1" style="width:165.6pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.3.2.1.1"><span class="ltx_text" id="S2.T2.2.3.2.1.1.1" style="font-size:80%;">未散瞳；视盘周围视网膜</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S2.T2.2.4">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S2.T2.2.4.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.4.1.1" style="width:158.7pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.4.1.1.1"><span class="ltx_text" id="S2.T2.2.4.1.1.1.1" style="font-size:80%;">波长 / 进入功率</span></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S2.T2.2.4.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.4.2.1" style="width:165.6pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.4.2.1.1"><span class="ltx_text" id="S2.T2.2.4.2.1.1.1" style="font-size:80%;">852 nm / 5.0 mW</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S2.T2.2.5">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S2.T2.2.5.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.5.1.1" style="width:158.7pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.5.1.1.1"><span class="ltx_text" id="S2.T2.2.5.1.1.1.1" style="font-size:80%;">Camera / input format</span></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S2.T2.2.5.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.5.2.1" style="width:165.6pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.5.2.1.1"><span class="ltx_text" id="S2.T2.2.5.2.1.1.1" style="font-size:80%;">Phantom S980; </span><math alttext="3840\times 2160" class="ltx_Math" display="inline" id="S2.T2.m1" intent=":literal"><semantics><mrow><mn mathsize="0.800em">3840</mn><mo lspace="0.222em" mathsize="0.800em" rspace="0.222em">×</mo><mn mathsize="0.800em">2160</mn></mrow><annotation encoding="application/x-tex">3840\times 2160</annotation></semantics></math></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S2.T2.2.6">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S2.T2.2.6.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.6.1.1" style="width:158.7pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.6.1.1.1"><span class="ltx_text" id="S2.T2.2.6.1.1.1.1" style="font-size:80%;">Sensor pixel pitch</span></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S2.T2.2.6.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.6.2.1" style="width:165.6pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.6.2.1.1"><math alttext="5\,\mu\mathrm{m}" class="ltx_Math" display="inline" id="S2.T2.m2" intent=":literal"><semantics><mrow><mn mathsize="0.800em">5</mn><mo lspace="0.170em" rspace="0em">​</mo><mi mathsize="0.800em">μ</mi><mo lspace="0em" rspace="0em">​</mo><mi mathsize="0.800em">m</mi></mrow><annotation encoding="application/x-tex">5\,\mu\mathrm{m}</annotation></semantics></math></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S2.T2.2.7">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S2.T2.2.7.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.7.1.1" style="width:158.7pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.7.1.1.1"><span class="ltx_text" id="S2.T2.2.7.1.1.1.1" style="font-size:80%;">采集速率 / 间隔</span></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S2.T2.2.7.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.7.2.1" style="width:165.6pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.7.2.1.1"><span class="ltx_text" id="S2.T2.2.7.2.1.1.1" style="font-size:80%;">1000 frames/s / 1 ms</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S2.T2.2.8">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S2.T2.2.8.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.8.1.1" style="width:158.7pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.8.1.1.1"><span class="ltx_text" id="S2.T2.2.8.1.1.1.1" style="font-size:80%;">曝光 / 积分占空比</span></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S2.T2.2.8.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.8.2.1" style="width:165.6pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.8.2.1.1"><math alttext="988\,\mu\mathrm{s}" class="ltx_Math" display="inline" id="S2.T2.m3" intent=":literal"><semantics><mrow><mn mathsize="0.800em">988</mn><mo lspace="0.170em" rspace="0em">​</mo><mi mathsize="0.800em">μ</mi><mo lspace="0em" rspace="0em">​</mo><mi mathsize="0.800em">s</mi></mrow><annotation encoding="application/x-tex">988\,\mu\mathrm{s}</annotation></semantics></math><span class="ltx_text" id="S2.T2.2.8.2.1.1.1" style="font-size:80%;"> / 98.8%</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S2.T2.2.9">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S2.T2.2.9.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.9.1.1" style="width:158.7pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.9.1.1.1"><span class="ltx_text" id="S2.T2.2.9.1.1.1.1" style="font-size:80%;">Recordings</span></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S2.T2.2.9.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.9.2.1" style="width:165.6pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.9.2.1.1"><span class="ltx_text" id="S2.T2.2.9.2.1.1.1" style="font-size:80%;">报告 4 次；每次 4096 帧（4.10 s）</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S2.T2.2.10">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S2.T2.2.10.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.10.1.1" style="width:158.7pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.10.1.1.1"><span class="ltx_text" id="S2.T2.2.10.1.1.1.1" style="font-size:80%;">Raw-input rate</span></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S2.T2.2.10.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.10.2.1" style="width:165.6pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.10.2.1.1"><span class="ltx_text" id="S2.T2.2.10.2.1.1.1" style="font-size:80%;">8.29 Gpixel/s</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S2.T2.2.11">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S2.T2.2.11.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.11.1.1" style="width:158.7pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.11.1.1.1"><span class="ltx_text" id="S2.T2.2.11.1.1.1.1" style="font-size:80%;">GPU / host CPU</span></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S2.T2.2.11.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.11.2.1" style="width:165.6pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.11.2.1.1"><span class="ltx_text" id="S2.T2.2.11.2.1.1.1" style="font-size:80%;">NVIDIA RTX 5090 / Intel Xeon</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S2.T2.2.12">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S2.T2.2.12.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.12.1.1" style="width:158.7pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.12.1.1.1"><span class="ltx_text" id="S2.T2.2.12.1.1.1.1" style="font-size:80%;">Frame grabbers</span></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S2.T2.2.12.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.12.2.1" style="width:165.6pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.12.2.1.1"><span class="ltx_text" id="S2.T2.2.12.2.1.1.1" style="font-size:80%;">两个 Euresys Coaxlink QSFP+</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S2.T2.2.13">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S2.T2.2.13.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.13.1.1" style="width:158.7pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.13.1.1.1"><span class="ltx_text" id="S2.T2.2.13.1.1.1.1" style="font-size:80%;">Contrast kernel</span></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S2.T2.2.13.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.13.2.1" style="width:165.6pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.13.2.1.1"><math alttext="5\times 5\times 16" class="ltx_Math" display="inline" id="S2.T2.m4" intent=":literal"><semantics><mrow><mn mathsize="0.800em">5</mn><mo lspace="0.222em" mathsize="0.800em" rspace="0.222em">×</mo><mn mathsize="0.800em">5</mn><mo lspace="0.222em" mathsize="0.800em" rspace="0.222em">×</mo><mn mathsize="0.800em">16</mn></mrow><annotation encoding="application/x-tex">5\times 5\times 16</annotation></semantics></math><span class="ltx_text" id="S2.T2.2.13.2.1.1.1" style="font-size:80%;">; 400 samples</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S2.T2.2.14">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S2.T2.2.14.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.14.1.1" style="width:158.7pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.14.1.1.1"><span class="ltx_text" id="S2.T2.2.14.1.1.1.1" style="font-size:80%;">标称 / 物理支撑</span></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S2.T2.2.14.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.14.2.1" style="width:165.6pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.14.2.1.1"><span class="ltx_text" id="S2.T2.2.14.2.1.1.1" style="font-size:80%;">16 ms / 15.99 ms</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S2.T2.2.15">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S2.T2.2.15.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.15.1.1" style="width:158.7pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.15.1.1.1"><span class="ltx_text" id="S2.T2.2.15.1.1.1.1" style="font-size:80%;">Temporal stride</span></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S2.T2.2.15.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.15.2.1" style="width:165.6pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.15.2.1.1"><span class="ltx_text" id="S2.T2.2.15.2.1.1.1" style="font-size:80%;">16 帧；非重叠块</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S2.T2.2.16">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S2.T2.2.16.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.16.1.1" style="width:158.7pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.16.1.1.1"><span class="ltx_text" id="S2.T2.2.16.1.1.1.1" style="font-size:80%;">Contrast-map production</span></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S2.T2.2.16.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.16.2.1" style="width:165.6pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.16.2.1.1"><span class="ltx_text" id="S2.T2.2.16.2.1.1.1" style="font-size:80%;">62.5 幅图/s；256 块/记录</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S2.T2.2.17">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S2.T2.2.17.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.17.1.1" style="width:158.7pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.17.1.1.1"><span class="ltx_text" id="S2.T2.2.17.1.1.1.1" style="font-size:80%;">渲染 / 额外平均</span></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S2.T2.2.17.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.17.2.1" style="width:165.6pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.17.2.1.1"><span class="ltx_text" id="S2.T2.2.17.2.1.1.1" style="font-size:80%;">60 frames/s / none</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S2.T2.2.18">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S2.T2.2.18.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.18.1.1" style="width:158.7pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.18.1.1.1"><span class="ltx_text" id="S2.T2.2.18.1.1.1.1" style="font-size:80%;">预处理 / 可观测对象</span></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S2.T2.2.18.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.18.2.1" style="width:165.6pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.18.2.1.1"><span class="ltx_text" id="S2.T2.2.18.2.1.1.1" style="font-size:80%;">None / </span><math alttext="K=\sigma/\mu" class="ltx_Math" display="inline" id="S2.T2.m5" intent=":literal"><semantics><mrow><mi mathsize="0.800em">K</mi><mo mathsize="0.800em">=</mo><mrow><mi mathsize="0.800em">σ</mi><mo maxsize="0.800em" minsize="0.800em" stretchy="true" symmetric="true">/</mo><mi mathsize="0.800em">μ</mi></mrow></mrow><annotation encoding="application/x-tex">K=\sigma/\mu</annotation></semantics></math></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S2.T2.2.19">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S2.T2.2.19.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.19.1.1" style="width:158.7pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.19.1.1.1"><span class="ltx_text" id="S2.T2.2.19.1.1.1.1" style="font-size:80%;">Recorded bit depth</span></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S2.T2.2.19.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.19.2.1" style="width:165.6pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.19.2.1.1"><span class="ltx_text" id="S2.T2.2.19.2.1.1.1" style="font-size:80%;">8 bits/pixel</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S2.T2.2.20">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S2.T2.2.20.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.20.1.1" style="width:158.7pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.20.1.1.1"><span class="ltx_text" id="S2.T2.2.20.1.1.1.1" style="font-size:80%;">Nominal retinal sampling</span></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S2.T2.2.20.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.20.2.1" style="width:165.6pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.20.2.1.1"><math alttext="0.68\,\mu\mathrm{m}" class="ltx_Math" display="inline" id="S2.T2.m6" intent=":literal"><semantics><mrow><mn mathsize="0.800em">0.68</mn><mo lspace="0.170em" rspace="0em">​</mo><mi mathsize="0.800em">μ</mi><mo lspace="0em" rspace="0em">​</mo><mi mathsize="0.800em">m</mi></mrow><annotation encoding="application/x-tex">0.68\,\mu\mathrm{m}</annotation></semantics></math><span class="ltx_text" id="S2.T2.2.20.2.1.1.1" style="font-size:80%;">/pixel (estimated)</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S2.T2.2.21">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S2.T2.2.21.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.21.1.1" style="width:158.7pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.21.1.1.1"><span class="ltx_text" id="S2.T2.2.21.1.1.1.1" style="font-size:80%;">Nominal retinal field</span></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S2.T2.2.21.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.21.2.1" style="width:165.6pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.21.2.1.1"><math alttext="2.61\times 1.47" class="ltx_Math" display="inline" id="S2.T2.m7" intent=":literal"><semantics><mrow><mn mathsize="0.800em">2.61</mn><mo lspace="0.222em" mathsize="0.800em" rspace="0.222em">×</mo><mn mathsize="0.800em">1.47</mn></mrow><annotation encoding="application/x-tex">2.61\times 1.47</annotation></semantics></math><span class="ltx_text" id="S2.T2.2.21.2.1.1.1" style="font-size:80%;"> mm (estimated)</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S2.T2.2.22">
+<td class="ltx_td ltx_align_left ltx_align_top ltx_border_b" id="S2.T2.2.22.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.22.1.1" style="width:158.7pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.22.1.1.1"><span class="ltx_text" id="S2.T2.2.22.1.1.1.1" style="font-size:80%;">Sensor angular field</span></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top ltx_border_b" id="S2.T2.2.22.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S2.T2.2.22.2.1" style="width:165.6pt;">
+<span class="ltx_p ltx_align_left" id="S2.T2.2.22.2.1.1"><math alttext="8.78^{\circ}\times 4.95^{\circ}" class="ltx_Math" display="inline" id="S2.T2.m8" intent=":literal"><semantics><mrow><msup><mn mathsize="0.800em">8.78</mn><mo mathsize="0.800em">∘</mo></msup><mo lspace="0.222em" mathsize="0.800em" rspace="0.222em">×</mo><msup><mn mathsize="0.800em">4.95</mn><mo mathsize="0.800em">∘</mo></msup></mrow><annotation encoding="application/x-tex">8.78^{\circ}\times 4.95^{\circ}</annotation></semantics></math><span class="ltx_text" id="S2.T2.2.22.2.1.1.1" style="font-size:80%;"> (estimated)</span></span>
+</span></td></tr>
+</tbody>
+</table>
+</figure>
+</section>
+<section class="ltx_subsection" id="S2.SS5">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">II.5 </span>数据保留与区域评估</h3>
+<div class="ltx_para" id="S2.SS5.p1">
+<p class="ltx_p" id="S2.SS5.p1.1">未进行任何预处理：未做暗偏置扣除、平场或坏点校正、饱和掩蔽、照明归一化、噪声方差扣除、运动校正或眨眼剔除。所有记录帧均被使用。通过目视判断信号质量适合血管观察，实时观看期间未注意到与扫视相关的闪光。信噪比、饱和比例和探测器噪声均未量化。</p>
+</div>
+<div class="ltx_para" id="S2.SS5.p2">
+<p class="ltx_p" id="S2.SS5.p2.1">评估关注实时<math alttext="K" class="ltx_Math" display="inline" id="S2.SS5.p2.m1" intent=":literal"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>图和补充视频中视网膜主动脉与主静脉的视网膜血管可见性及心动周期变化。区域迹线通过在动脉、静脉和血管间区域内在空间上对<math alttext="K" class="ltx_Math" display="inline" id="S2.SS5.p2.m2" intent=":literal"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>取平均，然后取任意单位的<math alttext="1/\bar{K}" class="ltx_Math" display="inline" id="S2.SS5.p2.m3" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><mover accent="true"><mi>K</mi><mo>¯</mo></mover></mrow><annotation encoding="application/x-tex">1/\bar{K}</annotation></semantics></math>获得。每条区域迹线包含255个样本，间隔16 ms，未做平滑或进一步的时间平均。名义块起始时间跨度为16–4080 ms。未进行统计比较或绝对血流校准。没有心电图（ECG）、脉搏或独立血流参考，也未进行核长度比较或重复性分析。所有四条报告记录均来自同一受试者和同一只眼。</p>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S3">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">III </span>结果</h2>
+<section class="ltx_subsection" id="S3.SS1">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">III.1 </span>采集与分析工作点</h3>
+<div class="ltx_para" id="S3.SS1.p1">
+<p class="ltx_p" id="S3.SS1.p1.1">该工作点结合了<math alttext="3840\times 2160" class="ltx_Math" display="inline" id="S3.SS1.p1.m1" intent=":literal"><semantics><mrow><mn>3840</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>2160</mn></mrow><annotation encoding="application/x-tex">3840\times 2160</annotation></semantics></math>像素、8位、1000帧/s的采集和<math alttext="988\,\mu\mathrm{s}" class="ltx_Math" display="inline" id="S3.SS1.p1.m2" intent=":literal"><semantics><mrow><mn>988</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">988\,\mu\mathrm{s}</annotation></semantics></math>曝光，并在NVIDIA RTX 5090上进行在线处理。四条报告记录各包含4096帧，均使用<math alttext="5\times 5\times 16" class="ltx_Math" display="inline" id="S3.SS1.p1.m3" intent=":literal"><semantics><mrow><mn>5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>16</mn></mrow><annotation encoding="application/x-tex">5\times 5\times 16</annotation></semantics></math>核和非重叠时间块处理。所得输出节奏为62.5 幅图/s，渲染帧率为60帧/s，且未做额外平均（表<a class="ltx_ref" href="#S2.T2" title="Table 2 ‣ II.4 Speckle contrast processing and timing ‣ II Materials and methods ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">2</span></a>）。这些记录中的全部16384帧均被保留。标称原始输入速率为8.29 Gpixel/s，相当于传输开销前66.35-Gbit/s的8位有效载荷。</p>
+</div>
+<div class="ltx_para" id="S3.SS1.p2">
+<p class="ltx_p" id="S3.SS1.p2.1">相机间隔为1 ms，标称分析窗口为16 ms，其曝光支撑为15.99 ms。相对于82帧/s下的15帧XyCAM分析，标称聚合间隔缩短了<math alttext="(15/82)/(16/1000)\simeq 11.4" class="ltx_Math" display="inline" id="S3.SS1.p2.m1" intent=":literal"><semantics><mrow><mrow><mrow><mo stretchy="false">(</mo><mrow><mn>15</mn><mo>/</mo><mn>82</mn></mrow><mo stretchy="false">)</mo></mrow><mo>/</mo><mrow><mo stretchy="false">(</mo><mrow><mn>16</mn><mo>/</mo><mn>1000</mn></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>≃</mo><mn>11.4</mn></mrow><annotation encoding="application/x-tex">(15/82)/(16/1000)\simeq 11.4</annotation></semantics></math>。这一参数比较并不能确立生理带宽、精密度或诊断性能方面的相应改善。未测量丢帧计数器、队列占用率以及处理和显示延迟，也未评估更长时间的不间断运行。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S3.SS2">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">III.2 </span>在体视网膜对比度图</h3>
+<div class="ltx_para" id="S3.SS2.p1">
+<p class="ltx_p" id="S3.SS2.p1.1">在视盘周围的视乳头周围区域可见视网膜主要动脉分支和静脉分支，以及更小的视网膜血管。这些观察是定性的，基于实时对比度观看。未计算血管/背景分离指标或自动解剖分类。图<a class="ltx_ref" href="#S3.F2" title="Figure 2 ‣ III.2 In vivo retinal contrast maps ‣ III Results ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">2</span></a>展示了一幅代表性散斑对比度图像。</p>
+</div>
+<figure class="ltx_figure" id="S3.F2">
+<p class="ltx_p ltx_align_center" id="S3.F2.2"><a class="ltx_ref ltx_href" href="https://doi.org/10.5281/zenodo.23540440" title=""><img alt="Refer to caption" class="ltx_graphics ltx_img_landscape" height="313" src="assets/K_retina.png" style="aspect-ratio:476/313;" width="476"/></a></p>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 2：</span>通过激光散斑对比度成像实现视网膜血管可视化。
+在视盘附近的视盘周围视网膜中，代表性对比度图 <math alttext="K=\sigma/\mu" class="ltx_Math" display="inline" id="S3.F2.m4" intent=":literal"><semantics><mrow><mi>K</mi><mo>=</mo><mrow><mi>σ</mi><mo>/</mo><mi>μ</mi></mrow></mrow><annotation encoding="application/x-tex">K=\sigma/\mu</annotation></semantics></math> 基于 <math alttext="5\times 5" class="ltx_Math" display="inline" id="S3.F2.m5" intent=":literal"><semantics><mrow><mn>5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">5\times 5</annotation></semantics></math> 个空间像素以及以 1000 frames/s 采集的 16 个连续帧（<math alttext="988\,\mu\mathrm{s}" class="ltx_Math" display="inline" id="S3.F2.m6" intent=":literal"><semantics><mrow><mn>988</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">988\,\mu\mathrm{s}</annotation></semantics></math> 曝光）计算得到。在此灰度显示中，主要视网膜血管及较小分支相对于周围眼底呈暗色。<a class="ltx_ref ltx_href" href="https://doi.org/10.5281/zenodo.23540440" title="">对应的补充视频</a> 汇总了同一受试者的四次记录，并展示了心动周期中的动脉和静脉变化。</figcaption>
+</figure>
+</section>
+<section class="ltx_subsection" id="S3.SS3">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">III.3 </span>心动周期中的动脉和静脉变化</h3>
+<div class="ltx_para" id="S3.SS3.p1">
+<p class="ltx_p" id="S3.SS3.p1.1">心动周期中与血流相关的对比度变化在视盘邻近区域的主要视网膜动脉和静脉中可见（补充视频）。这些视频在来自同一受试者的四次已报告记录中展示了这些变化。图 <a class="ltx_ref" href="#S3.F3" title="Figure 3 ‣ III.3 Arterial and venous variations during the cardiac cycle ‣ III Results ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">3</span></a> 显示了区域动脉、静脉和血管间逆对比度曲线。动脉曲线呈现重搏切迹，静脉曲线呈现自发性搏动。这些搏动也可见于<a class="ltx_ref ltx_href" href="https://doi.org/10.5281/zenodo.23540440" title="">补充视频</a>中。未量化脉搏幅度、血管间时序差异以及独立同步的心动周期相位。</p>
+</div>
+<figure class="ltx_figure" id="S3.F3">
+<div class="ltx_flex_figure">
+<div class="ltx_flex_cell ltx_flex_size_1"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_landscape" height="239" id="S3.F3.g1" src="assets/artery.png" style="aspect-ratio:476/239;" width="476"/></div><div class="ltx_flex_break"></div><div class="ltx_flex_cell ltx_flex_size_1"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_landscape" height="239" id="S3.F3.g2" src="assets/vein.png" style="aspect-ratio:476/239;" width="476"/></div><div class="ltx_flex_break"></div><div class="ltx_flex_cell ltx_flex_size_1"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_landscape" height="239" id="S3.F3.g3" src="assets/intervessel.png" style="aspect-ratio:476/239;" width="476"/></div></div>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 3：</span>视盘周围视网膜中的动脉、静脉和血管间信号。
+空间平均散斑对比度的倒数 <math alttext="1/\bar{K}" class="ltx_Math" display="inline" id="S3.F3.m2" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><mover accent="true"><mi>K</mi><mo>¯</mo></mover></mrow><annotation encoding="application/x-tex">1/\bar{K}</annotation></semantics></math>，分别对应动脉（顶部，实线）、静脉（中部，虚线）和血管间区域（底部，点线），以任意单位表示。
+所有子图采用相同的坐标轴刻度。
+采样间隔为 16 ms（1000 frames/s 下 16 帧）。
+动脉重搏切迹和自发性静脉搏动也可见于<a class="ltx_ref ltx_href" href="https://doi.org/10.5281/zenodo.23540440" title="">补充视频</a>中。</figcaption>
+</figure>
+</section>
+<section class="ltx_subsection" id="S3.SS4">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">III.4 </span>数据路径与计算吞吐量</h3>
+<div class="ltx_para" id="S3.SS4.p1">
+<p class="ltx_p" id="S3.SS4.p1.1">相机数据流经过两个 Euresys Coaxlink QSFP+ 帧采集卡进入中央处理器（CPU）内存，然后送入 RTX 5090。直接内核后端从所有输入帧计算对比度，而原始记录以 8-bit 位深保存，对比度图则在线显示。所述的输入速率和对比度图速率描述的是运行配置；对这些记录而言，没有单独的延迟分布、队列深度轨迹或独立丢帧基准。</p>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S4">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">IV </span>讨论</h2>
+<section class="ltx_subsection" id="S4.SS1">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">IV.1 </span>相对于视网膜散斑成像的定位</h3>
+<div class="ltx_para" id="S4.SS1.p1">
+<p class="ltx_p" id="S4.SS1.p1.1">当前工作点扩展了表 <a class="ltx_ref" href="#S1.T1" title="Table 1 ‣ I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">1</span></a> 中所总结的人视网膜实现所使用的相机采样率。该估计器属于成熟的时空激光散斑对比成像（LSCI）<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib7" title="">39</a>]</cite>。与 XyCAM 实现的比较在其空间支撑方面尤其直接，因为两者都使用 <math alttext="5\times 5" class="ltx_Math" display="inline" id="S4.SS1.p1.m1" intent=":literal"><semantics><mrow><mn>5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">5\times 5</annotation></semantics></math> 邻域，而其 15 帧时间支撑与当前的 16 帧核 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib15" title="">10</a>]</cite> 略有不同。更高的相机采样率缩短了该时间聚合所代表的持续时间。它本身并不能确立对比度精密度的提高或临床实用性。所报告的实现在 8.29-Gpixel/s 工作点处理所有输入帧，并以 62.5 maps/s 生成对比度图。其生物学范围是一只健康眼，涵盖四次所报告的视盘周围记录。补充视频和区域逆对比度曲线中观察到了视网膜主要动脉和静脉的血管可见性及心动周期变化，但未进行生理参考验证和独立计时基准测试。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S4.SS2">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">IV.2 </span>更高相机采样率的贡献</h3>
+<div class="ltx_para" id="S4.SS2.p1">
+<p class="ltx_p" id="S4.SS2.p1.1">更短的聚合间隔可以保留区域对比度信号的更快变化，并减少心脏波形不同相位的混合。其是否能以足够精密度做到这一点，取决于实测信噪比和时间响应。必须对照光子统计、探测器噪声、眼动以及有效独立散斑数来评估这一收益。每个核中的 400 个样本是标称计数；在固定曝光和基础去相关时间下，提高相机采样也可能增加帧间相关性。空间邻域同样跨越由放大率决定的物理视网膜面积，在能够评估空间分辨率之前必须报告该面积 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib5" title="">25</a>, <a class="ltx_ref" href="#bib.bib8" title="">52</a>]</cite>。</p>
+</div>
+<div class="ltx_para" id="S4.SS2.p2">
+<p class="ltx_p" id="S4.SS2.p2.1">光强数字化也与当前的 8 位记录有关。量化会产生依赖光强的对比度偏置 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib61" title="">47</a>]</cite>，而空间对比度的替代数值实现会改变后续的 MESI 估计 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib18" title="">7</a>]</cite>。因此，未来的定量流程应对照具有匹配方差、窗口和边界约定的直接高精度计算进行验证，并依据实测探测器响应进行校准。</p>
+</div>
+<div class="ltx_para" id="S4.SS2.p3">
+<p class="ltx_p" id="S4.SS2.p3.1">因此，高速采集应通过不同的量来描述：曝光持续时间、帧间隔、估计器支撑、分析步长、额外滤波，以及在相关时实测的处理延迟。仅凭采集速率并不能确立实时处理。处理在 RTX 5090 上在线进行，每个不重叠的 16 帧块生成一张图（62.5 maps/s），以 60 frames/s 渲染且不进行额外平均。报告了四次约 4.1-s 的记录。更长运行的稳定性、丢帧行为、队列占用以及处理/显示延迟未独立表征。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S4.SS3">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">IV.3 </span>实时处理与吞吐量基准</h3>
+<div class="ltx_para" id="S4.SS3.p1">
+<p class="ltx_p" id="S4.SS3.p1.1">比较必须区分相机输入、对比度转换和血流模型推理（表 <a class="ltx_ref" href="#S4.T3" title="Table 3 ‣ IV.3 Real-time processing and throughput benchmarks ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">3</span></a>）。去噪耗时 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib54" title="">61</a>]</cite> 以及传感器上限或连拍采集 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib40" title="">13</a>, <a class="ltx_ref" href="#bib.bib49" title="">50</a>]</cite> 描述了另外一些不同阶段。所列像素速率对已发表的图像尺寸和耗时进行了归一化；它们并未提供硬件或估计器的匹配比较。</p>
+</div>
+<figure class="ltx_table" id="S4.T3">
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_table">表 3：</span>选定的处理与多曝光基准。
+区分原始输入速率、处理阶段容量和拟合图输出。像素速率根据所报告的图像尺寸和耗时计算。</figcaption>
+<table class="ltx_tabular ltx_guessed_headers ltx_align_middle" id="S4.T3.2">
+<thead class="ltx_thead">
+<tr class="ltx_tr" id="S4.T3.2.1">
+<th class="ltx_td ltx_align_left ltx_align_top ltx_th ltx_th_column ltx_border_t" id="S4.T3.2.1.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S4.T3.2.1.1.1" style="width:103.5pt;">
+<span class="ltx_p ltx_align_left" id="S4.T3.2.1.1.1.1"><span class="ltx_text" id="S4.T3.2.1.1.1.1.1" style="font-size:90%;">Implementation</span></span>
+</span></th>
+<th class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top ltx_th ltx_th_column ltx_border_t" id="S4.T3.2.1.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S4.T3.2.1.2.1" style="width:220.8pt;">
+<span class="ltx_p ltx_align_left" id="S4.T3.2.1.2.1.1"><span class="ltx_text" id="S4.T3.2.1.2.1.1.1" style="font-size:90%;">Configuration and scope</span></span>
+</span></th></tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="S4.T3.2.2">
+<td class="ltx_td ltx_align_left ltx_align_top ltx_border_t" id="S4.T3.2.2.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S4.T3.2.2.1.1" style="width:103.5pt;">
+<span class="ltx_p ltx_align_left" id="S4.T3.2.2.1.1.1"><span class="ltx_text" id="S4.T3.2.2.1.1.1.1" style="font-size:90%;">Laparoscopic GPU </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" id="S4.T3.2.2.1.1.1.2" style="font-size:90%;">[</span><a class="ltx_ref" href="#bib.bib50" title="">62</a><span class="ltx_text" id="S4.T3.2.2.1.1.1.3" style="font-size:90%;">]</span></cite></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top ltx_border_t" id="S4.T3.2.2.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S4.T3.2.2.2.1" style="width:220.8pt;">
+<span class="ltx_p ltx_align_left" id="S4.T3.2.2.2.1.1"><math alttext="2048\times 2048" class="ltx_Math" display="inline" id="S4.T3.m1" intent=":literal"><semantics><mrow><mn mathsize="0.900em">2048</mn><mo lspace="0.222em" mathsize="0.900em" rspace="0.222em">×</mo><mn mathsize="0.900em">2048</mn></mrow><annotation encoding="application/x-tex">2048\times 2048</annotation></semantics></math><span class="ltx_text" id="S4.T3.2.2.2.1.1.1" style="font-size:90%;"> 在 89 frames/s 下；0.37 Gpixel/s 处理。</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S4.T3.2.3">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S4.T3.2.3.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S4.T3.2.3.1.1" style="width:103.5pt;">
+<span class="ltx_p ltx_align_left" id="S4.T3.2.3.1.1.1"><span class="ltx_text" id="S4.T3.2.3.1.1.1.1" style="font-size:90%;">Smartphone </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" id="S4.T3.2.3.1.1.1.2" style="font-size:90%;">[</span><a class="ltx_ref" href="#bib.bib51" title="">57</a><span class="ltx_text" id="S4.T3.2.3.1.1.1.3" style="font-size:90%;">]</span></cite></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S4.T3.2.3.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S4.T3.2.3.2.1" style="width:220.8pt;">
+<span class="ltx_p ltx_align_left" id="S4.T3.2.3.2.1.1"><math alttext="4000\times 3000" class="ltx_Math" display="inline" id="S4.T3.m2" intent=":literal"><semantics><mrow><mn mathsize="0.900em">4000</mn><mo lspace="0.222em" mathsize="0.900em" rspace="0.222em">×</mo><mn mathsize="0.900em">3000</mn></mrow><annotation encoding="application/x-tex">4000\times 3000</annotation></semantics></math><span class="ltx_text" id="S4.T3.2.3.2.1.1.1" style="font-size:90%;"> 在 20 Hz 下；0.24 Gpixel/s 处理。</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S4.T3.2.4">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S4.T3.2.4.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S4.T3.2.4.1.1" style="width:103.5pt;">
+<span class="ltx_p ltx_align_left" id="S4.T3.2.4.1.1.1"><span class="ltx_text" id="S4.T3.2.4.1.1.1.1" style="font-size:90%;">Neurosurgical CPU </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" id="S4.T3.2.4.1.1.1.2" style="font-size:90%;">[</span><a class="ltx_ref" href="#bib.bib53" title="">43</a><span class="ltx_text" id="S4.T3.2.4.1.1.1.3" style="font-size:90%;">]</span></cite></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S4.T3.2.4.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S4.T3.2.4.2.1" style="width:220.8pt;">
+<span class="ltx_p ltx_align_left" id="S4.T3.2.4.2.1.1"><math alttext="1280\times 1024" class="ltx_Math" display="inline" id="S4.T3.m3" intent=":literal"><semantics><mrow><mn mathsize="0.900em">1280</mn><mo lspace="0.222em" mathsize="0.900em" rspace="0.222em">×</mo><mn mathsize="0.900em">1024</mn></mrow><annotation encoding="application/x-tex">1280\times 1024</annotation></semantics></math><span class="ltx_text" id="S4.T3.2.4.2.1.1.1" style="font-size:90%;"> 对比度转换在 0.33 ms 内完成；3.97 Gpixel/s 阶段容量。采集：60 frames/s。</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S4.T3.2.5">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S4.T3.2.5.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S4.T3.2.5.1.1" style="width:103.5pt;">
+<span class="ltx_p ltx_align_left" id="S4.T3.2.5.1.1.1"><span class="ltx_text" id="S4.T3.2.5.1.1.1.1" style="font-size:90%;">FPGA/SoC MESI </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" id="S4.T3.2.5.1.1.1.2" style="font-size:90%;">[</span><a class="ltx_ref" href="#bib.bib42" title="">19</a>, <a class="ltx_ref" href="#bib.bib52" title="">20</a><span class="ltx_text" id="S4.T3.2.5.1.1.1.3" style="font-size:90%;">]</span></cite></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S4.T3.2.5.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S4.T3.2.5.2.1" style="width:220.8pt;">
+<span class="ltx_p ltx_align_left" id="S4.T3.2.5.2.1.1"><math alttext="1280\times 1024" class="ltx_Math" display="inline" id="S4.T3.m4" intent=":literal"><semantics><mrow><mn mathsize="0.900em">1280</mn><mo lspace="0.222em" mathsize="0.900em" rspace="0.222em">×</mo><mn mathsize="0.900em">1024</mn></mrow><annotation encoding="application/x-tex">1280\times 1024</annotation></semantics></math><span class="ltx_text" id="S4.T3.2.5.2.1.1.1" style="font-size:90%;"> 输入为 1000 frames/s；1.31 Gpixel/s。连续 </span><math alttext="320\times 256" class="ltx_Math" display="inline" id="S4.T3.m5" intent=":literal"><semantics><mrow><mn mathsize="0.900em">320</mn><mo lspace="0.222em" mathsize="0.900em" rspace="0.222em">×</mo><mn mathsize="0.900em">256</mn></mrow><annotation encoding="application/x-tex">320\times 256</annotation></semantics></math><span class="ltx_text" id="S4.T3.2.5.2.1.1.2" style="font-size:90%;"> 灌注图，速率为 15.6 frames/s。</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S4.T3.2.6">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S4.T3.2.6.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S4.T3.2.6.1.1" style="width:103.5pt;">
+<span class="ltx_p ltx_align_left" id="S4.T3.2.6.1.1.1"><span class="ltx_text" id="S4.T3.2.6.1.1.1.1" style="font-size:90%;">REMI </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" id="S4.T3.2.6.1.1.1.2" style="font-size:90%;">[</span><a class="ltx_ref" href="#bib.bib43" title="">41</a><span class="ltx_text" id="S4.T3.2.6.1.1.1.3" style="font-size:90%;">]</span></cite></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S4.T3.2.6.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S4.T3.2.6.2.1" style="width:220.8pt;">
+<span class="ltx_p ltx_align_left" id="S4.T3.2.6.2.1.1"><math alttext="512\times 512\times 15" class="ltx_Math" display="inline" id="S4.T3.m6" intent=":literal"><semantics><mrow><mn mathsize="0.900em">512</mn><mo lspace="0.222em" mathsize="0.900em" rspace="0.222em">×</mo><mn mathsize="0.900em">512</mn><mo lspace="0.222em" mathsize="0.900em" rspace="0.222em">×</mo><mn mathsize="0.900em">15</mn></mrow><annotation encoding="application/x-tex">512\times 512\times 15</annotation></semantics></math><span class="ltx_text" id="S4.T3.2.6.2.1.1.1" style="font-size:90%;"> 对比度立方体约 0.12 s；约 8 幅推断图/s。</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S4.T3.2.7">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S4.T3.2.7.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S4.T3.2.7.1.1" style="width:103.5pt;">
+<span class="ltx_p ltx_align_left" id="S4.T3.2.7.1.1.1"><span class="ltx_text" id="S4.T3.2.7.1.1.1.1" style="font-size:90%;">Neural MESI </span><cite class="ltx_cite ltx_citemacro_cite"><span class="ltx_text" id="S4.T3.2.7.1.1.1.2" style="font-size:90%;">[</span><a class="ltx_ref" href="#bib.bib44" title="">59</a><span class="ltx_text" id="S4.T3.2.7.1.1.1.3" style="font-size:90%;">]</span></cite></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top" id="S4.T3.2.7.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S4.T3.2.7.2.1" style="width:220.8pt;">
+<span class="ltx_p ltx_align_left" id="S4.T3.2.7.2.1.1"><math alttext="700\times 700" class="ltx_Math" display="inline" id="S4.T3.m7" intent=":literal"><semantics><mrow><mn mathsize="0.900em">700</mn><mo lspace="0.222em" mathsize="0.900em" rspace="0.222em">×</mo><mn mathsize="0.900em">700</mn></mrow><annotation encoding="application/x-tex">700\times 700</annotation></semantics></math><span class="ltx_text" id="S4.T3.2.7.2.1.1.1" style="font-size:90%;"> 图约 400 ms；约 2.5 幅推断图/s。</span></span>
+</span></td></tr>
+<tr class="ltx_tr" id="S4.T3.2.8">
+<td class="ltx_td ltx_align_left ltx_align_top ltx_border_b" id="S4.T3.2.8.1" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S4.T3.2.8.1.1" style="width:103.5pt;">
+<span class="ltx_p ltx_align_left" id="S4.T3.2.8.1.1.1"><span class="ltx_text" id="S4.T3.2.8.1.1.1.1" style="font-size:90%;">Present operating point</span></span>
+</span></td>
+<td class="ltx_td ltx_nopad_r ltx_align_left ltx_align_top ltx_border_b" id="S4.T3.2.8.2" style="padding:0.35pt 3.0pt;">
+<span class="ltx_inline-block ltx_align_top" id="S4.T3.2.8.2.1" style="width:220.8pt;">
+<span class="ltx_p ltx_align_left" id="S4.T3.2.8.2.1.1"><span class="ltx_text" id="S4.T3.2.8.2.1.1.1" style="font-size:90%;">8.29-Gpixel/s 原始输入；</span><math alttext="3840\times 2160" class="ltx_Math" display="inline" id="S4.T3.m8" intent=":literal"><semantics><mrow><mn mathsize="0.900em">3840</mn><mo lspace="0.222em" mathsize="0.900em" rspace="0.222em">×</mo><mn mathsize="0.900em">2160</mn></mrow><annotation encoding="application/x-tex">3840\times 2160</annotation></semantics></math><span class="ltx_text" id="S4.T3.2.8.2.1.1.2" style="font-size:90%;"> 对比度图，速率为 62.5 maps/s；60-frame/s 渲染。</span></span>
+</span></td></tr>
+</tbody>
+</table>
+</figure>
+<div class="ltx_para" id="S4.SS3.p2">
+<p class="ltx_p" id="S4.SS3.p2.1">当前的 8.29-Gpixel/s 输入、62.5-map/s 对比度生成以及 60-frame/s 渲染描述的是四次约 4.1-s 记录中的不同阶段。仍需要独立的处理延迟、丢帧和更长运行稳定性测量来表征持续性能。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S4.SS3.p3">
+<p class="ltx_p" id="S4.SS3.p3.1"><span class="ltx_text ltx_font_bold" id="S4.SS3.p3.1.1">实时多曝光成像的前景。</span>
+未来的 MESI 流水线可对 <math alttext="m=1,2,4,8,16,32,64" class="ltx_Math" display="inline" id="S4.SS3.p3.m1" intent=":literal"><semantics><mrow><mrow><mi>m</mi><mo>=</mo><mn>1</mn></mrow><mo>,</mo><mn>2</mn><mo>,</mo><mn>4</mn><mo>,</mo><mn>8</mn><mo>,</mo><mn>16</mn><mo>,</mo><mn>32</mn><mo>,</mo><mn>64</mn></mrow><annotation encoding="application/x-tex">m=1,2,4,8,16,32,64</annotation></semantics></math> 个连续原始光强帧求和，并在标称 1–64-ms 合成曝光下重新计算空间对比度 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib13" title="">18</a>, <a class="ltx_ref" href="#bib.bib41" title="">6</a>]</cite>。这种依赖曝光的测量将把当前的合并估计器扩展到去相关时间估计 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib6" title="">34</a>, <a class="ltx_ref" href="#bib.bib17" title="">38</a>]</cite>。候选加速器包括经校准的降参数 GPU 查找表、REMI 或 spatial-REMI <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib43" title="">41</a>, <a class="ltx_ref" href="#bib.bib55" title="">42</a>]</cite>，以及神经推理 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib42" title="">19</a>, <a class="ltx_ref" href="#bib.bib52" title="">20</a>, <a class="ltx_ref" href="#bib.bib44" title="">59</a>]</cite>。曝光子集优化 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib39" title="">23</a>]</cite> 可减少处理量，而可编程多抽头 CMOS 采集 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib62" title="">46</a>]</cite> 提供了传感器层面的替代方案。这种七通道方案需要至少 64 个原始帧的滚动缓冲区。每 16 帧更新一次可目标达到 62.5 幅推断图/s；32-ms 和 64-ms 通道将在更新之间重叠，并保留其完整时间支撑。低于原生积分时间的通道需要更短的相机曝光。
+前向模型必须考虑 <math alttext="988\,\mu\mathrm{s}" class="ltx_Math" display="inline" id="S4.SS3.p3.m2" intent=":literal"><semantics><mrow><mn>988</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">988\,\mu\mathrm{s}</annotation></semantics></math> 次积分、<math alttext="12\,\mu\mathrm{s}" class="ltx_Math" display="inline" id="S4.SS3.p3.m3" intent=":literal"><semantics><mrow><mn>12</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">12\,\mu\mathrm{s}</annotation></semantics></math> 间隙、探测器噪声和静态光贡献。相关曝光通道下的参数可辨识性、视网膜运动鲁棒性，以及与独立血流测量的一致性，都需要验证。该推断图速率仍是视网膜流水线的一个预期目标。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S4.SS4">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">IV.4 </span>对比度与生理特异性的解释</h3>
+<div class="ltx_para" id="S4.SS4.p1">
+<p class="ltx_p" id="S4.SS4.p1.1">所测可观测量是视网膜光强的变异系数。它与血液运动的关系取决于曝光、散斑采样、静态与动态散射以及所选集合<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib4" title="">15</a>, <a class="ltx_ref" href="#bib.bib6" title="">34</a>]</cite>。局部解剖变异、照明变化和眼动也会影响合并对比度。仅凭搏动性无法将信号校准为速度或流量单位。</p>
+</div>
+<div class="ltx_para" id="S4.SS4.p2">
+<p class="ltx_p" id="S4.SS4.p2.1">光散射模型通常假设指数或高斯场去相关，检测因子则考虑相干性、采样以及静态–动态场混合<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib32" title="">1</a>, <a class="ltx_ref" href="#bib.bib33" title="">60</a>, <a class="ltx_ref" href="#bib.bib4" title="">15</a>, <a class="ltx_ref" href="#bib.bib36" title="">27</a>]</cite>。单次散射和多次散射描述取决于粒子运动和光子路径；血管几何形状和采样深度会改变所恢复的指标<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib34" title="">11</a>, <a class="ltx_ref" href="#bib.bib35" title="">24</a>]</cite>。这些模型提供解释性背景；均未拟合到当前记录。</p>
+</div>
+<div class="ltx_para" id="S4.SS4.p3">
+<p class="ltx_p" id="S4.SS4.p3.1">LSFG 衍生的 MBR、XyCAM 血流速度指标和 RFV 是数值可观测量，采用仪器相关单位或任意单位，而不是可互换的物理测量值<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib23" title="">49</a>, <a class="ltx_ref" href="#bib.bib24" title="">45</a>, <a class="ltx_ref" href="#bib.bib15" title="">10</a>]</cite>。RFV 验证包括视网膜静脉分叉处的守恒性以及与激光多普勒测速法的比较；随后一项体模和人 Doppler-OCT 研究也发现较高速度下存在饱和<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib24" title="">45</a>, <a class="ltx_ref" href="#bib.bib25" title="">30</a>]</cite>。这些结果支持特定的相对测量，但未建立从模糊或对比度到绝对视网膜血流的通用换算。同样，拟合逆相关时间并不能消除对散射模型的依赖。跨血管比较仍可能对血管直径和动态散射事件数目敏感<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib35" title="">24</a>, <a class="ltx_ref" href="#bib.bib36" title="">27</a>]</cite>。</p>
+</div>
+<div class="ltx_para" id="S4.SS4.p4">
+<p class="ltx_p" id="S4.SS4.p4.1">与血流相关的对比度是运动引起的散斑可见度降低，而不是血容量、血管密度或氧饱和度的直接测量。在适当模型和工作范围内，更快的去相关会降低 <math alttext="K" class="ltx_Math" display="inline" id="S4.SS4.p4.m1" intent=":literal"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math> 并提高逆对比度指标。在稳定采集条件下，百分比变化和波形特征可能有用，但非线性变换会改变波形形状；MBR、<math alttext="1/K" class="ltx_Math" display="inline" id="S4.SS4.p4.m2" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><mi>K</mi></mrow><annotation encoding="application/x-tex">1/K</annotation></semantics></math>、<math alttext="1/K^{2}" class="ltx_Math" display="inline" id="S4.SS4.p4.m3" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><msup><mi>K</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">1/K^{2}</annotation></semantics></math>、RFV 和 <math alttext="1/\tau_{c}" class="ltx_Math" display="inline" id="S4.SS4.p4.m4" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><msub><mi>τ</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">1/\tau_{c}</annotation></semantics></math> 应各自保留其定义。绝对体积流量估计还需要经过验证的速度测量和血管横截面几何形状，而不是仅将流量单位赋予对比度。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S4.SS5">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">IV.5 </span>眼底采样的血管区域</h3>
+<div class="ltx_para" id="S4.SS5.p1">
+<p class="ltx_p" id="S4.SS5.p1.1">眼底散斑研究区分可分辨的视网膜小动脉和小静脉、视神经乳头血管与组织、可见视网膜血管之间的区域，以及可识别的大脉络膜血管<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib23" title="">49</a>, <a class="ltx_ref" href="#bib.bib26" title="">5</a>, <a class="ltx_ref" href="#bib.bib27" title="">29</a>]</cite>。在 LSFG 中，整个视盘、其血管掩膜和其组织掩膜上的平均 MBR 通常分别记为 <math alttext="\mathrm{MBR}_{\mathrm{A}}" class="ltx_Math" display="inline" id="S4.SS5.p1.m1" intent=":literal"><semantics><msub><mi>MBR</mi><mi>A</mi></msub><annotation encoding="application/x-tex">\mathrm{MBR}_{\mathrm{A}}</annotation></semantics></math>、<math alttext="\mathrm{MBR}_{\mathrm{V}}" class="ltx_Math" display="inline" id="S4.SS5.p1.m2" intent=":literal"><semantics><msub><mi>MBR</mi><mi>V</mi></msub><annotation encoding="application/x-tex">\mathrm{MBR}_{\mathrm{V}}</annotation></semantics></math> 和 <math alttext="\mathrm{MBR}_{\mathrm{T}}" class="ltx_Math" display="inline" id="S4.SS5.p1.m3" intent=":literal"><semantics><msub><mi>MBR</mi><mi>T</mi></msub><annotation encoding="application/x-tex">\mathrm{MBR}_{\mathrm{T}}</annotation></semantics></math>。组织掩膜排除可分辨的大血管，并提供与毛细血管相关的视神经乳头指标；它并不分辨单个毛细血管或其深度<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib23" title="">49</a>]</cite>。血管 RFV 使用背景校正来减少底层组织贡献<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib24" title="">45</a>]</cite>。</p>
+</div>
+<div class="ltx_para" id="S4.SS5.p2">
+<p class="ltx_p" id="S4.SS5.p2.1">在视盘外，未能分辨出视网膜血管的区域不一定是视网膜毛细血管特异性测量。与由光学相干断层扫描（OCT）得到的脉络膜厚度和血管体积的相关性表明，脉络膜可主导此类激光散斑血流图（LSFG）信号<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib27" title="">29</a>]</cite>。脉络膜血管RFV及其运动反应已被独立研究<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib26" title="">5</a>]</cite>；近期年龄相关性黄斑变性（AMD）研究也分别分析了大视网膜血管和脉络膜主导的图像区域<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib30" title="">26</a>]</cite>。这些解剖掩膜不等同于视网膜浅层、中层和深层血管丛或脉络膜毛细血管层的轴向分离。常规全视场散斑图没有固有的类OCT深度门控。</p>
+</div>
+<div class="ltx_para" id="S4.SS5.p3">
+<p class="ltx_p" id="S4.SS5.p3.1">因此，对于当前记录，区域应根据观察到的解剖结构和分割结果命名，仅在合理时使用“毛细血管相关”或“脉络膜主导”。波长、色素沉着、多次散射、焦点、光阑和运动可改变视网膜与脉络膜贡献的相对权重。因此，与在一致采样区域内重复出现的变化相比，区域间的基线差异更难解释为速度差异<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib23" title="">49</a>, <a class="ltx_ref" href="#bib.bib34" title="">11</a>, <a class="ltx_ref" href="#bib.bib36" title="">27</a>]</cite>。当前852 nm未散瞳记录采样视盘周围的视盘旁视网膜。交叉偏振采集本身不能分离视网膜血管层，直接强度估计器不提供轴向分离。在未进行预处理或运动校正的情况下，区域解释还必须考虑运动和局部强度梯度。标称视网膜尺度需要个体校准，散斑采样仍有待表征；仅凭当前配置不能确立毛细血管分辨率以及层特异性或绝对血流。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S4.SS6">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">IV.6 </span>局限性与下一步验证步骤</h3>
+<div class="ltx_para" id="S4.SS6.p1">
+<p class="ltx_p" id="S4.SS6.p1.1">该演示包含一名健康25岁正视眼男性未散瞳右眼的视盘旁视网膜四次约4.1 s的记录。血管可见性和心动周期变化通过图像、视频和区域反对比度轨迹进行描述性评估。未获得统计波形分析、参考血流测量、生理同步或数值对比度分离终点。使用了所有记录的帧，但未进行专门的采集丢失和延迟测试。视觉上无明显扫视相关闪光并不能量化运动敏感性。</p>
+</div>
+<div class="ltx_para" id="S4.SS6.p2">
+<p class="ltx_p" id="S4.SS6.p2.1">几何视网膜尺度未进行个体校准。光瞳和有效光阑直径、散斑采样、探测器噪声和信号精密度未测量，且未应用运动或噪声校正。未记录依据ISO 15004-2:2024 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib57" title="">21</a>]</cite>进行的设备特异性曝光评估。这些局限性限制了当前观察的生理学和定量解释。</p>
+</div>
+<div class="ltx_para" id="S4.SS6.p3">
+<p class="ltx_p" id="S4.SS6.p3.1">重复性与参考一致性需要分别评估，采用独立记录和受试者水平分析。已发表的人体多次曝光和商用激光散斑对比度成像（LSCI）重复性研究提供了有用的对照 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib17" title="">38</a>, <a class="ltx_ref" href="#bib.bib37" title="">55</a>]</cite>，而参考一致性涉及另一个独立问题 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib25" title="">30</a>, <a class="ltx_ref" href="#bib.bib38" title="">44</a>]</cite>。临床人群和生理微扰仍属未来工作。视网膜血管反应性和血管运动已有LSCI先例 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib10" title="">32</a>, <a class="ltx_ref" href="#bib.bib12" title="">33</a>]</cite>；评估慢速调节需要足够长的记录，以包含感兴趣过程的多个周期。</p>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S5">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">V </span>结论</h2>
+<div class="ltx_para" id="S5.p1">
+<p class="ltx_p" id="S5.p1.1">我们展示了实时人体视网膜LSCI，使用<math alttext="3840\times 2160" class="ltx_Math" display="inline" id="S5.p1.m1" intent=":literal"><semantics><mrow><mn>3840</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>2160</mn></mrow><annotation encoding="application/x-tex">3840\times 2160</annotation></semantics></math>像素、8位采集，帧率1000 frames/s，曝光为<math alttext="988\,\mu\mathrm{s}" class="ltx_Math" display="inline" id="S5.p1.m2" intent=":literal"><semantics><mrow><mn>988</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">988\,\mu\mathrm{s}</annotation></semantics></math>，并在RTX 5090上进行在线处理。非重叠的<math alttext="5\times 5\times 16" class="ltx_Math" display="inline" id="S5.p1.m3" intent=":literal"><semantics><mrow><mn>5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>16</mn></mrow><annotation encoding="application/x-tex">5\times 5\times 16</annotation></semantics></math>对比度估计产生62.5 maps/s，用于60-frame/s渲染，且无需额外平均。在一只未散瞳健康右眼的四次记录中，视盘附近可见视网膜主要动脉、静脉分支及更小血管。视网膜主要动脉和静脉中可见心动周期变化（补充视频）。区域逆对比度曲线显示了动脉重搏切迹和自发性静脉搏动。这些描述性观察支持高吞吐量视网膜血管可视化；定量生理性能和独立计算基准仍有待建立。</p>
+</div>
+<div class="ltx_acknowledgements" id="S5.acknowledgements1">
+<h6 class="ltx_title ltx_title_acknowledgements">致谢。</h6>
+This work was supported by ANR LIDARO (ANR-22-CE19-0033-01) and IHU FOReSIGHT.
+
+</div>
+</section>
+<section class="ltx_section" id="Sx1">
+<h2 class="ltx_title ltx_title_section">补充视频</h2>
+<div class="ltx_para" id="Sx1.p1">
+<p class="ltx_p" id="Sx1.p1.1"><a class="ltx_ref ltx_href" href="https://doi.org/10.5281/zenodo.23540440" title="">合并补充视频</a>展示了同一受试者视盘周围的四次记录，其中视网膜主要动脉和静脉中与血流相关的对比度可见心动周期变化，包括图 <a class="ltx_ref" href="#S3.F3" title="Figure 3 ‣ III.3 Arterial and venous variations during the cardiac cycle ‣ III Results ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">3</span></a>所示的动脉搏动和自发性静脉搏动。</p>
+</div>
+</section>
+<section class="ltx_section" id="Sx2">
+<h2 class="ltx_title ltx_title_section">数据与代码可用性</h2>
+<div class="ltx_para" id="Sx2.p1">
+<p class="ltx_p" id="Sx2.p1.1">原始8位记录将随本研究公开提供；仓库细节将随数据发布一并给出。处理使用了开源Holoflow软件，其按Apache License 2.0分发，可从<a class="ltx_ref ltx_url ltx_font_typewriter" href="https://github.com/DigitalHolography/Holoflow" title="">https://github.com/DigitalHolography/Holoflow</a> <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib59" title="">12</a>]</cite>获取。实验实现为分支<span class="ltx_text ltx_font_typewriter" id="Sx2.p1.1.1">feat/contrast-pipeline</span>，提交<span class="ltx_text ltx_font_typewriter" id="Sx2.p1.1.2">3d87195eb124</span>（2026年10月22日；版本<span class="ltx_text ltx_font_typewriter" id="Sx2.p1.1.3">0.2.0-dev.4</span>），使用直接CUDA内核后端。参考文献固定了完整提交。原始图像以8位深度保存；<math alttext="K" class="ltx_Math" display="inline" id="Sx2.p1.m1" intent=":literal"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>采用浮点计算并实时显示。</p>
+</div>
+</section>
+<section class="ltx_section" id="Sx3">
+<h2 class="ltx_title ltx_title_section">披露</h2>
+<div class="ltx_para" id="Sx3.p1">
+<p class="ltx_p" id="Sx3.p1.1">作者声明无竞争性利益。</p>
+</div>
+</section>
+<section class="ltx_bibliography" id="bib">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+<ul class="ltx_biblist" id="bib.L1">
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib32"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. Bandyopadhyay, A. S. Gittings, S. S. Suh, P. K. Dixon, and D. J. Durian</span><span class="ltx_text ltx_bib_year"> (2005)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Speckle-visibility spectroscopy: A tool to study time-varying dynamics</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Rev. Sci. Instrum.</span> <span class="ltx_text ltx_bib_volume">76</span> (<span class="ltx_text ltx_bib_number">9</span>), <span class="ltx_text ltx_bib_pages">pp. 093110</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1063/1.2037987" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1063/1.2037987" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS4.p2.1" title="IV.4 Interpretation of contrast and physiological specificity ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.4</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib56"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Z. Bratasz, O. Martinache, Y. Blazy, A. Denis, C. Auffret, J. Huignard, E. Rossi, J. Chhablani, J. Sahel, S. Bonnin, R. Hage, P. Koskas, D. Gatinel, C. Vignal, A. Yavchitz, V. Vasseur, R. Tadayoni, C. Ducloux, M. Ortoli, M. Tordjman, S. Tick, S. Mrejen, M. Paques, and M. Atlan</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Diffuse Maxwellian illumination for safe wide-field retinal Doppler holography</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">arXiv:2212.13347v3Originally posted 2022; version 3, revised 15 May 2026</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.48550/arXiv.2212.13347" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://arxiv.org/abs/2212.13347v3" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.SS2.p1.1" title="II.2 Optical acquisition and detector sampling ‣ II Materials and methods ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§II.2</span></a>,
+<a class="ltx_ref" href="#S2.SS3.p1.1" title="II.3 Illumination and ocular exposure ‣ II Materials and methods ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§II.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib20"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. D. Briers and A. F. Fercher</span><span class="ltx_text ltx_bib_year"> (1982)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Retinal blood-flow visualization by means of laser speckle photography</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Invest. Ophthalmol. Vis. Sci.</span> <span class="ltx_text ltx_bib_volume">22</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 255–259</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://pubmed.ncbi.nlm.nih.gov/7056639/" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib2"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. D. Briers and S. Webster</span><span class="ltx_text ltx_bib_year"> (1996)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Laser speckle contrast analysis (LASCA): a nonscanning, full-field technique for monitoring capillary blood flow</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">J. Biomed. Opt.</span> <span class="ltx_text ltx_bib_volume">1</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 174–179</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/12.231359" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1117/12.231359" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib26"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">G. Calzetti, K. Fondi, A. M. Bata, N. Luft, P. A. Wozniak, K. J. Witkowska, M. Bolz, A. Popa-Cherecheanu, R. M. Werkmeister, D. Schmidl, G. Garhöfer, and L. Schmetterer</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Assessment of choroidal blood flow using laser speckle flowgraphy</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Br. J. Ophthalmol.</span> <span class="ltx_text ltx_bib_volume">102</span> (<span class="ltx_text ltx_bib_number">12</span>), <span class="ltx_text ltx_bib_pages">pp. 1679–1683</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1136/bjophthalmol-2017-311750" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1136/bjophthalmol-2017-311750" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS5.p1.1" title="IV.5 Vascular territories sampled in the fundus ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.5</span></a>,
+<a class="ltx_ref" href="#S4.SS5.p2.1" title="IV.5 Vascular territories sampled in the fundus ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.5</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib41"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Chammas and F. Pain</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Synthetic exposure with a CMOS camera for multiple exposure speckle imaging of blood flow</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Sci. Rep.</span> <span class="ltx_text ltx_bib_volume">12</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 4708</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/s41598-022-08647-6" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1038/s41598-022-08647-6" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS3.p3.1" title="IV.3 Real-time processing and throughput benchmarks ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib18"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Chammas and F. Pain</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Choice of numerical implementation of spatial contrast calculation impacts microcirculation quantitation in laser speckle contrast imaging</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">J. Biomed. Opt.</span> <span class="ltx_text ltx_bib_volume">30</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages">pp. 046006</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/1.jbo.30.4.046006" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1117/1.jbo.30.4.046006" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S4.SS2.p2.1" title="IV.2 What higher camera sampling contributes ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib3"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">H. Cheng and T. Q. Duong</span><span class="ltx_text ltx_bib_year"> (2007)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Simplified laser-speckle-imaging analysis method and its application to retinal blood flow imaging</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Opt. Lett.</span> <span class="ltx_text ltx_bib_volume">32</span> (<span class="ltx_text ltx_bib_number">15</span>), <span class="ltx_text ltx_bib_pages">pp. 2188–2190</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/ol.32.002188" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/ol.32.002188" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib21"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">H. Cheng, Y. Yan, and T. Q. Duong</span><span class="ltx_text ltx_bib_year"> (2008)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Temporal statistical analysis of laser speckle images and its application to retinal blood-flow imaging</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Opt. Express</span> <span class="ltx_text ltx_bib_volume">16</span> (<span class="ltx_text ltx_bib_number">14</span>), <span class="ltx_text ltx_bib_pages">pp. 10214–10219</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/oe.16.010214" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/oe.16.010214" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib15"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Cho, A. Rege, Y. Jing, A. Chaurasia, A. Guruprasad, E. Arthur, and D. Cabrera DeBuc</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Portable, non-invasive video imaging of retinal blood flow dynamics</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Sci Rep</span> <span class="ltx_text ltx_bib_volume">10</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 20236</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/s41598-020-76407-5" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1038/s41598-020-76407-5" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.T1.2.3.1.1.1" title="In I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">Table 1</span></a>,
+<a class="ltx_ref" href="#S1.p3.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S4.SS1.p1.1" title="IV.1 Position relative to retinal speckle imaging ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.1</span></a>,
+<a class="ltx_ref" href="#S4.SS4.p3.1" title="IV.4 Interpretation of contrast and physiological specificity ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.4</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib34"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. A. Davis, S. M. S. Kazmi, and A. K. Dunn</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Imaging depth and multiple scattering in laser speckle contrast imaging</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">J. Biomed. Opt.</span> <span class="ltx_text ltx_bib_volume">19</span> (<span class="ltx_text ltx_bib_number">8</span>), <span class="ltx_text ltx_bib_pages">pp. 086001</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/1.jbo.19.8.086001" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1117/1.jbo.19.8.086001" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS4.p2.1" title="IV.4 Interpretation of contrast and physiological specificity ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.4</span></a>,
+<a class="ltx_ref" href="#S4.SS5.p3.1" title="IV.5 Vascular territories sampled in the fundus ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.5</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib59"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Digital Holography Foundation</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Holoflow: high-throughput image processing and speckle-contrast implementation</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note"><a class="ltx_ref ltx_url ltx_font_typewriter" href="https://github.com/DigitalHolography/Holoflow/tree/3d87195eb1245fe7cf0bc4b165b116bdd99dd4e9" title="">https://github.com/DigitalHolography/Holoflow/tree/3d87195eb1245fe7cf0bc4b165b116bdd99dd4e9</a>Apache License 2.0; experimental contrast-branch implementation at commit 3d87195eb124, 22 October 2026, version 0.2.0-dev.4; direct CUDA kernel backend; accessed 24 October 2026</span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.SS4.p2.1" title="II.4 Speckle contrast processing and timing ‣ II Materials and methods ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§II.4</span></a>,
+<a class="ltx_ref" href="#Sx2.p1.1" title="Data and code availability ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_title">Data and code availability</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib40"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Dragojević, D. Bronzi, H. M. Varma, C. P. Valdes, C. Castellvi, F. Villa, A. Tosi, C. Justicia, F. Zappa, and T. Durduran</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">High-speed multi-exposure laser speckle contrast imaging with a single-photon counting camera</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Biomed. Opt. Express</span> <span class="ltx_text ltx_bib_volume">6</span> (<span class="ltx_text ltx_bib_number">8</span>), <span class="ltx_text ltx_bib_pages">pp. 2865–2876</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/boe.6.002865" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/boe.6.002865" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS3.p1.1" title="IV.3 Real-time processing and throughput benchmarks ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib60"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. D. Duncan, S. J. Kirkpatrick, and R. K. Wang</span><span class="ltx_text ltx_bib_year"> (2008)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Statistics of local speckle contrast</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">J. Opt. Soc. Am. A</span> <span class="ltx_text ltx_bib_volume">25</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 9–15</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/JOSAA.25.000009" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/JOSAA.25.000009" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib4"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. D. Duncan and S. J. Kirkpatrick</span><span class="ltx_text ltx_bib_year"> (2008)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Can laser speckle flowmetry be made a quantitative tool?</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">J. Opt. Soc. Am. A</span> <span class="ltx_text ltx_bib_volume">25</span> (<span class="ltx_text ltx_bib_number">8</span>), <span class="ltx_text ltx_bib_pages">pp. 2088–2094</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/josaa.25.002088" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/josaa.25.002088" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS4.p1.1" title="IV.4 Interpretation of contrast and physiological specificity ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.4</span></a>,
+<a class="ltx_ref" href="#S4.SS4.p2.1" title="IV.4 Interpretation of contrast and physiological specificity ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.4</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib1"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A.F. Fercher and J.D. Briers</span><span class="ltx_text ltx_bib_year"> (1981)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Flow visualization by means of single-exposure speckle photography</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics Communications</span> <span class="ltx_text ltx_bib_volume">37</span> (<span class="ltx_text ltx_bib_number">5</span>), <span class="ltx_text ltx_bib_pages">pp. 326–330</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1016/0030-4018%2881%2990428-4" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1016/0030-4018(81)90428-4" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib58"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[17]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">G. D. Hastings, M. S. Banks, and A. Roorda</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Radial and tangential retinal magnifications as functions of visual field angle across spherical, oblate, and prolate retinal profiles</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Translational Vision Science &amp; Technology</span> <span class="ltx_text ltx_bib_volume">11</span> (<span class="ltx_text ltx_bib_number">9</span>), <span class="ltx_text ltx_bib_pages">pp. 10</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1167/tvst.11.9.10" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1167/tvst.11.9.10" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.SS2.p3.1" title="II.2 Optical acquisition and detector sampling ‣ II Materials and methods ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§II.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib13"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[18]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Hultman, I. Fredriksson, M. Larsson, A. Alvandpour, and T. Strömberg</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A 15.6 frames per second 1-megapixel multiple exposure laser speckle contrast imaging setup</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Biophotonics</span> <span class="ltx_text ltx_bib_volume">11</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. e201700069</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1002/jbio.201700069" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1002/jbio.201700069" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S4.SS3.p3.1" title="IV.3 Real-time processing and throughput benchmarks ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib42"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[19]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Hultman, M. Larsson, T. Strömberg, and I. Fredriksson</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Real-time video-rate perfusion imaging using multi-exposure laser speckle contrast imaging and machine learning</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">J. Biomed. Opt.</span> <span class="ltx_text ltx_bib_volume">25</span> (<span class="ltx_text ltx_bib_number">11</span>), <span class="ltx_text ltx_bib_pages">pp. 116007</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/1.jbo.25.11.116007" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1117/1.jbo.25.11.116007" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S4.SS3.p3.1" title="IV.3 Real-time processing and throughput benchmarks ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.3</span></a>,
+<a class="ltx_ref" href="#S4.T3.2.5.1.1.1" title="In IV.3 Real-time processing and throughput benchmarks ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">Table 3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib52"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[20]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Hultman, M. Larsson, T. Strömberg, and I. Fredriksson</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Speed-resolved perfusion imaging using multi-exposure laser speckle contrast imaging and machine learning</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">J. Biomed. Opt.</span> <span class="ltx_text ltx_bib_volume">28</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages">pp. 036007</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/1.jbo.28.3.036007" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1117/1.jbo.28.3.036007" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS3.p3.1" title="IV.3 Real-time processing and throughput benchmarks ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.3</span></a>,
+<a class="ltx_ref" href="#S4.T3.2.5.1.1.1" title="In IV.3 Real-time processing and throughput benchmarks ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">Table 3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_report" id="bib.bib57"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[21]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">International Organization for Standardization</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Ophthalmic instruments—fundamental requirements and test methods—part 2: light hazard protection</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_type">International Standard</span>
+</span>
+<span class="ltx_bibblock">Technical Report <span class="ltx_text ltx_bib_number">ISO 15004-2:2024</span>,  <span class="ltx_text ltx_bib_publisher">International Organization for Standardization</span>,  <span class="ltx_text ltx_bib_place">Geneva, Switzerland</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">Second edition, December 2024</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://www.iso.org/standard/79919.html" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS6.p2.1" title="IV.6 Limitations and next validation steps ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.6</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib48"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[22]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Jiang, H. Zhang, J. Wang, Y. Wang, H. He, R. Liu, F. Zhou, J. Deng, P. Li, and Q. Luo</span><span class="ltx_text ltx_bib_year"> (2011)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Dedicated hardware processor and corresponding system-on-chip design for real-time laser speckle imaging</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">J. Biomed. Opt.</span> <span class="ltx_text ltx_bib_volume">16</span> (<span class="ltx_text ltx_bib_number">11</span>), <span class="ltx_text ltx_bib_pages">pp. 116008</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/1.3651772" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1117/1.3651772" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib39"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[23]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. M. S. Kazmi, S. Balial, and A. K. Dunn</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Optimization of camera exposure durations for multi-exposure speckle imaging of the microcirculation</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Biomed. Opt. Express</span> <span class="ltx_text ltx_bib_volume">5</span> (<span class="ltx_text ltx_bib_number">7</span>), <span class="ltx_text ltx_bib_pages">pp. 2157–2171</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/boe.5.002157" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/boe.5.002157" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS3.p3.1" title="IV.3 Real-time processing and throughput benchmarks ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib35"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[24]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. M. S. Kazmi, E. Faraji, M. A. Davis, Y. Huang, X. J. Zhang, and A. K. Dunn</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Flux or speed? Examining speckle contrast imaging of vascular flows</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Biomed. Opt. Express</span> <span class="ltx_text ltx_bib_volume">6</span> (<span class="ltx_text ltx_bib_number">7</span>), <span class="ltx_text ltx_bib_pages">pp. 2588–2608</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/boe.6.002588" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/boe.6.002588" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS4.p2.1" title="IV.4 Interpretation of contrast and physiological specificity ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.4</span></a>,
+<a class="ltx_ref" href="#S4.SS4.p3.1" title="IV.4 Interpretation of contrast and physiological specificity ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.4</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib5"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[25]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. J. Kirkpatrick, D. D. Duncan, and E. M. Wells-Gray</span><span class="ltx_text ltx_bib_year"> (2008)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Detrimental effects of speckle-pixel size matching in laser speckle contrast imaging</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Opt. Lett.</span> <span class="ltx_text ltx_bib_volume">33</span> (<span class="ltx_text ltx_bib_number">24</span>), <span class="ltx_text ltx_bib_pages">pp. 2886–2888</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/ol.33.002886" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/ol.33.002886" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S4.SS2.p1.1" title="IV.2 What higher camera sampling contributes ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib30"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[26]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. F. Linton, N. Ahmad, R. Filister, J. Wang, E. H. Sohn, and R. H. Kardon</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Laser Speckle Flowgraphy Reveals Widespread Reductions in Ocular Blood Flow in nonexudative Age-Related Macular Degeneration</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Am. J. Ophthalmol.</span> <span class="ltx_text ltx_bib_volume">273</span>, <span class="ltx_text ltx_bib_pages">pp. 92–106</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1016/j.ajo.2025.01.012" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1016/j.ajo.2025.01.012" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p6.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S4.SS5.p2.1" title="IV.5 Vascular territories sampled in the fundus ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.5</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib36"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[27]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">B. Liu, D. Postnov, D. A. Boas, and X. Cheng</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Dynamic light scattering and laser speckle contrast imaging of the brain: theory of the spatial and temporal statistics of speckle pattern evolution</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Biomed. Opt. Express</span> <span class="ltx_text ltx_bib_volume">15</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 579–593</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/boe.510333" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/boe.510333" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS4.p2.1" title="IV.4 Interpretation of contrast and physiological specificity ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.4</span></a>,
+<a class="ltx_ref" href="#S4.SS4.p3.1" title="IV.4 Interpretation of contrast and physiological specificity ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.4</span></a>,
+<a class="ltx_ref" href="#S4.SS5.p3.1" title="IV.5 Vascular territories sampled in the fundus ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.5</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib46"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[28]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Liu, P. Li, and Q. Luo</span><span class="ltx_text ltx_bib_year"> (2008)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Fast blood flow visualization of high-resolution laser speckle imaging data using graphics processing unit</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Opt. Express</span> <span class="ltx_text ltx_bib_volume">16</span> (<span class="ltx_text ltx_bib_number">19</span>), <span class="ltx_text ltx_bib_pages">pp. 14321–14329</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/oe.16.014321" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/oe.16.014321" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib27"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[29]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Y. Lu, H. Zhou, X. Zhou, Y. Chen, and R. K. Wang</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Correlation Between Laser Speckle Flowgraphy and OCT-Derived Retinal and Choroidal Metrics in Healthy Human Eye</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Transl. Vis. Sci. Technol.</span> <span class="ltx_text ltx_bib_volume">11</span> (<span class="ltx_text ltx_bib_number">6</span>), <span class="ltx_text ltx_bib_pages">pp. 15</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1167/tvst.11.6.15" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1167/tvst.11.6.15" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS5.p1.1" title="IV.5 Vascular territories sampled in the fundus ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.5</span></a>,
+<a class="ltx_ref" href="#S4.SS5.p2.1" title="IV.5 Vascular territories sampled in the fundus ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.5</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib25"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[30]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">N. Luft, P. A. Wozniak, G. C. Aschinger, K. Fondi, A. M. Bata, R. M. Werkmeister, D. Schmidl, K. J. Witkowska, M. Bolz, G. Garhöfer, and L. Schmetterer</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Measurements of Retinal Perfusion Using Laser Speckle Flowgraphy and Doppler Optical Coherence Tomography</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Invest. Ophthalmol. Vis. Sci.</span> <span class="ltx_text ltx_bib_volume">57</span> (<span class="ltx_text ltx_bib_number">13</span>), <span class="ltx_text ltx_bib_pages">pp. 5417–5425</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1167/iovs.16-19896" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1167/iovs.16-19896" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p4.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S4.SS4.p3.1" title="IV.4 Interpretation of contrast and physiological specificity ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.4</span></a>,
+<a class="ltx_ref" href="#S4.SS6.p3.1" title="IV.6 Limitations and next validation steps ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.6</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib11"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[31]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">N. Luft, P. A. Wozniak, G. C. Aschinger, K. Fondi, A. M. Bata, R. M. Werkmeister, D. Schmidl, K. J. Witkowska, M. Bolz, G. Garhöfer, and L. Schmetterer</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Ocular Blood Flow Measurements in Healthy White Subjects Using Laser Speckle Flowgraphy</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">PLoS ONE</span> <span class="ltx_text ltx_bib_volume">11</span> (<span class="ltx_text ltx_bib_number">12</span>), <span class="ltx_text ltx_bib_pages">pp. e0168190</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1371/journal.pone.0168190" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1371/journal.pone.0168190" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.T1.2.2.1.1.1" title="In I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">Table 1</span></a>,
+<a class="ltx_ref" href="#S1.p3.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib10"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[32]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Y. Neganova, D. D. Postnov, J. C. B. Jacobsen, and O. Sosnovtseva</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Laser speckle analysis of retinal vascular dynamics</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Biomed. Opt. Express</span> <span class="ltx_text ltx_bib_volume">7</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages">pp. 1375–1384</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/boe.7.001375" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/boe.7.001375" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p5.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S4.SS6.p3.1" title="IV.6 Limitations and next validation steps ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.6</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib12"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[33]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Y. Neganova, D. D. Postnov, O. Sosnovtseva, and J. C. B. Jacobsen</span><span class="ltx_text ltx_bib_year"> (2017)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Rat retinal vasomotion assessed by laser speckle imaging</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">PLoS ONE</span> <span class="ltx_text ltx_bib_volume">12</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages">pp. e0173805</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1371/journal.pone.0173805" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1371/journal.pone.0173805" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p5.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S4.SS6.p3.1" title="IV.6 Limitations and next validation steps ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.6</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib6"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[34]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. B. Parthasarathy, W. J. Tom, A. Gopal, X. Zhang, and A. K. Dunn</span><span class="ltx_text ltx_bib_year"> (2008)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Robust flow measurement with multi-exposure speckle imaging</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Opt. Express</span> <span class="ltx_text ltx_bib_volume">16</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages">pp. 1975–1989</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/oe.16.001975" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/oe.16.001975" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS3.p3.1" title="IV.3 Real-time processing and throughput benchmarks ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.3</span></a>,
+<a class="ltx_ref" href="#S4.SS4.p1.1" title="IV.4 Interpretation of contrast and physiological specificity ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.4</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib28"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[35]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. D. Patel, A. Dhalla, C. Viehland, T. B. Connor, and D. M. Lipinski</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Development of a Preclinical Laser Speckle Contrast Imaging Instrument for Assessing Systemic and Retinal Vascular Function in Small Rodents</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Transl. Vis. Sci. Technol.</span> <span class="ltx_text ltx_bib_volume">10</span> (<span class="ltx_text ltx_bib_number">9</span>), <span class="ltx_text ltx_bib_pages">pp. 19</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1167/tvst.10.9.19" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1167/tvst.10.9.19" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p5.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib16"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[36]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. D. Patel and D. M. Lipinski</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Validating a low-cost laser speckle contrast imaging system as a quantitative tool for assessing retinal vascular function</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Sci Rep</span> <span class="ltx_text ltx_bib_volume">10</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 7177</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/s41598-020-64204-z" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1038/s41598-020-64204-z" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p5.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib9"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[37]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Ponticorvo, D. Cardenas, A. K. Dunn, D. Ts’o, and T. Q. Duong</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Laser speckle contrast imaging of blood flow in rat retinas using an endoscope</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">J. Biomed. Opt.</span> <span class="ltx_text ltx_bib_volume">18</span> (<span class="ltx_text ltx_bib_number">9</span>), <span class="ltx_text ltx_bib_pages">pp. 090501</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/1.jbo.18.9.090501" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1117/1.jbo.18.9.090501" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib17"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[38]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Qiu, J. Situ, S. Wang, and E. Vaghefi</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Inter-day repeatability assessment of human retinal blood flow using clinical laser speckle contrast imaging</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Biomed. Opt. Express</span> <span class="ltx_text ltx_bib_volume">13</span> (<span class="ltx_text ltx_bib_number">11</span>), <span class="ltx_text ltx_bib_pages">pp. 6136–6152</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/boe.468871" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/boe.468871" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.T1.2.4.1.1.1" title="In I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">Table 1</span></a>,
+<a class="ltx_ref" href="#S1.p3.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S4.SS3.p3.1" title="IV.3 Real-time processing and throughput benchmarks ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.3</span></a>,
+<a class="ltx_ref" href="#S4.SS6.p3.1" title="IV.6 Limitations and next validation steps ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.6</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib7"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[39]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Qiu, P. Li, W. Luo, J. Wang, H. Zhang, and Q. Luo</span><span class="ltx_text ltx_bib_year"> (2010)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Spatiotemporal laser speckle contrast analysis for blood flow imaging with maximized speckle contrast</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">J. Biomed. Opt.</span> <span class="ltx_text ltx_bib_volume">15</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 016003</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/1.3290804" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1117/1.3290804" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S2.SS4.p1.1" title="II.4 Speckle contrast processing and timing ‣ II Materials and methods ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§II.4</span></a>,
+<a class="ltx_ref" href="#S4.SS1.p1.1" title="IV.1 Position relative to retinal speckle imaging ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib14"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[40]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Rege, S. I. Cunningham, Y. Liu, K. Raje, S. Kalarn, M. J. Brooke, L. Schocket, S. Scott, A. Shafi, L. Toledo, and O. J. Saeedi</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Noninvasive Assessment of Retinal Blood Flow Using a Novel Handheld Laser Speckle Contrast Imager</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Trans. Vis. Sci. Tech.</span> <span class="ltx_text ltx_bib_volume">7</span> (<span class="ltx_text ltx_bib_number">6</span>), <span class="ltx_text ltx_bib_pages">pp. 7</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1167/tvst.7.6.7" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1167/tvst.7.6.7" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p3.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib43"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[41]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. A. Rivera and C. B. Schaffer</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Quasi-analytic solution for real-time multi-exposure speckle imaging of tissue perfusion</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Biomed. Opt. Express</span> <span class="ltx_text ltx_bib_volume">14</span> (<span class="ltx_text ltx_bib_number">8</span>), <span class="ltx_text ltx_bib_pages">pp. 3950–3967</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/boe.493821" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/boe.493821" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS3.p3.1" title="IV.3 Real-time processing and throughput benchmarks ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.3</span></a>,
+<a class="ltx_ref" href="#S4.T3.2.6.1.1.1" title="In IV.3 Real-time processing and throughput benchmarks ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">Table 3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib55"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[42]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. A. Rivera and C. B. Schaffer</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Speckle-REMI: MATLAB reference implementations of REMI and spatial-REMI</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note"><a class="ltx_ref ltx_url ltx_font_typewriter" href="https://github.com/sn-lab/Speckle-REMI/tree/9fbdf292b69e75e20174a300e0d501934ad61192" title="">https://github.com/sn-lab/Speckle-REMI/tree/9fbdf292b69e75e20174a300e0d501934ad61192</a>Revision <span class="ltx_text ltx_font_typewriter" id="bib.bib55.1">9fbdf292</span>; includes
+<span class="ltx_text ltx_font_typewriter" id="bib.bib55.2">fullMESIestimates.m</span> and
+<span class="ltx_text ltx_font_typewriter" id="bib.bib55.3">fullMESIestimates_spatial.m</span>. Accessed 24 October 2026</span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS3.p3.1" title="IV.3 Real-time processing and throughput benchmarks ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib53"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[43]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. R. Selvaraj Mercyshalinie, P. Calle, J. O. Stovall, B. J. Girard, D. P. Cordeiro, A. M. Bauer, J. Goldberg, C. S. Graffeo, A. Raabe, M. T. Lawton, A. K. Dunn, C. Pan, and D. R. Miller</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">DASHING–LSCI: deep learning-based anatomical multiclass segmentation for human intraoperative neurosurgical guidance – laser speckle contrast imaging</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Biomed. Opt. Express</span> <span class="ltx_text ltx_bib_volume">17</span> (<span class="ltx_text ltx_bib_number">9</span>), <span class="ltx_text ltx_bib_pages">pp. 4933–4946</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/boe.605293" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/boe.605293" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.T3.2.4.1.1.1" title="In IV.3 Real-time processing and throughput benchmarks ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">Table 3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib38"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[44]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Shats, T. Balasubramanian, D. Sidelnikov, U. Das, N. Onyekaba, H. E. Forbes, N. Lu, K. Williams, M. R. Levin, S. Sundararajan, S. Vij, H. Gadagkar, A. Rege, O. Saeedi, V. Chen, and J. L. Alexander</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Association of Speckle-Based Blood Flow Measurements and Fluorescein Angiography in Infants with Retinopathy of Prematurity</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Ophthalmol. Sci.</span> <span class="ltx_text ltx_bib_volume">4</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages">pp. 100463</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1016/j.xops.2023.100463" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1016/j.xops.2023.100463" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p6.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S4.SS6.p3.1" title="IV.6 Limitations and next validation steps ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.6</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib24"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[45]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Y. Shiga, T. Asano, H. Kunikata, F. Nitta, H. Sato, T. Nakazawa, and M. Shimura</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Relative Flow Volume, a Novel Blood Flow Index in the Human Retina Derived From Laser Speckle Flowgraphy</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Invest. Ophthalmol. Vis. Sci.</span> <span class="ltx_text ltx_bib_volume">55</span> (<span class="ltx_text ltx_bib_number">6</span>), <span class="ltx_text ltx_bib_pages">pp. 3899–3904</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1167/iovs.14-14116" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1167/iovs.14-14116" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p4.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S4.SS4.p3.1" title="IV.4 Interpretation of contrast and physiological specificity ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.4</span></a>,
+<a class="ltx_ref" href="#S4.SS5.p1.1" title="IV.5 Vascular territories sampled in the fundus ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.5</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib62"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[46]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">P. S. Sivakumar, K. Kagawa, C. Crouzet, B. Choi, K. Yasutomi, and S. Kawahito</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Multi-exposure laser speckle contrast imaging using a video-rate multi-tap charge modulation image sensor</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Opt. Express</span> <span class="ltx_text ltx_bib_volume">27</span> (<span class="ltx_text ltx_bib_number">18</span>), <span class="ltx_text ltx_bib_pages">pp. 26175–26191</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OE.27.026175" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/OE.27.026175" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS3.p3.1" title="IV.3 Real-time processing and throughput benchmarks ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib61"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[47]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Song and D. S. Elson</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Effect of signal intensity and camera quantization on laser speckle contrast analysis</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Biomed. Opt. Express</span> <span class="ltx_text ltx_bib_volume">4</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 89–104</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/BOE.4.000089" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/BOE.4.000089" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS2.p2.1" title="IV.2 What higher camera sampling contributes ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib22"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[48]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. I. Srienc, Z. L. Kurth-Nelson, and E. A. Newman</span><span class="ltx_text ltx_bib_year"> (2010)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Imaging retinal blood flow with laser speckle flowmetry</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Front. Neuroenergetics</span> <span class="ltx_text ltx_bib_volume">2</span>, <span class="ltx_text ltx_bib_pages">pp. 128</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.3389/fnene.2010.00128" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.3389/fnene.2010.00128" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib23"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[49]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Sugiyama</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Basic Technology and Clinical Applications of the Updated Model of Laser Speckle Flowgraphy to Ocular Diseases</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Photonics</span> <span class="ltx_text ltx_bib_volume">1</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages">pp. 220–234</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.3390/photonics1030220" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.3390/photonics1030220" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p4.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S4.SS4.p3.1" title="IV.4 Interpretation of contrast and physiological specificity ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.4</span></a>,
+<a class="ltx_ref" href="#S4.SS5.p1.1" title="IV.5 Vascular territories sampled in the fundus ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.5</span></a>,
+<a class="ltx_ref" href="#S4.SS5.p3.1" title="IV.5 Vascular territories sampled in the fundus ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.5</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib49"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[50]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Sun, B. R. Hayes-Gill, D. He, Y. Zhu, and S. P. Morgan</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Multi-exposure laser speckle contrast imaging using a high frame rate CMOS sensor with a field programmable gate array</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Opt. Lett.</span> <span class="ltx_text ltx_bib_volume">40</span> (<span class="ltx_text ltx_bib_number">20</span>), <span class="ltx_text ltx_bib_pages">pp. 4587–4590</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/ol.40.004587" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/ol.40.004587" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS3.p1.1" title="IV.3 Real-time processing and throughput benchmarks ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib19"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[51]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. J. Tate, G. C. Mouradian, and D. M. Lipinski</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Development of a laser speckle contrast imaging analysis pipeline reveals a triphasic retinal blood flow waveform</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Biomed. Opt. Express</span> <span class="ltx_text ltx_bib_volume">17</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 471–488</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/boe.575278" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/boe.575278" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.T1.2.5.1.1.1" title="In I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">Table 1</span></a>,
+<a class="ltx_ref" href="#S1.p5.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib8"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[52]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">O. Thompson, M. Andrews, and E. Hirst</span><span class="ltx_text ltx_bib_year"> (2011)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Correction for spatial averaging in laser speckle contrast analysis</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Biomed. Opt. Express</span> <span class="ltx_text ltx_bib_volume">2</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages">pp. 1021–1029</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/boe.2.001021" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/boe.2.001021" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S4.SS2.p1.1" title="IV.2 What higher camera sampling contributes ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib45"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[53]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">W. J. Tom, A. Ponticorvo, and A. K. Dunn</span><span class="ltx_text ltx_bib_year"> (2008)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Efficient Processing of Laser Speckle Contrast Images</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Trans. Med. Imaging</span> <span class="ltx_text ltx_bib_volume">27</span> (<span class="ltx_text ltx_bib_number">12</span>), <span class="ltx_text ltx_bib_pages">pp. 1728–1738</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/tmi.2008.925081" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1109/tmi.2008.925081" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib29"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[54]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Vinnett, J. Kandukuri, C. Le, K. Cho, A. Sinha, S. Asanad, G. Thompson, V. Chen, A. Rege, and O. J. Saeedi</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Dynamic Alterations in Blood Flow in Glaucoma Measured with Laser Speckle Contrast Imaging</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Ophthalmol. Glaucoma</span> <span class="ltx_text ltx_bib_volume">5</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages">pp. 250–261</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1016/j.ogla.2021.10.005" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1016/j.ogla.2021.10.005" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p6.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib37"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[55]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">X. Wang, G. R. Gameiro, A. Hoover, M. Moarefi, S. Wang, L. Duan, X. Wang, H. Jiang, and J. Wang</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Intraday and Interday Repeatability of Laser Speckle Contrast Imaging for Ocular Blood Flow Measurement in Healthy Subjects</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Transl. Vis. Sci. Technol.</span> <span class="ltx_text ltx_bib_volume">15</span> (<span class="ltx_text ltx_bib_number">9</span>), <span class="ltx_text ltx_bib_pages">pp. 12</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1167/tvst.15.9.12" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1167/tvst.15.9.12" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p6.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S4.SS6.p3.1" title="IV.6 Limitations and next validation steps ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.6</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib31"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[56]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. J. Witkowska, A. M. Bata, G. Calzetti, N. Luft, K. Fondi, P. A. Wozniak, D. Schmidl, M. Bolz, A. Popa-Cherecheanu, R. M. Werkmeister, G. Garhöfer, and L. Schmetterer</span><span class="ltx_text ltx_bib_year"> (2017)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Optic nerve head and retinal blood flow regulation during isometric exercise as assessed with laser speckle flowgraphy</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">PLoS ONE</span> <span class="ltx_text ltx_bib_volume">12</span> (<span class="ltx_text ltx_bib_number">9</span>), <span class="ltx_text ltx_bib_pages">pp. e0184772</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1371/journal.pone.0184772" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1371/journal.pone.0184772" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p4.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib51"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[57]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Z. Wu, Y. Cao, H. Waris, E. Yao, and D. Liang</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A lightweight real-time smartphone-based laser speckle contrast analyzer</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Opt. Commun.</span> <span class="ltx_text ltx_bib_volume">543</span>, <span class="ltx_text ltx_bib_pages">pp. 129613</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1016/j.optcom.2023.129613" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1016/j.optcom.2023.129613" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.T3.2.3.1.1.1" title="In IV.3 Real-time processing and throughput benchmarks ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">Table 3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib47"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[58]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">O. Yang, D. J. Cuccia, and B. Choi</span><span class="ltx_text ltx_bib_year"> (2011)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Real-time blood flow visualization using the graphics processing unit</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">J. Biomed. Opt.</span> <span class="ltx_text ltx_bib_volume">16</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 016009</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/1.3528610" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1117/1.3528610" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib44"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[59]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Yu, M. Chammas, H. Gurden, H. Lin, and F. Pain</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Design and validation of a convolutional neural network for fast, model-free blood flow imaging with multiple exposure speckle imaging</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Biomed. Opt. Express</span> <span class="ltx_text ltx_bib_volume">14</span> (<span class="ltx_text ltx_bib_number">9</span>), <span class="ltx_text ltx_bib_pages">pp. 4439–4454</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/boe.492739" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/boe.492739" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS3.p3.1" title="IV.3 Real-time processing and throughput benchmarks ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.3</span></a>,
+<a class="ltx_ref" href="#S4.T3.2.7.1.1.1" title="In IV.3 Real-time processing and throughput benchmarks ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">Table 3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib33"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[60]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">P. Zakharov, A. Völker, A. Buck, B. Weber, and F. Scheffold</span><span class="ltx_text ltx_bib_year"> (2006)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Quantitative modeling of laser speckle imaging</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Opt. Lett.</span> <span class="ltx_text ltx_bib_volume">31</span> (<span class="ltx_text ltx_bib_number">23</span>), <span class="ltx_text ltx_bib_pages">pp. 3465–3467</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/ol.31.003465" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/ol.31.003465" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS4.p2.1" title="IV.4 Interpretation of contrast and physiological specificity ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.4</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib54"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[61]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Zhang, C. Yang, D. Liu, X. Gao, Z. Li, X. Wang, Z. Zuo, and Z. He</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Real-time wavelet threshold denoising for laser speckle blood flow imaging</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Sci. Rep.</span> <span class="ltx_text ltx_bib_volume">16</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 10476</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/s41598-026-39846-0" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1038/s41598-026-39846-0" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS3.p1.1" title="IV.3 Real-time processing and throughput benchmarks ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">§IV.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib50"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[62]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Zheng, L. W. Lau, and J. Cha</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Dual-display laparoscopic laser speckle contrast imaging for real-time surgical assistance</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Biomed. Opt. Express</span> <span class="ltx_text ltx_bib_volume">9</span> (<span class="ltx_text ltx_bib_number">12</span>), <span class="ltx_text ltx_bib_pages">pp. 5962–5981</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/boe.9.005962" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/boe.9.005962" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.T3.2.2.1.1.1" title="In IV.3 Real-time processing and throughput benchmarks ‣ IV Discussion ‣ High-speed laser speckle contrast imaging of the human retina"><span class="ltx_text ltx_ref_tag">Table 3</span></a>.
+</span></li>
+</ul>
+</section>
+</article></div></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
