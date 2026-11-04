@@ -1,0 +1,941 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>具有 7 × 10 − 18 7\times 10^{-18} 频率稳定度的激光器</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style><style>
+.paper-reader{max-width:860px;margin:0 auto}
+.paper-reader h1{font-size:28px;line-height:1.35;margin:10px 0 6px}
+.paper-reader .original-title{color:var(--muted);font-size:14px;margin-bottom:18px}
+.paper-reader .meta{color:var(--muted);font-size:13px;margin-bottom:20px}
+.paper-reader .toc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:20px 0 28px;font-size:14px}
+.paper-reader .toc ol{margin:6px 0 0 18px;padding:0}
+.paper-reader .toc li{margin:3px 0}
+.paper-reader article{font-size:16px;line-height:1.9}
+.paper-reader h2{font-size:22px;margin:30px 0 10px}
+.paper-reader h3{font-size:18px;margin:22px 0 8px}
+.paper-reader figure{margin:20px 0;text-align:center}
+.paper-reader img{max-width:100%;height:auto}
+.paper-reader figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+.paper-reader table{display:block;overflow-x:auto;border-collapse:collapse;margin:16px 0;font-size:14px}
+.paper-reader math{overflow-x:auto;max-width:100%}
+.paper-reader pre{overflow-x:auto}
+</style></head><body class="">
+<header><a class="brand" href="../index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="../daily/index.html">日报</a><a href="../papers/index.html" aria-current="page">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 中文全文</div><h1>具有 7 × 10 − 18 7\times 10^{-18} 频率稳定度的激光器</h1><div class="paper-reader"><h1>具有 7 × 10 − 18 7\times 10^{-18} 频率稳定度的激光器</h1><p class="original-title">Laser with 7 × 10 − 18 7\times 10^{-18} frequency stability</p><p class="meta">arXiv 2610.30532 · 机器翻译，公式与图表保留原文</p><nav class="toc"><strong>目录</strong><ol></ol></nav><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">具有<math alttext="7\times 10^{-18}" class="ltx_Math" display="inline" id="m1" intent=":literal"><semantics><mrow><mn>7</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><annotation encoding="application/x-tex">7\times 10^{-18}</annotation></semantics></math>频率稳定度的激光器</h1>
+<span class="ltx_pubnotes ltx_pubnotes_meta"><span class="ltx_pubnotes_content"><span class="ltx_pubnote ltx_role_preprint"><span class="ltx_note_name">Preprint: </span>APS/123-QED</span></span></span>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Ben Lewis
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>JILA, National Institute of Standards and Technology and the University of Colorado, Boulder, Colorado 80309-0440, USA
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Zoey Z. Hu
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>JILA, National Institute of Standards and Technology and the University of Colorado, Boulder, Colorado 80309-0440, USA
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Dahyeon Lee
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>JILA, National Institute of Standards and Technology and the University of Colorado, Boulder, Colorado 80309-0440, USA
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Kyungtae Kim
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>JILA, National Institute of Standards and Technology and the University of Colorado, Boulder, Colorado 80309-0440, USA
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">William Warfield
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>JILA, National Institute of Standards and Technology and the University of Colorado, Boulder, Colorado 80309-0440, USA
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Kai Zhou
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>JILA, National Institute of Standards and Technology and the University of Colorado, Boulder, Colorado 80309-0440, USA
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Daniele Nicolodi
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Physikalisch-Technische Bundesanstalt, Bundesallee 100, 38116 Braunschweig, Germany
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Thomas Legero
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Physikalisch-Technische Bundesanstalt, Bundesallee 100, 38116 Braunschweig, Germany
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Uwe Sterr
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Physikalisch-Technische Bundesanstalt, Bundesallee 100, 38116 Braunschweig, Germany
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Fritz Riehle
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Physikalisch-Technische Bundesanstalt, Bundesallee 100, 38116 Braunschweig, Germany
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Jun Ye
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>JILA, National Institute of Standards and Technology and the University of Colorado, Boulder, Colorado 80309-0440, USA
+</span></span></span></span></div>
+<div class="ltx_dates">October 21, 2026</div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">摘要</h6>
+<p class="ltx_p" id="abstract1.1">我们报道了一种创纪录频率稳定度的激光器，其基于一个21 cm低温硅谐振腔。为获得最佳短期稳定度，谐振腔在6 K下工作以最小化布朗热噪声，在2到50 s的平均时间内达到<math alttext="7\times 10^{-18}" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><mrow><mn>7</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><annotation encoding="application/x-tex">7\times 10^{-18}</annotation></semantics></math>的分数频率稳定度，线宽为2.5 mHz。为获得最佳长期稳定度，谐振腔在16 K下工作，此处硅的热膨胀系数过零。略高的热噪声将性能限制在<math alttext="9\times 10^{-18}" class="ltx_Math" display="inline" id="abstract1.m2" intent=":literal"><semantics><mrow><mn>9</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><annotation encoding="application/x-tex">9\times 10^{-18}</annotation></semantics></math>，这与预期的温度标度关系一致，但长期性能得到改善。此时激光器的线宽为2.9 mHz，长期频率漂移小于<math alttext="4\text{\,}\mathrm{\SIUnitSymbolMicro Hz}\text{\,}{\mathrm{s}}^{-1}" class="ltx_Math" display="inline" id="abstract1.m3" intent=":literal"><semantics><mrow><mn>4</mn><mtext> </mtext><mrow><mrow class="ltx_unit"><mi mathvariant="normal">µ</mi><mo lspace="0em" rspace="0em">​</mo><mi>Hz</mi></mrow><mtext> </mtext><msup><mi class="ltx_unit">s</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow></mrow><annotation encoding="application/x-tex">4\text{\,}\mathrm{\SIUnitSymbolMicro Hz}\text{\,}{\mathrm{s}}^{-1}</annotation></semantics></math>。该激光器用于提升最先进的Sr光晶格钟的性能，使其Rabi与Ramsey探测时间超过<math alttext="10\text{\,}\mathrm{s}" class="ltx_Math" display="inline" id="abstract1.m4" intent=":literal"><semantics><mrow><mn>10</mn><mtext> </mtext><mi class="ltx_unit">s</mi></mrow><annotation encoding="application/x-tex">10\text{\,}\mathrm{s}</annotation></semantics></math>。</p>
+</div>
+<section class="ltx_section" id="S1">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">I </span>引言</h2>
+<div class="ltx_para" id="S1.p1">
+<p class="ltx_p" id="S1.p1.1">低温硅谐振腔在激光频率稳定度方面处于最先进水平<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib8" title="">30</a>, <a class="ltx_ref" href="#bib.bib4" title="">35</a>, <a class="ltx_ref" href="#bib.bib42" title="">51</a>, <a class="ltx_ref" href="#bib.bib5" title="">9</a>]</cite>。其<math alttext="{10}^{-17}" class="ltx_Math" display="inline" id="S1.p1.m1" intent=":literal"><semantics><mrow><mphantom></mphantom><mo lspace="0em" rspace="0em">​</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>17</mn></mrow></msup></mrow><annotation encoding="application/x-tex">{10}^{-17}</annotation></semantics></math>量级的分数频率稳定度为窄线宽原子跃迁提供了灵敏探针，极大地促进了不确定度低至第18<sup class="ltx_sup" id="S1.p1.1.1">th</sup>或19<sup class="ltx_sup" id="S1.p1.1.2">th</sup>位数字的原子钟的发展<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib38" title="">32</a>, <a class="ltx_ref" href="#bib.bib37" title="">18</a>, <a class="ltx_ref" href="#bib.bib46" title="">23</a>, <a class="ltx_ref" href="#bib.bib14" title="">46</a>, <a class="ltx_ref" href="#bib.bib20" title="">1</a>, <a class="ltx_ref" href="#bib.bib23" title="">22</a>, <a class="ltx_ref" href="#bib.bib36" title="">11</a>]</cite>。在扣除每天几Hz的可预测漂移后，硅谐振腔的长期稳定度与氢脉泽相当，使其可用作全光时间尺度中的飞轮振荡器<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib3" title="">31</a>, <a class="ltx_ref" href="#bib.bib13" title="">38</a>, <a class="ltx_ref" href="#bib.bib24" title="">12</a>]</cite>。除计时外，低温硅谐振腔在基础物理研究中也发挥着重要作用<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib7" title="">7</a>, <a class="ltx_ref" href="#bib.bib12" title="">48</a>, <a class="ltx_ref" href="#bib.bib16" title="">26</a>, <a class="ltx_ref" href="#bib.bib44" title="">6</a>, <a class="ltx_ref" href="#bib.bib25" title="">17</a>, <a class="ltx_ref" href="#bib.bib30" title="">29</a>, <a class="ltx_ref" href="#bib.bib29" title="">14</a>, <a class="ltx_ref" href="#bib.bib39" title="">45</a>]</cite>。在许多此类实验中，激光器稳定度仍是主要噪声源之一，因此更稳定的激光器可立即提高测量精密度，并提升量子技术的性能。</p>
+</div>
+<div class="ltx_para" id="S1.p2">
+<p class="ltx_p" id="S1.p2.1">为进一步提升现有技术水平，必须抑制反射镜镀膜的本征布朗热噪声，因为它是目前最好的硅谐振腔的主要噪声源<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib17" title="">41</a>, <a class="ltx_ref" href="#bib.bib4" title="">35</a>, <a class="ltx_ref" href="#bib.bib5" title="">9</a>]</cite>。降低热噪声的途径包括：在更低温度下工作<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib32" title="">5</a>, <a class="ltx_ref" href="#bib.bib10" title="">49</a>]</cite>、增大腔长<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib2" title="">42</a>, <a class="ltx_ref" href="#bib.bib33" title="">20</a>, <a class="ltx_ref" href="#bib.bib1" title="">34</a>]</cite>、扩大光学模式，或采用本征噪声更低的非常规反射镜<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib18" title="">10</a>, <a class="ltx_ref" href="#bib.bib1" title="">34</a>, <a class="ltx_ref" href="#bib.bib8" title="">30</a>, <a class="ltx_ref" href="#bib.bib19" title="">25</a>, <a class="ltx_ref" href="#bib.bib42" title="">51</a>, <a class="ltx_ref" href="#bib.bib43" title="">47</a>]</cite>。每一种改进都会带来相应的技术挑战，如温度灵敏度、振动灵敏度或系统复杂度。在权衡这些取舍的基础上，我们对JILA和PTB先前的<math alttext="21\text{\,}\mathrm{cm}" class="ltx_Math" display="inline" id="S1.p2.m1" intent=":literal"><semantics><mrow><mn>21</mn><mtext> </mtext><mi class="ltx_unit">cm</mi></mrow><annotation encoding="application/x-tex">21\text{\,}\mathrm{cm}</annotation></semantics></math>硅谐振腔系统<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib4" title="">35</a>]</cite>作了两项关键设计改进，使热噪声降低为原来的1/3至1/5，即降至<math alttext="9\text{\times}{10}^{-18}" class="ltx_Math" display="inline" id="S1.p2.m2" intent=":literal"><semantics><mrow><mn>9</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><annotation encoding="application/x-tex">9\text{\times}{10}^{-18}</annotation></semantics></math>和<math alttext="7\text{\times}{10}^{-18}" class="ltx_Math" display="inline" id="S1.p2.m3" intent=":literal"><semantics><mrow><mn>7</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><annotation encoding="application/x-tex">7\text{\times}{10}^{-18}</annotation></semantics></math>，具体取决于工作温度。首先，该谐振腔的工作温度低于先前所用的硅热膨胀零点<math alttext="124\text{\,}\mathrm{K}" class="ltx_Math" display="inline" id="S1.p2.m4" intent=":literal"><semantics><mrow><mn>124</mn><mtext> </mtext><mi class="ltx_unit">K</mi></mrow><annotation encoding="application/x-tex">124\text{\,}\mathrm{K}</annotation></semantics></math><cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib41" title="">37</a>]</cite>。我们选择在<math alttext="16\text{\,}\mathrm{K}" class="ltx_Math" display="inline" id="S1.p2.m5" intent=":literal"><semantics><mrow><mn>16</mn><mtext> </mtext><mi class="ltx_unit">K</mi></mrow><annotation encoding="application/x-tex">16\text{\,}\mathrm{K}</annotation></semantics></math>零点或低温恒温器的基础温度<math alttext="6\text{\,}\mathrm{K}" class="ltx_Math" display="inline" id="S1.p2.m6" intent=":literal"><semantics><mrow><mn>6</mn><mtext> </mtext><mi class="ltx_unit">K</mi></mrow><annotation encoding="application/x-tex">6\text{\,}\mathrm{K}</annotation></semantics></math><cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib40" title="">33</a>]</cite>下工作。其次，光学模式尺寸从<math alttext="480\text{\,}\mathrm{\SIUnitSymbolMicro m}" class="ltx_Math" display="inline" id="S1.p2.m7" intent=":literal"><semantics><mrow><mn>480</mn><mtext> </mtext><mrow class="ltx_unit"><mi mathvariant="normal">µ</mi><mo lspace="0em" rspace="0em">​</mo><mi>m</mi></mrow></mrow><annotation encoding="application/x-tex">480\text{\,}\mathrm{\SIUnitSymbolMicro m}</annotation></semantics></math>增大到<math alttext="850\text{\,}\mathrm{\SIUnitSymbolMicro m}" class="ltx_Math" display="inline" id="S1.p2.m8" intent=":literal"><semantics><mrow><mn>850</mn><mtext> </mtext><mrow class="ltx_unit"><mi mathvariant="normal">µ</mi><mo lspace="0em" rspace="0em">​</mo><mi>m</mi></mrow></mrow><annotation encoding="application/x-tex">850\text{\,}\mathrm{\SIUnitSymbolMicro m}</annotation></semantics></math>（半径<math alttext="1/e^{2}" class="ltx_Math" display="inline" id="S1.p2.m9" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><msup><mi>e</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">1/e^{2}</annotation></semantics></math>），做法是采用曲率半径为<math alttext="10.2\text{\,}\mathrm{m}" class="ltx_Math" display="inline" id="S1.p2.m10" intent=":literal"><semantics><mrow><mn>10.2</mn><mtext> </mtext><mi class="ltx_unit">m</mi></mrow><annotation encoding="application/x-tex">10.2\text{\,}\mathrm{m}</annotation></semantics></math>的凹面谐振腔反射镜取代<math alttext="1\text{\,}\mathrm{m}" class="ltx_Math" display="inline" id="S1.p2.m11" intent=":literal"><semantics><mrow><mn>1</mn><mtext> </mtext><mi class="ltx_unit">m</mi></mrow><annotation encoding="application/x-tex">1\text{\,}\mathrm{m}</annotation></semantics></math>，另一块反射镜为平面镜。这些改进通常会增大振动噪声或振动灵敏度，我们通过一台定制的低振动低温恒温器来加以抑制。</p>
+</div>
+<div class="ltx_para" id="S1.p3">
+<p class="ltx_p" id="S1.p3.1">在<math alttext="16\text{\,}\mathrm{K}" class="ltx_Math" display="inline" id="S1.p3.m1" intent=":literal"><semantics><mrow><mn>16</mn><mtext> </mtext><mi class="ltx_unit">K</mi></mrow><annotation encoding="application/x-tex">16\text{\,}\mathrm{K}</annotation></semantics></math>下，测得激光器不稳定度低于<math alttext="1\text{\times}{10}^{-17}\text{\,}\mathrm{o}" class="ltx_Math" display="inline" id="S1.p3.m2" intent=":literal"><semantics><mrow><mrow><mn>1</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>17</mn></mrow></msup></mrow><mtext> </mtext><mi>o</mi></mrow><annotation encoding="application/x-tex">1\text{\times}{10}^{-17}\text{\,}\mathrm{o}</annotation></semantics></math>ver，该结果覆盖从<math alttext="2\text{\,}\mathrm{s}" class="ltx_Math" display="inline" id="S1.p3.m3" intent=":literal"><semantics><mrow><mn>2</mn><mtext> </mtext><mi class="ltx_unit">s</mi></mrow><annotation encoding="application/x-tex">2\text{\,}\mathrm{s}</annotation></semantics></math>到<math alttext="50\text{\,}\mathrm{s}" class="ltx_Math" display="inline" id="S1.p3.m4" intent=":literal"><semantics><mrow><mn>50</mn><mtext> </mtext><mi class="ltx_unit">s</mi></mrow><annotation encoding="application/x-tex">50\text{\,}\mathrm{s}</annotation></semantics></math>、超过一个数量级的平均时间范围；最佳稳定度为<math alttext="9\text{\times}{10}^{-18}\text{\,}\mathrm{a}" class="ltx_Math" display="inline" id="S1.p3.m5" intent=":literal"><semantics><mrow><mrow><mn>9</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><mtext> </mtext><mi>a</mi></mrow><annotation encoding="application/x-tex">9\text{\times}{10}^{-18}\text{\,}\mathrm{a}</annotation></semantics></math>t在<math alttext="3\text{\,}\mathrm{s}" class="ltx_Math" display="inline" id="S1.p3.m6" intent=":literal"><semantics><mrow><mn>3</mn><mtext> </mtext><mi class="ltx_unit">s</mi></mrow><annotation encoding="application/x-tex">3\text{\,}\mathrm{s}</annotation></semantics></math>。当温度降至<math alttext="6\text{\,}\mathrm{K}" class="ltx_Math" display="inline" id="S1.p3.m7" intent=":literal"><semantics><mrow><mn>6</mn><mtext> </mtext><mi class="ltx_unit">K</mi></mrow><annotation encoding="application/x-tex">6\text{\,}\mathrm{K}</annotation></semantics></math>时，噪声也降至<math alttext="7\text{\times}{10}^{-18}\text{\,}\mathrm{,}" class="ltx_Math" display="inline" id="S1.p3.m8" intent=":literal"><semantics><mrow><mrow><mn>7</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><mtext> </mtext><mo>,</mo></mrow><annotation encoding="application/x-tex">7\text{\times}{10}^{-18}\text{\,}\mathrm{,}</annotation></semantics></math>，这清楚表明性能受限于热噪声。在光频<math alttext="194\text{\,}\mathrm{THz}" class="ltx_Math" display="inline" id="S1.p3.m9" intent=":literal"><semantics><mrow><mn>194</mn><mtext> </mtext><mi class="ltx_unit">THz</mi></mrow><annotation encoding="application/x-tex">194\text{\,}\mathrm{THz}</annotation></semantics></math>处，激光器线宽为<math alttext="2.5\text{\,}\mathrm{mHz}" class="ltx_Math" display="inline" id="S1.p3.m10" intent=":literal"><semantics><mrow><mn>2.5</mn><mtext> </mtext><mi class="ltx_unit">mHz</mi></mrow><annotation encoding="application/x-tex">2.5\text{\,}\mathrm{mHz}</annotation></semantics></math>。这一窄线宽已在最先进的Sr光晶格钟上通过超过<math alttext="10\text{\,}\mathrm{s}" class="ltx_Math" display="inline" id="S1.p3.m11" intent=":literal"><semantics><mrow><mn>10</mn><mtext> </mtext><mi class="ltx_unit">s</mi></mrow><annotation encoding="application/x-tex">10\text{\,}\mathrm{s}</annotation></semantics></math>的光谱探测时间得到验证。该激光器的长期频率漂移低于<math alttext="4\text{\,}\mathrm{\SIUnitSymbolMicro Hz}\text{\,}{\mathrm{s}}^{-1}" class="ltx_Math" display="inline" id="S1.p3.m12" intent=":literal"><semantics><mrow><mn>4</mn><mtext> </mtext><mrow><mrow class="ltx_unit"><mi mathvariant="normal">µ</mi><mo lspace="0em" rspace="0em">​</mo><mi>Hz</mi></mrow><mtext> </mtext><msup><mi class="ltx_unit">s</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow></mrow><annotation encoding="application/x-tex">4\text{\,}\mathrm{\SIUnitSymbolMicro Hz}\text{\,}{\mathrm{s}}^{-1}</annotation></semantics></math>，与NIST氢脉泽的分数漂移率相当。我们预计，该激光器将大幅提升Boulder原子钟网络内光钟的稳定度，使平均速度提高最多10倍，并为其他多种实验提高测量精密度。</p>
+</div>
+</section>
+<section class="ltx_section" id="S2">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">II </span>系统设计</h2>
+<figure class="ltx_figure" id="S2.F1"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="354" id="S2.F1.g1" src="assets/fig1.png" style="aspect-ratio:452/354;" width="452"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 1：</span>硅谐振腔系统的示意图。真空腔与光学平台机械解耦，内含多层热屏蔽，并配有铒热沉与碳纤维/玻璃隔热支柱。</figcaption>
+</figure>
+<div class="ltx_para" id="S2.p1">
+<p class="ltx_p" id="S2.p1.1">新谐振腔的两项主要设计改动——10.2 m曲率半径反射镜和16 K运行——在振动与热管理方面带来了额外挑战。较大的曲率半径会提高谐振腔的振动灵敏度，因为任何平行度误差都会使光学模式偏离谐振腔轴线，破坏谐振腔的对称性<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib27" title="">2</a>, <a class="ltx_ref" href="#bib.bib28" title="">40</a>]</cite>。腔间隔件的平行度规格为<math alttext="&lt;10" class="ltx_Math" display="inline" id="S2.p1.m1" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>&lt;</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">&lt;10</annotation></semantics></math>角秒，对应<math alttext="&lt;500\text{\,}\mathrm{\SIUnitSymbolMicro m}" class="ltx_Math" display="inline" id="S2.p1.m2" intent=":literal"><semantics><mrow><mrow><mphantom></mphantom><mo>&lt;</mo><mn>500</mn></mrow><mtext> </mtext><mrow class="ltx_unit"><mi mathvariant="normal">µ</mi><mo lspace="0em" rspace="0em">​</mo><mi>m</mi></mrow></mrow><annotation encoding="application/x-tex">&lt;500\text{\,}\mathrm{\SIUnitSymbolMicro m}</annotation></semantics></math>的模式偏移。更低的工作温度更具挑战性，因为它需要基于氦的闭循环低温恒温器。
+闭循环低温恒温器的振动会严重限制低温谐振腔系统的性能<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib22" title="">4</a>]</cite>，即使对于尺寸更小、本应具有更低振动灵敏度的<math alttext="10\text{\,}\mathrm{cm}" class="ltx_Math" display="inline" id="S2.p1.m3" intent=":literal"><semantics><mrow><mn>10</mn><mtext> </mtext><mi class="ltx_unit">cm</mi></mrow><annotation encoding="application/x-tex">10\text{\,}\mathrm{cm}</annotation></semantics></math>或<math alttext="6\text{\,}\mathrm{cm}" class="ltx_Math" display="inline" id="S2.p1.m4" intent=":literal"><semantics><mrow><mn>6</mn><mtext> </mtext><mi class="ltx_unit">cm</mi></mrow><annotation encoding="application/x-tex">6\text{\,}\mathrm{cm}</annotation></semantics></math>谐振腔也是如此<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib5" title="">9</a>, <a class="ltx_ref" href="#bib.bib45" title="">52</a>]</cite>。使用定制的低振动低温恒温器，我们将谐振腔与冷头的振动隔离。</p>
+</div>
+<div class="ltx_para" id="S2.p2">
+<p class="ltx_p" id="S2.p2.1">图 1 给出了谐振腔系统的简化示意图，该系统命名为 Si7，突出了与环境的热隔离和振动隔离。为了在机械上将谐振腔与制冷机解耦，我们采用两级隔振系统。
+第一级隔离位于制冷机与光学平台之间。制冷机放置于光学平台附近的地面上，并使用独立的循环氦回路为平台上的装置提供冷却<span class="ltx_note ltx_role_footnote" id="footnote1"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup>
+<span class="ltx_tag ltx_tag_note">1</span>
+            
+            
+            
+          我们使用ColdEdge Stinger制冷机提供冷却后的氦。产品名称仅供参考，不表示任何认可。</span></span></span>。
+第二级隔离是主动隔振（AVI）平台，它直接支撑谐振腔并衰减光学平台的振动。AVI平台上的组件通过外部的真空波纹管和内部的软铜编织带与主光学平台机械解耦，从而将循环氦产生的振动限制在光学平台上。</p>
+</div>
+<div class="ltx_para" id="S2.p3">
+<p class="ltx_p" id="S2.p3.1">谐振腔通过三个直径为<math alttext="6\text{\,}\mathrm{mm}" class="ltx_Math" display="inline" id="S2.p3.m1" intent=":literal"><semantics><mrow><mn>6</mn><mtext> </mtext><mi class="ltx_unit">mm</mi></mrow><annotation encoding="application/x-tex">6\text{\,}\mathrm{mm}</annotation></semantics></math>的球形红宝石接触点在其中平面处支撑，这些接触点由具有极高球度和刚度的测量探针改制而成。它们安装在一个硅环上，该硅环与谐振腔的热膨胀相匹配。谐振腔在支撑点上旋转，以最小化垂直加速度灵敏度<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib11" title="">27</a>, <a class="ltx_ref" href="#bib.bib31" title="">36</a>]</cite>。我们测得在<math alttext="(x,y,z)" class="ltx_Math" display="inline" id="S2.p3.m3" intent=":literal"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>,</mo><mi>z</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x,y,z)</annotation></semantics></math>方向上的原位振动灵敏度为<math alttext="(1.2,0.6,1.2)\times 10^{-10}g^{-1}" class="ltx_Math" display="inline" id="S2.p3.m2" intent=":literal"><semantics><mrow><mrow><mrow><mo stretchy="false">(</mo><mn>1.2</mn><mo>,</mo><mn>0.6</mn><mo>,</mo><mn>1.2</mn><mo rspace="0.055em" stretchy="false">)</mo></mrow><mo rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>10</mn></mrow></msup></mrow><mo lspace="0em" rspace="0em">​</mo><msup><mi>g</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">(1.2,0.6,1.2)\times 10^{-10}g^{-1}</annotation></semantics></math>，其中<math alttext="z" class="ltx_Math" display="inline" id="S2.p3.m4" intent=":literal"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math>为垂直方向，<math alttext="x,y" class="ltx_Math" display="inline" id="S2.p3.m5" intent=":literal"><semantics><mrow><mi>x</mi><mo>,</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x,y</annotation></semantics></math>为水平方向。</p>
+</div>
+<div class="ltx_para" id="S2.p4">
+<p class="ltx_p" id="S2.p4.1">在<math alttext="16\text{\,}\mathrm{K}" class="ltx_Math" display="inline" id="S2.p4.m1" intent=":literal"><semantics><mrow><mn>16</mn><mtext> </mtext><mi class="ltx_unit">K</mi></mrow><annotation encoding="application/x-tex">16\text{\,}\mathrm{K}</annotation></semantics></math>热膨胀零点而非<math alttext="124\text{\,}\mathrm{K}" class="ltx_Math" display="inline" id="S2.p4.m2" intent=":literal"><semantics><mrow><mn>124</mn><mtext> </mtext><mi class="ltx_unit">K</mi></mrow><annotation encoding="application/x-tex">124\text{\,}\mathrm{K}</annotation></semantics></math>热膨胀零点运行，使谐振腔对温度涨落更不敏感，因为二阶温度灵敏度从<math alttext="1.7\text{\times}{10}^{-8}\text{\,}{\mathrm{K}}^{-2}" class="ltx_Math" display="inline" id="S2.p4.m3" intent=":literal"><semantics><mrow><mrow><mn>1.7</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>8</mn></mrow></msup></mrow><mtext> </mtext><msup><mi class="ltx_unit">K</mi><mrow><mo>−</mo><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1.7\text{\times}{10}^{-8}\text{\,}{\mathrm{K}}^{-2}</annotation></semantics></math>降低到<math alttext="6\text{\times}{10}^{-10}\text{\,}{\mathrm{K}}^{-2}" class="ltx_Math" display="inline" id="S2.p4.m4" intent=":literal"><semantics><mrow><mrow><mn>6</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>10</mn></mrow></msup></mrow><mtext> </mtext><msup><mi class="ltx_unit">K</mi><mrow><mo>−</mo><mn>2</mn></mrow></msup></mrow><annotation encoding="application/x-tex">6\text{\times}{10}^{-10}\text{\,}{\mathrm{K}}^{-2}</annotation></semantics></math> <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib11" title="">27</a>, <a class="ltx_ref" href="#bib.bib10" title="">49</a>]</cite>。然而，大多数材料的热容也大大降低，并且更难形成长的热时间常数来对温度涨落进行被动滤波。我们使用铒作为热质量，因为其具有相对较大的体积热容，为<math alttext="0.44\text{\,}\mathrm{J}\text{\,}{\mathrm{K}}^{-1}\text{\,}{\mathrm{cm}}^{-3}" class="ltx_Math" display="inline" id="S2.p4.m5" intent=":literal"><semantics><mrow><mn>0.44</mn><mtext> </mtext><mrow><mi class="ltx_unit">J</mi><mtext> </mtext><msup><mi class="ltx_unit">K</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mtext> </mtext><msup><mi class="ltx_unit">cm</mi><mrow><mo>−</mo><mn>3</mn></mrow></msup></mrow></mrow><annotation encoding="application/x-tex">0.44\text{\,}\mathrm{J}\text{\,}{\mathrm{K}}^{-1}\text{\,}{\mathrm{cm}}^{-3}</annotation></semantics></math>（在<math alttext="16\text{\,}\mathrm{K}" class="ltx_Math" display="inline" id="S2.p4.m6" intent=":literal"><semantics><mrow><mn>16</mn><mtext> </mtext><mi class="ltx_unit">K</mi></mrow><annotation encoding="application/x-tex">16\text{\,}\mathrm{K}</annotation></semantics></math>下），是不锈钢的6倍、铜的13倍<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib21" title="">39</a>]</cite>。</p>
+</div>
+<div class="ltx_para" id="S2.p5">
+<p class="ltx_p" id="S2.p5.1">碳纤维（玻璃）绝缘体因其在<math alttext="16\text{\,}\mathrm{K}" class="ltx_Math" display="inline" id="S2.p5.m1" intent=":literal"><semantics><mrow><mn>16</mn><mtext> </mtext><mi class="ltx_unit">K</mi></mrow><annotation encoding="application/x-tex">16\text{\,}\mathrm{K}</annotation></semantics></math>（室温）下具有高刚度与热导率之比而被使用，在不同温度级之间提供热隔离，同时不损害振动灵敏度。</p>
+</div>
+<div class="ltx_para" id="S2.p6">
+<p class="ltx_p" id="S2.p6.1">采用多层屏蔽结构以实现热稳定。
+外层辐射屏蔽由多层隔热毯覆盖，阻挡室温辐射，并被稳定在约<math alttext="75\text{\,}\mathrm{K}" class="ltx_Math" display="inline" id="S2.p6.m1" intent=":literal"><semantics><mrow><mn>75</mn><mtext> </mtext><mi class="ltx_unit">K</mi></mrow><annotation encoding="application/x-tex">75\text{\,}\mathrm{K}</annotation></semantics></math>。主动屏蔽被主动控制到接近<math alttext="16\text{\,}\mathrm{K}" class="ltx_Math" display="inline" id="S2.p6.m2" intent=":literal"><semantics><mrow><mn>16</mn><mtext> </mtext><mi class="ltx_unit">K</mi></mrow><annotation encoding="application/x-tex">16\text{\,}\mathrm{K}</annotation></semantics></math>，以调节谐振腔温度。内层被动屏蔽（带铒热质量块）提供一级温度滤波，次级铒质量块在被动屏蔽与谐振腔之间提供第二级被动滤波。从主动屏蔽到谐振腔的总热时间常数约为<math alttext="4\text{\,}\mathrm{d}" class="ltx_Math" display="inline" id="S2.p6.m3" intent=":literal"><semantics><mrow><mn>4</mn><mtext> </mtext><mi class="ltx_unit">d</mi></mrow><annotation encoding="application/x-tex">4\text{\,}\mathrm{d}</annotation></semantics></math>。主动温度控制将内层铒质量块上传感器的温度稳定到<math alttext="16.183\text{\,}\mathrm{K}" class="ltx_Math" display="inline" id="S2.p6.m4" intent=":literal"><semantics><mrow><mn>16.183</mn><mtext> </mtext><mi class="ltx_unit">K</mi></mrow><annotation encoding="application/x-tex">16.183\text{\,}\mathrm{K}</annotation></semantics></math>。温度被稳定在测得谐振腔温度灵敏度零交叉点的<math alttext="500\text{\,}\mathrm{\SIUnitSymbolMicro K}" class="ltx_Math" display="inline" id="S2.p6.m5" intent=":literal"><semantics><mrow><mn>500</mn><mtext> </mtext><mrow class="ltx_unit"><mi mathvariant="normal">µ</mi><mo lspace="0em" rspace="0em">​</mo><mi>K</mi></mrow></mrow><annotation encoding="application/x-tex">500\text{\,}\mathrm{\SIUnitSymbolMicro K}</annotation></semantics></math>范围内，从而使残余一阶温度灵敏度低于<math alttext="3\text{\times}{10}^{-13}\text{\,}{\mathrm{K}}^{-1}" class="ltx_Math" display="inline" id="S2.p6.m6" intent=":literal"><semantics><mrow><mrow><mn>3</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>13</mn></mrow></msup></mrow><mtext> </mtext><msup><mi class="ltx_unit">K</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">3\text{\times}{10}^{-13}\text{\,}{\mathrm{K}}^{-1}</annotation></semantics></math>。一个闭环外传感器确认铒质量块始终处于其设定点的<math alttext="100\text{\,}\mathrm{\SIUnitSymbolMicro K}" class="ltx_Math" display="inline" id="S2.p6.m7" intent=":literal"><semantics><mrow><mn>100</mn><mtext> </mtext><mrow class="ltx_unit"><mi mathvariant="normal">µ</mi><mo lspace="0em" rspace="0em">​</mo><mi>K</mi></mrow></mrow><annotation encoding="application/x-tex">100\text{\,}\mathrm{\SIUnitSymbolMicro K}</annotation></semantics></math>以内，对应的频率波动仅为<math alttext="3\text{\times}{10}^{-17}" class="ltx_Math" display="inline" id="S2.p6.m8" intent=":literal"><semantics><mrow><mn>3</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>17</mn></mrow></msup></mrow><annotation encoding="application/x-tex">3\text{\times}{10}^{-17}</annotation></semantics></math>。</p>
+</div>
+<div class="ltx_para" id="S2.p7">
+<p class="ltx_p" id="S2.p7.1">锁定误差，即激光频率与谐振腔谐振频率之间的偏差，来自伺服环路的残余噪声和残余幅度调制（RAM）。这两种误差均与谐振腔线宽成正比，因此对谐振腔反射镜逐一筛选，以获得最大精细度（<math alttext="860\,000" class="ltx_Math" display="inline" id="S2.p7.m1" intent=":literal"><semantics><mn>860 000</mn><annotation encoding="application/x-tex">860\,000</annotation></semantics></math>）和最小线宽（<math alttext="820\text{\,}\mathrm{Hz}" class="ltx_Math" display="inline" id="S2.p7.m2" intent=":literal"><semantics><mrow><mn>820</mn><mtext> </mtext><mi class="ltx_unit">Hz</mi></mrow><annotation encoding="application/x-tex">820\text{\,}\mathrm{Hz}</annotation></semantics></math>）。激光通过 Pound-Drever-Hall（PDH）技术锁定到谐振腔<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib34" title="">15</a>]</cite>。我们通过用三个音调驱动声光调制器来产生 PDH 调制边带，分别用于载波和两个边带<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib9" title="">24</a>]</cite>。这允许通过调节一个边带的相位和幅度，对 RAM 的两个正交分量进行主动反馈。它还允许抑制载波分量，以最小化腔内功率，因为腔内功率会直接加热谐振腔。尽管入射到探测器上的总功率仅<math alttext="2\text{\,}\mathrm{\SIUnitSymbolMicro W}" class="ltx_Math" display="inline" id="S2.p7.m3" intent=":literal"><semantics><mrow><mn>2</mn><mtext> </mtext><mrow class="ltx_unit"><mi mathvariant="normal">µ</mi><mo lspace="0em" rspace="0em">​</mo><mi>W</mi></mrow></mrow><annotation encoding="application/x-tex">2\text{\,}\mathrm{\SIUnitSymbolMicro W}</annotation></semantics></math>，仍使用低噪声谐振光电探测器以保持散粒噪声受限。</p>
+</div>
+</section>
+<section class="ltx_section" id="S3">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">III </span>频率稳定度</h2>
+<figure class="ltx_figure" id="S3.F2"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="163" id="S3.F2.g1" src="assets/fig2.png" style="aspect-ratio:476/163;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 2：</span>a) 测量谐振腔稳定度的实验装置。光学拍频信号由两个参考谐振腔形成，用于短期稳定度测量；Sr 钟通过频率梳测量长期稳定度。b) Si7 在 16 K 和 6 K 下的分数频率稳定度，已去除线性漂移。16 K 稳定度同时针对 Sr 原子以及 Si3 和 Si6 谐振腔测量。两个温度下的振动噪声与热噪声之和用实线表示。</figcaption>
+</figure>
+<div class="ltx_para" id="S3.p1">
+<p class="ltx_p" id="S3.p1.1">为了表征该激光器的创纪录性能，我们使用另外两个最先进的低温硅谐振腔（Si3 和 Si6）以及一台锶光晶格钟，如图 2a) 所示，并在附录 <a class="ltx_ref" href="#A1" title="Appendix A Three-cornered hat analysis ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">A</span></a> 中讨论。三个谐振腔稳频激光器之间的光学外差拍频信号在单个光电探测器上获得，用于三角帽分析 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib35" title="">19</a>]</cite>。锶晶格钟 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib20" title="">1</a>]</cite> 还通过频率梳测量谐振腔频率，以确认长期性能。图 2b) 给出了两种测量结果，以去除线性漂移后的修正阿伦偏差（MDEV）表示。误差棒为 68% 置信区间，采用 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib52" title="">16</a>]</cite> 的方法计算，并假设为闪变频率噪声谱。</p>
+</div>
+<div class="ltx_para" id="S3.p2">
+<p class="ltx_p" id="S3.p2.1">在 <math alttext="16\text{\,}\mathrm{K}" class="ltx_Math" display="inline" id="S3.p2.m1" intent=":literal"><semantics><mrow><mn>16</mn><mtext> </mtext><mi class="ltx_unit">K</mi></mrow><annotation encoding="application/x-tex">16\text{\,}\mathrm{K}</annotation></semantics></math> 处，MDEV 在 2 s 至 50 s 内于 <math alttext="9\text{\times}{10}^{-18}" class="ltx_Math" display="inline" id="S3.p2.m2" intent=":literal"><semantics><mrow><mn>9</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><annotation encoding="application/x-tex">9\text{\times}{10}^{-18}</annotation></semantics></math> 附近几乎平坦，这与布朗热噪声所预期的闪变频率噪声一致。这一热噪声水平意味着光学镀膜的机械损耗为 <math alttext="3.3\text{\times}{10}^{-4}" class="ltx_Math" display="inline" id="S3.p2.m3" intent=":literal"><semantics><mrow><mn>3.3</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>4</mn></mrow></msup></mrow><annotation encoding="application/x-tex">3.3\text{\times}{10}^{-4}</annotation></semantics></math>，与先前在 16 K 测得的值一致 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib49" title="">44</a>]</cite>。当温度降至 <math alttext="6\text{\,}\mathrm{K}" class="ltx_Math" display="inline" id="S3.p2.m4" intent=":literal"><semantics><mrow><mn>6</mn><mtext> </mtext><mi class="ltx_unit">K</mi></mrow><annotation encoding="application/x-tex">6\text{\,}\mathrm{K}</annotation></semantics></math> 时，短期性能在 2 s 至 50 s 也提升至 <math alttext="7\text{\times}{10}^{-18}\text{\,}\mathrm{a}" class="ltx_Math" display="inline" id="S3.p2.m5" intent=":literal"><semantics><mrow><mrow><mn>7</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><mtext> </mtext><mi>a</mi></mrow><annotation encoding="application/x-tex">7\text{\times}{10}^{-18}\text{\,}\mathrm{a}</annotation></semantics></math>。该改善略小于 <math alttext="\sqrt{T}" class="ltx_Math" display="inline" id="S3.p2.m6" intent=":literal"><semantics><msqrt><mi>T</mi></msqrt><annotation encoding="application/x-tex">\sqrt{T}</annotation></semantics></math> 相对于温度 <math alttext="T" class="ltx_Math" display="inline" id="S3.p2.m7" intent=":literal"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math> 的预期标度关系 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib17" title="">41</a>]</cite>，但与先前报道的镀膜在 4 K 下的机械损耗一致 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib49" title="">44</a>]</cite>。噪声随温度降低而减小以及平坦的噪声基底，提供了有力证据，表明该激光器在 6 K 和 16 K 下均处于热噪声极限。</p>
+</div>
+<div class="ltx_para" id="S3.p3">
+<p class="ltx_p" id="S3.p3.1">为了说明完整的激光器噪声谱，建立了如图 3 所示的噪声模型。系统设计使某些噪声源完全可忽略。主动温度控制与被动滤波相结合，确保在 16 K 运行下所有时间尺度上的温度波动均可忽略。锁定噪声（环路外 RAM 与 PDH 环路内噪声之和）在 <math alttext="0.1\text{\,}\mathrm{Hz}" class="ltx_Math" display="inline" id="S3.p3.m1" intent=":literal"><semantics><mrow><mn>0.1</mn><mtext> </mtext><mi class="ltx_unit">Hz</mi></mrow><annotation encoding="application/x-tex">0.1\text{\,}\mathrm{Hz}</annotation></semantics></math> 至 <math alttext="10\text{\,}\mathrm{kHz}" class="ltx_Math" display="inline" id="S3.p3.m2" intent=":literal"><semantics><mrow><mn>10</mn><mtext> </mtext><mi class="ltx_unit">kHz</mi></mrow><annotation encoding="application/x-tex">10\text{\,}\mathrm{kHz}</annotation></semantics></math> 范围内处于散粒噪声极限，并且同样可忽略。</p>
+</div>
+<div class="ltx_para" id="S3.p4">
+<p class="ltx_p" id="S3.p4.1">在 <math alttext="1\text{\,}\mathrm{Hz}" class="ltx_Math" display="inline" id="S3.p4.m1" intent=":literal"><semantics><mrow><mn>1</mn><mtext> </mtext><mi class="ltx_unit">Hz</mi></mrow><annotation encoding="application/x-tex">1\text{\,}\mathrm{Hz}</annotation></semantics></math> 与 <math alttext="100\text{\,}\mathrm{Hz}" class="ltx_Math" display="inline" id="S3.p4.m2" intent=":literal"><semantics><mrow><mn>100</mn><mtext> </mtext><mi class="ltx_unit">Hz</mi></mrow><annotation encoding="application/x-tex">100\text{\,}\mathrm{Hz}</annotation></semantics></math> 之间，激光器噪声主要由振动主导，而高达 <math alttext="1\text{\,}\mathrm{kHz}" class="ltx_Math" display="inline" id="S3.p4.m3" intent=":literal"><semantics><mrow><mn>1</mn><mtext> </mtext><mi class="ltx_unit">kHz</mi></mrow><annotation encoding="application/x-tex">1\text{\,}\mathrm{kHz}</annotation></semantics></math> 的噪声也很可能源于振动。在低于 <math alttext="1\text{\,}\mathrm{Hz}" class="ltx_Math" display="inline" id="S3.p4.m4" intent=":literal"><semantics><mrow><mn>1</mn><mtext> </mtext><mi class="ltx_unit">Hz</mi></mrow><annotation encoding="application/x-tex">1\text{\,}\mathrm{Hz}</annotation></semantics></math> 的频率下，我们利用来自倾斜仪的前馈来补偿 AVI 平台引入的缓慢倾斜，如先前报道 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">34</a>, <a class="ltx_ref" href="#bib.bib2" title="">42</a>, <a class="ltx_ref" href="#bib.bib22" title="">4</a>]</cite>。所有结果均包含前馈，更多细节见附录 <a class="ltx_ref" href="#A2" title="Appendix B Feedforward ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">B</span></a>。</p>
+</div>
+<figure class="ltx_figure" id="S3.F3"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="164" id="S3.F3.g1" src="assets/fig3.png" style="aspect-ratio:476/164;" width="476"/>
+<figcaption class="ltx_caption ltx_centering">图 3：<span class="ltx_tag ltx_tag_figure">在 16 K 下谐振腔性能的估计噪声贡献，a）为去除漂移后的修正阿伦偏差（MDEV），b）为功率谱密度。激光器噪声谱是通过与两个参考谐振腔作交叉谱测量得到的。假设热噪声密度为<math alttext="$8\text{\times}{10}^{-35}$/\mathrm{Hz}" class="ltx_Math" display="inline" id="S3.F3.m11" intent=":literal"><semantics><mrow><mrow><mn>8</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>35</mn></mrow></msup></mrow><mo>/</mo><mi>Hz</mi></mrow><annotation encoding="application/x-tex">$8\text{\times}{10}^{-35}$/\mathrm{Hz}</annotation></semantics></math>（对应<math alttext="1\text{\,}\mathrm{Hz}" class="ltx_Math" display="inline" id="S3.F3.m12" intent=":literal"><semantics><mrow><mn>1</mn><mtext> </mtext><mi class="ltx_unit">Hz</mi></mrow><annotation encoding="application/x-tex">1\text{\,}\mathrm{Hz}</annotation></semantics></math>）（MDEV 为<math alttext="8.6\text{\times}{10}^{-18}" class="ltx_Math" display="inline" id="S3.F3.m13" intent=":literal"><semantics><mrow><mn>8.6</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><annotation encoding="application/x-tex">8.6\text{\times}{10}^{-18}</annotation></semantics></math>）。PDH 是 Pound-Drever-Hall 伺服环路的环内噪声。RAM 是对残差幅度调制的环外测量，包含电子噪声和散粒噪声。检测噪声是拍频光电探测器呈现的白相位噪声。插图显示了激光器的积分相位噪声，其达到<math alttext="1\text{\,}\mathrm{rad}" class="ltx_Math" display="inline" id="S3.F3.m14" intent=":literal"><semantics><mrow><mn>1</mn><mtext> </mtext><mi class="ltx_unit">rad</mi></mrow><annotation encoding="application/x-tex">1\text{\,}\mathrm{rad}</annotation></semantics></math>（积分至<math alttext="1.47\text{\,}\mathrm{mHz}" class="ltx_Math" display="inline" id="S3.F3.m15" intent=":literal"><semantics><mrow><mn>1.47</mn><mtext> </mtext><mi class="ltx_unit">mHz</mi></mrow><annotation encoding="application/x-tex">1.47\text{\,}\mathrm{mHz}</annotation></semantics></math>）。相应的激光器线宽为<math alttext="2.9\text{\,}\mathrm{mHz}" class="ltx_Math" display="inline" id="S3.F3.m16" intent=":literal"><semantics><mrow><mn>2.9</mn><mtext> </mtext><mi class="ltx_unit">mHz</mi></mrow><annotation encoding="application/x-tex">2.9\text{\,}\mathrm{mHz}</annotation></semantics></math>，类似计算得到<math alttext="2.5\text{\,}\mathrm{mHz}" class="ltx_Math" display="inline" id="S3.F3.m17" intent=":literal"><semantics><mrow><mn>2.5</mn><mtext> </mtext><mi class="ltx_unit">mHz</mi></mrow><annotation encoding="application/x-tex">2.5\text{\,}\mathrm{mHz}</annotation></semantics></math>（在<math alttext="6\text{\,}\mathrm{K}" class="ltx_Math" display="inline" id="S3.F3.m18" intent=":literal"><semantics><mrow><mn>6</mn><mtext> </mtext><mi class="ltx_unit">K</mi></mrow><annotation encoding="application/x-tex">6\text{\,}\mathrm{K}</annotation></semantics></math>处）。对于右侧坐标轴，假设谐振腔线宽为<math alttext="820\text{\,}\mathrm{Hz}" class="ltx_Math" display="inline" id="S3.F3.m19" intent=":literal"><semantics><mrow><mn>820</mn><mtext> </mtext><mi class="ltx_unit">Hz</mi></mrow><annotation encoding="application/x-tex">820\text{\,}\mathrm{Hz}</annotation></semantics></math>、载波频率为<math alttext="194\text{\,}\mathrm{THz}" class="ltx_Math" display="inline" id="S3.F3.m20" intent=":literal"><semantics><mrow><mn>194</mn><mtext> </mtext><mi class="ltx_unit">THz</mi></mrow><annotation encoding="application/x-tex">194\text{\,}\mathrm{THz}</annotation></semantics></math>。</span></figcaption>
+</figure>
+<div class="ltx_para" id="S3.p5">
+<p class="ltx_p" id="S3.p5.1">平均几秒后，噪声模型除热噪声外没有显著贡献。然而，在超过<math alttext="100\text{\,}\mathrm{s}" class="ltx_Math" display="inline" id="S3.p5.m1" intent=":literal"><semantics><mrow><mn>100</mn><mtext> </mtext><mi class="ltx_unit">s</mi></mrow><annotation encoding="application/x-tex">100\text{\,}\mathrm{s}</annotation></semantics></math>的时间上，我们观察到额外噪声。
+这可能源于光学谐振腔内的真空压力波动，或源于腔内光功率变化导致谐振腔局部加热。由于所有传感器均在物理上远离谐振腔，这两个量均无法准确测量。然而，长平均时间下噪声增加对激光器的许多性能指标仅产生很小影响。在驱动原子钟时，周期时间将远小于<math alttext="100\text{\,}\mathrm{s}" class="ltx_Math" display="inline" id="S3.p5.m2" intent=":literal"><semantics><mrow><mn>100</mn><mtext> </mtext><mi class="ltx_unit">s</mi></mrow><annotation encoding="application/x-tex">100\text{\,}\mathrm{s}</annotation></semantics></math>，从而使长期噪声的影响不那么重要。由积分相位噪声计算得到的激光器线宽为<math alttext="2.9\text{\,}\mathrm{mHz}" class="ltx_Math" display="inline" id="S3.p5.m3" intent=":literal"><semantics><mrow><mn>2.9</mn><mtext> </mtext><mi class="ltx_unit">mHz</mi></mrow><annotation encoding="application/x-tex">2.9\text{\,}\mathrm{mHz}</annotation></semantics></math>（图 3b 的插图）<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib48" title="">21</a>]</cite>，仅略高于热噪声限制的线宽<math alttext="2.6\text{\,}\mathrm{mHz}" class="ltx_Math" display="inline" id="S3.p5.m4" intent=":literal"><semantics><mrow><mn>2.6</mn><mtext> </mtext><mi class="ltx_unit">mHz</mi></mrow><annotation encoding="application/x-tex">2.6\text{\,}\mathrm{mHz}</annotation></semantics></math>（在<math alttext="16\text{\,}\mathrm{K}" class="ltx_Math" display="inline" id="S3.p5.m5" intent=":literal"><semantics><mrow><mn>16</mn><mtext> </mtext><mi class="ltx_unit">K</mi></mrow><annotation encoding="application/x-tex">16\text{\,}\mathrm{K}</annotation></semantics></math>处）。</p>
+</div>
+</section>
+<section class="ltx_section" id="S4">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">IV </span>原子钟测量</h2>
+<div class="ltx_para" id="S4.p1">
+<p class="ltx_p" id="S4.p1.1">用于测量激光器噪声的 Sr 晶格钟本身也因使用该激光器驱动原子跃迁而得到增强。窄线宽使 Sr 晶格钟能够在超过<math alttext="10\text{\,}\mathrm{s}" class="ltx_Math" display="inline" id="S4.p1.m1" intent=":literal"><semantics><mrow><mn>10</mn><mtext> </mtext><mi class="ltx_unit">s</mi></mrow><annotation encoding="application/x-tex">10\text{\,}\mathrm{s}</annotation></semantics></math>的极长询问时间下运行。图 4a）显示了暗时间从<math alttext="5\text{\,}\mathrm{s}" class="ltx_Math" display="inline" id="S4.p1.m2" intent=":literal"><semantics><mrow><mn>5</mn><mtext> </mtext><mi class="ltx_unit">s</mi></mrow><annotation encoding="application/x-tex">5\text{\,}\mathrm{s}</annotation></semantics></math>到<math alttext="12\text{\,}\mathrm{s}" class="ltx_Math" display="inline" id="S4.p1.m3" intent=":literal"><semantics><mrow><mn>12</mn><mtext> </mtext><mi class="ltx_unit">s</mi></mrow><annotation encoding="application/x-tex">12\text{\,}\mathrm{s}</annotation></semantics></math>的 Ramsey 条纹，其中谐振腔工作在<math alttext="16\text{\,}\mathrm{K}" class="ltx_Math" display="inline" id="S4.p1.m4" intent=":literal"><semantics><mrow><mn>16</mn><mtext> </mtext><mi class="ltx_unit">K</mi></mrow><annotation encoding="application/x-tex">16\text{\,}\mathrm{K}</annotation></semantics></math>。即使在<math alttext="12\text{\,}\mathrm{s}" class="ltx_Math" display="inline" id="S4.p1.m5" intent=":literal"><semantics><mrow><mn>12</mn><mtext> </mtext><mi class="ltx_unit">s</mi></mrow><annotation encoding="application/x-tex">12\text{\,}\mathrm{s}</annotation></semantics></math>下，条纹对比度仍为 0.75。图 4b）显示了采用<math alttext="12.4\text{\,}\mathrm{s}" class="ltx_Math" display="inline" id="S4.p1.m6" intent=":literal"><semantics><mrow><mn>12.4</mn><mtext> </mtext><mi class="ltx_unit">s</mi></mrow><annotation encoding="application/x-tex">12.4\text{\,}\mathrm{s}</annotation></semantics></math> Rabi 脉冲的 Rabi 谱线扫描，其傅里叶极限线宽为<math alttext="64\text{\,}\mathrm{mHz}" class="ltx_Math" display="inline" id="S4.p1.m7" intent=":literal"><semantics><mrow><mn>64</mn><mtext> </mtext><mi class="ltx_unit">mHz</mi></mrow><annotation encoding="application/x-tex">64\text{\,}\mathrm{mHz}</annotation></semantics></math>。这种询问正朝着<math alttext="170\text{\,}\mathrm{s}" class="ltx_Math" display="inline" id="S4.p1.m8" intent=":literal"><semantics><mrow><mn>170</mn><mtext> </mtext><mi class="ltx_unit">s</mi></mrow><annotation encoding="application/x-tex">170\text{\,}\mathrm{s}</annotation></semantics></math>寿命推进，即<sup class="ltx_sup" id="S4.p1.1.1"><span class="ltx_text ltx_font_italic" id="S4.p1.1.1.1">87</span></sup>Sr 态<cite class="ltx_cite ltx_citemacro_cite">的寿命[<a class="ltx_ref" href="#bib.bib50" title="">13</a>, <a class="ltx_ref" href="#bib.bib51" title="">28</a>]</cite>。</p>
+</div>
+<div class="ltx_para" id="S4.p2">
+<p class="ltx_p" id="S4.p2.1">由于 Sr 钟是绝对频率参考，它可以测量超稳激光器的长期漂移。图 4c）显示了在 14 d 和 7 d 两个时段内的谐振腔频率。这两次测量之间有 6 d 的中断，其间对往返谐振腔光路的光纤噪声消除系统进行了升级。机械扰动和谐振腔失锁导致了<math alttext="\approx 45\text{\,}\mathrm{Hz}" class="ltx_Math" display="inline" id="S4.p2.m1" intent=":literal"><semantics><mrow><mrow><mphantom></mphantom><mo>≈</mo><mn>45</mn></mrow><mtext> </mtext><mi class="ltx_unit">Hz</mi></mrow><annotation encoding="application/x-tex">\approx 45\text{\,}\mathrm{Hz}</annotation></semantics></math>的频率变化，为作图已将其抑制。两个时段之间的谐振腔稳定度一致。每两个月还需要为<math alttext="\approx 2\text{\,}\mathrm{d}" class="ltx_Math" display="inline" id="S4.p2.m2" intent=":literal"><semantics><mrow><mrow><mphantom></mphantom><mo>≈</mo><mn>2</mn></mrow><mtext> </mtext><mi class="ltx_unit">d</mi></mrow><annotation encoding="application/x-tex">\approx 2\text{\,}\mathrm{d}</annotation></semantics></math>中断一次，以清除循环氦气中积累的污染物，迟滞在<math alttext="10\text{\,}\mathrm{Hz}" class="ltx_Math" display="inline" id="S4.p2.m3" intent=":literal"><semantics><mrow><mn>10</mn><mtext> </mtext><mi class="ltx_unit">Hz</mi></mrow><annotation encoding="application/x-tex">10\text{\,}\mathrm{Hz}</annotation></semantics></math>水平。</p>
+</div>
+<div class="ltx_para" id="S4.p3">
+<p class="ltx_p" id="S4.p3.1">采用两次线性拟合来估计谐振腔漂移速率：介于<math alttext="-2.1\text{\,}\mathrm{\SIUnitSymbolMicro Hz}\text{\,}{\mathrm{s}}^{-1}" class="ltx_Math" display="inline" id="S4.p3.m1" intent=":literal"><semantics><mrow><mrow><mo>−</mo><mn>2.1</mn></mrow><mtext> </mtext><mrow><mrow class="ltx_unit"><mi mathvariant="normal">µ</mi><mo lspace="0em" rspace="0em">​</mo><mi>Hz</mi></mrow><mtext> </mtext><msup><mi class="ltx_unit">s</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow></mrow><annotation encoding="application/x-tex">-2.1\text{\,}\mathrm{\SIUnitSymbolMicro Hz}\text{\,}{\mathrm{s}}^{-1}</annotation></semantics></math>（以分数单位表示为<math alttext="-1.1\text{\times}{10}^{-20}\text{\,}{\mathrm{s}}^{-1}" class="ltx_Math" display="inline" id="S4.p3.m2" intent=":literal"><semantics><mrow><mrow><mrow><mo>−</mo><mn>1.1</mn></mrow><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>20</mn></mrow></msup></mrow><mtext> </mtext><msup><mi class="ltx_unit">s</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">-1.1\text{\times}{10}^{-20}\text{\,}{\mathrm{s}}^{-1}</annotation></semantics></math>）与<math alttext="3.7\text{\,}\mathrm{\SIUnitSymbolMicro Hz}\text{\,}{\mathrm{s}}^{-1}" class="ltx_Math" display="inline" id="S4.p3.m3" intent=":literal"><semantics><mrow><mn>3.7</mn><mtext> </mtext><mrow><mrow class="ltx_unit"><mi mathvariant="normal">µ</mi><mo lspace="0em" rspace="0em">​</mo><mi>Hz</mi></mrow><mtext> </mtext><msup><mi class="ltx_unit">s</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow></mrow><annotation encoding="application/x-tex">3.7\text{\,}\mathrm{\SIUnitSymbolMicro Hz}\text{\,}{\mathrm{s}}^{-1}</annotation></semantics></math>（<math alttext="1.9\text{\times}{10}^{-20}\text{\,}{\mathrm{s}}^{-1}" class="ltx_Math" display="inline" id="S4.p3.m4" intent=":literal"><semantics><mrow><mrow><mn>1.9</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>20</mn></mrow></msup></mrow><mtext> </mtext><msup><mi class="ltx_unit">s</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1.9\text{\times}{10}^{-20}\text{\,}{\mathrm{s}}^{-1}</annotation></semantics></math>）之间，与氢脉泽的分数漂移速率相当。该漂移比在工作于124 K的类似硅谐振腔中测得的值小一个数量级，而与另一台工作于16 K的硅谐振腔更为接近，表明漂移机制受温度影响<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib8" title="">30</a>]</cite>。这一低漂移速率还是在降温后仅9个月获得的，而<math alttext="124\text{\,}\mathrm{K}" class="ltx_Math" display="inline" id="S4.p3.m5" intent=":literal"><semantics><mrow><mn>124</mn><mtext> </mtext><mi class="ltx_unit">K</mi></mrow><annotation encoding="application/x-tex">124\text{\,}\mathrm{K}</annotation></semantics></math>硅谐振腔则历时十年才稳定到当前的漂移速率。</p>
+</div>
+</section>
+<section class="ltx_section" id="S5">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">V </span>结论</h2>
+<div class="ltx_para" id="S5.p1">
+<p class="ltx_p" id="S5.p1.1">我们提出了一台频率稳定度创下新纪录的激光器，达到<math alttext="7\text{\times}{10}^{-18}" class="ltx_Math" display="inline" id="S5.p1.m1" intent=":literal"><semantics><mrow><mn>7</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><annotation encoding="application/x-tex">7\text{\times}{10}^{-18}</annotation></semantics></math>。通过选择谐振腔温度，可在优化的短期（6 K）或长期（16 K）性能之间取舍。进一步降低激光器噪声的前景十分明确。对现有系统的改进有望扩展受热噪声限制的区间。将谐振腔反射镜替换为晶体镀膜反射镜，可将热噪声进一步降低至约<math alttext="2.4\text{\times}{10}^{-18}" class="ltx_Math" display="inline" id="S5.p1.m2" intent=":literal"><semantics><mrow><mn>2.4</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2.4\text{\times}{10}^{-18}</annotation></semantics></math>（对应<math alttext="16\text{\,}\mathrm{K}" class="ltx_Math" display="inline" id="S5.p1.m3" intent=":literal"><semantics><mrow><mn>16</mn><mtext> </mtext><mi class="ltx_unit">K</mi></mrow><annotation encoding="application/x-tex">16\text{\,}\mathrm{K}</annotation></semantics></math>）或约<math alttext="1.5\text{\times}{10}^{-18}" class="ltx_Math" display="inline" id="S5.p1.m4" intent=":literal"><semantics><mrow><mn>1.5</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1.5\text{\times}{10}^{-18}</annotation></semantics></math>（对应<math alttext="6\text{\,}\mathrm{K}" class="ltx_Math" display="inline" id="S5.p1.m5" intent=":literal"><semantics><mrow><mn>6</mn><mtext> </mtext><mi class="ltx_unit">K</mi></mrow><annotation encoding="application/x-tex">6\text{\,}\mathrm{K}</annotation></semantics></math>）。未来的系统采用更低温度、更长腔长或更大的光束束腰，可能实现<math alttext="1\text{\times}{10}^{-18}" class="ltx_Math" display="inline" id="S5.p1.m6" intent=":literal"><semantics><mrow><mn>1</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1\text{\times}{10}^{-18}</annotation></semantics></math>甚至更低的性能。</p>
+</div>
+<div class="ltx_para" id="S5.p2">
+<p class="ltx_p" id="S5.p2.1">该激光器在迄今最低的不稳定度水平上达到了热噪声极限，从而与设计指标高度吻合，彰显了低温硅谐振腔技术的成熟度，并为未来更具雄心的方案<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib15" title="">50</a>]</cite>增强了信心。这台新激光器将取代原有的JILA系统，使Boulder光钟网络中连接的所有光钟性能获得实质性提升，并大幅加快未来的钟间比对与评估。</p>
+</div>
+</section>
+<section class="ltx_section" id="S6">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">VI </span>致谢</h2>
+<div class="ltx_para" id="S6.p1">
+<p class="ltx_p" id="S6.p1.1">我们感谢JILA Sr钟团队全体成员的贡献与讨论。感谢Eric Oelker和Dhruv Kedar在Silicon-7谐振腔系统设计初期所做的贡献。本工作由Sloan and Simons Foundations、V. Bush Fellowship、NSF Quantum Leap Challenge Institute Award 2552714以及NIST提供资助。PTB的作者感谢Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) 在Germany's Excellence Strategy–EX-2123 QuantumFrontiers（Project No. 390837967）框架下的支持，以及Max Planck-RIKEN-PTB Center for Time, Constants and Fundamental Symmetries的支持。</p>
+</div>
+<figure class="ltx_figure" id="S6.F4"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="289" id="S6.F4.g1" src="assets/fig4.png" style="aspect-ratio:476/289;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 4：</span>a) 在暗时间分别为 5、10 和 12 s 时测得的 Ramsey 条纹。黑点表示测得的激发分数；蓝线表示对 Ramsey 线型的拟合。b) 探测时间为 12.4 s 的 Rabi 扫描。实线为具有傅里叶极限 <math alttext="64\text{\,}\mathrm{mHz}" class="ltx_Math" display="inline" id="S6.F4.m2" intent=":literal"><semantics><mrow><mn>64</mn><mtext> </mtext><mi class="ltx_unit">mHz</mi></mrow><annotation encoding="application/x-tex">64\text{\,}\mathrm{mHz}</annotation></semantics></math> 线宽的理论线型，并沿纵向缩放以匹配数据幅度。c) 约 30 天内的腔频记录。黑点表示由 Sr 钟测得的腔稳激光频率。蓝线表示对腔漂移的线性拟合。绿色和橙色阴影区域分别表示 124 K 硅腔和 NIST 氢脉泽 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib47" title="">43</a>]</cite> 的代表性相对频率漂移率。一次计划内的系统更新造成了 5.7 天的中断。对中断后的数据施加了约 45 Hz 的频率偏移（见正文）。</figcaption>
+</figure>
+</section>
+<section class="ltx_appendix" id="A1">
+<h2 class="ltx_title ltx_title_appendix"><span class="ltx_tag ltx_tag_appendix">附录 A </span>三角帽分析</h2>
+<div class="ltx_para" id="A1.p1">
+<p class="ltx_p" id="A1.p1.1">图 5 展示了 JILA 全部三台硅腔稳激光器的性能：本工作提出的新系统（我们将其命名为 Si7），以及用于测量它的两个参考腔，分别称为 Si3 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib4" title="">35</a>]</cite> 和 Si6 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib8" title="">30</a>]</cite>。拥有如此高性能的参考，使得测量如此低噪声的激光器容易得多。由于未抵消的光纤噪声，Si3 和 Si6 在平均时间低于 10 s 时测得的不稳定度高于此前报道；该光纤噪声是在数据采集之后被发现的。光学拍频信号在自由空间中由经过 Si7 传输的光形成，因此任何光纤噪声都归因于参考腔而非 Si7。</p>
+</div>
+<figure class="ltx_figure" id="A1.F5"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="311" id="A1.F5.g1" src="assets/fig5.png" style="aspect-ratio:476/311;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 5：</span>由三角帽估计得到的 Si6（菱形）<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib8" title="">30</a>]</cite>、Si3（三角形）<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib4" title="">35</a>]</cite> 以及 16 K 和 6 K 的 Si7（本工作，方形）的修正阿伦偏差，如正文图 2a 所示。已去除每个数据集中的线性频率漂移。</figcaption>
+</figure>
+</section>
+<section class="ltx_appendix" id="A2">
+<h2 class="ltx_title ltx_title_appendix"><span class="ltx_tag ltx_tag_appendix">附录 B </span>前馈</h2>
+<div class="ltx_para" id="A2.p1">
+<p class="ltx_p" id="A2.p1.1">主动隔振平台会在数秒的时间尺度上引入倾斜噪声。前馈用于抑制这一效应，使数秒处的总噪声降低约一半，如图 6 所示。倾斜输出分别乘以 <math alttext="x" class="ltx_Math" display="inline" id="A2.p1.m1" intent=":literal"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> 和 <math alttext="y" class="ltx_Math" display="inline" id="A2.p1.m2" intent=":literal"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math> 方向上的加速度灵敏度，并通过 AOM 作为实时频率校正施加到光学拍频信号上。
+由于倾斜仪的带宽有限，在 <math alttext="0.5\text{\,}\mathrm{s}" class="ltx_Math" display="inline" id="A2.p1.m3" intent=":literal"><semantics><mrow><mn>0.5</mn><mtext> </mtext><mi class="ltx_unit">s</mi></mrow><annotation encoding="application/x-tex">0.5\text{\,}\mathrm{s}</annotation></semantics></math> 以下未观察到改善。未来，可使用辅助加速度计将带宽扩展到更高频率，并进一步降低噪声。</p>
+</div>
+<figure class="ltx_figure" id="A2.F6"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="311" id="A2.F6.g1" src="assets/fig6.png" style="aspect-ratio:476/311;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 6：</span>在主动隔振平台上的倾斜仪启用和不启用前馈时的激光器性能。数秒处的噪声显著降低。</figcaption>
+</figure>
+</section>
+<section class="ltx_bibliography" id="bib">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+<ul class="ltx_biblist" id="bib.L1">
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib20"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Aeppli, K. Kim, W. Warfield, M. S. Safronova, and J. Ye</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Clock with <math alttext="8\times 10^{-19}" class="ltx_Math" display="inline" id="bib.bib20.m1" intent=":literal"><semantics><mrow><mn>8</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>19</mn></mrow></msup></mrow><annotation encoding="application/x-tex">8\times 10^{-19}</annotation></semantics></math> Systematic Uncertainty</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review Letters</span> <span class="ltx_text ltx_bib_volume">133</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 023401</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevLett.133.023401" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://link.aps.org/doi/10.1103/PhysRevLett.133.023401" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S3.p1.1" title="III Frequency Stability ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§III</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib27"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Amairi, T. Legero, T. Kessler, U. Sterr, J. B. Wübbena, O. Mandel, and P. O. Schmidt</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Reducing the effect of thermal noise in optical cavities</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Applied Physics B</span> <span class="ltx_text ltx_bib_volume">113</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 233–242</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.p1.1" title="II System Design ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib6"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">BACON Collaboration, A. Aeppli, W. J. Arthur-Dworschack, K. Beloy, C. M. Berry, T. Bothwell, A. Folz, T. M. Fortier, T. Grogan, Y. S. Hassan, Z. Z. Hu, D. B. Hume, B. D. Hunt, K. Kim, A. Koepke, D. Lee, D. R. Leibrandt, B. Lewis, A. D. Ludlow, M. C. Marshall, N. V. Nardelli, H. Ranganath, D. A. Rodriguez Castillo, J. A. Sherman, J. L. Siegel, S. Thornton, W. Warfield, and J. Ye</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Atomic clock frequency ratios with fractional uncertainty <math alttext="\leq 3.2\times{}{10}^{-18}" class="ltx_Math" display="inline" id="bib.bib6.m1" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>≤</mo><mrow><mn>3.2</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow></mrow><annotation encoding="application/x-tex">\leq 3.2\times{}{10}^{-18}</annotation></semantics></math></span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review Letters</span> <span class="ltx_text ltx_bib_volume">137</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages">pp. 033201</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://link.aps.org/doi/10.1103/g865-9mk1" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/g865-9mk1" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p3.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_unpublished" id="bib.bib22"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Barbarat, E. Benkler, M. Bober, C. Clivati, J. Dickmann, B. Fang, C. Fluhr, T. Fordell, J. Gillot, V. Giordano, D. Gustavsson, K. Hanhijärvi, M. Hartman, S. Herbers, A. Jaros, J. Kawohl, Y. Kersalé, S. Kroker, C. J. Kwong, C. Lacroûte, R. Le Targat, T. Legero, M. Lindén, T. Lindvall, J. Lodewyck, C. Y. Ma, R. Meyer, P. Morzyński, J. Millo, M. Narożnik, D. Nicolodi, A. Penza, B. Pointard, L. Rippe, M. Risaro, P. Roset, S. Sauer, P. Savio, S. Schiller, L. S. Neto, U. Sterr, O. Vartehparvar, V. Vogt, N. Wagner, A. E. Wallin, E. Wiens, J. Yu, M. Zawada, and M. Zelan</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Guidelines for designs for ultrastable laser with <math alttext="10^{-17}" class="ltx_Math" display="inline" id="bib.bib22.m1" intent=":literal"><semantics><msup><mn>10</mn><mrow><mo>−</mo><mn>17</mn></mrow></msup><annotation encoding="application/x-tex">10^{-17}</annotation></semantics></math> fractional frequency instability</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text ltx_bib_external">2504.06213</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.48550/arXiv.2504.06213" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="http://arxiv.org/abs/2504.06213" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.p1.1" title="II System Design ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§II</span></a>,
+<a class="ltx_ref" href="#S3.p4.1" title="III Frequency Stability ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§III</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib32"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Barbarat, J. Gillot, J. Millo, C. Lacroûte, T. Legero, V. Giordano, and Y. Kersalé</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Towards a sub-kelvin cryogenic Fabry-Perot silicon cavity</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Journal of Physics: Conference Series</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume">2889</span>, <span class="ltx_text ltx_bib_pages">pp. 012056</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib44"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">G. Barontini, X. Calmet, V. Guarrera, A. Smith, and A. Vecchio</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Detecting milli-Hz gravitational waves with optical resonators</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Classical and Quantum Gravity</span> <span class="ltx_text ltx_bib_volume">42</span> (<span class="ltx_text ltx_bib_number">20</span>), <span class="ltx_text ltx_bib_pages">pp. 20LT01</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib7"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Bothwell, C. J. Kennedy, A. Aeppli, D. Kedar, J. M. Robinson, E. Oelker, A. Staron, and J. Ye</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Resolving the gravitational redshift across a millimetre-scale atomic sample</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nature</span> <span class="ltx_text ltx_bib_volume">602</span> (<span class="ltx_text ltx_bib_number">7897</span>), <span class="ltx_text ltx_bib_pages">pp. 420–424</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1476-4687</span>,
+<a class="ltx_ref ltx_bib_external" href="https://www.nature.com/articles/s41586-021-04349-7" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/s41586-021-04349-7" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib26"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Boulder Atomic Clock Optical Network (BACON) Collaboration</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Frequency ratio measurements at 18-digit accuracy using an optical clock network</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nature</span> <span class="ltx_text ltx_bib_volume">591</span> (<span class="ltx_text ltx_bib_number">7851</span>), <span class="ltx_text ltx_bib_pages">pp. 564–569</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0028-0836, 1476-4687</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/s41586-021-03253-4" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="http://www.nature.com/articles/s41586-021-03253-4" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p3.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib5"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Z. Chen, H. Zeng, W. Wang, H. Zhang, R. Lei, J. Li, C. Pang, S. Huang, and X. Zhang</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A laser with instability reaching <math alttext="4\times 10^{-17}" class="ltx_Math" display="inline" id="bib.bib5.m1" intent=":literal"><semantics><mrow><mn>4</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>17</mn></mrow></msup></mrow><annotation encoding="application/x-tex">4\times 10^{-17}</annotation></semantics></math> based on a 10-cm-long silicon cavity at sub-5-K temperatures</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Science Bulletin</span> <span class="ltx_text ltx_bib_volume">70</span> (<span class="ltx_text ltx_bib_number">20</span>), <span class="ltx_text ltx_bib_pages">pp. 3337–3344</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 2095-9273</span>,
+<a class="ltx_ref ltx_bib_external" href="https://www.sciencedirect.com/science/article/pii/S2095927325008813" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1016/j.scib.2025.08.050" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S2.p1.1" title="II System Design ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib18"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">G. D. Cole, T. Legero, U. Sterr, D. Lee, J. Ye, A. M. Gretarsson, G. Harry, S. Penn, L. Pinard, C. S. Menoni, M. M. Fejer, V. J. Wittwer, A. J. Fleisher, S. G. Demos, and O. H. Heckl</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Redefining precision interferometry and spectroscopy with high-performance optical interference coatings</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optica</span> <span class="ltx_text ltx_bib_volume">13</span> (<span class="ltx_text ltx_bib_number">8</span>), <span class="ltx_text ltx_bib_pages">pp. 1488–1507</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 2334-2536</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OPTICA.601572" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/optica/abstract.cfm?uri=optica-13-8-1488" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_unpublished" id="bib.bib36"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. Dawel, J. Kramer, D. Drapier, L. Pelzer, K. Dietze, M. A. Ali, M. Hild, V. Barbé, S. A. King, J. Klose, K. Stahl, J. Rahm, N. Poudel, S. Dörscher, S. Weyers, E. Benkler, C. Lisdat, and P. O. Schmidt</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">An Al<math alttext="{}^{+}" class="ltx_Math" display="inline" id="bib.bib36.m1" intent=":literal"><semantics><msup><mrow></mrow><mo>+</mo></msup><annotation encoding="application/x-tex">{}^{+}</annotation></semantics></math> clock with <math alttext="1.6\times 10^{-18}" class="ltx_Math" display="inline" id="bib.bib36.m2" intent=":literal"><semantics><mrow><mn>1.6</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1.6\times 10^{-18}</annotation></semantics></math> systematic uncertainty and its frequency ratios</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text ltx_bib_external">2606.23151</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.48550/arXiv.2606.23151" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="http://arxiv.org/abs/2606.23151" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib24"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">N. Dimarcq, M. Gertsvolf, G. Mileti, S. Bize, C. W. Oates, E. Peik, D. Calonico, T. Ido, P. Tavella, F. Meynadier, G. Petit, G. Panfilo, J. Bartholomew, P. Defraigne, E. A. Donley, P. O. Hedekvist, I. Sesia, M. Wouters, P. Dubé, F. Fang, F. Levi, J. Lodewyck, H. S. Margolis, D. Newell, S. Slyusarev, S. Weyers, J. Uzan, M. Yasuda, D. Yu, C. Rieck, H. Schnatz, Y. Hanado, M. Fujieda, P. Pottie, J. Hanssen, A. Malimon, and N. Ashby</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Roadmap towards the redefinition of the second</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Metrologia</span> <span class="ltx_text ltx_bib_volume">61</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 012001</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0026-1394, 1681-7575</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1088/1681-7575/ad17d2" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://iopscience.iop.org/article/10.1088/1681-7575/ad17d2" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib50"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Dolde, D. Ganapathy, X. Zheng, S. Ma, K. Beloy, and S. Kolkowitz</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Direct measurement of the <math alttext="{}^{3}P_{0}" class="ltx_Math" display="inline" id="bib.bib50.m1" intent=":literal"><semantics><mmultiscripts><mi>P</mi><mprescripts></mprescripts><mn>0</mn><mrow></mrow><mrow></mrow><mn>3</mn></mmultiscripts><annotation encoding="application/x-tex">{}^{3}P_{0}</annotation></semantics></math> clock state natural lifetime in <math alttext="{}^{87}\mathrm{Sr}" class="ltx_Math" display="inline" id="bib.bib50.m2" intent=":literal"><semantics><mmultiscripts><mi>Sr</mi><mprescripts></mprescripts><mrow></mrow><mn>87</mn></mmultiscripts><annotation encoding="application/x-tex">{}^{87}\mathrm{Sr}</annotation></semantics></math></span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review A</span> <span class="ltx_text ltx_bib_volume">112</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 023121</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/f6pt-flnt" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.p1.1" title="IV Atomic Clock Measurements ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§IV</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib29"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. S. Dreissen, C. Yeh, H. A. Fürst, K. C. Grensemann, and T. E. Mehlstäubler</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Improved bounds on Lorentz violation from composite pulse Ramsey spectroscopy in a trapped ion</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nature Communications</span> <span class="ltx_text ltx_bib_volume">13</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 7314</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 2041-1723</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/s41467-022-34818-0" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://www.nature.com/articles/s41467-022-34818-0" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib34"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. W. Drever, J. L. Hall, F. V. Kowalski, J. Hough, G. Ford, A. Munley, and H. Ward</span><span class="ltx_text ltx_bib_year"> (1983)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Laser phase and frequency stabilization using an optical resonator</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Applied Physics B</span> <span class="ltx_text ltx_bib_volume">31</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 97–105</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.p7.1" title="II System Design ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib52"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C.R. Ekstrom and P.A. Koppang</span><span class="ltx_text ltx_bib_year"> (2006)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Error bars for three-cornered hats</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Transactions on Ultrasonics, Ferroelectrics, and Frequency Control</span> <span class="ltx_text ltx_bib_volume">53</span> (<span class="ltx_text ltx_bib_number">5</span>), <span class="ltx_text ltx_bib_pages">pp. 876–879</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1525-8955</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/TUFFC.2006.1632679" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.p1.1" title="III Frequency Stability ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§III</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib25"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[17]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Filzinger, S. Dörscher, R. Lange, J. Klose, M. Steinel, E. Benkler, E. Peik, C. Lisdat, and N. Huntemann</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Improved Limits on the Coupling of Ultralight Bosonic Dark Matter to Photons from Optical Atomic Clock Comparisons</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review Letters</span> <span class="ltx_text ltx_bib_volume">130</span> (<span class="ltx_text ltx_bib_number">25</span>), <span class="ltx_text ltx_bib_pages">pp. 253001</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0031-9007, 1079-7114</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevLett.130.253001" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://link.aps.org/doi/10.1103/PhysRevLett.130.253001" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib37"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[18]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. M. Fortier, A. N. Luiten, and H. S. Margolis</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Optical atomic clocks: defining the future of time and frequency metrology</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optica</span> <span class="ltx_text ltx_bib_volume">13</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 143–163</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 2334-2536</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OPTICA.575770" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/abstract.cfm?URI=optica-13-1-143" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib35"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[19]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J.E. Gray and D.W. Allan</span><span class="ltx_text ltx_bib_year"> (1974)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A Method for Estimating the Frequency Stability of an Individual Oscillator</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 28th Annual Symposium on Frequency Control, 29-31 May 1974, Atlantic City, New Jersey</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages">pp. 243–246</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/FREQ.1974.200027" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.p1.1" title="III Frequency Stability ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§III</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib33"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[20]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Häfner, S. Falke, C. Grebing, S. Vogt, T. Legero, M. Merimaa, C. Lisdat, and U. Sterr</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">8<math alttext="\times 10^{-17}" class="ltx_Math" display="inline" id="bib.bib33.m1" intent=":literal"><semantics><mrow><mphantom></mphantom><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>17</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\times 10^{-17}</annotation></semantics></math> fractional laser frequency instability with a long room-temperature cavity</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics letters</span> <span class="ltx_text ltx_bib_volume">40</span> (<span class="ltx_text ltx_bib_number">9</span>), <span class="ltx_text ltx_bib_pages">pp. 2112–2115</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib48"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[21]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. L. Hall and M. Zhu</span><span class="ltx_text ltx_bib_year"> (1993)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">An introduction to phase-stable optical sources</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Laser Manipulation of Atoms and Ions</span>,  <span class="ltx_text ltx_bib_editor">E. Arimondo, W.D. Phillips, and F. Strumia (Eds.)</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume">118</span>, <span class="ltx_text ltx_bib_pages">pp. 671–702</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.p5.1" title="III Frequency Stability ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§III</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib23"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[22]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">H. N. Hausser, J. Keller, T. Nordmann, N. M. Bhatt, J. Kiethe, H. Liu, I. M. Richter, M. Von Boehn, J. Rahm, S. Weyers, E. Benkler, B. Lipphardt, S. Dörscher, K. Stahl, J. Klose, C. Lisdat, M. Filzinger, N. Huntemann, E. Peik, and T.E. Mehlstäubler</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title"><math alttext="{}^{115}" class="ltx_Math" display="inline" id="bib.bib23.m1" intent=":literal"><semantics><msup><mrow></mrow><mn>115</mn></msup><annotation encoding="application/x-tex">{}^{115}</annotation></semantics></math>In<math alttext="{}^{+}" class="ltx_Math" display="inline" id="bib.bib23.m2" intent=":literal"><semantics><msup><mrow></mrow><mo>+</mo></msup><annotation encoding="application/x-tex">{}^{+}</annotation></semantics></math> - <math alttext="{}^{172}" class="ltx_Math" display="inline" id="bib.bib23.m3" intent=":literal"><semantics><msup><mrow></mrow><mn>172</mn></msup><annotation encoding="application/x-tex">{}^{172}</annotation></semantics></math>Yb<math alttext="{}^{+}" class="ltx_Math" display="inline" id="bib.bib23.m4" intent=":literal"><semantics><msup><mrow></mrow><mo>+</mo></msup><annotation encoding="application/x-tex">{}^{+}</annotation></semantics></math> Coulomb Crystal Clock with <math alttext="2.5\times 10^{-18}" class="ltx_Math" display="inline" id="bib.bib23.m5" intent=":literal"><semantics><mrow><mn>2.5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2.5\times 10^{-18}</annotation></semantics></math> Systematic Uncertainty</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review Letters</span> <span class="ltx_text ltx_bib_volume">134</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 023201</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0031-9007, 1079-7114</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevLett.134.023201" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://link.aps.org/doi/10.1103/PhysRevLett.134.023201" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib46"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[23]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Y. Jiang, A. Ludlow, N. D. Lemke, R. W. Fox, J. A. Sherman, L. Ma, and C. W. Oates</span><span class="ltx_text ltx_bib_year"> (2011)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Making optical atomic clocks more stable with <math alttext="10^{-16}" class="ltx_Math" display="inline" id="bib.bib46.m1" intent=":literal"><semantics><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup><annotation encoding="application/x-tex">10^{-16}</annotation></semantics></math>-level laser stabilization</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nature Photonics</span> <span class="ltx_text ltx_bib_volume">5</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages">pp. 158–161</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib9"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[24]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Kedar, Z. Yao, I. Ryger, J. L. Hall, and J. Ye</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Synthetic FM triplet for AM-free precision laser stabilization and spectroscopy</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optica</span> <span class="ltx_text ltx_bib_volume">11</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 58–63</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/optica/abstract.cfm?URI=optica-11-1-58" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OPTICA.507655" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.p7.1" title="II System Design ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib19"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[25]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Kedar, J. Yu, E. Oelker, A. Staron, W. R. Milner, J. M. Robinson, T. Legero, F. Riehle, U. Sterr, and J. Ye</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Frequency stability of cryogenic silicon cavities with semiconductor crystalline coatings</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optica</span> <span class="ltx_text ltx_bib_volume">10</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages">pp. 464–470</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 2334-2536</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OPTICA.479462" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/optica/abstract.cfm?uri=optica-10-4-464" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib16"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[26]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. J. Kennedy, E. Oelker, J. M. Robinson, T. Bothwell, D. Kedar, W. R. Milner, G. E. Marti, A. Derevianko, and J. Ye</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Precision Metrology Meets Cosmology: Improved Constraints on Ultralight Dark Matter from Atom-Cavity Frequency Comparisons</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review Letters</span> <span class="ltx_text ltx_bib_volume">125</span> (<span class="ltx_text ltx_bib_number">20</span>), <span class="ltx_text ltx_bib_pages">pp. 201302</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevLett.125.201302" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://link.aps.org/doi/10.1103/PhysRevLett.125.201302" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib11"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[27]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Kessler, C. Hagemann, C. Grebing, T. Legero, U. Sterr, F. Riehle, M. J. Martin, L. Chen, and J. Ye</span><span class="ltx_text ltx_bib_year"> (2012)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A sub-40-mHz-linewidth laser based on a silicon single-crystal optical cavity</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nature Photonics</span> <span class="ltx_text ltx_bib_volume">6</span> (<span class="ltx_text ltx_bib_number">10</span>), <span class="ltx_text ltx_bib_pages">pp. 687–692</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1749-4893</span>,
+<a class="ltx_ref ltx_bib_external" href="https://www.nature.com/articles/nphoton.2012.217" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/nphoton.2012.217" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.p3.1" title="II System Design ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§II</span></a>,
+<a class="ltx_ref" href="#S2.p4.1" title="II System Design ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib51"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[28]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Kim, A. Aeppli, W. Warfield, A. Chu, A. M. Rey, and J. Ye</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Atomic Coherence of 2 Minutes and Instability of <math alttext="1.5\times{}{10}^{-18}" class="ltx_Math" display="inline" id="bib.bib51.m1" intent=":literal"><semantics><mrow><mn>1.5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>18</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1.5\times{}{10}^{-18}</annotation></semantics></math> at 1 s in a Wannier-Stark Lattice Clock</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review Letters</span> <span class="ltx_text ltx_bib_volume">135</span> (<span class="ltx_text ltx_bib_number">10</span>), <span class="ltx_text ltx_bib_pages">pp. 103601</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/3wtv-sty2" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.p1.1" title="IV Atomic Clock Measurements ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§IV</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib30"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[29]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. Lange, N. Huntemann, J. M. Rahm, C. Sanner, H. Shao, B. Lipphardt, Chr. Tamm, S. Weyers, and E. Peik</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Improved Limits for Violations of Local Position Invariance from Atomic Clock Comparisons</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review Letters</span> <span class="ltx_text ltx_bib_volume">126</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 011102</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevLett.126.011102" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib8"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[30]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Lee, Z. Z. Hu, B. Lewis, A. Aeppli, K. Kim, Z. Yao, T. Legero, D. Nicolodi, F. Riehle, U. Sterr, and J. Ye</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Frequency stability of <math alttext="2.5\times{10}^{-17}" class="ltx_Math" display="inline" id="bib.bib8.m1" intent=":literal"><semantics><mrow><mn>2.5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>17</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2.5\times{10}^{-17}</annotation></semantics></math> from a Si cavity with AlGaAs crystalline mirrors</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review Letters</span> <span class="ltx_text ltx_bib_volume">136</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages">pp. 033801</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://link.aps.org/doi/10.1103/zgrm-cjbb" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/zgrm-cjbb" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#A1.F5" title="In Appendix A Three-cornered hat analysis ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">Figure 5</span></a>,
+<a class="ltx_ref" href="#A1.p1.1" title="Appendix A Three-cornered hat analysis ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">Appendix A</span></a>,
+<a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S4.p3.1" title="IV Atomic Clock Measurements ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§IV</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib3"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[31]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Lee, K. Kim, Z. Z. Hu, B. Lewis, W. Warfield, K. Zhou, A. L. Collopy, J. A. Sherman, A. S. Kowligy, P. B. Patel, <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Phase-continuous comparison of three all-optical time scales over 20 days</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2608.00910</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib38"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[32]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. D. Ludlow, M. M. Boyd, J. Ye, E. Peik, and P. O. Schmidt</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Optical atomic clocks</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Reviews of Modern Physics</span> <span class="ltx_text ltx_bib_volume">87</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 637–701</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0034-6861, 1539-0756</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/RevModPhys.87.637" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://link.aps.org/doi/10.1103/RevModPhys.87.637" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib40"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[33]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. G. Lyon, G. L. Salinger, C. A. Swenson, and G. K. White</span><span class="ltx_text ltx_bib_year"> (1977)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Linear thermal expansion measurements on silicon from 6 to 340 K</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Applied Physics</span> <span class="ltx_text ltx_bib_volume">48</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages">pp. 865–868</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0021-8979, 1089-7550</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1063/1.323747" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://pubs.aip.org/jap/article/48/3/865/506273/Linear-thermal-expansion-measurements-on-silicon" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_unpublished" id="bib.bib1"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[34]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Y. Ma, J. Yu, S. Sauer, T. Legero, D. Nicolodi, M. Kempkes, S. Herbers, F. Riehle, and U. Sterr</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Laser stabilized to a room temperature cavity with algaas coatings reaching <math alttext="4.2\times 10^{-17}" class="ltx_Math" display="inline" id="bib.bib1.m1" intent=":literal"><semantics><mrow><mn>4.2</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>17</mn></mrow></msup></mrow><annotation encoding="application/x-tex">4.2\times 10^{-17}</annotation></semantics></math> fractional frequency instability</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text ltx_bib_external">2607.01406</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S3.p4.1" title="III Frequency Stability ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§III</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib4"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[35]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. G. Matei, T. Legero, S. Häfner, C. Grebing, R. Weyrich, W. Zhang, L. Sonderhouse, J. M. Robinson, J. Ye, F. Riehle, and U. Sterr</span><span class="ltx_text ltx_bib_year"> (2017)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title"><math alttext="1.5~\mu\mathrm{m}" class="ltx_Math" display="inline" id="bib.bib4.m1" intent=":literal"><semantics><mrow><mn>1.5</mn><mo lspace="0.330em" rspace="0em">​</mo><mi>μ</mi><mo lspace="0em" rspace="0em">​</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">1.5~\mu\mathrm{m}</annotation></semantics></math> Lasers with sub-10 mHz linewidth</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Phys. Rev. Lett.</span> <span class="ltx_text ltx_bib_volume">118</span>, <span class="ltx_text ltx_bib_pages">pp. 263202</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevLett.118.263202" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://link.aps.org/doi/10.1103/PhysRevLett.118.263202" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#A1.F5" title="In Appendix A Three-cornered hat analysis ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">Figure 5</span></a>,
+<a class="ltx_ref" href="#A1.p1.1" title="Appendix A Three-cornered hat analysis ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">Appendix A</span></a>,
+<a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib31"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[36]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Matei, T. Legero, C. Grebing, S. Häfner, C. Lisdat, R. Weyrich, W. Zhang, L. Sonderhouse, J. Robinson, F. Riehle, <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A second generation of low thermal noise cryogenic silicon resonators</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Journal of Physics: Conference Series</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume">723</span>, <span class="ltx_text ltx_bib_pages">pp. 012031</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.p3.1" title="II System Design ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib41"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[37]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Middelmann, A. Walkov, G. Bartl, and R. Schödel</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Thermal expansion coefficient of single-crystal silicon from 7 K to 293 K</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review B</span> <span class="ltx_text ltx_bib_volume">92</span> (<span class="ltx_text ltx_bib_number">17</span>), <span class="ltx_text ltx_bib_pages">pp. 174113</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1098-0121, 1550-235X</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevB.92.174113" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://link.aps.org/doi/10.1103/PhysRevB.92.174113" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib13"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[38]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">W. R. Milner, J. M. Robinson, C. J. Kennedy, T. Bothwell, D. Kedar, D. G. Matei, T. Legero, U. Sterr, F. Riehle, H. Leopardi, T. M. Fortier, J. A. Sherman, J. Levine, J. Yao, J. Ye, and E. Oelker</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Demonstration of a timescale based on a stable optical carrier</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review Letters</span> <span class="ltx_text ltx_bib_volume">123</span> (<span class="ltx_text ltx_bib_number">17</span>), <span class="ltx_text ltx_bib_pages">pp. 173201</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://link.aps.org/doi/10.1103/PhysRevLett.123.173201" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevLett.123.173201" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_dataset" id="bib.bib21"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[39]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">National Institute of Standards and Technology</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Cryogenics Material Properties</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://trc.nist.gov/cryogenics/materials/materialproperties.htm" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.p4.1" title="II System Design ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib28"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[40]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Nazarova, F. Riehle, and U. Sterr</span><span class="ltx_text ltx_bib_year"> (2006)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Vibration-insensitive reference cavity for an ultra-narrow-linewidth laser</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Applied Physics B</span> <span class="ltx_text ltx_bib_volume">83</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages">pp. 531–536</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.p1.1" title="II System Design ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib17"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[41]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Numata, A. Kemery, and J. Camp</span><span class="ltx_text ltx_bib_year"> (2004)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Thermal-noise limit in the frequency stabilization of lasers with rigid cavities</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Phys. Rev. Lett.</span> <span class="ltx_text ltx_bib_volume">93</span>, <span class="ltx_text ltx_bib_pages">pp. 250602</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevLett.93.250602" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://link.aps.org/doi/10.1103/PhysRevLett.93.250602" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S3.p2.1" title="III Frequency Stability ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§III</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib2"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[42]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. L. Parke, E. Clulow, W. Huang, N. Kaur, R. Karembera, J. Gaudron, X. Zhang, M. Risaro, J. Tunesi, H. Bourne, and M. Schioppo</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Laser fractional frequency instability at <math alttext="4\times 10^{-17}" class="ltx_Math" display="inline" id="bib.bib2.m1" intent=":literal"><semantics><mrow><mn>4</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>17</mn></mrow></msup></mrow><annotation encoding="application/x-tex">4\times 10^{-17}</annotation></semantics></math> with a room temperature optical reference cavity</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optica</span> <span class="ltx_text ltx_bib_volume">13</span> (<span class="ltx_text ltx_bib_number">7</span>), <span class="ltx_text ltx_bib_pages">pp. 1190–1193</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/optica/abstract.cfm?URI=optica-13-7-1190" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OPTICA.591175" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S3.p4.1" title="III Frequency Stability ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§III</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib47"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[43]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T.E. Parker</span><span class="ltx_text ltx_bib_year"> (1999)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Hydrogen maser ensemble performance and characterization of frequency standards</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proceedings of the 1999 Joint Meeting of the European Frequency and Time Forum and the IEEE International Frequency Control Symposium (Cat. No.99CH36313)</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume">1</span>, <span class="ltx_text ltx_bib_pages">pp. 173–176</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1075-6787</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/FREQ.1999.840736" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S6.F4" title="In VI Acknowledgment ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">Figure 4</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib49"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[44]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. M. Robinson, E. Oelker, W. R. Milner, D. Kedar, W. Zhang, T. Legero, D. G. Matei, S. Häfner, F. Riehle, U. Sterr, and J. Ye</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Thermal noise and mechanical loss of SiO<sub class="ltx_sub" id="bib.bib49.1">2</sub>/Ta<sub class="ltx_sub" id="bib.bib49.2">2</sub>O<sub class="ltx_sub" id="bib.bib49.3">5</sub> optical coatings at cryogenic temperatures</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics Letters</span> <span class="ltx_text ltx_bib_volume">46</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages">pp. 592–595</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1539-4794</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OL.413758" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/ol/abstract.cfm?uri=ol-46-3-592" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.p2.1" title="III Frequency Stability ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§III</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib39"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[45]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. S. Safronova, D. Budker, D. DeMille, D. F. Jackson Kimball, A. Derevianko, and C. W. Clark</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Search for new physics with atoms and molecules</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Reviews of Modern Physics</span> <span class="ltx_text ltx_bib_volume">90</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 025008</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text ltx_bib_external">1710.01833</span>,
+<span class="ltx_text issn ltx_bib_external">ISSN 15390756</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/RevModPhys.90.025008" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1103/RevModPhys.90.025008" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib14"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[46]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Sanner, N. Huntemann, R. Lange, C. Tamm, E. Peik, M. S. Safronova, and S. G. Porsev</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Optical clock comparison for Lorentz symmetry testing</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nature</span> <span class="ltx_text ltx_bib_volume">567</span> (<span class="ltx_text ltx_bib_number">7747</span>), <span class="ltx_text ltx_bib_pages">pp. 204–208</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1476-4687</span>,
+<a class="ltx_ref ltx_bib_external" href="https://www.nature.com/articles/s41586-019-0972-2" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/s41586-019-0972-2" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib43"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[47]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Valencia, G. Iskander, N. V. Nardelli, D. R. Leibrandt, and D. B. Hume</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Cryogenic sapphire optical reference cavity with crystalline coatings at 1<math alttext="\times 10^{-16}" class="ltx_Math" display="inline" id="bib.bib43.m1" intent=":literal"><semantics><mrow><mphantom></mphantom><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>16</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\times 10^{-16}</annotation></semantics></math> fractional frequency instability</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Review of Scientific Instruments</span> <span class="ltx_text ltx_bib_volume">95</span> (<span class="ltx_text ltx_bib_number">10</span>), <span class="ltx_text ltx_bib_pages">pp. 103002</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1063/5.0214790" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib12"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[48]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. Wiens, A. Yu. Nevsky, and S. Schiller</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Resonator with ultrahigh length stability as a probe for equivalence-principle-violating physics</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review Letters</span> <span class="ltx_text ltx_bib_volume">117</span> (<span class="ltx_text ltx_bib_number">27</span>), <span class="ltx_text ltx_bib_pages">pp. 271102</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://link.aps.org/doi/10.1103/PhysRevLett.117.271102" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevLett.117.271102" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib10"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[49]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. Wiens, Q. Chen, I. Ernsting, H. Luckmann, U. Rosowski, A. Nevsky, and S. Schiller</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Silicon single-crystal cryogenic optical resonator</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics Letters</span> <span class="ltx_text ltx_bib_volume">39</span> (<span class="ltx_text ltx_bib_number">11</span>), <span class="ltx_text ltx_bib_pages">pp. 3242–3245</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0146-9592, 1539-4794</span>,
+<a class="ltx_ref ltx_bib_external" href="https://opg.optica.org/abstract.cfm?URI=ol-39-11-3242" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OL.39.003242" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S2.p4.1" title="II System Design ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib15"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[50]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Ye, Z. Z. Hu, B. Lewis, W. Zhang, F. Riehle, U. Sterr, Y. Ni, and J. Struck</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Lunar silicon cavity</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Proceedings of the National Academy of Sciences</span> <span class="ltx_text ltx_bib_volume">123</span> (<span class="ltx_text ltx_bib_number">19</span>), <span class="ltx_text ltx_bib_pages">pp. e2604438123</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1073/pnas.2604438123" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://www.pnas.org/doi/10.1073/pnas.2604438123" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S5.p2.1" title="V Conclusion ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§V</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib42"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[51]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Yu, S. Häfner, T. Legero, S. Herbers, D. Nicolodi, C. Y. Ma, F. Riehle, U. Sterr, D. Kedar, J. M. Robinson, <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Excess noise and photoinduced effects in highly reflective crystalline mirror coatings</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review X</span> <span class="ltx_text ltx_bib_volume">13</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages">pp. 041002</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib45"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[52]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">W. Zhang, J. M. Robinson, L. Sonderhouse, E. Oelker, C. Benko, J. L. Hall, T. Legero, D. G. Matei, F. Riehle, U. Sterr, and J. Ye</span><span class="ltx_text ltx_bib_year"> (2017)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Ultrastable Silicon Cavity in a Continuously Operating Closed-Cycle Cryostat at 4 K</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review Letters</span> <span class="ltx_text ltx_bib_volume">119</span> (<span class="ltx_text ltx_bib_number">24</span>), <span class="ltx_text ltx_bib_pages">pp. 243601</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevLett.119.243601" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://link.aps.org/doi/10.1103/PhysRevLett.119.243601" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.p1.1" title="II System Design ‣ Laser with 7×10^{-18} frequency stability"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span></li>
+</ul>
+</section>
+</article></div></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
