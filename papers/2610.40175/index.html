@@ -1,0 +1,719 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>超越 CCT：面向逐次拍摄相机颜色校正的多通道 SPD 恢复</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style><style>
+.paper-reader{max-width:860px;margin:0 auto}
+.paper-reader h1{font-size:28px;line-height:1.35;margin:10px 0 6px}
+.paper-reader .original-title{color:var(--muted);font-size:14px;margin-bottom:18px}
+.paper-reader .meta{color:var(--muted);font-size:13px;margin-bottom:20px}
+.paper-reader .toc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:20px 0 28px;font-size:14px}
+.paper-reader .toc ol{margin:6px 0 0 18px;padding:0}
+.paper-reader .toc li{margin:3px 0}
+.paper-reader article{font-size:16px;line-height:1.9}
+.paper-reader h2{font-size:22px;margin:30px 0 10px}
+.paper-reader h3{font-size:18px;margin:22px 0 8px}
+.paper-reader figure{margin:20px 0;text-align:center}
+.paper-reader img{max-width:100%;height:auto}
+.paper-reader figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+.paper-reader table{display:block;overflow-x:auto;border-collapse:collapse;margin:16px 0;font-size:14px}
+.paper-reader math{overflow-x:auto;max-width:100%}
+.paper-reader pre{overflow-x:auto}
+</style></head><body class="">
+<header><a class="brand" href="../index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="../daily/index.html">日报</a><a href="../papers/index.html" aria-current="page">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 中文全文</div><h1>超越 CCT：面向逐次拍摄相机颜色校正的多通道 SPD 恢复</h1><div class="paper-reader"><h1>超越 CCT：面向逐次拍摄相机颜色校正的多通道 SPD 恢复</h1><p class="original-title">Beyond CCT: Multi-channel SPD recovery for per-shot camera color correction</p><p class="meta">arXiv 2610.40175 · 机器翻译，公式与图表保留原文</p><nav class="toc"><strong>目录</strong><ol></ol></nav><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">超越 CCT：面向逐次拍摄相机颜色校正的多通道 SPD 恢复</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Shuwei Yue
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Hongke Wei
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Qiao Chen
+<br class="ltx_break"/>Shenzhen Polytechnic University
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Shenzhen
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">China
+<br class="ltx_break"/>Arashi Vision Inc. (Insta360)
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Shenzhen
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">China
+<br class="ltx_break"/><sup class="ltx_sup" id="id1">*</sup>Corresponding author: shuwei.yue@connect.polyu.hk
+</span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">摘要</h6>
+<p class="ltx_p" id="abstract1.1">现代相机通过由相关色温（CCT）插值的两个或三个预校准 <math alttext="3{\times}3" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">3{\times}3</annotation></semantics></math> 矩阵来校正颜色。这将光源光谱功率分布（SPD）压缩为一个标量。LED、荧光灯和混合光源位于普朗克轨迹之外，且具有相同色度的同色异谱光源需要不同的最优颜色校正矩阵（CCM），而 CCT 流程无法区分它们。我们转而恢复光源 SPD——基于基字典进行非负最小二乘，并以相机白点和多通道环境光传感器（ALS）为条件。随后针对每次拍摄拟合一个闭式 <math alttext="3{\times}3" class="ltx_Math" display="inline" id="abstract1.m2" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">3{\times}3</annotation></semantics></math> CCM。在包含 300 个光源和 <math alttext="\times\,3{,}100" class="ltx_Math" display="inline" id="abstract1.m3" intent=":literal"><semantics><mrow><mphantom></mphantom><mo lspace="0.222em" rspace="0.222em">×</mo><mn> 3,100</mn></mrow><annotation encoding="application/x-tex">\times\,3{,}100</annotation></semantics></math> 个反射率的合成基准（测试集）上，平均角度误差从 <math alttext="1.89^{\circ}" class="ltx_Math" display="inline" id="abstract1.m4" intent=":literal"><semantics><msup><mn>1.89</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">1.89^{\circ}</annotation></semantics></math> 降至 <math alttext="1.20^{\circ}" class="ltx_Math" display="inline" id="abstract1.m5" intent=":literal"><semantics><msup><mn>1.20</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">1.20^{\circ}</annotation></semantics></math>，并取得 <math alttext="1.7\times" class="ltx_math_unparsed" display="inline" id="abstract1.m6" intent=":literal"><semantics><mrow><mn>1.7</mn><mo lspace="0.222em">×</mo></mrow><annotation encoding="application/x-tex">1.7\times</annotation></semantics></math> 的尾部降低，且这一降低出现在类 LED 的偏离普朗克轨迹组（<math alttext="n{=}45" class="ltx_Math" display="inline" id="abstract1.m7" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>45</mn></mrow><annotation encoding="application/x-tex">n{=}45</annotation></semantics></math>）上；该组中同色异谱歧义明显。在真实的 ALS 不理想因素与观测噪声下，该增益仍然成立，并且相同的偏离普朗克轨迹优势也延续到 <math alttext="1{,}684" class="ltx_Math" display="inline" id="abstract1.m8" intent=":literal"><semantics><mn>1,684</mn><annotation encoding="application/x-tex">1{,}684</annotation></semantics></math> 个实测 SPD。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="p1">
+<p class="ltx_p" id="p1.1"><span class="ltx_text" id="p1.1.1"></span></p>
+</div>
+<section class="ltx_section" id="Sx1">
+<h2 class="ltx_title ltx_title_section">引言</h2>
+<div class="ltx_para ltx_noindent" id="Sx1.p1">
+<p class="ltx_p" id="Sx1.p1.1">颜色校正矩阵（CCM）是从白平衡后的相机 RGB 到色度标准（CIE XYZ 或 sRGB）的 <math alttext="3{\times}3" class="ltx_Math" display="inline" id="Sx1.p1.m1" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">3{\times}3</annotation></semantics></math> 线性映射。最优 CCM 取决于场景光源。标准 Adobe DNG 流程 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">1</a>]</cite> 存储两个参考 CCM，一个位于 <math alttext="T_{1}{=}2856" class="ltx_Math" display="inline" id="Sx1.p1.m2" intent=":literal"><semantics><mrow><msub><mi>T</mi><mn>1</mn></msub><mo>=</mo><mn>2856</mn></mrow><annotation encoding="application/x-tex">T_{1}{=}2856</annotation></semantics></math> K，另一个位于 <math alttext="T_{2}{=}6500" class="ltx_Math" display="inline" id="Sx1.p1.m3" intent=":literal"><semantics><mrow><msub><mi>T</mi><mn>2</mn></msub><mo>=</mo><mn>6500</mn></mrow><annotation encoding="application/x-tex">T_{2}{=}6500</annotation></semantics></math> K。运行时，它根据估计的相关色温（CCT）对二者进行插值。光源 SPD <math alttext="E(\lambda)" class="ltx_Math" display="inline" id="Sx1.p1.m4" intent=":literal"><semantics><mrow><mi>E</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>λ</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">E(\lambda)</annotation></semantics></math>——一个随波长变化的函数——被压缩为单个标量。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="Sx1.p2">
+<p class="ltx_p" id="Sx1.p2.1">这对普朗克光源有效。黑体辐射体可由温度完全描述，因此 CCT 与 SPD 等价。现代室内与建筑照明常常位于该轨迹之外。LED、荧光灯和混合光源不遵循黑体曲线。两个光源在 <math alttext="xy" class="ltx_Math" display="inline" id="Sx1.p2.m1" intent=":literal"><semantics><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">xy</annotation></semantics></math> 色度上相差不超过 <math alttext="\Delta_{xy}{&lt;}0.005" class="ltx_Math" display="inline" id="Sx1.p2.m2" intent=":literal"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow></msub><mo>&lt;</mo><mn>0.005</mn></mrow><annotation encoding="application/x-tex">\Delta_{xy}{&lt;}0.005</annotation></semantics></math>，但归一化 SPD 形状差异超过 <math alttext="30^{\circ}" class="ltx_Math" display="inline" id="Sx1.p2.m3" intent=":literal"><semantics><msup><mn>30</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">30^{\circ}</annotation></semantics></math>。二者产生相同的白点读数和相同的 CCT 估计。它们仍需要不同的最优 CCM。基于 CCT 的插值无法区分它们。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="Sx1.p3">
+<p class="ltx_p" id="Sx1.p3.1">我们提出一种光谱感知的逐次拍摄 CCM，它用恢复的 SPD 替代 CCT 标量。我们从两个低成本观测中恢复 SPD：相机自身的白点响应，以及多通道环境光传感器（ALS）。ALS 是一种小型商用芯片，带有 8 至 14 个窄带光电二极管，已用于手机环境光感测。基于 <math alttext="K{+}3" class="ltx_Math" display="inline" id="Sx1.p3.m1" intent=":literal"><semantics><mrow><mi>K</mi><mo>+</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">K{+}3</annotation></semantics></math> 个观测并对照小型 SPD 基，恢复问题是一个非负最小二乘问题。随后，恢复的 SPD 合成虚拟色卡，我们以闭式形式将场景特定 CCM 拟合到该色卡。</p>
+</div>
+<figure class="ltx_figure" id="Sx1.F1"><object class="ltx_graphics ltx_centering ltx_img_landscape" data="assets/fig0_teaser.svg" height="265" id="Sx1.F1.g1" style="aspect-ratio:634/265;" type="image/svg+xml" width="634"></object>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 1：</span>同色异谱问题与我们的修正方案。(a) 两个真实的 EMPIR 光源在 <math alttext="xy" class="ltx_Math" display="inline" id="Sx1.F1.m10" intent=":literal"><semantics><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">xy</annotation></semantics></math> 色度上相差不超过 <math alttext="\Delta_{xy}{=}0.003" class="ltx_Math" display="inline" id="Sx1.F1.m11" intent=":literal"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow></msub><mo>=</mo><mn>0.003</mn></mrow><annotation encoding="application/x-tex">\Delta_{xy}{=}0.003</annotation></semantics></math>，但归一化 SPD 形状相差 <math alttext="43^{\circ}" class="ltx_Math" display="inline" id="Sx1.F1.m12" intent=":literal"><semantics><msup><mn>43</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">43^{\circ}</annotation></semantics></math>。由 CCT 驱动的 CCM 无法区分它们，但它们需要不同的最优 CCM。(b) 在我们基准（测试集）的类 LED Duv 组（<math alttext="n{=}45" class="ltx_Math" display="inline" id="Sx1.F1.m13" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>45</mn></mrow><annotation encoding="application/x-tex">n{=}45</annotation></semantics></math>，具有统计意义）上，我们的光谱流程将最差 25% 角度误差从 <math alttext="5.3^{\circ}" class="ltx_Math" display="inline" id="Sx1.F1.m14" intent=":literal"><semantics><msup><mn>5.3</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">5.3^{\circ}</annotation></semantics></math>（Adobe DNG）降至 <math alttext="\mathbf{2.8^{\circ}}" class="ltx_Math" display="inline" id="Sx1.F1.m15" intent=":literal"><semantics><msup><mn class="ltx_mathvariant_bold" mathvariant="bold">2.8</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">\mathbf{2.8^{\circ}}</annotation></semantics></math>——实现 <math alttext="1.9{\times}" class="ltx_math_unparsed" display="inline" id="Sx1.F1.m16" intent=":literal"><semantics><mrow><mn>1.9</mn><mo lspace="0.222em">×</mo></mrow><annotation encoding="application/x-tex">1.9{\times}</annotation></semantics></math> 的降低。一个更极端的组（<math alttext="|\mathrm{Duv}|{\geq}0.03" class="ltx_Math" display="inline" id="Sx1.F1.m17" intent=":literal"><semantics><mrow><mrow><mo stretchy="false">|</mo><mi>Duv</mi><mo stretchy="false">|</mo></mrow><mo>≥</mo><mn>0.03</mn></mrow><annotation encoding="application/x-tex">|\mathrm{Duv}|{\geq}0.03</annotation></semantics></math>，<math alttext="n{=}5" class="ltx_Math" display="inline" id="Sx1.F1.m18" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">n{=}5</annotation></semantics></math>）显示出更大的方向性增益，我们仅将其作为背景报告。</figcaption>
+</figure>
+<div class="ltx_para ltx_noindent" id="Sx1.p4">
+<p class="ltx_p" id="Sx1.p4.1">图 <a class="ltx_ref" href="#Sx1.F1" title="Figure 1 ‣ Introduction ‣ Beyond CCT: Multi-channel SPD recovery for per-shot camera color correction"><span class="ltx_text ltx_ref_tag">1</span></a> 预览了该论证：左侧为真实同色异谱对，右侧为最坏情况误差降低。完整方法比较与消融见第 4 节；仅 WP 回退方案（不含 ALS 硬件）的真实数据合理性检查见第 4.5 节。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="Sx1.p5">
+<p class="ltx_p" id="Sx1.p5.1"><span class="ltx_text ltx_font_bold" id="Sx1.p5.1.1">贡献</span> 非参数 NNLS 形式将 CCM 条件化从色度提升到 <math alttext="K{+}3" class="ltx_Math" display="inline" id="Sx1.p5.m1" intent=":literal"><semantics><mrow><mi>K</mi><mo>+</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">K{+}3</annotation></semantics></math> 维。在 300 个 EMPIR 光源 <math alttext="\times\,3{,}100" class="ltx_Math" display="inline" id="Sx1.p5.m2" intent=":literal"><semantics><mrow><mphantom></mphantom><mo lspace="0.222em" rspace="0.222em">×</mo><mn> 3,100</mn></mrow><annotation encoding="application/x-tex">\times\,3{,}100</annotation></semantics></math> CAVE 反射率上，与六个基线相比，光谱优势在类 LED 的离普朗克组（<math alttext="n{=}45" class="ltx_Math" display="inline" id="Sx1.p5.m3" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>45</mn></mrow><annotation encoding="application/x-tex">n{=}45</annotation></semantics></math>）上最可靠，其中最差 25% 误差相对最强的非光谱基线（CST-MLP<sub class="ltx_sub" id="Sx1.p5.1.2"><span class="ltx_text ltx_font_italic" id="Sx1.p5.1.2.1">3×6</span></sub>，即最近的 <math alttext="xy" class="ltx_Math" display="inline" id="Sx1.p5.m7" intent=":literal"><semantics><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">xy</annotation></semantics></math>-MLP（Tedla <em class="ltx_emph ltx_font_italic" id="Sx1.p5.1.3">等人</em>）<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib2" title="">2</a>]</cite>）下降了 <math alttext="1.7{\times}" class="ltx_math_unparsed" display="inline" id="Sx1.p5.m4" intent=":literal"><semantics><mrow><mn>1.7</mn><mo lspace="0.222em">×</mo></mrow><annotation encoding="application/x-tex">1.7{\times}</annotation></semantics></math>（<math alttext="4.79^{\circ}\!\to\!2.80^{\circ}" class="ltx_Math" display="inline" id="Sx1.p5.m5" intent=":literal"><semantics><mrow><msup><mn>4.79</mn><mo>∘</mo></msup><mo lspace="0.108em" stretchy="false">→</mo><msup><mn>2.80</mn><mo>∘</mo></msup></mrow><annotation encoding="application/x-tex">4.79^{\circ}\!\to\!2.80^{\circ}</annotation></semantics></math>）；更小的极端子集（<math alttext="n{=}5" class="ltx_Math" display="inline" id="Sx1.p5.m8" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">n{=}5</annotation></semantics></math>）表现出更大的方向性增益。通道数消融在 <math alttext="K{=}8" class="ltx_Math" display="inline" id="Sx1.p5.m9" intent=":literal"><semantics><mrow><mi>K</mi><mo>=</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">K{=}8</annotation></semantics></math> 处发现明显拐点，与商用多光谱传感器 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib3" title="">3</a>]</cite> 相匹配。同色异谱对压力测试将 SPD 恢复准确度与下游 CCM 行为隔离开来。</p>
+</div>
+</section>
+<section class="ltx_section" id="Sx2">
+<h2 class="ltx_title ltx_title_section">相关工作</h2>
+<div class="ltx_para ltx_noindent" id="Sx2.p1">
+<p class="ltx_p" id="Sx2.p1.1">有三条工作路线与光谱感知 CCM 相关。经典颜色恒常性估计光源色度，但止步于 CCM 阶段之前。CCT 与 <math alttext="xy" class="ltx_Math" display="inline" id="Sx2.p1.m1" intent=":literal"><semantics><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">xy</annotation></semantics></math> 条件化的 CCM 流水线将光源标量化为一个或两个数，而同色异谱对在构造上即可使其失效。光谱恢复工作处理的是反射率，而非光源或 CCM。我们依次将我们的方法与上述每条路线进行对照。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="Sx2.p2">
+<p class="ltx_p" id="Sx2.p2.1"><span class="ltx_text ltx_font_bold" id="Sx2.p2.1.1">经典颜色恒常性</span> 统计先验——灰度世界 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib4" title="">4</a>]</cite>、灰度边缘 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib5" title="">5</a>]</cite>——以及利用饱和色的色度先验方法 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib6" title="">6</a>]</cite> 都估计光源色度，但止步于此；下游 CCM 仍是一个单独的光源条件化步骤。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="Sx2.p3">
+<p class="ltx_p" id="Sx2.p3.1"><span class="ltx_text ltx_font_bold" id="Sx2.p3.1.1">基于 CCT 的 CCM</span> DNG 双 CCT 流水线 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">1</a>]</cite> 与 Karaimer 和 Brown 的三 CCT 扩展 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib7" title="">7</a>]</cite> 均在 CCM 阶段将光源参数化为一维。我们将上游 AWB 视为与本文所处理的 CCM 阶段光谱条件化正交。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="Sx2.p4">
+<p class="ltx_p" id="Sx2.p4.1"><span class="ltx_text ltx_font_bold" id="Sx2.p4.1.1">超越 CCT</span> Tedla <em class="ltx_emph ltx_font_italic" id="Sx2.p4.1.2">等人</em> <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib2" title="">2</a>]</cite> 认同我们的判断：离普朗克光源需要比 CCT 更丰富的条件化，并使用 <math alttext="xy" class="ltx_Math" display="inline" id="Sx2.p4.m1" intent=":literal"><semantics><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">xy</annotation></semantics></math> 色度（2D）作为小型 MLP 的输入，以预测 <math alttext="3{\times}3" class="ltx_Math" display="inline" id="Sx2.p4.m2" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">3{\times}3</annotation></semantics></math> 或 <math alttext="3{\times}6" class="ltx_Math" display="inline" id="Sx2.p4.m3" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">3{\times}6</annotation></semantics></math> 根多项式 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib8" title="">8</a>]</cite> 映射。他们的输入仍是投影到色度的白点，因此共享 <math alttext="xy" class="ltx_Math" display="inline" id="Sx2.p4.m4" intent=":literal"><semantics><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">xy</annotation></semantics></math> 的两个 SPD（同色异谱对）在构造上会产生相同的 CCM。我们将条件化维度从 2 提升到 <math alttext="K{+}3" class="ltx_Math" display="inline" id="Sx2.p4.m5" intent=":literal"><semantics><mrow><mi>K</mi><mo>+</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">K{+}3</annotation></semantics></math>，其中 <math alttext="K" class="ltx_Math" display="inline" id="Sx2.p4.m6" intent=":literal"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math> 是 ALS 通道数：多通道传感器可分辨 <math alttext="xy" class="ltx_Math" display="inline" id="Sx2.p4.m7" intent=":literal"><semantics><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">xy</annotation></semantics></math> 投影所丢弃的光谱形状。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="Sx2.p5">
+<p class="ltx_p" id="Sx2.p5.1"><span class="ltx_text ltx_font_bold" id="Sx2.p5.1.1">光谱上采样与 HSI</span> 从 RGB <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib9" title="">9</a>]</cite> 恢复反射率光谱，以及从高光谱数据 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib10" title="">10</a>]</cite> 学习光源 SPD，解决的是相邻问题；我们在已知相机响应和辅助多通道观测的条件下恢复光源 SPD。</p>
+</div>
+</section>
+<section class="ltx_section" id="Sx3">
+<h2 class="ltx_title ltx_title_section">方法</h2>
+<div class="ltx_para ltx_noindent" id="Sx3.p1">
+<p class="ltx_p" id="Sx3.p1.1">我们将逐次拍摄的色彩校正矩阵（CCM）设计视为一个光谱恢复问题。每次拍摄遵循三个阶段。首先，我们通过针对固定光谱功率分布（SPD）基的小规模非负最小二乘，从相机白点和多通道ALS读数中恢复光源SPD <math alttext="\hat{E}" class="ltx_Math" display="inline" id="Sx3.p1.m1" intent=":literal"><semantics><mover accent="true"><mi>E</mi><mo>^</mo></mover><annotation encoding="application/x-tex">\hat{E}</annotation></semantics></math>。其次，我们将<math alttext="\hat{E}" class="ltx_Math" display="inline" id="Sx3.p1.m2" intent=":literal"><semantics><mover accent="true"><mi>E</mi><mo>^</mo></mover><annotation encoding="application/x-tex">\hat{E}</annotation></semantics></math>代入成像方程，以合成相机原始RGB与参考CIE XYZ下的虚拟24色块图表。第三，我们对该图表拟合一个<math alttext="3{\times}3" class="ltx_Math" display="inline" id="Sx3.p1.m3" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">3{\times}3</annotation></semantics></math> CCM，采用闭式最小二乘，将其应用于采集像素，并进行色适应到D65参考帧。本节其余部分形式化每个阶段以及ALS滤光片组。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="Sx3.p2">
+<p class="ltx_p" id="Sx3.p2.1"><span class="ltx_text ltx_font_bold" id="Sx3.p2.1.1">前向模型</span> 我们将波长在<math alttext="[400,700]" class="ltx_Math" display="inline" id="Sx3.p2.m1" intent=":literal"><semantics><mrow><mo stretchy="false">[</mo><mn>400,700</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[400,700]</annotation></semantics></math> nm上按<math alttext="10" class="ltx_Math" display="inline" id="Sx3.p2.m2" intent=":literal"><semantics><mn>10</mn><annotation encoding="application/x-tex">10</annotation></semantics></math> nm为间隔离散化（<math alttext="N_{\lambda}{=}31" class="ltx_Math" display="inline" id="Sx3.p2.m3" intent=":literal"><semantics><mrow><msub><mi>N</mi><mi>λ</mi></msub><mo>=</mo><mn>31</mn></mrow><annotation encoding="application/x-tex">N_{\lambda}{=}31</annotation></semantics></math>）。令<math alttext="E\in\mathbb{R}^{N_{\lambda}}" class="ltx_Math" display="inline" id="Sx3.p2.m4" intent=":literal"><semantics><mrow><mi>E</mi><mo>∈</mo><msup><mi>ℝ</mi><msub><mi>N</mi><mi>λ</mi></msub></msup></mrow><annotation encoding="application/x-tex">E\in\mathbb{R}^{N_{\lambda}}</annotation></semantics></math>为未知SPD；令<math alttext="\mathbf{S}\in\mathbb{R}^{N_{\lambda}\times 3}" class="ltx_Math" display="inline" id="Sx3.p2.m5" intent=":literal"><semantics><mrow><mi>𝐒</mi><mo>∈</mo><msup><mi>ℝ</mi><mrow><msub><mi>N</mi><mi>λ</mi></msub><mo lspace="0.222em" rspace="0.222em">×</mo><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{S}\in\mathbb{R}^{N_{\lambda}\times 3}</annotation></semantics></math>为相机光谱灵敏度函数（SSF），<math alttext="\mathbf{C}\in\mathbb{R}^{N_{\lambda}\times 3}" class="ltx_Math" display="inline" id="Sx3.p2.m6" intent=":literal"><semantics><mrow><mi>𝐂</mi><mo>∈</mo><msup><mi>ℝ</mi><mrow><msub><mi>N</mi><mi>λ</mi></msub><mo lspace="0.222em" rspace="0.222em">×</mo><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{C}\in\mathbb{R}^{N_{\lambda}\times 3}</annotation></semantics></math>为CIE 1931颜色匹配函数（CMFs），<math alttext="\mathbf{A}\in\mathbb{R}^{N_{\lambda}\times K}" class="ltx_Math" display="inline" id="Sx3.p2.m7" intent=":literal"><semantics><mrow><mi>𝐀</mi><mo>∈</mo><msup><mi>ℝ</mi><mrow><msub><mi>N</mi><mi>λ</mi></msub><mo lspace="0.222em" rspace="0.222em">×</mo><mi>K</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{A}\in\mathbb{R}^{N_{\lambda}\times K}</annotation></semantics></math>为ALS滤光片组，<math alttext="\mathbf{R}\in\mathbb{R}^{N_{\lambda}\times 24}" class="ltx_Math" display="inline" id="Sx3.p2.m8" intent=":literal"><semantics><mrow><mi>𝐑</mi><mo>∈</mo><msup><mi>ℝ</mi><mrow><msub><mi>N</mi><mi>λ</mi></msub><mo lspace="0.222em" rspace="0.222em">×</mo><mn>24</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{R}\in\mathbb{R}^{N_{\lambda}\times 24}</annotation></semantics></math>为固定的24色块ColorChecker风格反射率集合。相机白点与ALS观测值分别是<math alttext="E" class="ltx_Math" display="inline" id="Sx3.p2.m9" intent=":literal"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>与SSF和ALS滤光片的波长积分。每个色块的相机RGB与CIE XYZ是同样的积分再乘以该色块反射率。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="Sx3.p3">
+<p class="ltx_p" id="Sx3.p3.1"><span class="ltx_text ltx_font_bold" id="Sx3.p3.1.1">基于SPD基的非负最小二乘（NNLS）恢复</span> 我们将<math alttext="E" class="ltx_Math" display="inline" id="Sx3.p3.m1" intent=":literal"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math>约束在基<math alttext="\mathbf{B}\in\mathbb{R}^{N_{\lambda}\times M}" class="ltx_Math" display="inline" id="Sx3.p3.m2" intent=":literal"><semantics><mrow><mi>𝐁</mi><mo>∈</mo><msup><mi>ℝ</mi><mrow><msub><mi>N</mi><mi>λ</mi></msub><mo lspace="0.222em" rspace="0.222em">×</mo><mi>M</mi></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{B}\in\mathbb{R}^{N_{\lambda}\times M}</annotation></semantics></math>的非负张成空间内。为构建<math alttext="\mathbf{B}" class="ltx_Math" display="inline" id="Sx3.p3.m3" intent=":literal"><semantics><mi>𝐁</mi><annotation encoding="application/x-tex">\mathbf{B}</annotation></semantics></math>，我们对每个EMPIR PhotoLED SPD <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib11" title="">11</a>]</cite>做最大值归一化，使基原子描述形状而非幅度；绝对尺度被吸收到恢复系数<math alttext="\hat{\boldsymbol{\alpha}}" class="ltx_Math" display="inline" id="Sx3.p3.m4" intent=":literal"><semantics><mover accent="true"><mi>𝜶</mi><mo>^</mo></mover><annotation encoding="application/x-tex">\hat{\boldsymbol{\alpha}}</annotation></semantics></math>中，并且我们在测试光源集上观察到条件数<math alttext="\kappa(\mathbf{F})\!&lt;\!50" class="ltx_Math" display="inline" id="Sx3.p3.m5" intent=":literal"><semantics><mrow><mrow><mi>κ</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>𝐅</mi><mo stretchy="false">)</mo></mrow></mrow><mo lspace="0.108em">&lt;</mo><mn>50</mn></mrow><annotation encoding="application/x-tex">\kappa(\mathbf{F})\!&lt;\!50</annotation></semantics></math>。对于主要实验，我们选取<math alttext="M{=}30" class="ltx_Math" display="inline" id="Sx3.p3.m6" intent=":literal"><semantics><mrow><mi>M</mi><mo>=</mo><mn>30</mn></mrow><annotation encoding="application/x-tex">M{=}30</annotation></semantics></math>个代表性原子，方法是在一个留出的包含200个光源的池上做<math alttext="k" class="ltx_Math" display="inline" id="Sx3.p3.m7" intent=":literal"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>均值聚类；表<a class="ltx_ref" href="#Sx4.T2" title="Table 2 ‣ Experiments ‣ Beyond CCT: Multi-channel SPD recovery for per-shot camera color correction"><span class="ltx_text ltx_ref_tag">2</span></a>(a)表明结果对<math alttext="M\!\in\![10,100]" class="ltx_Math" display="inline" id="Sx3.p3.m8" intent=":literal"><semantics><mrow><mi>M</mi><mo lspace="0.108em" rspace="0.108em">∈</mo><mrow><mo stretchy="false">[</mo><mn>10,100</mn><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">M\!\in\![10,100]</annotation></semantics></math>不敏感。我们将相机白点与ALS读数堆叠成<math alttext="\mathbf{y}{=}[\mathrm{als};\mathrm{wp}]^{\top}\!\in\!\mathbb{R}^{K{+}3}" class="ltx_Math" display="inline" id="Sx3.p3.m9" intent=":literal"><semantics><mrow><mi>𝐲</mi><mo>=</mo><msup><mrow><mo stretchy="false">[</mo><mrow><mi>als</mi><mo>;</mo><mi>wp</mi></mrow><mo stretchy="false">]</mo></mrow><mo>⊤</mo></msup><mo rspace="0.108em">∈</mo><msup><mi>ℝ</mi><mrow><mi>K</mi><mo>+</mo><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{y}{=}[\mathrm{als};\mathrm{wp}]^{\top}\!\in\!\mathbb{R}^{K{+}3}</annotation></semantics></math>，并构造相应的前向算子<math alttext="\mathbf{F}{=}[\mathbf{A}^{\top}\mathbf{B};\mathbf{S}^{\top}\mathbf{B}]" class="ltx_Math" display="inline" id="Sx3.p3.m10" intent=":literal"><semantics><mrow><mi>𝐅</mi><mo>=</mo><mrow><mo stretchy="false">[</mo><mrow><mrow><msup><mi>𝐀</mi><mo>⊤</mo></msup><mo lspace="0em" rspace="0em">​</mo><mi>𝐁</mi></mrow><mo>;</mo><mrow><msup><mi>𝐒</mi><mo>⊤</mo></msup><mo lspace="0em" rspace="0em">​</mo><mi>𝐁</mi></mrow></mrow><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbf{F}{=}[\mathbf{A}^{\top}\mathbf{B};\mathbf{S}^{\top}\mathbf{B}]</annotation></semantics></math>，然后求解</p>
+<table class="ltx_equation ltx_eqn_table" id="Sx3.E1">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_left"><math alttext="\hat{\boldsymbol{\alpha}}=\arg\min_{\boldsymbol{\alpha}\geq 0}\,\lVert\mathbf{F}\boldsymbol{\alpha}-\mathbf{y}\rVert_{2}^{2},\quad\hat{E}=\mathbf{B}\hat{\boldsymbol{\alpha}}." class="ltx_Math" display="block" id="Sx3.E1.m1" intent=":literal"><semantics><mrow><mrow><mrow><mover accent="true"><mi>𝜶</mi><mo>^</mo></mover><mo>=</mo><mrow><mi>arg</mi><mo lspace="0.167em">⁡</mo><mrow><munder><mi>min</mi><mrow><mi>𝜶</mi><mo>≥</mo><mn>0</mn></mrow></munder><mo lspace="0em">⁡</mo><msubsup><mrow><mo fence="true" rspace="0em">∥</mo><mrow><mrow><mi>𝐅</mi><mo lspace="0em" rspace="0em">​</mo><mi>𝜶</mi></mrow><mo>−</mo><mi>𝐲</mi></mrow><mo fence="true" lspace="0em" rspace="0em">∥</mo></mrow><mn>2</mn><mn>2</mn></msubsup></mrow></mrow></mrow><mo rspace="1.167em">,</mo><mrow><mover accent="true"><mi>E</mi><mo>^</mo></mover><mo>=</mo><mrow><mi>𝐁</mi><mo lspace="0em" rspace="0em">​</mo><mover accent="true"><mi>𝜶</mi><mo>^</mo></mover></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\hat{\boldsymbol{\alpha}}=\arg\min_{\boldsymbol{\alpha}\geq 0}\,\lVert\mathbf{F}\boldsymbol{\alpha}-\mathbf{y}\rVert_{2}^{2},\quad\hat{E}=\mathbf{B}\hat{\boldsymbol{\alpha}}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(1)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="Sx3.p3.2">我们在<span class="ltx_text ltx_font_typewriter" id="Sx3.p3.2.1">scipy.optimize.nnls</span>中使用活动集NNLS。仅非负性本身即可对反演进行正则化；我们不添加Tikhonov项。训练与测试光源集互不相交，并按<math alttext="|\mathrm{Duv}|" class="ltx_Math" display="inline" id="Sx3.p3.m11" intent=":literal"><semantics><mrow><mo stretchy="false">|</mo><mi>Duv</mi><mo stretchy="false">|</mo></mrow><annotation encoding="application/x-tex">|\mathrm{Duv}|</annotation></semantics></math>分组（第4.1节）。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="Sx3.p4">
+<p class="ltx_p" id="Sx3.p4.1"><span class="ltx_text ltx_font_bold" id="Sx3.p4.1.1">逐次拍摄的虚拟校准</span> 在获得<math alttext="\hat{E}" class="ltx_Math" display="inline" id="Sx3.p4.m1" intent=":literal"><semantics><mover accent="true"><mi>E</mi><mo>^</mo></mover><annotation encoding="application/x-tex">\hat{E}</annotation></semantics></math>后，我们通过将<math alttext="\hat{E}" class="ltx_Math" display="inline" id="Sx3.p4.m2" intent=":literal"><semantics><mover accent="true"><mi>E</mi><mo>^</mo></mover><annotation encoding="application/x-tex">\hat{E}</annotation></semantics></math>代入前向模型来合成虚拟24色块图表。对每个色块<math alttext="k" class="ltx_Math" display="inline" id="Sx3.p4.m3" intent=":literal"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>，我们得到合成相机RGB <math alttext="\hat{\mathbf{r}}_{k}" class="ltx_Math" display="inline" id="Sx3.p4.m4" intent=":literal"><semantics><msub><mover accent="true"><mi>𝐫</mi><mo>^</mo></mover><mi>k</mi></msub><annotation encoding="application/x-tex">\hat{\mathbf{r}}_{k}</annotation></semantics></math>与CIE XYZ <math alttext="\hat{\mathbf{x}}_{k}" class="ltx_Math" display="inline" id="Sx3.p4.m5" intent=":literal"><semantics><msub><mover accent="true"><mi>𝐱</mi><mo>^</mo></mover><mi>k</mi></msub><annotation encoding="application/x-tex">\hat{\mathbf{x}}_{k}</annotation></semantics></math>，二者分别是<math alttext="\hat{E}\cdot\mathbf{R}_{k}" class="ltx_Math" display="inline" id="Sx3.p4.m6" intent=":literal"><semantics><mrow><mover accent="true"><mi>E</mi><mo>^</mo></mover><mo lspace="0.222em" rspace="0.222em">⋅</mo><msub><mi>𝐑</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">\hat{E}\cdot\mathbf{R}_{k}</annotation></semantics></math>与<math alttext="\mathbf{S}" class="ltx_Math" display="inline" id="Sx3.p4.m7" intent=":literal"><semantics><mi>𝐒</mi><annotation encoding="application/x-tex">\mathbf{S}</annotation></semantics></math>和<math alttext="\mathbf{C}" class="ltx_Math" display="inline" id="Sx3.p4.m8" intent=":literal"><semantics><mi>𝐂</mi><annotation encoding="application/x-tex">\mathbf{C}</annotation></semantics></math>的波长积分。我们通过闭式最小二乘将<math alttext="\mathbf{M}\in\mathbb{R}^{3\times 3}" class="ltx_Math" display="inline" id="Sx3.p4.m9" intent=":literal"><semantics><mrow><mi>𝐌</mi><mo>∈</mo><msup><mi>ℝ</mi><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathbf{M}\in\mathbb{R}^{3\times 3}</annotation></semantics></math>拟合为XYZ<math alttext="\to" class="ltx_Math" display="inline" id="Sx3.p4.m10" intent=":literal"><semantics><mo stretchy="false">→</mo><annotation encoding="application/x-tex">\to</annotation></semantics></math>RGB CCM。该方向与DNG <span class="ltx_text ltx_font_typewriter" id="Sx3.p4.1.2">ColorMatrix</span>约定一致。相机RGB与XYZ在相差一个自由曝光/归一化尺度的意义下定义，该尺度会传播到<math alttext="\mathbf{M}" class="ltx_Math" display="inline" id="Sx3.p4.m11" intent=":literal"><semantics><mi>𝐌</mi><annotation encoding="application/x-tex">\mathbf{M}</annotation></semantics></math>中；我们固定绿色行中间元素<math alttext="M_{22}{=}1" class="ltx_Math" display="inline" id="Sx3.p4.m12" intent=":literal"><semantics><mrow><msub><mi>M</mi><mn>22</mn></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">M_{22}{=}1</annotation></semantics></math>以进行规范固定，这是若干可允许归一化之一：</p>
+<table class="ltx_equation ltx_eqn_table" id="Sx3.E2">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_left"><math alttext="\mathbf{M}=\arg\min_{\mathbf{M}}\sum_{k=1}^{24}\lVert\hat{\mathbf{r}}_{k}-\mathbf{M}\,\hat{\mathbf{x}}_{k}\rVert_{2}^{2}\quad\text{s.t.}\;M_{22}{=}1." class="ltx_Math" display="block" id="Sx3.E2.m1" intent=":literal"><semantics><mrow><mrow><mrow><mi>𝐌</mi><mo>=</mo><mrow><mi>arg</mi><mo lspace="0.167em">⁡</mo><mrow><mi>min</mi><mo>⁡</mo><mrow><mmultiscripts><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mn>24</mn></munderover><mprescripts></mprescripts><mi>𝐌</mi><mrow></mrow></mmultiscripts><mo lspace="0em">⁡</mo><msubsup><mrow><mo fence="true" rspace="0em">∥</mo><mrow><msub><mover accent="true"><mi>𝐫</mi><mo>^</mo></mover><mi>k</mi></msub><mo>−</mo><mrow><mi>𝐌</mi><mo lspace="0.170em" rspace="0em">​</mo><msub><mover accent="true"><mi>𝐱</mi><mo>^</mo></mover><mi>k</mi></msub></mrow></mrow><mo fence="true" lspace="0em">∥</mo></mrow><mn>2</mn><mn>2</mn></msubsup></mrow></mrow></mrow></mrow><mspace style="width:1.000em;" width="1.000em"></mspace><mrow><mrow><mtext>s.t.</mtext><mo lspace="0.280em" rspace="0em">​</mo><msub><mi>M</mi><mn>22</mn></msub></mrow><mo>=</mo><mn>1</mn></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\mathbf{M}=\arg\min_{\mathbf{M}}\sum_{k=1}^{24}\lVert\hat{\mathbf{r}}_{k}-\mathbf{M}\,\hat{\mathbf{x}}_{k}\rVert_{2}^{2}\quad\text{s.t.}\;M_{22}{=}1.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="Sx3.p4.2">推理时，我们将采集到的RGB <math alttext="\mathbf{r}" class="ltx_Math" display="inline" id="Sx3.p4.m13" intent=":literal"><semantics><mi>𝐫</mi><annotation encoding="application/x-tex">\mathbf{r}</annotation></semantics></math>通过<math alttext="\mathbf{x}(\mathbf{r}){=}\mathbf{M}^{-1}\mathbf{r}" class="ltx_Math" display="inline" id="Sx3.p4.m14" intent=":literal"><semantics><mrow><mrow><mi>𝐱</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>𝐫</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><msup><mi>𝐌</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mo lspace="0em" rspace="0em">​</mo><mi>𝐫</mi></mrow></mrow><annotation encoding="application/x-tex">\mathbf{x}(\mathbf{r}){=}\mathbf{M}^{-1}\mathbf{r}</annotation></semantics></math>映射到场景坐标系XYZ。我们恢复的矩阵条件数位于<math alttext="10^{1}" class="ltx_Math" display="inline" id="Sx3.p4.m15" intent=":literal"><semantics><msup><mn>10</mn><mn>1</mn></msup><annotation encoding="application/x-tex">10^{1}</annotation></semantics></math>–<math alttext="10^{2}" class="ltx_Math" display="inline" id="Sx3.p4.m16" intent=":literal"><semantics><msup><mn>10</mn><mn>2</mn></msup><annotation encoding="application/x-tex">10^{2}</annotation></semantics></math>范围内，因此反演在数值上稳定。然后，我们应用Bradford色适应<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib12" title="">12</a>]</cite>，从<math alttext="\hat{E}" class="ltx_Math" display="inline" id="Sx3.p4.m17" intent=":literal"><semantics><mover accent="true"><mi>E</mi><mo>^</mo></mover><annotation encoding="application/x-tex">\hat{E}</annotation></semantics></math>的白点<math alttext="\mathbf{C}^{\top}\hat{E}" class="ltx_Math" display="inline" id="Sx3.p4.m18" intent=":literal"><semantics><mrow><msup><mi>𝐂</mi><mo>⊤</mo></msup><mo lspace="0em" rspace="0em">​</mo><mover accent="true"><mi>E</mi><mo>^</mo></mover></mrow><annotation encoding="application/x-tex">\mathbf{C}^{\top}\hat{E}</annotation></semantics></math>到D65，以进行评估。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="Sx3.p5">
+<p class="ltx_p" id="Sx3.p5.1"><span class="ltx_text ltx_font_bold" id="Sx3.p5.1.1">ALS滤光片组</span> 我们的主要实验使用<math alttext="K" class="ltx_Math" display="inline" id="Sx3.p5.m1" intent=":literal"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>个理想化高斯滤光片，半高全宽（FWHM）为25 nm，峰值在400–700 nm范围内均匀间隔（图<a class="ltx_ref" href="#Sx3.F2" title="Figure 2 ‣ Method ‣ Beyond CCT: Multi-channel SPD recovery for per-shot camera color correction"><span class="ltx_text ltx_ref_tag">2</span></a>）；这为通道数消融提供了一个干净的对照。第4.3节报告了一种类AS7341响应，其在AS7341通道中心处具有非对称峰、<math alttext="5\%" class="ltx_Math" display="inline" id="Sx3.p5.m2" intent=":literal"><semantics><mrow><mn>5</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">5\%</annotation></semantics></math>相邻通道串扰和<math alttext="3\%" class="ltx_Math" display="inline" id="Sx3.p5.m3" intent=":literal"><semantics><mrow><mn>3</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">3\%</annotation></semantics></math>直流偏置。</p>
+</div>
+<figure class="ltx_figure" id="Sx3.F2"><object class="ltx_graphics ltx_centering ltx_img_landscape" data="assets/fig3_als_filterbank.svg" height="299" id="Sx3.F2.g1" style="aspect-ratio:634/299;" type="image/svg+xml" width="634"></object>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 2：</span>Nikon D40 光谱灵敏度（填充带）与实验所用的 <math alttext="14" class="ltx_Math" display="inline" id="Sx3.F2.m2" intent=":literal"><semantics><mn>14</mn><annotation encoding="application/x-tex">14</annotation></semantics></math> 通道 ALS 滤波器组叠加。</figcaption>
+</figure>
+</section>
+<section class="ltx_section" id="Sx4">
+<h2 class="ltx_title ltx_title_section">实验</h2>
+<div class="ltx_para ltx_noindent" id="Sx4.p1">
+<p class="ltx_p" id="Sx4.p1.1">我们在由 300 个光源 <math alttext="\times" class="ltx_Math" display="inline" id="Sx4.p1.m1" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> 3,100 个反射率组成的合成基准（测试集）上，将所提流程与六种基线（CCT 驱动、<math alttext="xy" class="ltx_Math" display="inline" id="Sx4.p1.m2" intent=":literal"><semantics><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">xy</annotation></semantics></math> 条件、光谱）进行比较，然后检验鲁棒性、OOD 泛化、同色异谱对压力测试，最后进行实测 SPD 评估以及真实 RAW 合理性检查。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="Sx4.p2">
+<p class="ltx_p" id="Sx4.p2.1">Nikon D40 的光谱灵敏度来自 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib13" title="">13</a>]</cite>。测试光源为 300 个与基光源池不相交的 EMPIR 光源（随机种子 <math alttext="0" class="ltx_Math" display="inline" id="Sx4.p2.m1" intent=":literal"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>），按带符号 Duv 分为普朗克型（<math alttext="|\mathrm{Duv}|{&lt;}0.003" class="ltx_Math" display="inline" id="Sx4.p2.m2" intent=":literal"><semantics><mrow><mrow><mo stretchy="false">|</mo><mi>Duv</mi><mo stretchy="false">|</mo></mrow><mo>&lt;</mo><mn>0.003</mn></mrow><annotation encoding="application/x-tex">|\mathrm{Duv}|{&lt;}0.003</annotation></semantics></math>，<math alttext="n{=}156" class="ltx_Math" display="inline" id="Sx4.p2.m3" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>156</mn></mrow><annotation encoding="application/x-tex">n{=}156</annotation></semantics></math>）、温和型（<math alttext="0.003{-}0.01" class="ltx_Math" display="inline" id="Sx4.p2.m4" intent=":literal"><semantics><mrow><mn>0.003</mn><mo>−</mo><mn>0.01</mn></mrow><annotation encoding="application/x-tex">0.003{-}0.01</annotation></semantics></math>，<math alttext="n{=}94" class="ltx_Math" display="inline" id="Sx4.p2.m5" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>94</mn></mrow><annotation encoding="application/x-tex">n{=}94</annotation></semantics></math>）、类 LED（<math alttext="0.01{-}0.03" class="ltx_Math" display="inline" id="Sx4.p2.m6" intent=":literal"><semantics><mrow><mn>0.01</mn><mo>−</mo><mn>0.03</mn></mrow><annotation encoding="application/x-tex">0.01{-}0.03</annotation></semantics></math>，<math alttext="n{=}45" class="ltx_Math" display="inline" id="Sx4.p2.m7" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>45</mn></mrow><annotation encoding="application/x-tex">n{=}45</annotation></semantics></math>）和极端型（<math alttext="\geq 0.03" class="ltx_Math" display="inline" id="Sx4.p2.m8" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>≥</mo><mn>0.03</mn></mrow><annotation encoding="application/x-tex">\geq 0.03</annotation></semantics></math>，<math alttext="n{=}5" class="ltx_Math" display="inline" id="Sx4.p2.m9" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">n{=}5</annotation></semantics></math>；见图 <a class="ltx_ref" href="#Sx4.F3" title="Figure 3 ‣ Experiments ‣ Beyond CCT: Multi-channel SPD recovery for per-shot camera color correction"><span class="ltx_text ltx_ref_tag">3</span></a>）。测试反射率为 31 个 CAVE 场景 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib15" title="">15</a>]</cite> 中每个场景的 100 个随机像素，共 <math alttext="3{,}100" class="ltx_Math" display="inline" id="Sx4.p2.m10" intent=":literal"><semantics><mn>3,100</mn><annotation encoding="application/x-tex">3{,}100</annotation></semantics></math> 个向量。校准目标为 24 色块 ColorChecker 风格反射率集，与 CAVE 测试反射率不同，因此评估是跨分布测试。我们在 D65 XYZ 上报告每对的角度误差，包括平均值和最差 25% 平均值（上四分位数的平均，可暴露同色异谱尾部）；CIE <math alttext="\Delta E_{2000}" class="ltx_Math" display="inline" id="Sx4.p2.m11" intent=":literal"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><msub><mi>E</mi><mn>2000</mn></msub></mrow><annotation encoding="application/x-tex">\Delta E_{2000}</annotation></semantics></math> <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib16" title="">16</a>]</cite> 遵循相同排序，并在文中报告。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="Sx4.p3">
+<p class="ltx_p" id="Sx4.p3.1"><span class="ltx_text ltx_font_bold" id="Sx4.p3.1.1">基线</span> <em class="ltx_emph ltx_font_italic" id="Sx4.p3.1.2">Oracle</em>：已知真实 SPD 的逐光源最小二乘 CCM；一个非因果上界。<em class="ltx_emph ltx_font_italic" id="Sx4.p3.1.3">2-CST DNG</em> <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">1</a>]</cite>：使用 Adobe ColorMatrix1/2，并依据 McCamy CCT 进行 <math alttext="1/T" class="ltx_Math" display="inline" id="Sx4.p3.m1" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><mi>T</mi></mrow><annotation encoding="application/x-tex">1/T</annotation></semantics></math> 插值 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib17" title="">17</a>]</cite>。<em class="ltx_emph ltx_font_italic" id="Sx4.p3.1.4">2-CST SELF</em>：使用自校准矩阵进行相同插值（D40 SSF <math alttext="\times" class="ltx_Math" display="inline" id="Sx4.p3.m2" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> 普朗克型 <math alttext="\times" class="ltx_Math" display="inline" id="Sx4.p3.m3" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> ColorChecker 反射率）。<em class="ltx_emph ltx_font_italic" id="Sx4.p3.1.5">2D-NN</em>：在 <math alttext="xy" class="ltx_Math" display="inline" id="Sx4.p3.m4" intent=":literal"><semantics><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">xy</annotation></semantics></math> 上对基光源 CCM 进行最近邻查找。<em class="ltx_emph ltx_font_italic" id="Sx4.p3.1.6">CST-MLP</em> <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib2" title="">2</a>]</cite>：对 Tedla <em class="ltx_emph ltx_font_italic" id="Sx4.p3.1.7">et al.</em> 的两个头进行复现：一个 2 层 32 单元 MLP，从 <math alttext="xy" class="ltx_Math" display="inline" id="Sx4.p3.m5" intent=":literal"><semantics><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">xy</annotation></semantics></math> 映射到 (i) 一个 <math alttext="3{\times}3" class="ltx_Math" display="inline" id="Sx4.p3.m6" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">3{\times}3</annotation></semantics></math> CCM 的 8 个自由项（“CST-MLP<sub class="ltx_sub" id="Sx4.p3.1.8"><span class="ltx_text ltx_font_italic" id="Sx4.p3.1.8.1">3×3</span></sub>”），或 (ii) 一个 <math alttext="18" class="ltx_Math" display="inline" id="Sx4.p3.m8" intent=":literal"><semantics><mn>18</mn><annotation encoding="application/x-tex">18</annotation></semantics></math> 元素 <math alttext="3{\times}6" class="ltx_Math" display="inline" id="Sx4.p3.m9" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">3{\times}6</annotation></semantics></math> 矩阵，该矩阵将 Finlayson 根多项式特征 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib8" title="">8</a>]</cite> 映射到 XYZ（“CST-MLP<sub class="ltx_sub" id="Sx4.p3.1.9"><span class="ltx_text ltx_font_italic" id="Sx4.p3.1.9.1">3×6</span></sub>”）。两个头均在 200 个基光源上训练 <math alttext="2{,}000" class="ltx_Math" display="inline" id="Sx4.p3.m11" intent=":literal"><semantics><mn>2,000</mn><annotation encoding="application/x-tex">2{,}000</annotation></semantics></math> 个 Adam 步，参数为 <math alttext="\mathrm{lr}{=}10^{-3}" class="ltx_Math" display="inline" id="Sx4.p3.m12" intent=":literal"><semantics><mrow><mi>lr</mi><mo>=</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\mathrm{lr}{=}10^{-3}</annotation></semantics></math>，并采用逐色块余弦损失。<em class="ltx_emph ltx_font_italic" id="Sx4.p3.1.10">Spectral WP-only</em>：我们的框架取 <math alttext="K{=}0" class="ltx_Math" display="inline" id="Sx4.p3.m13" intent=":literal"><semantics><mrow><mi>K</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">K{=}0</annotation></semantics></math>。<em class="ltx_emph ltx_font_italic" id="Sx4.p3.1.11">Spectral WP<math alttext="+" class="ltx_Math" display="inline" id="Sx4.p3.m14" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS</em>：完整方法取 <math alttext="K{=}14" class="ltx_Math" display="inline" id="Sx4.p3.m15" intent=":literal"><semantics><mrow><mi>K</mi><mo>=</mo><mn>14</mn></mrow><annotation encoding="application/x-tex">K{=}14</annotation></semantics></math>。</p>
+</div>
+<figure class="ltx_figure" id="Sx4.F3"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_square" height="515" id="Sx4.F3.g1" src="assets/fig6_xy_scatter.png" style="aspect-ratio:634/515;" width="634"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 3：</span>EMPIR 测试光源在 CIE 1931 <math alttext="xy" class="ltx_Math" display="inline" id="Sx4.F3.m2" intent=":literal"><semantics><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">xy</annotation></semantics></math> 上，按带符号 Duv 着色。该数据集涵盖普朗克型光源、日光时相以及显著偏离轨迹的 LED。</figcaption>
+</figure>
+<div class="ltx_para ltx_noindent" id="Sx4.p4">
+<p class="ltx_p" id="Sx4.p4.1"><span class="ltx_text ltx_font_bold" id="Sx4.p4.1.1">主要结果：按 Duv</span> 分组的合成基准（见表 <a class="ltx_ref" href="#Sx4.T1" title="Table 1 ‣ Experiments ‣ Beyond CCT: Multi-channel SPD recovery for per-shot camera color correction"><span class="ltx_text ltx_ref_tag">1</span></a>）报告每个 Duv 组的平均角度误差与最差25%角度误差。WP<math alttext="+" class="ltx_Math" display="inline" id="Sx4.p4.m1" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS 在每个组中都是最佳的非 Oracle 方法。相对于最强的非光谱基线（CST-MLP<sub class="ltx_sub" id="Sx4.p4.1.2"><span class="ltx_text ltx_font_italic" id="Sx4.p4.1.2.1">3×6</span></sub>，总体 <math alttext="1.89^{\circ}" class="ltx_Math" display="inline" id="Sx4.p4.m3" intent=":literal"><semantics><msup><mn>1.89</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">1.89^{\circ}</annotation></semantics></math>），WP<math alttext="+" class="ltx_Math" display="inline" id="Sx4.p4.m4" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS 将平均误差降低 <math alttext="36\%" class="ltx_Math" display="inline" id="Sx4.p4.m5" intent=":literal"><semantics><mrow><mn>36</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">36\%</annotation></semantics></math>（<math alttext="1.20^{\circ}" class="ltx_Math" display="inline" id="Sx4.p4.m6" intent=":literal"><semantics><msup><mn>1.20</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">1.20^{\circ}</annotation></semantics></math>）。主要增益在类 LED 组（<math alttext="n{=}45" class="ltx_Math" display="inline" id="Sx4.p4.m7" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>45</mn></mrow><annotation encoding="application/x-tex">n{=}45</annotation></semantics></math>）上具有统计依据，该组中同色异谱问题确实存在：最差25%从 <math alttext="4.79^{\circ}" class="ltx_Math" display="inline" id="Sx4.p4.m8" intent=":literal"><semantics><msup><mn>4.79</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">4.79^{\circ}</annotation></semantics></math> 降至 <math alttext="2.80^{\circ}" class="ltx_Math" display="inline" id="Sx4.p4.m9" intent=":literal"><semantics><msup><mn>2.80</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">2.80^{\circ}</annotation></semantics></math>，降低了 <math alttext="1.71{\times}" class="ltx_math_unparsed" display="inline" id="Sx4.p4.m10" intent=":literal"><semantics><mrow><mn>1.71</mn><mo lspace="0.222em">×</mo></mrow><annotation encoding="application/x-tex">1.71{\times}</annotation></semantics></math>。Extreme 组的尾部更大，但仅基于 <math alttext="n{=}5" class="ltx_Math" display="inline" id="Sx4.p4.m11" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">n{=}5</annotation></semantics></math> 个光源，且仅作方向性报告。以 <math alttext="xy" class="ltx_Math" display="inline" id="Sx4.p4.m12" intent=":literal"><semantics><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">xy</annotation></semantics></math> 为条件的基线（2D-NN、CST-MLP）在低 Duv 下优于由 CCT 驱动的基线，这证实了 Tedla <em class="ltx_emph ltx_font_italic" id="Sx4.p4.1.3">等</em> 的诊断。它们在轨迹外失效，此时 WP<math alttext="+" class="ltx_Math" display="inline" id="Sx4.p4.m13" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS 具有 <math alttext="K{+}3" class="ltx_Math" display="inline" id="Sx4.p4.m14" intent=":literal"><semantics><mrow><mi>K</mi><mo>+</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">K{+}3</annotation></semantics></math> 个条件维度而不是 <math alttext="2" class="ltx_Math" display="inline" id="Sx4.p4.m15" intent=":literal"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math> 个。Tedla 的 3<math alttext="\times" class="ltx_Math" display="inline" id="Sx4.p4.m16" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math>6 根多项式扩展缩小了差距但未消除差距（总体 1.89<sup class="ltx_sup" id="Sx4.p4.1.4">∘</sup> 对 1.20<sup class="ltx_sup" id="Sx4.p4.1.5">∘</sup>，类 LED 上 2.27<sup class="ltx_sup" id="Sx4.p4.1.6">∘</sup> 对 1.31<sup class="ltx_sup" id="Sx4.p4.1.7">∘</sup>）。在 Planckian 上，ALS 仅比 WP-only 增加 <math alttext="0.50^{\circ}" class="ltx_Math" display="inline" id="Sx4.p4.m21" intent=":literal"><semantics><msup><mn>0.50</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">0.50^{\circ}</annotation></semantics></math>——为正但很小。</p>
+</div>
+<figure class="ltx_table" id="Sx4.T1">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">表 1：</span>经 Bradford CAT 到 D65 后，按 Duv 分组在 <math alttext="300{\times}3{,}100" class="ltx_Math" display="inline" id="Sx4.T1.m17" intent=":literal"><semantics><mrow><mn>300</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>3,100</mn></mrow><annotation encoding="application/x-tex">300{\times}3{,}100</annotation></semantics></math>（光源，反射率）对上的平均角度误差与最差25%角度误差（度）。<math alttext="3{\times}3" class="ltx_Math" display="inline" id="Sx4.T1.m18" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">3{\times}3</annotation></semantics></math> 和 <math alttext="3{\times}6" class="ltx_Math" display="inline" id="Sx4.T1.m19" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">3{\times}6</annotation></semantics></math> 是 Tedla <em class="ltx_emph ltx_font_italic" id="Sx4.T1.5">等</em> 的 CST-MLP <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib2" title="">2</a>]</cite> 的线性头与根多项式头（<math alttext="3{\times}6" class="ltx_Math" display="inline" id="Sx4.T1.m20" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">3{\times}6</annotation></semantics></math> 使用 Finlayson 根多项式特征 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib8" title="">8</a>]</cite>）。每行最佳非 Oracle 条目以<span class="ltx_text ltx_font_bold" id="Sx4.T1.6">粗体</span>表示。Extreme 组仅含 <math alttext="n{=}5" class="ltx_Math" display="inline" id="Sx4.T1.m21" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">n{=}5</annotation></semantics></math> 个光源；其最差25%平均仅 1–2 个样本，仅为完整性而报告，不用于统计推断。统计权重落在类 LED 组（<math alttext="n{=}45" class="ltx_Math" display="inline" id="Sx4.T1.m22" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>45</mn></mrow><annotation encoding="application/x-tex">n{=}45</annotation></semantics></math>）上。对 WP<math alttext="+" class="ltx_Math" display="inline" id="Sx4.T1.m23" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS 与 CST-MLP<sub class="ltx_sub" id="Sx4.T1.7"><span class="ltx_text ltx_font_italic" id="Sx4.T1.7.1">3×6</span></sub> 的平均差距进行配对 bootstrap（光源级重采样，<math alttext="B{=}1000" class="ltx_Math" display="inline" id="Sx4.T1.m25" intent=":literal"><semantics><mrow><mi>B</mi><mo>=</mo><mn>1000</mn></mrow><annotation encoding="application/x-tex">B{=}1000</annotation></semantics></math>）：总体 <math alttext="\Delta\!=\!+0.70^{\circ}" class="ltx_Math" display="inline" id="Sx4.T1.m26" intent=":literal"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0.108em" rspace="0.108em">=</mo><mrow><mo>+</mo><msup><mn>0.70</mn><mo>∘</mo></msup></mrow></mrow><annotation encoding="application/x-tex">\Delta\!=\!+0.70^{\circ}</annotation></semantics></math>，95% CI <math alttext="[+0.40,\,+1.19]^{\circ}" class="ltx_Math" display="inline" id="Sx4.T1.m27" intent=":literal"><semantics><msup><mrow><mo stretchy="false">[</mo><mrow><mrow><mo>+</mo><mn>0.40</mn></mrow><mo rspace="0.337em">,</mo><mrow><mo>+</mo><mn>1.19</mn></mrow></mrow><mo stretchy="false">]</mo></mrow><mo>∘</mo></msup><annotation encoding="application/x-tex">[+0.40,\,+1.19]^{\circ}</annotation></semantics></math>；类 LED <math alttext="\Delta\!=\!+0.97^{\circ}" class="ltx_Math" display="inline" id="Sx4.T1.m28" intent=":literal"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0.108em" rspace="0.108em">=</mo><mrow><mo>+</mo><msup><mn>0.97</mn><mo>∘</mo></msup></mrow></mrow><annotation encoding="application/x-tex">\Delta\!=\!+0.97^{\circ}</annotation></semantics></math>，95% CI <math alttext="[+0.67,\,+1.37]^{\circ}" class="ltx_Math" display="inline" id="Sx4.T1.m29" intent=":literal"><semantics><msup><mrow><mo stretchy="false">[</mo><mrow><mrow><mo>+</mo><mn>0.67</mn></mrow><mo rspace="0.337em">,</mo><mrow><mo>+</mo><mn>1.37</mn></mrow></mrow><mo stretchy="false">]</mo></mrow><mo>∘</mo></msup><annotation encoding="application/x-tex">[+0.67,\,+1.37]^{\circ}</annotation></semantics></math>；Extreme <math alttext="\Delta\!=\!+5.62^{\circ}" class="ltx_Math" display="inline" id="Sx4.T1.m30" intent=":literal"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0.108em" rspace="0.108em">=</mo><mrow><mo>+</mo><msup><mn>5.62</mn><mo>∘</mo></msup></mrow></mrow><annotation encoding="application/x-tex">\Delta\!=\!+5.62^{\circ}</annotation></semantics></math>，95% CI <math alttext="[+0.01,\,+14.56]^{\circ}" class="ltx_Math" display="inline" id="Sx4.T1.m31" intent=":literal"><semantics><msup><mrow><mo stretchy="false">[</mo><mrow><mrow><mo>+</mo><mn>0.01</mn></mrow><mo rspace="0.337em">,</mo><mrow><mo>+</mo><mn>14.56</mn></mrow></mrow><mo stretchy="false">]</mo></mrow><mo>∘</mo></msup><annotation encoding="application/x-tex">[+0.01,\,+14.56]^{\circ}</annotation></semantics></math>（宽 CI 正是将 <math alttext="n{=}5" class="ltx_Math" display="inline" id="Sx4.T1.m32" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">n{=}5</annotation></semantics></math> 的注意事项明确化）。</figcaption>
+<div class="ltx_inline-block ltx_align_center ltx_transformed_outer" id="Sx4.T1.8" style="width:483.7pt;height:136.2pt;vertical-align:-66.1pt;"><span class="ltx_transformed_inner" style="transform:translate(-59.4pt,16.7pt) scale(0.802913954862787,0.802913954862787) ;">
+<table class="ltx_tabular ltx_guessed_headers ltx_align_middle" id="Sx4.T1.8.1">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="Sx4.T1.8.1.1">
+<th class="ltx_td ltx_th ltx_th_row ltx_border_r ltx_border_t" id="Sx4.T1.8.1.1.1"></th>
+<td class="ltx_td ltx_align_center ltx_border_r ltx_border_t" colspan="3" id="Sx4.T1.8.1.1.2"><span class="ltx_text ltx_font_bold" id="Sx4.T1.8.1.1.2.1">CCT-driven</span></td>
+<td class="ltx_td ltx_align_center ltx_border_r ltx_border_t" colspan="3" id="Sx4.T1.8.1.1.3"><math alttext="xy" class="ltx_Math" display="inline" id="Sx4.T1.m33" intent=":literal"><semantics><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">xy</annotation></semantics></math><span class="ltx_text ltx_font_bold" id="Sx4.T1.8.1.1.3.1">-conditioned</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t" colspan="2" id="Sx4.T1.8.1.1.4"><span class="ltx_text ltx_font_bold" id="Sx4.T1.8.1.1.4.1">Spectral (ours)</span></td></tr>
+<tr class="ltx_tr" id="Sx4.T1.8.1.2">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_r" id="Sx4.T1.8.1.2.1"><math alttext="|\mathrm{Duv}|" class="ltx_Math" display="inline" id="Sx4.T1.m34" intent=":literal"><semantics><mrow><mo stretchy="false">|</mo><mi>Duv</mi><mo stretchy="false">|</mo></mrow><annotation encoding="application/x-tex">|\mathrm{Duv}|</annotation></semantics></math> group</th>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.2.2">Oracle</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.2.3">DNG <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">1</a>]</cite></td>
+<td class="ltx_td ltx_align_center ltx_border_r" id="Sx4.T1.8.1.2.4">SELF</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.2.5">2D-NN</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.2.6"><math alttext="3{\times}3" class="ltx_Math" display="inline" id="Sx4.T1.m35" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">3{\times}3</annotation></semantics></math> <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib2" title="">2</a>]</cite></td>
+<td class="ltx_td ltx_align_center ltx_border_r" id="Sx4.T1.8.1.2.7"><math alttext="3{\times}6" class="ltx_Math" display="inline" id="Sx4.T1.m36" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">3{\times}6</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.2.8">WP-only</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.2.9"><span class="ltx_text ltx_font_bold" id="Sx4.T1.8.1.2.9.1">WP<math alttext="+" class="ltx_Math" display="inline" id="Sx4.T1.m37" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS</span></td></tr>
+<tr class="ltx_tr" id="Sx4.T1.8.1.3">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" colspan="9" id="Sx4.T1.8.1.3.1"><span class="ltx_text ltx_font_italic" id="Sx4.T1.8.1.3.1.1">Mean angular error</span></th></tr>
+<tr class="ltx_tr" id="Sx4.T1.8.1.4">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_r" id="Sx4.T1.8.1.4.1">Planckian <math alttext="&lt;\!0.003" class="ltx_Math" display="inline" id="Sx4.T1.m38" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>&lt;</mo><mn>0.003</mn></mrow><annotation encoding="application/x-tex">&lt;\!0.003</annotation></semantics></math> (<math alttext="n{=}156" class="ltx_Math" display="inline" id="Sx4.T1.m39" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>156</mn></mrow><annotation encoding="application/x-tex">n{=}156</annotation></semantics></math>)</th>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.4.2">0.95</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.4.3">2.45</td>
+<td class="ltx_td ltx_align_center ltx_border_r" id="Sx4.T1.8.1.4.4">3.18</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.4.5">1.75</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.4.6">1.79</td>
+<td class="ltx_td ltx_align_center ltx_border_r" id="Sx4.T1.8.1.4.7">1.33</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.4.8">1.55</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.4.9"><span class="ltx_text ltx_font_bold" id="Sx4.T1.8.1.4.9.1">1.05</span></td></tr>
+<tr class="ltx_tr" id="Sx4.T1.8.1.5">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_r" id="Sx4.T1.8.1.5.1">Mild <math alttext="0.003\!-\!0.01" class="ltx_Math" display="inline" id="Sx4.T1.m40" intent=":literal"><semantics><mrow><mo>−</mo><mn>0.01</mn></mrow><annotation encoding="application/x-tex">0.003\!-\!0.01</annotation></semantics></math> (<math alttext="n{=}94" class="ltx_Math" display="inline" id="Sx4.T1.m41" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>94</mn></mrow><annotation encoding="application/x-tex">n{=}94</annotation></semantics></math>)</th>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.5.2">0.87</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.5.3">2.73</td>
+<td class="ltx_td ltx_align_center ltx_border_r" id="Sx4.T1.8.1.5.4">3.44</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.5.5">2.01</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.5.6">1.99</td>
+<td class="ltx_td ltx_align_center ltx_border_r" id="Sx4.T1.8.1.5.7">2.21</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.5.8">1.82</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.5.9"><span class="ltx_text ltx_font_bold" id="Sx4.T1.8.1.5.9.1">1.21</span></td></tr>
+<tr class="ltx_tr" id="Sx4.T1.8.1.6">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_r" id="Sx4.T1.8.1.6.1">LED-like <math alttext="0.01\!-\!0.03" class="ltx_Math" display="inline" id="Sx4.T1.m42" intent=":literal"><semantics><mrow><mo>−</mo><mn>0.03</mn></mrow><annotation encoding="application/x-tex">0.01\!-\!0.03</annotation></semantics></math> (<math alttext="n{=}45" class="ltx_Math" display="inline" id="Sx4.T1.m43" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>45</mn></mrow><annotation encoding="application/x-tex">n{=}45</annotation></semantics></math>)</th>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.6.2">0.81</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.6.3">3.09</td>
+<td class="ltx_td ltx_align_center ltx_border_r" id="Sx4.T1.8.1.6.4">4.26</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.6.5">2.78</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.6.6">2.41</td>
+<td class="ltx_td ltx_align_center ltx_border_r" id="Sx4.T1.8.1.6.7">2.27</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.6.8">2.18</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.6.9"><span class="ltx_text ltx_font_bold" id="Sx4.T1.8.1.6.9.1">1.31</span></td></tr>
+<tr class="ltx_tr" id="Sx4.T1.8.1.7">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_r" id="Sx4.T1.8.1.7.1">Extreme <math alttext="\geq\!0.03" class="ltx_Math" display="inline" id="Sx4.T1.m44" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>≥</mo><mn>0.03</mn></mrow><annotation encoding="application/x-tex">\geq\!0.03</annotation></semantics></math> (<math alttext="n{=}5" class="ltx_Math" display="inline" id="Sx4.T1.m45" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">n{=}5</annotation></semantics></math>)</th>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.7.2">2.36</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.7.3">11.08</td>
+<td class="ltx_td ltx_align_center ltx_border_r" id="Sx4.T1.8.1.7.4">26.75</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.7.5">6.60</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.7.6">14.31</td>
+<td class="ltx_td ltx_align_center ltx_border_r" id="Sx4.T1.8.1.7.7">10.11</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.7.8">9.23</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.7.9"><span class="ltx_text ltx_font_bold" id="Sx4.T1.8.1.7.9.1">4.49</span></td></tr>
+<tr class="ltx_tr" id="Sx4.T1.8.1.8">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_r" id="Sx4.T1.8.1.8.1"><span class="ltx_text ltx_font_bold" id="Sx4.T1.8.1.8.1.1">Overall</span> (<math alttext="n{=}300" class="ltx_Math" display="inline" id="Sx4.T1.m46" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>300</mn></mrow><annotation encoding="application/x-tex">n{=}300</annotation></semantics></math>)</th>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.8.2">0.93</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.8.3">2.77</td>
+<td class="ltx_td ltx_align_center ltx_border_r" id="Sx4.T1.8.1.8.4">3.81</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.8.5">2.07</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.8.6">2.15</td>
+<td class="ltx_td ltx_align_center ltx_border_r" id="Sx4.T1.8.1.8.7">1.89</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.8.8">1.86</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.8.9"><span class="ltx_text ltx_font_bold" id="Sx4.T1.8.1.8.9.1">1.20</span></td></tr>
+<tr class="ltx_tr" id="Sx4.T1.8.1.9">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" colspan="9" id="Sx4.T1.8.1.9.1"><span class="ltx_text ltx_font_italic" id="Sx4.T1.8.1.9.1.1">最差25%角度误差（上四分位数的均值）</span></th></tr>
+<tr class="ltx_tr" id="Sx4.T1.8.1.10">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_r" id="Sx4.T1.8.1.10.1">Planckian <math alttext="&lt;\!0.003" class="ltx_Math" display="inline" id="Sx4.T1.m47" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>&lt;</mo><mn>0.003</mn></mrow><annotation encoding="application/x-tex">&lt;\!0.003</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.10.2">2.02</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.10.3">4.29</td>
+<td class="ltx_td ltx_align_center ltx_border_r" id="Sx4.T1.8.1.10.4">5.33</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.10.5">3.74</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.10.6">3.61</td>
+<td class="ltx_td ltx_align_center ltx_border_r" id="Sx4.T1.8.1.10.7">2.77</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.10.8">3.21</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.10.9"><span class="ltx_text ltx_font_bold" id="Sx4.T1.8.1.10.9.1">2.27</span></td></tr>
+<tr class="ltx_tr" id="Sx4.T1.8.1.11">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_r" id="Sx4.T1.8.1.11.1">Mild <math alttext="0.003\!-\!0.01" class="ltx_Math" display="inline" id="Sx4.T1.m48" intent=":literal"><semantics><mrow><mo>−</mo><mn>0.01</mn></mrow><annotation encoding="application/x-tex">0.003\!-\!0.01</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.11.2">1.92</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.11.3">5.05</td>
+<td class="ltx_td ltx_align_center ltx_border_r" id="Sx4.T1.8.1.11.4">6.47</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.11.5">4.57</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.11.6">4.15</td>
+<td class="ltx_td ltx_align_center ltx_border_r" id="Sx4.T1.8.1.11.7">5.97</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.11.8">3.92</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.11.9"><span class="ltx_text ltx_font_bold" id="Sx4.T1.8.1.11.9.1">2.83</span></td></tr>
+<tr class="ltx_tr" id="Sx4.T1.8.1.12">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_r" id="Sx4.T1.8.1.12.1">LED-like <math alttext="0.01\!-\!0.03" class="ltx_Math" display="inline" id="Sx4.T1.m49" intent=":literal"><semantics><mrow><mo>−</mo><mn>0.03</mn></mrow><annotation encoding="application/x-tex">0.01\!-\!0.03</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.12.2">1.88</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.12.3">5.32</td>
+<td class="ltx_td ltx_align_center ltx_border_r" id="Sx4.T1.8.1.12.4">8.50</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.12.5">6.37</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.12.6">4.67</td>
+<td class="ltx_td ltx_align_center ltx_border_r" id="Sx4.T1.8.1.12.7">4.79</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.12.8">4.08</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.12.9"><span class="ltx_text ltx_font_bold" id="Sx4.T1.8.1.12.9.1">2.80</span></td></tr>
+<tr class="ltx_tr" id="Sx4.T1.8.1.13">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_r" id="Sx4.T1.8.1.13.1">Extreme <math alttext="\geq\!0.03" class="ltx_Math" display="inline" id="Sx4.T1.m50" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>≥</mo><mn>0.03</mn></mrow><annotation encoding="application/x-tex">\geq\!0.03</annotation></semantics></math></th>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.13.2">7.10</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.13.3">35.88</td>
+<td class="ltx_td ltx_align_center ltx_border_r" id="Sx4.T1.8.1.13.4">88.34</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.13.5">18.86</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.13.6">45.66</td>
+<td class="ltx_td ltx_align_center ltx_border_r" id="Sx4.T1.8.1.13.7">33.39</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.13.8">30.97</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T1.8.1.13.9"><span class="ltx_text ltx_font_bold" id="Sx4.T1.8.1.13.9.1">12.63</span></td></tr>
+<tr class="ltx_tr" id="Sx4.T1.8.1.14">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_b ltx_border_r" id="Sx4.T1.8.1.14.1"><span class="ltx_text ltx_font_bold" id="Sx4.T1.8.1.14.1.1">Overall</span></th>
+<td class="ltx_td ltx_align_center ltx_border_b" id="Sx4.T1.8.1.14.2">2.06</td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="Sx4.T1.8.1.14.3">5.29</td>
+<td class="ltx_td ltx_align_center ltx_border_b ltx_border_r" id="Sx4.T1.8.1.14.4">7.73</td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="Sx4.T1.8.1.14.5">4.71</td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="Sx4.T1.8.1.14.6">4.74</td>
+<td class="ltx_td ltx_align_center ltx_border_b ltx_border_r" id="Sx4.T1.8.1.14.7">4.68</td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="Sx4.T1.8.1.14.8">4.08</td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="Sx4.T1.8.1.14.9"><span class="ltx_text ltx_font_bold" id="Sx4.T1.8.1.14.9.1">2.74</span></td></tr>
+</tbody>
+</table>
+</span></div>
+</figure>
+<div class="ltx_para ltx_noindent" id="Sx4.p5">
+<p class="ltx_p" id="Sx4.p5.1">视觉差距在饱和色卡色块上尤为明显：同色异谱歧义最直接地转化为色相和饱和度误差，在这些误差上 WP<math alttext="+" class="ltx_Math" display="inline" id="Sx4.p5.m1" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS 接近 Oracle 下限，而 WP-only 与 CCT 基线在红、橙、蓝原色上仍保留较大的逐色块残差（可见于表 <a class="ltx_ref" href="#Sx4.T1" title="Table 1 ‣ Experiments ‣ Beyond CCT: Multi-channel SPD recovery for per-shot camera color correction"><span class="ltx_text ltx_ref_tag">1</span></a> 的最差25%列，主要由这些色块主导）。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="Sx4.p6">
+<p class="ltx_p" id="Sx4.p6.1"><span class="ltx_text ltx_font_bold" id="Sx4.p6.1.1">感知色差</span> 均值 <math alttext="\Delta E_{2000}" class="ltx_Math" display="inline" id="Sx4.p6.m1" intent=":literal"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><msub><mi>E</mi><mn>2000</mn></msub></mrow><annotation encoding="application/x-tex">\Delta E_{2000}</annotation></semantics></math> <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib16" title="">16</a>]</cite>（DNG / CST-MLP<sub class="ltx_sub" id="Sx4.p6.1.2"><span class="ltx_text ltx_font_italic" id="Sx4.p6.1.2.1">3×3</span></sub> / WP-only / WP<math alttext="+" class="ltx_Math" display="inline" id="Sx4.p6.m3" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS）：总体 <math alttext="2.10/1.55/1.12/\mathbf{0.69}" class="ltx_Math" display="inline" id="Sx4.p6.m4" intent=":literal"><semantics><mrow><mn>2.10</mn><mo>/</mo><mn>1.55</mn><mo>/</mo><mn>1.12</mn><mo>/</mo><mn class="ltx_mathvariant_bold" mathvariant="bold">0.69</mn></mrow><annotation encoding="application/x-tex">2.10/1.55/1.12/\mathbf{0.69}</annotation></semantics></math>；类 LED（<math alttext="n{=}45" class="ltx_Math" display="inline" id="Sx4.p6.m5" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>45</mn></mrow><annotation encoding="application/x-tex">n{=}45</annotation></semantics></math>）<math alttext="2.20/1.65/1.32/\mathbf{0.80}" class="ltx_Math" display="inline" id="Sx4.p6.m6" intent=":literal"><semantics><mrow><mn>2.20</mn><mo>/</mo><mn>1.65</mn><mo>/</mo><mn>1.32</mn><mo>/</mo><mn class="ltx_mathvariant_bold" mathvariant="bold">0.80</mn></mrow><annotation encoding="application/x-tex">2.20/1.65/1.32/\mathbf{0.80}</annotation></semantics></math>；Extreme（<math alttext="n{=}5" class="ltx_Math" display="inline" id="Sx4.p6.m7" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">n{=}5</annotation></semantics></math>，方向性）<math alttext="5.94/8.66/5.66/\mathbf{2.78}" class="ltx_Math" display="inline" id="Sx4.p6.m8" intent=":literal"><semantics><mrow><mn>5.94</mn><mo>/</mo><mn>8.66</mn><mo>/</mo><mn>5.66</mn><mo>/</mo><mn class="ltx_mathvariant_bold" mathvariant="bold">2.78</mn></mrow><annotation encoding="application/x-tex">5.94/8.66/5.66/\mathbf{2.78}</annotation></semantics></math>。与角度误差排序相同。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="Sx4.p7">
+<p class="ltx_p" id="Sx4.p7.1"><span class="ltx_text ltx_font_bold" id="Sx4.p7.1.1">鲁棒性与基代表性</span> 我们沿四个轴测试所提出的流程（表 <a class="ltx_ref" href="#Sx4.T2" title="Table 2 ‣ Experiments ‣ Beyond CCT: Multi-channel SPD recovery for per-shot camera color correction"><span class="ltx_text ltx_ref_tag">2</span></a>）。<em class="ltx_emph ltx_font_italic" id="Sx4.p7.1.2">(a) 通道数 <math alttext="\times" class="ltx_Math" display="inline" id="Sx4.p7.m1" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> 基大小</em>：在非普朗克子集上扫描 <math alttext="K\!\in\!\{0,4,8,14,28\}" class="ltx_Math" display="inline" id="Sx4.p7.m2" intent=":literal"><semantics><mrow><mi>K</mi><mo lspace="0.108em" rspace="0.108em">∈</mo><mrow><mo stretchy="false">{</mo><mrow><mn>0</mn><mo>,</mo><mn>4</mn><mo>,</mo><mn>8</mn><mo>,</mo><mn>14</mn><mo>,</mo><mn>28</mn></mrow><mo stretchy="false">}</mo></mrow></mrow><annotation encoding="application/x-tex">K\!\in\!\{0,4,8,14,28\}</annotation></semantics></math> 相对于 <math alttext="M\!\in\!\{10,30,50,100\}" class="ltx_Math" display="inline" id="Sx4.p7.m3" intent=":literal"><semantics><mrow><mi>M</mi><mo lspace="0.108em" rspace="0.108em">∈</mo><mrow><mo stretchy="false">{</mo><mrow><mn>10</mn><mo>,</mo><mn>30</mn><mo>,</mo><mn>50</mn><mo>,</mo><mn>100</mn></mrow><mo stretchy="false">}</mo></mrow></mrow><annotation encoding="application/x-tex">M\!\in\!\{10,30,50,100\}</annotation></semantics></math>，<math alttext="K{=}8" class="ltx_Math" display="inline" id="Sx4.p7.m4" intent=":literal"><semantics><mrow><mi>K</mi><mo>=</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">K{=}8</annotation></semantics></math> 拐点在 <math alttext="M" class="ltx_Math" display="inline" id="Sx4.p7.m5" intent=":literal"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math> 范围内稳健（处于该行最小值的 <math alttext="0.16^{\circ}" class="ltx_Math" display="inline" id="Sx4.p7.m6" intent=":literal"><semantics><msup><mn>0.16</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">0.16^{\circ}</annotation></semantics></math> 以内，且在 <math alttext="M" class="ltx_Math" display="inline" id="Sx4.p7.m7" intent=":literal"><semantics><mi>M</mi><annotation encoding="application/x-tex">M</annotation></semantics></math> 的每个取值处），这与自然光源 SPD 的经典 5–8 维秩一致。<em class="ltx_emph ltx_font_italic" id="Sx4.p7.1.3">(b) 现实 ALS 滤光片形状</em>：类似 AS7341 的响应——在 AS7341 通道中心处非对称峰、<math alttext="5\%" class="ltx_Math" display="inline" id="Sx4.p7.m8" intent=":literal"><semantics><mrow><mn>5</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">5\%</annotation></semantics></math> 串扰、<math alttext="3\%" class="ltx_Math" display="inline" id="Sx4.p7.m9" intent=":literal"><semantics><mrow><mn>3</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">3\%</annotation></semantics></math> 直流偏置；一种保守的非理想化，而非厂商实测曲线——在 <math alttext="K{=}8" class="ltx_Math" display="inline" id="Sx4.p7.m10" intent=":literal"><semantics><mrow><mi>K</mi><mo>=</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">K{=}8</annotation></semantics></math> 处将平均误差从 <math alttext="1.21^{\circ}" class="ltx_Math" display="inline" id="Sx4.p7.m11" intent=":literal"><semantics><msup><mn>1.21</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">1.21^{\circ}</annotation></semantics></math> 提高到 <math alttext="1.32^{\circ}" class="ltx_Math" display="inline" id="Sx4.p7.m12" intent=":literal"><semantics><msup><mn>1.32</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">1.32^{\circ}</annotation></semantics></math>（<math alttext="+8.7\%" class="ltx_Math" display="inline" id="Sx4.p7.m13" intent=":literal"><semantics><mrow><mo>+</mo><mrow><mn>8.7</mn><mo>%</mo></mrow></mrow><annotation encoding="application/x-tex">+8.7\%</annotation></semantics></math>）。<em class="ltx_emph ltx_font_italic" id="Sx4.p7.1.4">(c) 观测噪声</em>：在 <math alttext="\sigma\!\in\!\{1,3,5\}\%" class="ltx_Math" display="inline" id="Sx4.p7.m15" intent=":literal"><semantics><mrow><mi>σ</mi><mo lspace="0.108em" rspace="0.108em">∈</mo><mrow><mrow><mo stretchy="false">{</mo><mrow><mn>1</mn><mo>,</mo><mn>3</mn><mo>,</mo><mn>5</mn></mrow><mo stretchy="false">}</mo></mrow><mo>%</mo></mrow></mrow><annotation encoding="application/x-tex">\sigma\!\in\!\{1,3,5\}\%</annotation></semantics></math> 处对 <math alttext="(\mathrm{wp},\mathrm{als})" class="ltx_Math" display="inline" id="Sx4.p7.m14" intent=":literal"><semantics><mrow><mo stretchy="false">(</mo><mi>wp</mi><mo>,</mo><mi>als</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(\mathrm{wp},\mathrm{als})</annotation></semantics></math> 施加乘性高斯噪声，使 WP<math alttext="+" class="ltx_Math" display="inline" id="Sx4.p7.m16" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS 平均误差从 <math alttext="1.20^{\circ}" class="ltx_Math" display="inline" id="Sx4.p7.m17" intent=":literal"><semantics><msup><mn>1.20</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">1.20^{\circ}</annotation></semantics></math> 退化到 <math alttext="1.23^{\circ}" class="ltx_Math" display="inline" id="Sx4.p7.m18" intent=":literal"><semantics><msup><mn>1.23</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">1.23^{\circ}</annotation></semantics></math>（在 <math alttext="5\%" class="ltx_Math" display="inline" id="Sx4.p7.m20" intent=":literal"><semantics><mrow><mn>5</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">5\%</annotation></semantics></math> 处为 <math alttext="+2.8\%" class="ltx_Math" display="inline" id="Sx4.p7.m19" intent=":literal"><semantics><mrow><mo>+</mo><mrow><mn>2.8</mn><mo>%</mo></mrow></mrow><annotation encoding="application/x-tex">+2.8\%</annotation></semantics></math>）；WP<math alttext="+" class="ltx_Math" display="inline" id="Sx4.p7.m21" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS–DNG 交叉将需要 <math alttext="\sigma\!\approx\!50\%" class="ltx_Math" display="inline" id="Sx4.p7.m22" intent=":literal"><semantics><mrow><mi>σ</mi><mo lspace="0.108em">≈</mo><mrow><mn>50</mn><mo>%</mo></mrow></mrow><annotation encoding="application/x-tex">\sigma\!\approx\!50\%</annotation></semantics></math>。<em class="ltx_emph ltx_font_italic" id="Sx4.p7.1.5">(d) 跨数据库（分布外）</em>：在从 EMPIR 留出的 <math alttext="23" class="ltx_Math" display="inline" id="Sx4.p7.m23" intent=":literal"><semantics><mn>23</mn><annotation encoding="application/x-tex">23</annotation></semantics></math> 个 CIE 参考光源（FL<math alttext="{}_{1\text{--}9}" class="ltx_Math" display="inline" id="Sx4.p7.m24" intent=":literal"><semantics><msub><mrow></mrow><mrow><mn>1</mn><mo lspace="0em" rspace="0em">​</mo><mtext>–</mtext><mo lspace="0em" rspace="0em">​</mo><mn>9</mn></mrow></msub><annotation encoding="application/x-tex">{}_{1\text{--}9}</annotation></semantics></math>、HP<math alttext="{}_{1\text{--}5}" class="ltx_Math" display="inline" id="Sx4.p7.m25" intent=":literal"><semantics><msub><mrow></mrow><mrow><mn>1</mn><mo lspace="0em" rspace="0em">​</mo><mtext>–</mtext><mo lspace="0em" rspace="0em">​</mo><mn>5</mn></mrow></msub><annotation encoding="application/x-tex">{}_{1\text{--}5}</annotation></semantics></math>、LED-B/V/RGB）上，仅用 EMPIR 的基不如 DNG（<math alttext="2.75^{\circ}" class="ltx_Math" display="inline" id="Sx4.p7.m26" intent=":literal"><semantics><msup><mn>2.75</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">2.75^{\circ}</annotation></semantics></math> 对 <math alttext="2.21^{\circ}" class="ltx_Math" display="inline" id="Sx4.p7.m27" intent=":literal"><semantics><msup><mn>2.21</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">2.21^{\circ}</annotation></semantics></math>）：该基无法表示荧光 Hg 谱线。用 <math alttext="7" class="ltx_Math" display="inline" id="Sx4.p7.m28" intent=":literal"><semantics><mn>7</mn><annotation encoding="application/x-tex">7</annotation></semantics></math> 个 CIE 参考（每个主要类别一个）扩充池并重新运行 <math alttext="k" class="ltx_Math" display="inline" id="Sx4.p7.m29" intent=":literal"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>-means 后，在这一受控测试中恢复了光谱领先（在其余 <math alttext="16" class="ltx_Math" display="inline" id="Sx4.p7.m32" intent=":literal"><semantics><mn>16</mn><annotation encoding="application/x-tex">16</annotation></semantics></math> 个留出样本上为 <math alttext="2.00^{\circ}" class="ltx_Math" display="inline" id="Sx4.p7.m30" intent=":literal"><semantics><msup><mn>2.00</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">2.00^{\circ}</annotation></semantics></math> 对 DNG <math alttext="2.25^{\circ}" class="ltx_Math" display="inline" id="Sx4.p7.m31" intent=":literal"><semantics><msup><mn>2.25</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">2.25^{\circ}</annotation></semantics></math>）。少量类别代表性扩充可显著改善 OOD 行为；计数与选择策略是针对该基准调优的。</p>
+</div>
+<figure class="ltx_table" id="Sx4.T2">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">表 2：</span>WP<math alttext="+" class="ltx_Math" display="inline" id="Sx4.T2.m5" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS 沿四个轴的鲁棒性。数值为相关测试集上的平均 / 最差 25% 角度误差（度）；作为参考，DNG 在同一尺度上为 <math alttext="2.77/5.29" class="ltx_Math" display="inline" id="Sx4.T2.m6" intent=":literal"><semantics><mrow><mn>2.77</mn><mo>/</mo><mn>5.29</mn></mrow><annotation encoding="application/x-tex">2.77/5.29</annotation></semantics></math>（表 <a class="ltx_ref" href="#Sx4.T1" title="Table 1 ‣ Experiments ‣ Beyond CCT: Multi-channel SPD recovery for per-shot camera color correction"><span class="ltx_text ltx_ref_tag">1</span></a>）。跨数据库 OOD 测试集：<math alttext="23" class="ltx_Math" display="inline" id="Sx4.T2.m7" intent=":literal"><semantics><mn>23</mn><annotation encoding="application/x-tex">23</annotation></semantics></math> 个留出的 CIE 参考光源（FL/HP/LED），最后一行使用由 <math alttext="7" class="ltx_Math" display="inline" id="Sx4.T2.m8" intent=":literal"><semantics><mn>7</mn><annotation encoding="application/x-tex">7</annotation></semantics></math> 个 CIE 参考 SPD 扩充的基池。</figcaption>
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle" id="Sx4.T2.2">
+<thead class="ltx_thead">
+<tr class="ltx_tr" id="Sx4.T2.2.1">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_t" id="Sx4.T2.2.1.1"><span class="ltx_text ltx_font_bold" id="Sx4.T2.2.1.1.1">Axis / condition</span></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="Sx4.T2.2.1.2"><span class="ltx_text ltx_font_bold" id="Sx4.T2.2.1.2.1">mean / worst-25 (<sup class="ltx_sup" id="Sx4.T2.2.1.2.1.1"><span class="ltx_text ltx_font_italic" id="Sx4.T2.2.1.2.1.1.1">∘</span></sup>)</span></th></tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="Sx4.T2.2.2">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" id="Sx4.T2.2.2.1">基线（理想 <math alttext="K{=}14" class="ltx_Math" display="inline" id="Sx4.T2.m10" intent=":literal"><semantics><mrow><mi>K</mi><mo>=</mo><mn>14</mn></mrow><annotation encoding="application/x-tex">K{=}14</annotation></semantics></math>，无噪声）</th>
+<td class="ltx_td ltx_align_center ltx_border_t" id="Sx4.T2.2.2.2"><math alttext="1.20\,/\,2.74" class="ltx_Math" display="inline" id="Sx4.T2.m11" intent=":literal"><semantics><mrow><mn>1.20</mn><mo lspace="0.392em">/</mo><mn> 2.74</mn></mrow><annotation encoding="application/x-tex">1.20\,/\,2.74</annotation></semantics></math></td></tr>
+<tr class="ltx_tr" id="Sx4.T2.2.3">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="Sx4.T2.2.3.1">AS7341-like filters (<math alttext="K{=}8" class="ltx_Math" display="inline" id="Sx4.T2.m12" intent=":literal"><semantics><mrow><mi>K</mi><mo>=</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">K{=}8</annotation></semantics></math>)</th>
+<td class="ltx_td ltx_align_center" id="Sx4.T2.2.3.2"><math alttext="1.32\,/\,3.25" class="ltx_Math" display="inline" id="Sx4.T2.m13" intent=":literal"><semantics><mrow><mn>1.32</mn><mo lspace="0.392em">/</mo><mn> 3.25</mn></mrow><annotation encoding="application/x-tex">1.32\,/\,3.25</annotation></semantics></math></td></tr>
+<tr class="ltx_tr" id="Sx4.T2.2.4">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="Sx4.T2.2.4.1"><math alttext="5\%" class="ltx_Math" display="inline" id="Sx4.T2.m14" intent=":literal"><semantics><mrow><mn>5</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">5\%</annotation></semantics></math> observation noise</th>
+<td class="ltx_td ltx_align_center" id="Sx4.T2.2.4.2"><math alttext="1.23\,/\,2.83" class="ltx_Math" display="inline" id="Sx4.T2.m15" intent=":literal"><semantics><mrow><mn>1.23</mn><mo lspace="0.392em">/</mo><mn> 2.83</mn></mrow><annotation encoding="application/x-tex">1.23\,/\,2.83</annotation></semantics></math></td></tr>
+<tr class="ltx_tr" id="Sx4.T2.2.5">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="Sx4.T2.2.5.1">OOD, EMPIR-only basis</th>
+<td class="ltx_td ltx_align_center" id="Sx4.T2.2.5.2"><math alttext="2.75\,/\,5.40" class="ltx_Math" display="inline" id="Sx4.T2.m16" intent=":literal"><semantics><mrow><mn>2.75</mn><mo lspace="0.392em">/</mo><mn> 5.40</mn></mrow><annotation encoding="application/x-tex">2.75\,/\,5.40</annotation></semantics></math></td></tr>
+<tr class="ltx_tr" id="Sx4.T2.2.6">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_b" id="Sx4.T2.2.6.1">OOD, basis <math alttext="+\,7" class="ltx_Math" display="inline" id="Sx4.T2.m17" intent=":literal"><semantics><mrow><mo>+</mo><mn> 7</mn></mrow><annotation encoding="application/x-tex">+\,7</annotation></semantics></math> CIE refs</th>
+<td class="ltx_td ltx_align_center ltx_border_b" id="Sx4.T2.2.6.2"><math alttext="\mathbf{2.00\,/\,4.21}" class="ltx_Math" display="inline" id="Sx4.T2.m18" intent=":literal"><semantics><mrow><mn class="ltx_mathvariant_bold" mathvariant="bold">2.00</mn><mo lspace="0.392em">/</mo><mn class="ltx_mathvariant_bold" mathvariant="bold"> 4.21</mn></mrow><annotation encoding="application/x-tex">\mathbf{2.00\,/\,4.21}</annotation></semantics></math></td></tr>
+</tbody>
+</table>
+</figure>
+<div class="ltx_para ltx_noindent" id="Sx4.p8">
+<p class="ltx_p" id="Sx4.p8.1"><span class="ltx_text ltx_font_bold" id="Sx4.p8.1.1">同色异谱对压力测试</span> 我们选取 50 个 EMPIR 对 <math alttext="(E_{a},E_{b})" class="ltx_Math" display="inline" id="Sx4.p8.m1" intent=":literal"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>E</mi><mi>a</mi></msub><mo>,</mo><msub><mi>E</mi><mi>b</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(E_{a},E_{b})</annotation></semantics></math>：具有 <math alttext="\Delta_{xy}{&lt;}0.005" class="ltx_Math" display="inline" id="Sx4.p8.m2" intent=":literal"><semantics><mrow><msub><mi mathvariant="normal">Δ</mi><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow></msub><mo>&lt;</mo><mn>0.005</mn></mrow><annotation encoding="application/x-tex">\Delta_{xy}{&lt;}0.005</annotation></semantics></math>，但 SPD 形状角大于 <math alttext="30^{\circ}" class="ltx_Math" display="inline" id="Sx4.p8.m3" intent=":literal"><semantics><msup><mn>30</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">30^{\circ}</annotation></semantics></math>（其中 SPD 形状角是在单位归一化 SPD 上以度表示的 <math alttext="\arccos(\langle E_{a},E_{b}\rangle/\lVert E_{a}\rVert\lVert E_{b}\rVert)" class="ltx_Math" display="inline" id="Sx4.p8.m4" intent=":literal"><semantics><mrow><mi>arccos</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mrow><mrow><mrow><mo stretchy="false">⟨</mo><mrow><msub><mi>E</mi><mi>a</mi></msub><mo>,</mo><msub><mi>E</mi><mi>b</mi></msub></mrow><mo stretchy="false">⟩</mo></mrow><mo>/</mo><mrow><mo fence="true" lspace="0em" rspace="0em">∥</mo><msub><mi>E</mi><mi>a</mi></msub><mo fence="true" lspace="0em">∥</mo></mrow></mrow><mo lspace="0em" rspace="0em">​</mo><mrow><mo fence="true" rspace="0em">∥</mo><msub><mi>E</mi><mi>b</mi></msub><mo fence="true" lspace="0em" rspace="0em">∥</mo></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\arccos(\langle E_{a},E_{b}\rangle/\lVert E_{a}\rVert\lVert E_{b}\rVert)</annotation></semantics></math>）。两侧均从基中留出。WP-only NNLS <em class="ltx_emph ltx_font_italic" id="Sx4.p8.1.2">坍缩</em> 该对（恢复的对角为 <math alttext="12.6^{\circ}" class="ltx_Math" display="inline" id="Sx4.p8.m5" intent=":literal"><semantics><msup><mn>12.6</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">12.6^{\circ}</annotation></semantics></math>，真实为 <math alttext="35^{\circ}" class="ltx_Math" display="inline" id="Sx4.p8.m6" intent=":literal"><semantics><msup><mn>35</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">35^{\circ}</annotation></semantics></math>）；WP<math alttext="+" class="ltx_Math" display="inline" id="Sx4.p8.m7" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS 恢复为 <math alttext="25.2^{\circ}" class="ltx_Math" display="inline" id="Sx4.p8.m8" intent=":literal"><semantics><msup><mn>25.2</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">25.2^{\circ}</annotation></semantics></math>，每侧 SPD 误差为 <math alttext="9.3^{\circ}" class="ltx_Math" display="inline" id="Sx4.p8.m9" intent=":literal"><semantics><msup><mn>9.3</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">9.3^{\circ}</annotation></semantics></math> 对 <math alttext="24.6^{\circ}" class="ltx_Math" display="inline" id="Sx4.p8.m10" intent=":literal"><semantics><msup><mn>24.6</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">24.6^{\circ}</annotation></semantics></math>——提升 <math alttext="2.6{\times}" class="ltx_math_unparsed" display="inline" id="Sx4.p8.m11" intent=":literal"><semantics><mrow><mn>2.6</mn><mo lspace="0.222em">×</mo></mrow><annotation encoding="application/x-tex">2.6{\times}</annotation></semantics></math>。图 <a class="ltx_ref" href="#Sx1.F1" title="Figure 1 ‣ Introduction ‣ Beyond CCT: Multi-channel SPD recovery for per-shot camera color correction"><span class="ltx_text ltx_ref_tag">1</span></a>(a) 展示了一个可比对。在这些精选对上，WP<math alttext="+" class="ltx_Math" display="inline" id="Sx4.p8.m12" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS 的每片 CCM 误差（<math alttext="1.87^{\circ}" class="ltx_Math" display="inline" id="Sx4.p8.m13" intent=":literal"><semantics><msup><mn>1.87</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">1.87^{\circ}</annotation></semantics></math>）略高于 WP-only（<math alttext="1.29^{\circ}" class="ltx_Math" display="inline" id="Sx4.p8.m14" intent=":literal"><semantics><msup><mn>1.29</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">1.29^{\circ}</annotation></semantics></math>）：WP-only 收敛到一个单一的“折中” SPD，对两侧都较为宽容地拟合，而 WP<math alttext="+" class="ltx_Math" display="inline" id="Sx4.p8.m15" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS 则暴露了基离散化误差。更好的 SPD 恢复并不会线性转化为更低的 CCM 误差；基与 CCM 目标并不完全一致。WP<math alttext="+" class="ltx_Math" display="inline" id="Sx4.p8.m16" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS 独特提供的是识别同色异谱正确一侧的能力；在上文更广泛的基准中，反射率可自由变化，这会转化为可测量的 CCM 误差增益。</p>
+</div>
+<figure class="ltx_figure" id="Sx4.F4"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="320" id="Sx4.F4.g1" src="assets/fig5_chart_render.png" style="aspect-ratio:614/320;" width="614"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 4：</span>四张真实 Nikon D40 拍摄图像。上两行接近普朗克轨迹（博物馆钨丝灯、户外日光）。下两行偏离轨迹（LED 走廊<math alttext="|\mathrm{Duv}|{=}0.012" class="ltx_Math" display="inline" id="Sx4.F4.m6" intent=":literal"><semantics><mrow><mrow><mo stretchy="false">|</mo><mi>Duv</mi><mo stretchy="false">|</mo></mrow><mo>=</mo><mn>0.012</mn></mrow><annotation encoding="application/x-tex">|\mathrm{Duv}|{=}0.012</annotation></semantics></math>、商场 LED<math alttext="|\mathrm{Duv}|{=}0.021" class="ltx_Math" display="inline" id="Sx4.F4.m7" intent=":literal"><semantics><mrow><mrow><mo stretchy="false">|</mo><mi>Duv</mi><mo stretchy="false">|</mo></mrow><mo>=</mo><mn>0.021</mn></mrow><annotation encoding="application/x-tex">|\mathrm{Duv}|{=}0.021</annotation></semantics></math>）。左列显示突出显示色卡的场景。右侧四列显示 24 色块色卡的<em class="ltx_emph ltx_font_italic" id="Sx4.F4.3">原始拍摄</em>（相机原始响应，未经任何白平衡，因此每行显示各自光源色偏）、经 2-CST DNG 校正、经我们的光谱白点流程校正，以及 D65 真值。每张图相对于 D65 真值的平均角度误差<math alttext="\Delta" class="ltx_Math" display="inline" id="Sx4.F4.m8" intent=":literal"><semantics><mi mathvariant="normal">Δ</mi><annotation encoding="application/x-tex">\Delta</annotation></semantics></math>标注在两个校正列上；原始拍摄列仅作背景参考。Spectral-WP 略胜于或匹配 DNG，在最远光源（钨丝灯，<math alttext="1.46^{\circ}" class="ltx_Math" display="inline" id="Sx4.F4.m9" intent=":literal"><semantics><msup><mn>1.46</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">1.46^{\circ}</annotation></semantics></math> 对 <math alttext="2.36^{\circ}" class="ltx_Math" display="inline" id="Sx4.F4.m10" intent=":literal"><semantics><msup><mn>2.36</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">2.36^{\circ}</annotation></semantics></math>）上增益最大。</figcaption>
+</figure>
+<div class="ltx_para ltx_noindent" id="Sx4.p9">
+<p class="ltx_p" id="Sx4.p9.1"><span class="ltx_text ltx_font_bold" id="Sx4.p9.1.1">实测 SPD 评估与真实 RAW 合理性检查</span> 我们将 EMPIR 测试光源替换为 <math alttext="1{,}684" class="ltx_Math" display="inline" id="Sx4.p9.m1" intent=":literal"><semantics><mn>1,684</mn><annotation encoding="application/x-tex">1{,}684</annotation></semantics></math> 光谱辐射计实测的 SPD，其来自 Beyond RGB <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib18" title="">18</a>]</cite>（1,209 个实验室 + 475 个户外）；其余协议（Nikon D40 SSF、CAVE 反射率、由实测 SPD 合成的类 AS7341 ALS）不变。这验证了流程中的光源一侧，而非完整的 RGB<math alttext="+" class="ltx_Math" display="inline" id="Sx4.p9.m2" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS 采集环路。同一按 Duv 的模式在切换至实测 SPD 后于均值和最差 25% 两项上均保留（表 <a class="ltx_ref" href="#Sx4.T3" title="Table 3 ‣ Experiments ‣ Beyond CCT: Multi-channel SPD recovery for per-shot camera color correction"><span class="ltx_text ltx_ref_tag">3</span></a>）：WP<math alttext="+" class="ltx_Math" display="inline" id="Sx4.p9.m3" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS 在类 LED 组和极端组的两项指标上均领先，而 CST-MLP<sub class="ltx_sub" id="Sx4.p9.1.2"><span class="ltx_text ltx_font_italic" id="Sx4.p9.1.2.1">3×6</span></sub> 在普朗克组和轻度组上胜出。Beyond RGB 上的类 LED 优势小于合成基准（此处 <math alttext="0.24^{\circ}" class="ltx_Math" display="inline" id="Sx4.p9.m5" intent=":literal"><semantics><msup><mn>0.24</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">0.24^{\circ}</annotation></semantics></math> 均值 / <math alttext="0.17^{\circ}" class="ltx_Math" display="inline" id="Sx4.p9.m6" intent=":literal"><semantics><msup><mn>0.17</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">0.17^{\circ}</annotation></semantics></math> 最差 25%，对比 <math alttext="0.96^{\circ}" class="ltx_Math" display="inline" id="Sx4.p9.m7" intent=":literal"><semantics><msup><mn>0.96</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">0.96^{\circ}</annotation></semantics></math> / <math alttext="1.99^{\circ}" class="ltx_Math" display="inline" id="Sx4.p9.m8" intent=":literal"><semantics><msup><mn>1.99</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">1.99^{\circ}</annotation></semantics></math>，见表 <a class="ltx_ref" href="#Sx4.T1" title="Table 1 ‣ Experiments ‣ Beyond CCT: Multi-channel SPD recovery for per-shot camera color correction"><span class="ltx_text ltx_ref_tag">1</span></a>）；我们将此归因于更宽的测试光源分布，以及 LED 偏置的 EMPIR 基在日光主导的户外场景中的次优性。光谱条件化在色度模糊处带来收益，但收益大小取决于测试集偏离轨迹的程度。</p>
+</div>
+<figure class="ltx_table" id="Sx4.T3">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">表 3：</span>Beyond RGB <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib18" title="">18</a>]</cite> 在 <math alttext="1{,}684" class="ltx_Math" display="inline" id="Sx4.T3.m10" intent=":literal"><semantics><mn>1,684</mn><annotation encoding="application/x-tex">1{,}684</annotation></semantics></math> 个实测 SPD 场景上按 Duv 组划分的均值和最差 25% 角度误差（度）。组别：Plk = 普朗克（<math alttext="n{=}868" class="ltx_Math" display="inline" id="Sx4.T3.m11" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>868</mn></mrow><annotation encoding="application/x-tex">n{=}868</annotation></semantics></math>），轻度（<math alttext="n{=}473" class="ltx_Math" display="inline" id="Sx4.T3.m12" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>473</mn></mrow><annotation encoding="application/x-tex">n{=}473</annotation></semantics></math>），LED = 类 LED（<math alttext="n{=}276" class="ltx_Math" display="inline" id="Sx4.T3.m13" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>276</mn></mrow><annotation encoding="application/x-tex">n{=}276</annotation></semantics></math>），Ext = 极端（<math alttext="n{=}67" class="ltx_Math" display="inline" id="Sx4.T3.m14" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>67</mn></mrow><annotation encoding="application/x-tex">n{=}67</annotation></semantics></math>）。每行最佳值以<span class="ltx_text ltx_font_bold" id="Sx4.T3.4">粗体</span>表示。WP<math alttext="+" class="ltx_Math" display="inline" id="Sx4.T3.m15" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS 在 LED 和 Ext 两项指标上均领先；在 LED 上的最差 25% 优势小于均值优势（<math alttext="0.17^{\circ}" class="ltx_Math" display="inline" id="Sx4.T3.m16" intent=":literal"><semantics><msup><mn>0.17</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">0.17^{\circ}</annotation></semantics></math> 对 <math alttext="0.24^{\circ}" class="ltx_Math" display="inline" id="Sx4.T3.m17" intent=":literal"><semantics><msup><mn>0.24</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">0.24^{\circ}</annotation></semantics></math>，相对 CST-MLP<sub class="ltx_sub" id="Sx4.T3.5"><span class="ltx_text ltx_font_italic" id="Sx4.T3.5.1">3×6</span></sub>），这反映出与合成基准相比，测试光源分布更宽。</figcaption>
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle" id="Sx4.T3.6">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="Sx4.T3.6.1">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" id="Sx4.T3.6.1.1"><span class="ltx_text ltx_font_bold" id="Sx4.T3.6.1.1.1">Method</span></th>
+<td class="ltx_td ltx_align_center ltx_border_t" id="Sx4.T3.6.1.2"><span class="ltx_text ltx_font_bold" id="Sx4.T3.6.1.2.1">Plk</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="Sx4.T3.6.1.3"><span class="ltx_text ltx_font_bold" id="Sx4.T3.6.1.3.1">Mild</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="Sx4.T3.6.1.4"><span class="ltx_text ltx_font_bold" id="Sx4.T3.6.1.4.1">LED</span></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="Sx4.T3.6.1.5"><span class="ltx_text ltx_font_bold" id="Sx4.T3.6.1.5.1">Ext</span></td></tr>
+<tr class="ltx_tr" id="Sx4.T3.6.2">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" colspan="5" id="Sx4.T3.6.2.1"><span class="ltx_text ltx_font_italic" id="Sx4.T3.6.2.1.1">Mean angular error</span></th></tr>
+<tr class="ltx_tr" id="Sx4.T3.6.3">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="Sx4.T3.6.3.1">DNG</th>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.3.2">2.12</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.3.3">1.91</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.3.4">2.51</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.3.5">6.97</td></tr>
+<tr class="ltx_tr" id="Sx4.T3.6.4">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="Sx4.T3.6.4.1">CST-MLP<sub class="ltx_sub" id="Sx4.T3.6.4.1.1"><span class="ltx_text ltx_font_italic" id="Sx4.T3.6.4.1.1.1">3×6</span></sub></th>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.4.2"><span class="ltx_text ltx_font_bold" id="Sx4.T3.6.4.2.1">1.72</span></td>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.4.3"><span class="ltx_text ltx_font_bold" id="Sx4.T3.6.4.3.1">1.67</span></td>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.4.4">2.13</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.4.5">9.50</td></tr>
+<tr class="ltx_tr" id="Sx4.T3.6.5">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="Sx4.T3.6.5.1">WP-only</th>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.5.2">2.67</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.5.3">2.31</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.5.4">3.16</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.5.5">5.76</td></tr>
+<tr class="ltx_tr" id="Sx4.T3.6.6">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="Sx4.T3.6.6.1">WP<math alttext="+" class="ltx_Math" display="inline" id="Sx4.T3.m20" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS</th>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.6.2">2.17</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.6.3">1.83</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.6.4"><span class="ltx_text ltx_font_bold" id="Sx4.T3.6.6.4.1">1.89</span></td>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.6.5"><span class="ltx_text ltx_font_bold" id="Sx4.T3.6.6.5.1">5.14</span></td></tr>
+<tr class="ltx_tr" id="Sx4.T3.6.7">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" colspan="5" id="Sx4.T3.6.7.1"><span class="ltx_text ltx_font_italic" id="Sx4.T3.6.7.1.1">Worst-25% angular error</span></th></tr>
+<tr class="ltx_tr" id="Sx4.T3.6.8">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="Sx4.T3.6.8.1">DNG</th>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.8.2">4.40</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.8.3">3.71</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.8.4">5.40</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.8.5">21.61</td></tr>
+<tr class="ltx_tr" id="Sx4.T3.6.9">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="Sx4.T3.6.9.1">CST-MLP<sub class="ltx_sub" id="Sx4.T3.6.9.1.1"><span class="ltx_text ltx_font_italic" id="Sx4.T3.6.9.1.1.1">3×6</span></sub></th>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.9.2"><span class="ltx_text ltx_font_bold" id="Sx4.T3.6.9.2.1">3.66</span></td>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.9.3"><span class="ltx_text ltx_font_bold" id="Sx4.T3.6.9.3.1">3.67</span></td>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.9.4">4.50</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.9.5">31.64</td></tr>
+<tr class="ltx_tr" id="Sx4.T3.6.10">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row" id="Sx4.T3.6.10.1">WP-only</th>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.10.2">4.84</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.10.3">4.69</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.10.4">6.26</td>
+<td class="ltx_td ltx_align_center" id="Sx4.T3.6.10.5">15.70</td></tr>
+<tr class="ltx_tr" id="Sx4.T3.6.11">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_b" id="Sx4.T3.6.11.1">WP<math alttext="+" class="ltx_Math" display="inline" id="Sx4.T3.m22" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS</th>
+<td class="ltx_td ltx_align_center ltx_border_b" id="Sx4.T3.6.11.2">4.56</td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="Sx4.T3.6.11.3">4.01</td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="Sx4.T3.6.11.4"><span class="ltx_text ltx_font_bold" id="Sx4.T3.6.11.4.1">4.33</span></td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="Sx4.T3.6.11.5"><span class="ltx_text ltx_font_bold" id="Sx4.T3.6.11.5.1">15.50</span></td></tr>
+</tbody>
+</table>
+</figure>
+<div class="ltx_para ltx_noindent" id="Sx4.p10">
+<p class="ltx_p" id="Sx4.p10.1">我们在 117 张真实 Nikon D40 拍摄图像上进行合理性检查，这些图像有逐图像白点测量，但没有 ALS 硬件（图 <a class="ltx_ref" href="#Sx4.F4" title="Figure 4 ‣ Experiments ‣ Beyond CCT: Multi-channel SPD recovery for per-shot camera color correction"><span class="ltx_text ltx_ref_tag">4</span></a> 展示了其中四张）。该数据集是 <math alttext="84\%" class="ltx_Math" display="inline" id="Sx4.p10.m1" intent=":literal"><semantics><mrow><mn>84</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">84\%</annotation></semantics></math> 近普朗克；三种仅 WP 方法在平均角度误差上均落在 <math alttext="0.5^{\circ}" class="ltx_Math" display="inline" id="Sx4.p10.m2" intent=":literal"><semantics><msup><mn>0.5</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">0.5^{\circ}</annotation></semantics></math> 以内（2-CST SELF <math alttext="3.00^{\circ}" class="ltx_Math" display="inline" id="Sx4.p10.m3" intent=":literal"><semantics><msup><mn>3.00</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">3.00^{\circ}</annotation></semantics></math>、Spectral WP-only <math alttext="3.09^{\circ}" class="ltx_Math" display="inline" id="Sx4.p10.m4" intent=":literal"><semantics><msup><mn>3.09</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">3.09^{\circ}</annotation></semantics></math>、2-CST DNG <math alttext="3.42^{\circ}" class="ltx_Math" display="inline" id="Sx4.p10.m5" intent=":literal"><semantics><msup><mn>3.42</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">3.42^{\circ}</annotation></semantics></math>）。这是近普朗克分布下的预期行为：仅 WP 的回退方案恢复 SPD 在轨迹上的一维位置，而 ALS 在此处无法提供任何可分辨的增量。WP<math alttext="+" class="ltx_Math" display="inline" id="Sx4.p10.m6" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS 在同步 RGB<math alttext="+" class="ltx_Math" display="inline" id="Sx4.p10.m7" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS 采集上的端到端验证仍是未来工作。</p>
+</div>
+</section>
+<section class="ltx_section" id="Sx5">
+<h2 class="ltx_title ltx_title_section">讨论</h2>
+<div class="ltx_para ltx_noindent" id="Sx5.p1">
+<p class="ltx_p" id="Sx5.p1.1">我们以通道数消融得到的一个启示作结，然后讨论局限性。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="Sx5.p2">
+<p class="ltx_p" id="Sx5.p2.1"><span class="ltx_text ltx_font_bold" id="Sx5.p2.1.1">含义：8 个通道从何而来</span> WP<math alttext="+" class="ltx_Math" display="inline" id="Sx5.p2.m1" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS 误差曲线的拐点位于 <math alttext="K{=}8" class="ltx_Math" display="inline" id="Sx5.p2.m2" intent=":literal"><semantics><mrow><mi>K</mi><mo>=</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">K{=}8</annotation></semantics></math>，在基底规模 <math alttext="M\!\in\![10,100]" class="ltx_Math" display="inline" id="Sx5.p2.m3" intent=":literal"><semantics><mrow><mi>M</mi><mo lspace="0.108em" rspace="0.108em">∈</mo><mrow><mo stretchy="false">[</mo><mn>10,100</mn><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">M\!\in\![10,100]</annotation></semantics></math> 范围内保持稳健（第 4.3 节）。这与自然光源 SPD 经典的 5–8 维秩以及商用多光谱 ALS 芯片的通道数相符 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib3" title="">3</a>]</cite>：超过 8 个窄波段后，光谱信息对 CCM 终点的回报递减。一个实用解读是：8 通道商用 ALS 为离普朗克轨迹波段提供了足够的光谱条件化，而 <math alttext="xy" class="ltx_Math" display="inline" id="Sx5.p2.m4" intent=":literal"><semantics><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">xy</annotation></semantics></math> 条件化的基线在该波段失效。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="Sx5.p3">
+<p class="ltx_p" id="Sx5.p3.1"><span class="ltx_text ltx_font_bold" id="Sx5.p3.1.1">更好的 SPD 恢复何时会带来更好的 CCM？</span> 同色异谱压力测试（第 4.5 节）显示出一个表面上的悖论：WP<math alttext="+" class="ltx_Math" display="inline" id="Sx5.p3.m1" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS 比仅 WP 更准确地恢复同色异谱 SPD <math alttext="2.6\times" class="ltx_math_unparsed" display="inline" id="Sx5.p3.m2" intent=":literal"><semantics><mrow><mn>2.6</mn><mo lspace="0.222em">×</mo></mrow><annotation encoding="application/x-tex">2.6\times</annotation></semantics></math>，但在这些精挑细选的配对上，逐块 CCM 误差反而略差（<math alttext="1.87^{\circ}" class="ltx_Math" display="inline" id="Sx5.p3.m3" intent=":literal"><semantics><msup><mn>1.87</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">1.87^{\circ}</annotation></semantics></math> 对 <math alttext="1.29^{\circ}" class="ltx_Math" display="inline" id="Sx5.p3.m4" intent=":literal"><semantics><msup><mn>1.29</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">1.29^{\circ}</annotation></semantics></math>）。其机制在于，仅 WP 会收敛到一个单一的“折中”SPD，该 SPD 以宽容方式同时拟合同色异谱配对的两侧；WP<math alttext="+" class="ltx_Math" display="inline" id="Sx5.p3.m5" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS 能分辨该配对，但随后会在单侧付出基底离散化误差。因此，SPD 恢复准确度对 CCM 准确度而言 <em class="ltx_emph ltx_font_italic" id="Sx5.p3.1.2">并不充分</em>。然而，在主基准上它是 <em class="ltx_emph ltx_font_italic" id="Sx5.p3.1.3">必要</em> 的；在主基准中反射率分布跨度很宽：在那里，识别正确同色异谱侧的能力直接转化为第 4.1 节报告的、在类 LED 光源上 <math alttext="1.7\times" class="ltx_math_unparsed" display="inline" id="Sx5.p3.m6" intent=":literal"><semantics><mrow><mn>1.7</mn><mo lspace="0.222em">×</mo></mrow><annotation encoding="application/x-tex">1.7\times</annotation></semantics></math> 最差 25% 的降低。压力测试是病理性边界；主基准是部署代理。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="Sx5.p4">
+<p class="ltx_p" id="Sx5.p4.1"><span class="ltx_text ltx_font_bold" id="Sx5.p4.1.1">局限性与未来工作</span> 我们通过全程将预测头固定为非参数 NNLS 形式，来隔离光谱条件化的贡献。正交方向——在同一 <math alttext="K{+}3" class="ltx_Math" display="inline" id="Sx5.p4.m1" intent=":literal"><semantics><mrow><mi>K</mi><mo>+</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">K{+}3</annotation></semantics></math> 维输入上训练参数化头（MLP、根多项式等）——是作为未来工作指出的学习型摊销扩展；CST-MLP 对照方法按其原始设计仅接收 <math alttext="xy" class="ltx_Math" display="inline" id="Sx5.p4.m2" intent=":literal"><semantics><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">xy</annotation></semantics></math> 色度 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib2" title="">2</a>]</cite>。ALS 观测是仿真的；类 AS7341 与噪声分析覆盖了仿真到现实差距中可处理的部分，但校准漂移与 ALS–RGB 空间失配尚未解决。117 幅 D40 RAW 采集图像（第 4.6 节，图 <a class="ltx_ref" href="#Sx4.F4" title="Figure 4 ‣ Experiments ‣ Beyond CCT: Multi-channel SPD recovery for per-shot camera color correction"><span class="ltx_text ltx_ref_tag">4</span></a>）仅对仅 WP 回退方案做合理性检查，且该数据集 <math alttext="84\%" class="ltx_Math" display="inline" id="Sx5.p4.m3" intent=":literal"><semantics><mrow><mn>84</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">84\%</annotation></semantics></math> 近普朗克轨迹，其中 ALS 并未提供白点尚未给出的信息；在离普朗克轨迹光源上进行端到端同步 RGB<math alttext="+" class="ltx_Math" display="inline" id="Sx5.p4.m4" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS 验证，是硬件侧最清晰的下一步。单一光源 SPD 假设在室内混合照明下也会失效（例如，窗外日光加 LED 筒灯）。我们只测试了一台相机（Nikon D40）；跨传感器泛化尚未验证，尽管有原则的双映射方案 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib14" title="">14</a>]</cite> 提示了一条可处理的扩展路径。本文未测量逐次拍摄 NNLS<math alttext="+" class="ltx_Math" display="inline" id="Sx5.p4.m5" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>LSQ 流水线上的嵌入式 ISP 延迟。</p>
+</div>
+</section>
+<section class="ltx_section" id="Sx6">
+<h2 class="ltx_title ltx_title_section">结论</h2>
+<div class="ltx_para ltx_noindent" id="Sx6.p1">
+<p class="ltx_p" id="Sx6.p1.1">按相关色温（CCT）的双颜色校正矩阵（CCM）插值是一种针对更高维量的 1D 模型。少量额外光谱观测即可恢复光谱功率分布（SPD）形状，并拟合场景特定的 CCM；在 Planckian、mild 和 LED-like 组上，该 CCM 逼近逐光源 Oracle 至 <math alttext="0.3^{\circ}" class="ltx_Math" display="inline" id="Sx6.p1.m1" intent=":literal"><semantics><msup><mn>0.3</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">0.3^{\circ}</annotation></semantics></math> 以内。八个 ALS 通道即可满足（一个 <math alttext="K{=}8" class="ltx_Math" display="inline" id="Sx6.p1.m2" intent=":literal"><semantics><mrow><mi>K</mi><mo>=</mo><mn>8</mn></mrow><annotation encoding="application/x-tex">K{=}8</annotation></semantics></math> 拐点，在基大小 <math alttext="M\!\in\![10,100]" class="ltx_Math" display="inline" id="Sx6.p1.m3" intent=":literal"><semantics><mrow><mi>M</mi><mo lspace="0.108em" rspace="0.108em">∈</mo><mrow><mo stretchy="false">[</mo><mn>10,100</mn><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">M\!\in\![10,100]</annotation></semantics></math> 上均稳健）。在 LED-like 组（<math alttext="n{=}45" class="ltx_Math" display="inline" id="Sx6.p1.m4" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>45</mn></mrow><annotation encoding="application/x-tex">n{=}45</annotation></semantics></math>）中，同色异谱问题较为明显，WP<math alttext="+" class="ltx_Math" display="inline" id="Sx6.p1.m5" intent=":literal"><semantics><mo>+</mo><annotation encoding="application/x-tex">+</annotation></semantics></math>ALS 的最差 25% <math alttext="1.7{\times}" class="ltx_math_unparsed" display="inline" id="Sx6.p1.m6" intent=":literal"><semantics><mrow><mn>1.7</mn><mo lspace="0.222em">×</mo></mrow><annotation encoding="application/x-tex">1.7{\times}</annotation></semantics></math> 比最强非光谱基线（CST-MLP<sub class="ltx_sub" id="Sx6.p1.1.1"><span class="ltx_text ltx_font_italic" id="Sx6.p1.1.1.1">3×6</span></sub>）低；该优势对类 AS7341 滤光片形状和 <math alttext="5\%" class="ltx_Math" display="inline" id="Sx6.p1.m8" intent=":literal"><semantics><mrow><mn>5</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">5\%</annotation></semantics></math> 观测噪声均稳健。跨数据库泛化需要用类别代表性参考 SPD 扩充基；在 Beyond RGB 实测光源上，光谱优势在偏离普朗克轨迹时最大，正如同色异谱问题框架所预测。</p>
+</div>
+</section>
+<section class="ltx_bibliography" id="bib">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+<ul class="ltx_biblist">
+<li class="ltx_bibitem" id="bib.bib1"><span class="ltx_tag ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock">
+Adobe Systems,
+
+</span>
+<span class="ltx_bibblock">Digital Negative (DNG) Specification, version 1.6.0.0,
+
+</span>
+<span class="ltx_bibblock">https://helpx.adobe.com/camera-raw/digital-negative.html, 2021.
+
+</span></li>
+<li class="ltx_bibitem" id="bib.bib2"><span class="ltx_tag ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock">
+S. Tedla, J. E. Little, H. C. Karaimer, and M. S. Brown,
+
+</span>
+<span class="ltx_bibblock">Off the Planckian locus: Using 2D chromaticity to improve in-camera color,
+
+</span>
+<span class="ltx_bibblock">arXiv preprint arXiv:2511.17133 (2025).
+
+</span></li>
+<li class="ltx_bibitem" id="bib.bib3"><span class="ltx_tag ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock">
+ams Osram,
+
+</span>
+<span class="ltx_bibblock">AS7341 11-Channel Multi-Spectral Digital Sensor,
+
+</span>
+<span class="ltx_bibblock">Datasheet, https://ams-osram.com/products/sensors/spectral-sensors/ams-as7341, 2023.
+
+</span></li>
+<li class="ltx_bibitem" id="bib.bib4"><span class="ltx_tag ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock">
+G. Buchsbaum,
+
+</span>
+<span class="ltx_bibblock">A spatial processor model for object colour perception,
+
+</span>
+<span class="ltx_bibblock">J. Franklin Inst., 310, 1 (1980).
+
+</span></li>
+<li class="ltx_bibitem" id="bib.bib5"><span class="ltx_tag ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock">
+J. van de Weijer, T. Gevers, and A. Gijsenij,
+
+</span>
+<span class="ltx_bibblock">Edge-based color constancy,
+
+</span>
+<span class="ltx_bibblock">IEEE Trans. Image Process., 16, pg. 2207 (2007).
+
+</span></li>
+<li class="ltx_bibitem" id="bib.bib6"><span class="ltx_tag ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock">
+S. Yue and M. Wei,
+
+</span>
+<span class="ltx_bibblock">Color constancy from a pure color view,
+
+</span>
+<span class="ltx_bibblock">J. Opt. Soc. Am. A., 40, pg. 602 (2023).
+
+</span></li>
+<li class="ltx_bibitem" id="bib.bib7"><span class="ltx_tag ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock">
+H. C. Karaimer and M. S. Brown,
+
+</span>
+<span class="ltx_bibblock">Improving color reproduction accuracy on cameras,
+
+</span>
+<span class="ltx_bibblock">In Proc. <span class="ltx_text ltx_font_italic" id="bib.bib7.2">CVPR</span> (2018).
+
+</span></li>
+<li class="ltx_bibitem" id="bib.bib8"><span class="ltx_tag ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock">
+G. D. Finlayson, M. Mackiewicz, and A. Hurlbert,
+
+</span>
+<span class="ltx_bibblock">Color correction using root-polynomial regression,
+
+</span>
+<span class="ltx_bibblock">IEEE Trans. Image Process., 24, pg. 1460 (2015).
+
+</span></li>
+<li class="ltx_bibitem" id="bib.bib9"><span class="ltx_tag ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock">
+B. Arad and O. Ben-Shahar,
+
+</span>
+<span class="ltx_bibblock">Sparse recovery of hyperspectral signal from natural RGB images,
+
+</span>
+<span class="ltx_bibblock">In Proc. <span class="ltx_text ltx_font_italic" id="bib.bib9.2">ECCV</span> (2016).
+
+</span></li>
+<li class="ltx_bibitem" id="bib.bib10"><span class="ltx_tag ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock">
+Y. Li, Q. Fu, and W. Heidrich,
+
+</span>
+<span class="ltx_bibblock">Multispectral illumination estimation using deep unrolling network,
+
+</span>
+<span class="ltx_bibblock">In Proc. <span class="ltx_text ltx_font_italic" id="bib.bib10.2">ICCV</span> (2021).
+
+</span></li>
+<li class="ltx_bibitem" id="bib.bib11"><span class="ltx_tag ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock">
+EMPIR PhotoLED,
+
+</span>
+<span class="ltx_bibblock">EMPIR PhotoLED Spectral Database, version 2,
+
+</span>
+<span class="ltx_bibblock">European Metrology Programme for Innovation and Research, 2018.
+
+</span></li>
+<li class="ltx_bibitem" id="bib.bib12"><span class="ltx_tag ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock">
+K. M. Lam,
+
+</span>
+<span class="ltx_bibblock">Metamerism and Colour Constancy,
+
+</span>
+<span class="ltx_bibblock">Ph.D. thesis, University of Bradford, 1985.
+
+</span></li>
+<li class="ltx_bibitem" id="bib.bib13"><span class="ltx_tag ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock">
+J. Jiang, D. Liu, J. Gu, and S. Süsstrunk,
+
+</span>
+<span class="ltx_bibblock">What is the space of spectral sensitivity functions for digital color cameras?,
+
+</span>
+<span class="ltx_bibblock">In Proc. <span class="ltx_text ltx_font_italic" id="bib.bib13.2">WACV</span> (2013).
+
+</span></li>
+<li class="ltx_bibitem" id="bib.bib14"><span class="ltx_tag ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock">
+S. Yue and M. Wei,
+
+</span>
+<span class="ltx_bibblock">Effective cross-sensor color constancy using a dual-mapping strategy,
+
+</span>
+<span class="ltx_bibblock">J. Opt. Soc. Am. A., 41, pg. 329 (2024).
+
+</span></li>
+<li class="ltx_bibitem" id="bib.bib15"><span class="ltx_tag ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock">
+F. Yasuma, T. Mitsunaga, D. Iso, and S. K. Nayar,
+
+</span>
+<span class="ltx_bibblock">Generalized assorted pixel camera: Post-capture control of resolution, dynamic range and spectrum,
+
+</span>
+<span class="ltx_bibblock">Technical Report CUCS-061-08, Department of Computer Science, Columbia University, 2008.
+
+</span></li>
+<li class="ltx_bibitem" id="bib.bib16"><span class="ltx_tag ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock">
+G. Sharma, W. Wu, and E. N. Dalal,
+
+</span>
+<span class="ltx_bibblock">The CIEDE2000 color-difference formula: Implementation notes, supplementary test data, and mathematical observations,
+
+</span>
+<span class="ltx_bibblock">Color Res. Appl., 30, pg. 21 (2005).
+
+</span></li>
+<li class="ltx_bibitem" id="bib.bib17"><span class="ltx_tag ltx_tag_bibitem">[17]</span>
+<span class="ltx_bibblock">
+C. S. McCamy,
+
+</span>
+<span class="ltx_bibblock">Correlated color temperature as an explicit function of chromaticity coordinates,
+
+</span>
+<span class="ltx_bibblock">Color Res. Appl., 17, pg. 142 (1992).
+
+</span></li>
+<li class="ltx_bibitem" id="bib.bib18"><span class="ltx_tag ltx_tag_bibitem">[18]</span>
+<span class="ltx_bibblock">
+O. Glatt, Y. Ater, W.-S. Kim, S. Werman, O. Berby, Y. Zini, S. Zelinger, S. Lee, H. Choi, and E. Soloveichik,
+
+</span>
+<span class="ltx_bibblock">Beyond RGB: A real world dataset for multispectral imaging in mobile devices,
+
+</span>
+<span class="ltx_bibblock">In Proc. <span class="ltx_text ltx_font_italic" id="bib.bib18.2">WACV</span>, pp. 4344–4354 (2024).
+
+</span></li>
+</ul>
+</section>
+</article></div></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
