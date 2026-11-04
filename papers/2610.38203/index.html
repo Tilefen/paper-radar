@@ -1,0 +1,694 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>将一台退役的 Raith 电子束图形发生器改造为无人值守的关键尺寸扫描电子显微镜</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style><style>
+.paper-reader{max-width:860px;margin:0 auto}
+.paper-reader h1{font-size:28px;line-height:1.35;margin:10px 0 6px}
+.paper-reader .original-title{color:var(--muted);font-size:14px;margin-bottom:18px}
+.paper-reader .meta{color:var(--muted);font-size:13px;margin-bottom:20px}
+.paper-reader .toc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:20px 0 28px;font-size:14px}
+.paper-reader .toc ol{margin:6px 0 0 18px;padding:0}
+.paper-reader .toc li{margin:3px 0}
+.paper-reader article{font-size:16px;line-height:1.9}
+.paper-reader h2{font-size:22px;margin:30px 0 10px}
+.paper-reader h3{font-size:18px;margin:22px 0 8px}
+.paper-reader figure{margin:20px 0;text-align:center}
+.paper-reader img{max-width:100%;height:auto}
+.paper-reader figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+.paper-reader table{display:block;overflow-x:auto;border-collapse:collapse;margin:16px 0;font-size:14px}
+.paper-reader math{overflow-x:auto;max-width:100%}
+.paper-reader pre{overflow-x:auto}
+</style></head><body class="">
+<header><a class="brand" href="../index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="../daily/index.html">日报</a><a href="../papers/index.html" aria-current="page">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 中文全文</div><h1>将一台退役的 Raith 电子束图形发生器改造为无人值守的关键尺寸扫描电子显微镜</h1><div class="paper-reader"><h1>将一台退役的 Raith 电子束图形发生器改造为无人值守的关键尺寸扫描电子显微镜</h1><p class="original-title">Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM</p><p class="meta">arXiv 2610.38203 · 机器翻译，公式与图表保留原文</p><nav class="toc"><strong>目录</strong><ol></ol></nav><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">将一台退役的 Raith 电子束图形发生器改造为无人值守的关键尺寸扫描电子显微镜</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"><a class="ltx_ref ltx_href" href="https://orcid.org/0009-0000-4005-7907" title=""><object class="ltx_graphics ltx_img_square" data="assets/orcid.svg" height="9" style="aspect-ratio:9/9;" type="image/svg+xml" width="9"></object> Will Gunn</a>
+</span><span class="ltx_note ltx_note_frontmatter ltx_thanks_correspondence ltx_role_thanks" id="id1"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span>Corresponding author: <span class="ltx_text ltx_font_typewriter" id="id1.1">w.gunn@uq.edu.au</span></span></span></span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>School of Mathematics &amp; Physics, The University of Queensland, Brisbane, QLD, Australia
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"><a class="ltx_ref ltx_href" href="https://orcid.org/0000-0002-4663-5111" title=""><object class="ltx_graphics ltx_img_square" data="assets/orcid.svg" height="9" style="aspect-ratio:9/9;" type="image/svg+xml" width="9"></object> Han-Hao Cheng</a>
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Centre for Microscopy and Microanalysis, The University of Queensland, Brisbane, QLD, Australia
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"><a class="ltx_ref ltx_href" href="https://orcid.org/0000-0001-9476-5968" title=""><object class="ltx_graphics ltx_img_square" data="assets/orcid.svg" height="9" style="aspect-ratio:9/9;" type="image/svg+xml" width="9"></object> Daniel Peace</a>
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>National Advanced Photonics Facility, The University of Queensland, Brisbane, QLD, Australia
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"><a class="ltx_ref ltx_href" href="https://orcid.org/0000-0002-9053-9792" title=""><object class="ltx_graphics ltx_img_square" data="assets/orcid.svg" height="9" style="aspect-ratio:9/9;" type="image/svg+xml" width="9"></object> Fernando Gottardo</a>
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>National Advanced Photonics Facility, The University of Queensland, Brisbane, QLD, Australia
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"><a class="ltx_ref ltx_href ltx_font_bold" href="https://orcid.org/0009-0006-1828-1658" title=""><object class="ltx_graphics ltx_img_square" data="assets/orcid.svg" height="9" style="aspect-ratio:9/9;" type="image/svg+xml" width="9"></object>  Lachlan Hanrahan</a><span class="ltx_text ltx_font_bold" id="id2">   <a class="ltx_ref ltx_href" href="https://orcid.org/0000-0002-3049-6639" title=""><object class="ltx_graphics ltx_img_square" data="assets/orcid.svg" height="9" style="aspect-ratio:9/9;" type="image/svg+xml" width="9"></object>  Zachary Degnan</a>   Keith Moulding   Nit Taksatorn</span>
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>School of Mathematics &amp; Physics, The University of Queensland, Brisbane, QLD, Australia
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Raith Asia Ltd, Hong Kong
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>GenISys GmbH, Germany
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"><a class="ltx_ref ltx_href ltx_font_bold" href="https://orcid.org/0000-0003-2203-3674" title=""><object class="ltx_graphics ltx_img_square" data="assets/orcid.svg" height="9" style="aspect-ratio:9/9;" type="image/svg+xml" width="9"></object>  Roger Wepf</a><span class="ltx_text ltx_font_bold" id="id3">   <a class="ltx_ref ltx_href" href="https://orcid.org/0000-0002-4659-3804" title=""><object class="ltx_graphics ltx_img_square" data="assets/orcid.svg" height="9" style="aspect-ratio:9/9;" type="image/svg+xml" width="9"></object>  Markus Rambach</a>   <a class="ltx_ref ltx_href" href="https://orcid.org/0000-0001-9639-5200" title=""><object class="ltx_graphics ltx_img_square" data="assets/orcid.svg" height="9" style="aspect-ratio:9/9;" type="image/svg+xml" width="9"></object>  Andrew G. White</a></span>
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>School of Mathematics &amp; Physics, The University of Queensland, Brisbane, QLD, Australia
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Centre for Microscopy and Microanalysis, The University of Queensland, Brisbane, QLD, Australia
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>National Advanced Photonics Facility, The University of Queensland, Brisbane, QLD, Australia
+</span></span></span></span></div>
+<div class="ltx_dates">October 15, 2026</div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">摘要</h6>
+<p class="ltx_p" id="abstract1.1">学术机构电子束光刻（EBL）的基于设计的计量受限于低吞吐量成像。对于集成光子学而言，纳米尺度的结构变化会显著制约器件性能，因此扫描电子显微镜（SEM）是关键尺寸（CD）计量的标准工具，能够揭示光学测量无法获得的器件结构。晶圆尺度的手动 SEM 成像耗时巨大，会引入因操作人员而异的畸变，而且所得数据量过少，无法可靠地闭合纳米制造校准回路。下文详述一种利用学术洁净室现有硬件的方法：一套 GDSII 到 SEM 的软件工作流程，可将机构中退役的图形发生器改造为 CD-SEM，实现无人值守的图像采集以及高效的 CD 与线边缘粗糙度（LER）提取。本文以 Raith eLine Plus 演示了该方法，并预期其可推广至运行 Raith <span class="ltx_text ltx_font_smallcaps" id="abstract1.1.1">NanoSuite</span> 的其他图形发生器。文中给出的结果展示了其在同一机构内的三种应用情形：加速校准两种光刻胶的工艺窗口；对集成光子器件开展芯片级计量以跟踪 CD 变化；以及为训练卷积神经网络以预测工艺畸变而进行的大规模数据集采集。该方法使得代工厂式的、计量驱动的工艺校准能够在学术洁净室中实现，并可推广到光子学之外的任何需要纳米尺度 CD 控制的 EBL 纳米制造中。</p>
+</div>
+<div class="ltx_logical-block ltx_align_bottom" id="id4">
+<span class="ltx_rule" style="width:100%;height:2.0pt;--ltx-bg-color:black;display:inline-block;"> </span>
+<span class="ltx_rule" style="width:100%;height:2.0pt;--ltx-bg-color:black;display:inline-block;"> </span>
+<div class="ltx_para" id="p1">
+<p class="ltx_p" id="p1.1"><span class="ltx_text ltx_font_smallcaps" id="p1.1.1">Preprint
+<br class="ltx_break"/></span></p>
+<table class="ltx_tabular ltx_align_top" id="p1.2">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="p1.2.1">
+<td class="ltx_td ltx_align_center" id="p1.2.1.1"><span class="ltx_rule" style="width:0.0pt;height:24.0pt;--ltx-bg-color:black;display:inline-block;"></span></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="ltx_para ltx_noindent" id="p2">
+<p class="ltx_p" id="p2.1"><em class="ltx_emph ltx_font_bold ltx_font_italic" id="p2.1.1">关键词</em>  扫描电子显微镜  <math alttext="\cdot" class="ltx_Math" display="inline" id="p2.m1" intent=":literal"><semantics><mo>⋅</mo><annotation encoding="application/x-tex">\cdot</annotation></semantics></math>
+电子束光刻  <math alttext="\cdot" class="ltx_Math" display="inline" id="p2.m2" intent=":literal"><semantics><mo>⋅</mo><annotation encoding="application/x-tex">\cdot</annotation></semantics></math>
+自动化计量  <math alttext="\cdot" class="ltx_Math" display="inline" id="p2.m3" intent=":literal"><semantics><mo>⋅</mo><annotation encoding="application/x-tex">\cdot</annotation></semantics></math>
+基于设计的计量  <math alttext="\cdot" class="ltx_Math" display="inline" id="p2.m4" intent=":literal"><semantics><mo>⋅</mo><annotation encoding="application/x-tex">\cdot</annotation></semantics></math>
+Raith eLine Plus  <math alttext="\cdot" class="ltx_Math" display="inline" id="p2.m5" intent=":literal"><semantics><mo>⋅</mo><annotation encoding="application/x-tex">\cdot</annotation></semantics></math>
+硅基集成光子学</p>
+</div>
+<section class="ltx_section" id="S1">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">1 </span>引言</h2>
+<div class="ltx_para ltx_noindent" id="S1.p1">
+<p class="ltx_p" id="S1.p1.1">电子束光刻（EBL）中的计量工作流程依赖扫描电子显微镜（SEM）对结构进行自上而下的关键尺寸（CD）测量。在半导体制造和 EBL 代工服务中，基于设计的计量（DBM）工作流程将平面布局图与芯片/晶圆表面的物理结构对应起来，从而增强质量控制。在这些场景中，测量由关键尺寸扫描电子显微镜（CD-SEM）执行；这些设备可在晶圆尺度 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">1</a>]</cite>上自动对大型结构数据集成像，而 DBM 工作流程可直接根据设计数据 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib2" title="">2</a>]</cite>设置这些成像配方。在共享纳米加工设施中，CD-SEM 的成本通常令人难以承受，因此计量依赖人工操作的 SEM。对于可使用商用纳米加工软件套件的设施，例如 GenISys <span class="ltx_text ltx_font_smallcaps" id="S1.p1.1.1">ProSEM</span>、<span class="ltx_text ltx_font_smallcaps" id="S1.p1.1.2">Tracer</span> 和 <span class="ltx_text ltx_font_smallcaps" id="S1.p1.1.3">Beamer</span> <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib3" title="">3</a>, <a class="ltx_ref" href="#bib.bib4" title="">4</a>, <a class="ltx_ref" href="#bib.bib5" title="">5</a>]</cite>，图像分析和工艺感知设计不再是实现最佳实践制造的瓶颈。根据我们的经验，学术洁净室面临的最大障碍是手动对样品成像所需的大量时间，因为手动 SEM 设置耗时，且图像质量在很大程度上取决于用户能力 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib6" title="">6</a>]</cite>。尽管存在可为手动 SEM 镜筒增加由版图驱动的自动化的售后升级方案 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib7" title="">7</a>]</cite>，下文展示如何利用设施中的现有硬件来缓解实现自动化成像工作流程的传统瓶颈。通过组合一台已被取代的 Raith eLine Plus 电子束（E-beam）图形发生器、图像分析软件 <span class="ltx_text ltx_font_smallcaps" id="S1.p1.1.4">ProSEM</span> <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib3" title="">3</a>]</cite>、工艺校准软件 <span class="ltx_text ltx_font_smallcaps" id="S1.p1.1.5">Tracer</span> <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib4" title="">4</a>]</cite> 以及自定义自动化脚本，我们在学术洁净室内实现了自动化 DBM 工作流程。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S1.p2">
+<p class="ltx_p" id="S1.p2.1">这是可行的，因为 Raith 电子束图形发生器与 CD-SEM 共享许多相同组件。二者均包含带有镜内/穿透透镜二次电子探测器的 SEM 镜筒 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib8" title="">8</a>, <a class="ltx_ref" href="#bib.bib9" title="">9</a>]</cite>，这与 CD-SEM 用于高分辨率测量的穿透透镜检测相同 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">1</a>]</cite>。CD-SEM 测量的准确度用参考样品校准 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">1</a>]</cite>。类似地，Raith 图形发生器在带有棋盘格结构的标准校准芯片（“chessy”）上，借助激光干涉仪载物台完成写场对准与校正。它们保留在 eLine Plus 样品架上，用于为 EBL 对准图案生成写场，并用于校准 SEM 放大率、X 和 Y 缩放及畸变。结合样品本身的三点旋转与工作距离校正（第 <a class="ltx_ref" href="#S2.SS1.SSS3" title="2.1.3 Image acquisition setup on the Raith eLine Plus pattern generator ‣ 2.1 Software architecture &amp; image acquisition workflow ‣ 2 Methods ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">2.1.3</span></a> 节），通过图案发生器成像的每个扫描帧都在空间和焦点上得到校正，因而 eLine Plus 可作为功能等效的 CD-SEM 运行。eLine Plus 上的半自动成像可通过使用与图案生成相同的位置列表结构定义扫描例程来实现，但这些列表通常需要手动构建，并且是我们设施内实现自动化计量的最大瓶颈。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S1.p3">
+<p class="ltx_p" id="S1.p3.1">对于小数据集采集，用户报告称，在 eLine Plus 上手动构建成像位置列表通常比不采用自动化直接成像样品耗时更长（第 <a class="ltx_ref" href="#S2.SS1" title="2.1 Software architecture &amp; image acquisition workflow ‣ 2 Methods ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">2.1</span></a> 节）。Raith EBL 工具的原生自动化是为曝光而设计的 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib10" title="">10</a>]</cite>，而我们未发现已有工作能直接从设计平面图生成用于无人值守成像的 Raith 位置列表。为此，我们提出 <span class="ltx_text ltx_font_smallcaps" id="S1.p3.1.1">AutoSEM</span>，这是一个开源、基于网页应用的程序，可将 GDSII 设计平面图转换为可直接扫描的位置列表。这使得在 Raith eLine Plus 上进行无人值守图像采集成为可能。采集到的图像被传入 GenISys <span class="ltx_text ltx_font_smallcaps" id="S1.p3.1.2">ProSEM</span>、<span class="ltx_text ltx_font_smallcaps" id="S1.p3.1.3">Tracer</span> 和 <span class="ltx_text ltx_font_smallcaps" id="S1.p3.1.4">Beamer</span>，用于后续曝光的工艺校准和邻近效应校正（PEC），从而在我们设施内形成自动化 DBM 工作流程。通过将用户关注点从在设备上手动成像转向在设计阶段定义扫描帧，我们实现了更快的培训、无论用户 SEM 操作技能如何都能获得一致的图像质量，以及计量工作流程的更广泛采用。软件与分析方法在第 <a class="ltx_ref" href="#S2" title="2 Methods ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">2</span></a> 节中详述。第 <a class="ltx_ref" href="#S3" title="3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">3</span></a> 节展示了该工作流程在三个用例中的应用：两种 EBL 光刻胶的加速工艺校准；在设计阶段规划的硅光子器件的芯片级计量；以及支持利用卷积神经网络进行下一代工艺校准的大规模数据集采集。方法局限性、仍存在的开放挑战，以及在纳米制造领域推广的展望，将在第 <a class="ltx_ref" href="#S4" title="4 Discussion ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">4</span></a> 节中讨论。</p>
+</div>
+</section>
+<section class="ltx_section" id="S2">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">2 </span>方法</h2>
+<div class="ltx_para ltx_noindent" id="S2.p1">
+<p class="ltx_p" id="S2.p1.1">以下介绍我们自动化 DBM 工作流的具体细节，详述软件架构与自动图像采集（第 <a class="ltx_ref" href="#S2.SS1" title="2.1 Software architecture &amp; image acquisition workflow ‣ 2 Methods ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">2.1</span></a>节），以及其与 GenISys 分析软件的集成（第 <a class="ltx_ref" href="#S2.SS2" title="2.2 Batch analysis workflow for key fabrication metric extraction ‣ 2 Methods ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">2.2</span></a>节）。该工作流使用三类软件。第一类是 Raith eLine Plus 的原生软件 <span class="ltx_text ltx_font_smallcaps" id="S2.p1.1.1">NanoSuite</span>，并配有用于扩展功能的自定义脚本。第二类是为全自动完成扫描帧定位而开发的开源网页应用程序，第三类是商用 GenISys 软件 <span class="ltx_text ltx_font_smallcaps" id="S2.p1.1.2">ProSEM</span>、<span class="ltx_text ltx_font_smallcaps" id="S2.p1.1.3">Tracer</span> 和 <span class="ltx_text ltx_font_smallcaps" id="S2.p1.1.4">Beamer</span>，用于图像分析、工艺校准和图形化。本工作流中的结构使用 Raith EBPG5150 在 100 kV 下进行图形化。所有图像均采用 Raith eLine Plus 镜内二次电子探测器采集：加速电压 10 kV，光阑 30 <math alttext="\mu" class="ltx_Math" display="inline" id="S2.p1.m1" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>m，探针电流 <math alttext="\sim" class="ltx_Math" display="inline" id="S2.p1.m2" intent=":literal"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math><math alttext="300\," class="ltx_Math" display="inline" id="S2.p1.m3" intent=":literal"><semantics><mn>300</mn><annotation encoding="application/x-tex">300\,</annotation></semantics></math>pA，工作距离 <math alttext="\sim" class="ltx_Math" display="inline" id="S2.p1.m4" intent=":literal"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math><math alttext="10\," class="ltx_Math" display="inline" id="S2.p1.m5" intent=":literal"><semantics><mn>10</mn><annotation encoding="application/x-tex">10\,</annotation></semantics></math>mm，并采用两点平均。</p>
+</div>
+<section class="ltx_subsection" id="S2.SS1">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">2.1 </span>软件架构与图像采集工作流</h3>
+<section class="ltx_subsubsection" id="S2.SS1.SSS1">
+<h4 class="ltx_title ltx_title_subsubsection"><span class="ltx_tag ltx_tag_subsubsection">2.1.1 </span>Raith <span class="ltx_text ltx_font_smallcaps" id="S2.SS1.SSS1.2">NanoSuite</span> 中现有的半自动化功能</h4>
+<div class="ltx_para ltx_noindent" id="S2.SS1.SSS1.p1">
+<p class="ltx_p" id="S2.SS1.SSS1.p1.1">Raith eLine Plus 出厂时配备原生软件 <span class="ltx_text ltx_font_smallcaps" id="S2.SS1.SSS1.p1.1.1">eLine Plus</span>（属于 Raith 的 <span class="ltx_text ltx_font_smallcaps" id="S2.SS1.SSS1.p1.1.2">NanoSuite</span>）以及 ZEISS 开发的 <span class="ltx_text ltx_font_smallcaps" id="S2.SS1.SSS1.p1.1.3">SmartSEM</span>。<span class="ltx_text ltx_font_smallcaps" id="S2.SS1.SSS1.p1.1.4">SmartSEM</span> 是将该设备专门用作扫描电子显微镜（SEM）的用户界面（UI），而 <span class="ltx_text ltx_font_smallcaps" id="S2.SS1.SSS1.p1.1.5">eLine Plus</span> 用于系统控制和图形生成。系统上的 SEM 图像通常用 <span class="ltx_text ltx_font_smallcaps" id="S2.SS1.SSS1.p1.1.6">SmartSEM</span> 采集，但如果用户使用 <span class="ltx_text ltx_font_smallcaps" id="S2.SS1.SSS1.p1.1.7">eLine Plus</span> 对样品成像，则可在扫描管理器中定义放大率、写场尺寸和成像条件固定的预置扫描帧。这提高了同一样品上图像的一致性。预置扫描帧图像还能受益于图形生成时所用的同一套写场装调（对准）和三点旋转/工作距离修正（第 <a class="ltx_ref" href="#S2.SS1.SSS3" title="2.1.3 Image acquisition setup on the Raith eLine Plus pattern generator ‣ 2.1 Software architecture &amp; image acquisition workflow ‣ 2 Methods ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">2.1.3</span></a>节）。在经过对准修正、写场校准良好的样品上，这种成像方式可可靠达到亚 10 nm 分辨率。对于三个用例（第 <a class="ltx_ref" href="#S3.SS1" title="3.1 Use Case I: Accelerated EBL process calibration via systematic parameter sweeps ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">3.1</span></a>、<a class="ltx_ref" href="#S3.SS2" title="3.2 Use Case II: Chip-scale structural variability mapping for quality assurance &amp; quality control ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">3.2</span></a>、<a class="ltx_ref" href="#S3.SS3" title="3.3 Use Case III: Large-scale dataset acquisition for convolutional neural network-based process prediction &amp; correction ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">3.3</span></a>节），所有图像均以 2 nm/px 的分辨率采集。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S2.SS1.SSS1.p2">
+<p class="ltx_p" id="S2.SS1.SSS1.p2.1">此外，<span class="ltx_text ltx_font_smallcaps" id="S2.SS1.SSS1.p2.1.1">eLine Plus</span> 软件允许用户传入 JavaScript（.js）命令，以控制载物台移动和扫描帧成像的调度。这种调度以位置列表文件（.pls）结构实现，与调度图形生成所用的结构相同，其中曝光/图像的位置与已对准样品上的局部坐标相关联。我们与 Raith 合作编写了自动化脚本，并初步尝试将这些脚本集成到位置列表结构中，形成一套半自动成像协议。之所以称为半自动，是因为对设施用户而言，正确构建位置列表文件并非易事。手动将脚本指派到样品上正确的扫描区域，往往比不使用自动化直接对样品成像耗时更长。为此，我们开发了一种可移植的网页应用程序，可自动完成位置列表的构建，实现全自动、无人值守的成像。</p>
+</div>
+</section>
+<section class="ltx_subsubsection" id="S2.SS1.SSS2">
+<h4 class="ltx_title ltx_title_subsubsection"><span class="ltx_tag ltx_tag_subsubsection">2.1.2 </span>用于自动化位置列表结构的自定义用户界面开发</h4>
+<div class="ltx_para ltx_noindent" id="S2.SS1.SSS2.p1">
+<p class="ltx_p" id="S2.SS1.SSS2.p1.1">网页应用程序<span class="ltx_text ltx_font_smallcaps" id="S2.SS1.SSS2.p1.1.1">AutoSEM</span>（开源<span class="ltx_note ltx_role_footnote" id="footnote1"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup>
+<span class="ltx_tag ltx_tag_note">1</span>
+                
+                
+                
+              可从 <a class="ltx_ref ltx_url ltx_font_typewriter" href="https://github.com/wafgunn/AutoSEM" title="">https://github.com/wafgunn/AutoSEM</a></span></span></span> 获取）通过读取用户的GDSII设计文件并自动生成位置列表，实现了用户友好的高吞吐量成像。<span class="ltx_text ltx_font_smallcaps" id="S2.SS1.SSS2.p1.1.2">AutoSEM</span>代码库打包为单个HTML文件以便于移植，并设计为分为三个步骤的用户界面：GDSII设计文件导入、扫描帧分配与整理，以及指令导出（可从中下载就绪扫描的位置列表）。图<a class="ltx_ref" href="#S2.F1" title="Figure 1 ‣ 2.1.2 Custom UI development to automate position list structure ‣ 2.1 Software architecture &amp; image acquisition workflow ‣ 2 Methods ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">1</span></a>展示了<span class="ltx_text ltx_font_smallcaps" id="S2.SS1.SSS2.p1.1.3">AutoSEM</span>在制造反馈回路中的位置。</p>
+</div>
+<figure class="ltx_figure" id="S2.F1"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_square" height="310" id="S2.F1.g1" src="assets/Figure1.png" style="aspect-ratio:286/310;" width="286"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 1：</span>面向制造反馈回路的基于设计的计量工作流程概览。设计版图与制造版图之间的一一对应关系使版图驱动的计量成为可能。在制造与测试的同时，设计版图被解析并输入<span class="ltx_text ltx_font_smallcaps" id="S2.F1.6">AutoSEM</span>，以自动构建扫描帧的位置列表。制造完成后，将芯片/晶圆装入Raith eLine Plus或其他Raith图形发生器，GDSII设计文件与位置列表结构即可驱动成像自动化。所获取的数据集被解析至GenISys <span class="ltx_text ltx_font_smallcaps" id="S2.F1.7">ProSEM</span>、<span class="ltx_text ltx_font_smallcaps" id="S2.F1.8">Tracer</span>与<span class="ltx_text ltx_font_smallcaps" id="S2.F1.9">Beamer</span>，用于工艺校准并约束后续版图设计，从而闭合制造反馈回路。</figcaption>
+</figure>
+<div class="ltx_para ltx_noindent" id="S2.SS1.SSS2.p2">
+<p class="ltx_p" id="S2.SS1.SSS2.p2.1">GDSII 查看器允许用户拖放包含其纳米加工完整版图布局的设计文件，在单元之间导航，隐藏/显示层，并执行基本的版图查看器命令，以便在组织计量（精密测量）前预览设计。扫描框分配器允许用户从与 <span class="ltx_text ltx_font_smallcaps" id="S2.SS1.SSS2.p2.1.1">eLine Plus</span>扫描管理器中存储的预设扫描框相匹配的列表中，将扫描框放置到其版图布局上。该应用将用户限制为预设扫描框，以确保设施内所有用户在成像期间获得良好对准的写场，从而使共用设备上的成像运行具有可重复性。图像质量取决于用户在校正像散 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib6" title="">6</a>]</cite> 和写场未对准时的技能。我们认为，对精细特征光子器件进行准确成像需要 sub-10 nm 临界尺寸分辨率，因此用户之间的不一致会降低图像集的质量。其次，将用户限制为预设扫描框可实现工作流程标准化，其中可在原始 GDSII 版图布局的设计过程中定义设定尺寸的扫描框。用户会获得一个与设定扫描框尺寸相对应的层/数据类型查找表（层 500，数据类型 0–9）。这些特定层/数据类型上的框对象可由<span class="ltx_text ltx_font_smallcaps" id="S2.SS1.SSS2.p2.1.2">AutoSEM</span>自动导入。如果用户的 GDSII 设计已在其希望成像的位置包含边界框，则可以手动导入这些框，并将该位置与任一预设扫描框关联。操作菜单用于将选定的扫描框放入命名组，使用户能够确定成像顺序，并在组名中传递标识性元数据。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S2.SS1.SSS2.p3">
+<p class="ltx_p" id="S2.SS1.SSS2.p3.1">放置所有所需扫描框后，用户可导出包含关键成像参数的指令。这些参数包括定义图像分辨率的像素数，以及任何线平均或帧平均。还可设置扫描间等待时间，以减少图像漂移误差。随后，用户导出一个格式完整的位置列表，其中包含所有扫描框和参数，可直接导入 <span class="ltx_text ltx_font_smallcaps" id="S2.SS1.SSS2.p3.1.1">eLine Plus</span>软件。该位置列表中的所有扫描框，无论成像范围大小，均由中心坐标定义，图形发生器围绕该中心坐标进行扫描。扫描框的坐标系由用户 GDSII 设计版图布局的最大范围自动确定，装调（对准）标记坐标也以同一坐标系表示。这使用户能够创建带有全芯片或全晶圆成像扫描指令的位置列表，前提是用户在图形发生器上执行三点旋转/工作距离装调（对准）（第<a class="ltx_ref" href="#S2.SS1.SSS3" title="2.1.3 Image acquisition setup on the Raith eLine Plus pattern generator ‣ 2.1 Software architecture &amp; image acquisition workflow ‣ 2 Methods ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">2.1.3</span></a>节）。此步骤中的其他导出内容包括一个文本文件，其中包含扫描编号、中心坐标（<math alttext="x,y" class="ltx_Math" display="inline" id="S2.SS1.SSS2.p3.m1" intent=":literal"><semantics><mrow><mi>x</mi><mo>,</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x,y</annotation></semantics></math>）、扫描框尺寸、像素步长（<math alttext="\mu" class="ltx_Math" display="inline" id="S2.SS1.SSS2.p3.m2" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>m），以及扫描框组名的文本字符串，该字符串可包含附加说明或元数据。此外，用户还能导出最终的 GDSII 文件，其中同时包含原始设计版图布局和扫描框框对象。</p>
+</div>
+</section>
+<section class="ltx_subsubsection" id="S2.SS1.SSS3">
+<h4 class="ltx_title ltx_title_subsubsection"><span class="ltx_tag ltx_tag_subsubsection">2.1.3 </span>在 Raith eLine Plus 图形发生器上的图像采集设置</h4>
+<div class="ltx_para ltx_noindent" id="S2.SS1.SSS3.p1">
+<p class="ltx_p" id="S2.SS1.SSS3.p1.1">在图形发生器上运行图像采集之前，需要进行三点装调（对准）程序，以定义新的局部坐标系并应用空间/焦点校正。<span class="ltx_text ltx_font_smallcaps" id="S2.SS1.SSS3.p1.1.1">eLine Plus</span>装调（对准）在样品表面的三个非共线基准/装调（对准）标记——通常为十字形或 L 形图案——上取点，并将这些点与用户 GDSII 设计文件中的对应坐标配对。这可校正旋转、平移和轴缩放误差，校正精度达到标记位置的准确度。为校正任何样品倾斜，如果用户在装调（对准）期间确保每个标记处均清晰聚焦，软件会计算样品表面的倾斜焦平面，并为后续所有扫描插值工作距离校正（图 <a class="ltx_ref" href="#S2.F2" title="Figure 2 ‣ 2.1.3 Image acquisition setup on the Raith eLine Plus pattern generator ‣ 2.1 Software architecture &amp; image acquisition workflow ‣ 2 Methods ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">2</span></a>）。到装调（对准）程序结束时，所有扫描帧位置均与样品表面的真实位置匹配，且这些位置处的所有图像均经过空间/焦点校正。装调（对准）后，可执行位置列表，图形发生器可无人值守地可靠采集所有图像。从 <span class="ltx_text ltx_font_smallcaps" id="S2.SS1.SSS3.p1.1.2">AutoSEM</span> 导出的文本文件可用作图像集的查找表，简单的重命名脚本可将组名文本字符串中的所有必要信息包含到文件名中。</p>
+</div>
+<figure class="ltx_figure" id="S2.F2"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="205" id="S2.F2.g1" src="assets/Figure2.png" style="aspect-ratio:286/205;" width="286"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 2：</span>位置焦点校正。在三点装调（对准）期间，用户在倾斜样品的三个非共线样品标记处确保清晰聚焦，记录工作距离 WD1、WD2 和 WD3，软件据此拟合平面，并为后续每个扫描帧插值工作距离校正（第 <a class="ltx_ref" href="#S2.SS1.SSS3" title="2.1.3 Image acquisition setup on the Raith eLine Plus pattern generator ‣ 2.1 Software architecture &amp; image acquisition workflow ‣ 2 Methods ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">2.1.3</span></a> 节）。</figcaption>
+</figure>
+</section>
+</section>
+<section class="ltx_subsection" id="S2.SS2">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">2.2 </span>用于关键制造指标提取的批处理分析工作流</h3>
+<div class="ltx_para ltx_noindent" id="S2.SS2.p1">
+<p class="ltx_p" id="S2.SS2.p1.1">在自动采集与重命名之后，大量图像数据集被送入 GenISys 软件 <span class="ltx_text ltx_font_smallcaps" id="S2.SS2.p1.1.1">ProSEM</span> 进行批处理分析 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib3" title="">3</a>]</cite>。在 <span class="ltx_text ltx_font_smallcaps" id="S2.SS2.p1.1.2">ProSEM</span> 中，用户可以定义希望分析的感兴趣区域（ROI）、这些区域内预期出现的特征类型，以及像素/纳米长度标尺。根据扫描电子显微镜（SEM）图像的 8-bit 灰度值，该软件能够对结构进行拟合与分析。批处理分析的一个常见例子是剂量相关的等焦分析，<a class="ltx_ref" href="#S3.SS1" title="3.1 Use Case I: Accelerated EBL process calibration via systematic parameter sweeps ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">3.1</span></a> 节将对此作更详细的讨论。当图像数据集导入 <span class="ltx_text ltx_font_smallcaps" id="S2.SS2.p1.1.3">ProSEM</span> 并选择“Lines &amp; Spaces”结构预设后，软件会检查单条水平像素切片，并对线形图案的每条边缘拟合 sigmoid 函数。每个 sigmoid 函数的上渐近线被拟合到该像素行内的最亮值，并与线边缘相对应，这是由于 SEM 线扫描存在明亮的边缘辉光 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib11" title="">11</a>]</cite>。每个函数的下渐近线被拟合到远离边缘处的背景灰度。每个 sigmoid 的拐点被视为单行像素内各线边缘的中心点。<span class="ltx_text ltx_font_smallcaps" id="S2.SS2.p1.1.4">ProSEM</span> 对 ROI 的每一行像素进行逐行扫描，并对所有拐点拟合一条直线平均线，以近似线边缘和平均线宽。将该宽度与原始设计相比较，即可估计与剂量相关的 CD 变化。此外，拟合拐点相对各条直线平均边缘的标准差的三倍给出了 LER 的估计值（<math alttext="3\sigma" class="ltx_Math" display="inline" id="S2.SS2.p1.m1" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0em" rspace="0em">​</mo><mi>σ</mi></mrow><annotation encoding="application/x-tex">3\sigma</annotation></semantics></math>）。在不同密度的线与空图形阵列上拟合大量 ROI，便可提取关键工艺指标。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S2.SS2.p2">
+<p class="ltx_p" id="S2.SS2.p2.1">在 <span class="ltx_text ltx_font_smallcaps" id="S2.SS2.p2.1.1">ProSEM</span> 中获得的测量结果被传递给 GenISys <span class="ltx_text ltx_font_smallcaps" id="S2.SS2.p2.1.2">Tracer</span>，后者对测得的 CD 进行拟合，从而返回需要应用于后续器件设计的工艺偏置、有效工艺模糊（blur<sub class="ltx_sub" id="S2.SS2.p2.1.3">eff</sub>），以及用于邻近效应校正（PEC）的基准剂量 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib4" title="">4</a>]</cite>。等焦剂量被用作基准剂量 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib12" title="">12</a>, <a class="ltx_ref" href="#bib.bib13" title="">13</a>]</cite>。这些数值被前馈至 GenISys <span class="ltx_text ltx_font_smallcaps" id="S2.SS2.p2.1.4">Beamer</span> 中的 PEC 算法 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib5" title="">5</a>]</cite>，用于校正后续曝光并闭合工艺反馈回路。</p>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S3">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">3 </span>结果</h2>
+<div class="ltx_para ltx_noindent" id="S3.p1">
+<p class="ltx_p" id="S3.p1.1">我们自动化 DBM 工作流程的结果以三个应用案例给出，每个案例服务于纳米加工设施中电子束光刻（EBL）用户的一项不同任务。应用案例一（第 <a class="ltx_ref" href="#S3.SS1" title="3.1 Use Case I: Accelerated EBL process calibration via systematic parameter sweeps ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">3.1</span></a> 节）详细介绍了两种不同电子束光刻胶的加速工艺校准，其中包括用于优化光刻胶配方的等焦分析。应用案例二（第 <a class="ltx_ref" href="#S3.SS2" title="3.2 Use Case II: Chip-scale structural variability mapping for quality assurance &amp; quality control ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">3.2</span></a> 节）展示了硅基光子器件的芯片尺度成像，实现了可跟踪亚 10 nm 结构变化的计量。应用案例三（第 <a class="ltx_ref" href="#S3.SS3" title="3.3 Use Case III: Large-scale dataset acquisition for convolutional neural network-based process prediction &amp; correction ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">3.3</span></a> 节）展示了基于机器学习的制造工艺变化预测与校正，这是硅基光子设计中的一种新兴方法 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib14" title="">14</a>, <a class="ltx_ref" href="#bib.bib15" title="">15</a>]</cite>；如今借助大规模、无人值守的数据集采集，该方法已可推广到制造工艺配方中的各个单独步骤。将这些案例联系在一起的，是与用户驱动的手工流程相比，我们的自动化 DBM 工作流程所带来的显著加速与重复性。</p>
+</div>
+<section class="ltx_subsection" id="S3.SS1">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">3.1 </span>应用案例一：通过系统化参数扫描实现加速的电子束光刻工艺校准</h3>
+<div class="ltx_para ltx_noindent" id="S3.SS1.p1">
+<p class="ltx_p" id="S3.SS1.p1.1">要在电子束光刻胶中写出准确的图形，必须制定工艺配方；而要在亚 10 nm 尺度上写出一致性良好的掩模，则必须对该配方持续进行校准。校准方法跟踪各个会导致不可容忍图形畸变的步骤与参数，这些畸变源自基底清洁度、光刻胶膜厚、曝光前/后烘烤条件、显影以及刻蚀条件。上述畸变，加上由图形化参数（前向散射、束流与光阑、束流步距）以及工具伪影（束流聚焦）引起的畸变，其卷积被作为有效工艺模糊（blur<sub class="ltx_sub" id="S3.SS1.p1.1.1">eff</sub>）来处理 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib12" title="">12</a>, <a class="ltx_ref" href="#bib.bib13" title="">13</a>]</cite>。最佳实践校准跟踪临界尺寸（CD）随剂量和图形密度的变化，这称为等焦分析 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib12" title="">12</a>, <a class="ltx_ref" href="#bib.bib13" title="">13</a>]</cite>。等焦分析通过制作填充因子不同的线条与间隙测试结构来进行。为减小区域之间的背散射，每个区域与其相邻区域之间相隔大于 <math alttext="3\beta" class="ltx_Math" display="inline" id="S3.SS1.p1.m2" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0em" rspace="0em">​</mo><mi>β</mi></mrow><annotation encoding="application/x-tex">3\beta</annotation></semantics></math>，其中 <math alttext="\beta" class="ltx_Math" display="inline" id="S3.SS1.p1.m3" intent=":literal"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math> 是该光刻胶/基底组合中背散射电子的横向射程。这些图形从单线条结构（<math alttext="\sim 0\%" class="ltx_Math" display="inline" id="S3.SS1.p1.m4" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>∼</mo><mrow><mn>0</mn><mo>%</mo></mrow></mrow><annotation encoding="application/x-tex">\sim 0\%</annotation></semantics></math> 密度）一直到只含单个间隙结构的完全填充区域（<math alttext="\sim 100\%" class="ltx_Math" display="inline" id="S3.SS1.p1.m5" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>∼</mo><mrow><mn>100</mn><mo>%</mo></mrow></mrow><annotation encoding="application/x-tex">\sim 100\%</annotation></semantics></math> 密度），并包含中间的线条与间隙填充因子（25%, 50%, 75%）。在一系列剂量下对线宽进行成像，即可得到各图形密度的 CD-剂量曲线（曝光宽容度）<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib13" title="">13</a>]</cite>。</p>
+</div>
+<figure class="ltx_figure" id="S3.F3"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="332" id="S3.F3.g1" src="assets/Figure3.png" style="aspect-ratio:476/332;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 3：</span>AR-P 6200.09 在 SOI 上的曝光宽容度，给出五种不同密度的线条与间隙结构的 CD 偏置随剂量的变化（每列一种密度，从 <math alttext="\sim 0\%" class="ltx_Math" display="inline" id="S3.F3.m8" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>∼</mo><mrow><mn>0</mn><mo>%</mo></mrow></mrow><annotation encoding="application/x-tex">\sim 0\%</annotation></semantics></math> 到 <math alttext="\sim 100\%" class="ltx_Math" display="inline" id="S3.F3.m9" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>∼</mo><mrow><mn>100</mn><mo>%</mo></mrow></mrow><annotation encoding="application/x-tex">\sim 100\%</annotation></semantics></math>）。每行对应不同的束流（200 pA, 500 pA 和 1000 pA）。在 200 pA 和 500 pA 下比较 200 <math alttext="\mu" class="ltx_Math" display="inline" id="S3.F3.m10" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>m（深蓝）与 300 <math alttext="\mu" class="ltx_Math" display="inline" id="S3.F3.m11" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>m（品红）光阑，在 1000 pA 下比较 300 <math alttext="\mu" class="ltx_Math" display="inline" id="S3.F3.m12" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>m（品红）与 400 <math alttext="\mu" class="ltx_Math" display="inline" id="S3.F3.m13" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>m（橙色）光阑。误差棒为 <math alttext="\pm 4" class="ltx_Math" display="inline" id="S3.F3.m14" intent=":literal"><semantics><mrow><mo>±</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">\pm 4</annotation></semantics></math> nm，是基于 2 nm/px 像素尺度的保守估计。</figcaption>
+</figure>
+<section class="ltx_subsubsection" id="S3.SS1.SSS1">
+<h4 class="ltx_title ltx_title_subsubsection"><span class="ltx_tag ltx_tag_subsubsection">3.1.1 </span><span class="ltx_text" id="S3.SS1.SSS1.2">AR-P 6200.09</span> 与 <span class="ltx_text" id="S3.SS1.SSS1.3">ma-N 2403</span> 的等焦校准</h4>
+<div class="ltx_para ltx_noindent" id="S3.SS1.SSS1.p1">
+<p class="ltx_p" id="S3.SS1.SSS1.p1.1">本节详述我们的自动化 DBM 工作流程如何加速并扩展等焦分析。下文给出在绝缘体上硅（SOI）上对两种电子束光刻（EBL）光刻胶进行自动校准的结果：Allresist GmbH 的 <span class="ltx_text" id="S3.SS1.SSS1.p1.1.1">AR-P 6200.09</span> <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib16" title="">16</a>]</cite>，以及 micro resist technology GmbH 的 <span class="ltx_text" id="S3.SS1.SSS1.p1.1.2">ma-N 2403</span> <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib17" title="">17</a>]</cite>。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S3.SS1.SSS1.p2">
+<p class="ltx_p" id="S3.SS1.SSS1.p2.1">对每种光刻胶，先通过对比度曲线分析确定清除剂量/凝胶剂量。随后按 Lopez 等人 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib13" title="">13</a>]</cite> 提出的方法，在由此得到的剂量范围内完成等焦研究。在 <math alttext="100\times 100\,\mu" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p2.m1" intent=":literal"><semantics><mrow><mrow><mn>100</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>100</mn></mrow><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">100\times 100\,\mu</annotation></semantics></math>m<sup class="ltx_sup" id="S3.SS1.SSS1.p2.1.1">2</sup> 曝光区域内，沿固定剂量范围制作五种不同密度（<math alttext="\sim 0\%" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p2.m3" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>∼</mo><mrow><mn>0</mn><mo>%</mo></mrow></mrow><annotation encoding="application/x-tex">\sim 0\%</annotation></semantics></math>、25%、50%、75%、<math alttext="\sim 100\%" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p2.m4" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>∼</mo><mrow><mn>100</mn><mo>%</mo></mrow></mrow><annotation encoding="application/x-tex">\sim 100\%</annotation></semantics></math>）的线条与间隙结构，并采用多种不同的光阑与束流配置。所有这些配置均制作在同一芯片上，从而减小显影与刻蚀条件的批次间差异。芯片上各曝光区域之间至少间隔 <math alttext="100\,\mu" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p2.m5" intent=":literal"><semantics><mrow><mn>100</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">100\,\mu</annotation></semantics></math>m 的距离（<math alttext="\sim 3.3\beta" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p2.m6" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>∼</mo><mrow><mn>3.3</mn><mo lspace="0em" rspace="0em">​</mo><mi>β</mi></mrow></mrow><annotation encoding="application/x-tex">\sim 3.3\beta</annotation></semantics></math>），以减小相邻曝光带来的背散射。在完成显影、刻蚀和去胶后，样品在 Raith eLine Plus 内进行三点对准，以采集图像（第 <a class="ltx_ref" href="#S2.SS1.SSS3" title="2.1.3 Image acquisition setup on the Raith eLine Plus pattern generator ‣ 2.1 Software architecture &amp; image acquisition workflow ‣ 2 Methods ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">2.1.3</span></a> 节）。根据密度结构的 GDSII 版图，<span class="ltx_text ltx_font_smallcaps" id="S3.SS1.SSS1.p2.1.2">AutoSEM</span> 生成一份包含所有制作条件的芯片级位置列表，并传送给 eLine Plus。借助该位置列表，可在 <math alttext="\sim 5.5" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p2.m9" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>∼</mo><mn>5.5</mn></mrow><annotation encoding="application/x-tex">\sim 5.5</annotation></semantics></math> 小时内以 2 nm/px 分辨率无人值守地采集 400 <math alttext="5\times 5\,\mu" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p2.m7" intent=":literal"><semantics><mrow><mrow><mn>5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>5</mn></mrow><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">5\times 5\,\mu</annotation></semantics></math>m<sup class="ltx_sup" id="S3.SS1.SSS1.p2.1.3">2</sup> 图像。利用 <span class="ltx_text ltx_font_smallcaps" id="S3.SS1.SSS1.p2.1.4">AutoSEM</span> 生成的查找表，图像被重命名为包含束流条件、剂量与密度相关元数据的名称，并解析至 <span class="ltx_text ltx_font_smallcaps" id="S3.SS1.SSS1.p2.1.5">ProSEM</span>。从所有图像中提取关键尺寸（CD）与线边缘粗糙度（LER）测量值，传给 GenISys <span class="ltx_text ltx_font_smallcaps" id="S3.SS1.SSS1.p2.1.6">Tracer</span>，以拟合估计工艺模糊、工艺偏置和等焦剂量。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S3.SS1.SSS1.p3">
+<p class="ltx_p" id="S3.SS1.SSS1.p3.1">对 <span class="ltx_text" id="S3.SS1.SSS1.p3.1.1">AR-P 6200.09</span> 和 <span class="ltx_text" id="S3.SS1.SSS1.p3.1.2">ma-N 2403</span> 的曝光宽容度均显示出与剂量相关的临界尺寸（CD）变化。为简洁起见，<span class="ltx_text" id="S3.SS1.SSS1.p3.1.3">AR-P 6200.09</span> 的结果示于图 <a class="ltx_ref" href="#S3.F3" title="Figure 3 ‣ 3.1 Use Case I: Accelerated EBL process calibration via systematic parameter sweeps ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">3</span></a>。这些宽容度表明，对于五种不同图形密度，CD 偏置随剂量变化。对每种密度，考虑了覆盖高分辨率图形化常用条件的束流和光阑范围。保守估计误差为 <math alttext="\pm 4" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p3.m1" intent=":literal"><semantics><mrow><mo>±</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">\pm 4</annotation></semantics></math> nm，其中计入了 2 nm/px 的扫描电子显微镜（SEM）像素尺度。在 100 kV 和最高 1 nA 的束流下，理论束斑尺寸可在图 <a class="ltx_ref" href="#S3.F3" title="Figure 3 ‣ 3.1 Use Case I: Accelerated EBL process calibration via systematic parameter sweeps ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">3</span></a> 所示每对光阑之间变化 <math alttext="\sim" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p3.m2" intent=":literal"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math>1.5–2.5 倍（在 200 和 500 pA 时为 200/300 <math alttext="\mu" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p3.m3" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>m，在 1000 pA 时为 300/400 <math alttext="\mu" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p3.m4" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>m）。200 <math alttext="\mu" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p3.m5" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>m、300 <math alttext="\mu" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p3.m6" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>m 和 400 <math alttext="\mu" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p3.m7" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>m 光阑之间趋势的不变性表明，有效模糊 blur<sub class="ltx_sub" id="S3.SS1.SSS1.p3.1.4">eff</sub> 主要由工艺贡献主导，而不是由束斑尺寸主导。<span class="ltx_text ltx_font_smallcaps" id="S3.SS1.SSS1.p3.1.5">Tracer</span> 曲线拟合支持这一点（图 <a class="ltx_ref" href="#S3.F4" title="Figure 4 ‣ 3.1.1 Isofocal calibration of AR-P 6200.09 and ma-N 2403 ‣ 3.1 Use Case I: Accelerated EBL process calibration via systematic parameter sweeps ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">4</span></a>），得到估计的工艺模糊为 <math alttext="\sim" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p3.m9" intent=":literal"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math><math alttext="20" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p3.m10" intent=":literal"><semantics><mn>20</mn><annotation encoding="application/x-tex">20</annotation></semantics></math> nm，相比之下，在束流最高 1 nA 时，各对应光阑的束斑尺寸分别为 <math alttext="\sim" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p3.m11" intent=":literal"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math><math alttext="2.5" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p3.m12" intent=":literal"><semantics><mn>2.5</mn><annotation encoding="application/x-tex">2.5</annotation></semantics></math> nm、<math alttext="\sim" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p3.m13" intent=":literal"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math><math alttext="4" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p3.m14" intent=":literal"><semantics><mn>4</mn><annotation encoding="application/x-tex">4</annotation></semantics></math> nm 和 <math alttext="\sim" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p3.m15" intent=":literal"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math><math alttext="10" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p3.m16" intent=":literal"><semantics><mn>10</mn><annotation encoding="application/x-tex">10</annotation></semantics></math> nm。<span class="ltx_note ltx_role_footnote" id="footnote2"><sup class="ltx_note_mark">2</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">2</sup> <span class="ltx_tag ltx_tag_note">2</span> 束斑尺寸由我们的纳米加工设施通过实验测定。</span></span></span> 除工艺模糊外，<span class="ltx_text ltx_font_smallcaps" id="S3.SS1.SSS1.p3.1.6">Tracer</span> 还估计出等焦剂量为 <math alttext="\sim 256\,\mu" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p3.m17" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>∼</mo><mrow><mn>256</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow></mrow><annotation encoding="application/x-tex">\sim 256\,\mu</annotation></semantics></math>C/cm<sup class="ltx_sup" id="S3.SS1.SSS1.p3.1.7">2</sup>，以及引入的工艺偏置为 <math alttext="\sim 6" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p3.m19" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>∼</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">\sim 6</annotation></semantics></math> nm。由于束流与光阑之间的不变性，这在围绕等焦剂量的这些图形化条件下提供了稳健的工艺窗口。将相同工作流程应用于 <span class="ltx_text" id="S3.SS1.SSS1.p3.1.8">ma-N 2403</span> 时，发现推荐等焦剂量为 <math alttext="\sim" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p3.m20" intent=":literal"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math><math alttext="330\,\mu" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p3.m21" intent=":literal"><semantics><mrow><mn>330</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">330\,\mu</annotation></semantics></math>C/cm<sup class="ltx_sup" id="S3.SS1.SSS1.p3.1.9">2</sup>，工艺模糊为 <math alttext="\sim" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p3.m23" intent=":literal"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math><math alttext="32" class="ltx_Math" display="inline" id="S3.SS1.SSS1.p3.m24" intent=":literal"><semantics><mn>32</mn><annotation encoding="application/x-tex">32</annotation></semantics></math> nm，工艺偏置为 2 nm，且与相同的束流和光阑图形化条件无关。</p>
+</div>
+<figure class="ltx_figure" id="S3.F4"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_square" height="247" id="S3.F4.g1" src="assets/Figure4.png" style="aspect-ratio:286/247;" width="286"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 4：</span><span class="ltx_text ltx_font_smallcaps" id="S3.F4.8">Tracer</span> 对 <span class="ltx_text" id="S3.F4.9">AR-P 6200.09</span> 的曲线拟合，500 pA 束流，300 <math alttext="\mu" class="ltx_Math" display="inline" id="S3.F4.m9" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>m 光阑。叉号是来自 <span class="ltx_text ltx_font_smallcaps" id="S3.F4.10">ProSEM</span> 的 CD 测量值，线条是 <span class="ltx_text ltx_font_smallcaps" id="S3.F4.11">Tracer</span> 对五种不同密度的拟合结果。竖线标出拟合的等焦剂量 <math alttext="\sim" class="ltx_Math" display="inline" id="S3.F4.m10" intent=":literal"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math>256<math alttext="\,\mu" class="ltx_Math" display="inline" id="S3.F4.m11" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\,\mu</annotation></semantics></math>C/cm<sup class="ltx_sup" id="S3.F4.12">2</sup>。<span class="ltx_text ltx_font_smallcaps" id="S3.F4.13">Tracer</span> 还估计出工艺模糊为 <math alttext="\sim" class="ltx_Math" display="inline" id="S3.F4.m13" intent=":literal"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math><math alttext="20" class="ltx_Math" display="inline" id="S3.F4.m14" intent=":literal"><semantics><mn>20</mn><annotation encoding="application/x-tex">20</annotation></semantics></math> nm，工艺偏置为 <math alttext="\sim" class="ltx_Math" display="inline" id="S3.F4.m15" intent=":literal"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math><math alttext="6" class="ltx_Math" display="inline" id="S3.F4.m16" intent=":literal"><semantics><mn>6</mn><annotation encoding="application/x-tex">6</annotation></semantics></math> nm。</figcaption>
+</figure>
+<div class="ltx_para ltx_noindent" id="S3.SS1.SSS1.p4">
+<p class="ltx_p" id="S3.SS1.SSS1.p4.1">借助该工作流程，可在单个芯片上写入多种图形化条件，并在 Raith 图形发生器上成像，同时自动生成关联的位置列表。图像被前馈至 <span class="ltx_text ltx_font_smallcaps" id="S3.SS1.SSS1.p4.1.1">ProSEM</span>，其结果用于借助 <span class="ltx_text ltx_font_smallcaps" id="S3.SS1.SSS1.p4.1.2">Tracer</span> 和 <span class="ltx_text ltx_font_smallcaps" id="S3.SS1.SSS1.p4.1.3">Beamer</span> 对未来制造实施设计校正。我们估计，这将工作流程的时长从三天缩短到不足一天。这是成像显著加速且无人值守的结果，使用户能够专注于分析以及对未来设计的前馈校正。</p>
+</div>
+</section>
+</section>
+<section class="ltx_subsection" id="S3.SS2">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">3.2 </span>用例 II：芯片级结构变异映射用于质量保证与质量控制</h3>
+<div class="ltx_para ltx_noindent" id="S3.SS2.p1">
+<p class="ltx_p" id="S3.SS2.p1.1">下一个用例说明，借助<span class="ltx_text ltx_font_smallcaps" id="S3.SS2.p1.1.1">AutoSEM</span>进行自动位置列表结构化，如何使计量（精密测量）从设计阶段就纳入纳米制造流程，以对片上器件进行质量保证和质量控制。该工作流程能够更可靠地跟踪逆设计光子器件和光子微环谐振器的结构变异性。在这两种情况下，纳米尺度的尺寸变化都会影响性能，使滤波器和谐振器的谐振波长发生偏移<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib18" title="">18</a>]</cite>。针对孔直径发生<math alttext="\pm 10" class="ltx_Math" display="inline" id="S3.SS2.p1.m1" intent=":literal"><semantics><mrow><mo>±</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">\pm 10</annotation></semantics></math> nm 变化的情况，已在仿真中分析了基于孔的逆设计光子交叉结构的容差<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib19" title="">19</a>]</cite>。</p>
+</div>
+<figure class="ltx_figure" id="S3.F5"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_square" height="327" id="S3.F5.g1" src="assets/Figure5.png" style="aspect-ratio:333/327;" width="333"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 5：</span>(A) 一个硅光子芯片的 GDSII 平面布局图，包含 103 个独立组件和 1001 个光栅耦合器结构（比例尺 2 mm）。红框标出了 (B) 中成像的逆设计光子交叉结构。(B) 这 10 个光子交叉结构涵盖两种不同的器件设计（左列和右列），并对应五个不同的内部孔偏置值（从下到上递增）。每个结构均在 <math alttext="5\times 5\,\mu" class="ltx_Math" display="inline" id="S3.F5.m4" intent=":literal"><semantics><mrow><mrow><mn>5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>5</mn></mrow><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">5\times 5\,\mu</annotation></semantics></math>m<sup class="ltx_sup" id="S3.F5.3">2</sup> 扫描框内以 2 nm/px 分辨率成像，并以裁剪方式显示（比例尺 1 <math alttext="\mu" class="ltx_Math" display="inline" id="S3.F5.m6" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>m）。黄框标出了 (C) 中所示的器件。(C) 同一个交叉结构沿虚线分为 SEM 图像（左上）和 GDSII 设计（右下），用于比较设计与器件之间的关键尺寸变化。</figcaption>
+</figure>
+<figure class="ltx_figure" id="S3.F6"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="146" id="S3.F6.g1" src="assets/Figure6.png" style="aspect-ratio:429/146;" width="429"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 6：</span>(A) 微环谐振器（MRR）和总线波导的 GDSII 设计。红框标出了耦合区域，插图显示了在自动计量（精密测量）过程中成像的耦合间隙 SEM 图像。(B) 15 个不同耦合间隙值（MRR1–MRR15）的设计耦合间隙宽度（蓝色柱）以及由<span class="ltx_text ltx_font_smallcaps" id="S3.F6.4">ProSEM</span>提取的测量宽度（橙色圆点）。误差棒为<span class="ltx_text ltx_font_smallcaps" id="S3.F6.5">ProSEM</span>测得的间隙宽度的标准差。</figcaption>
+</figure>
+<div class="ltx_para ltx_noindent" id="S3.SS2.p2">
+<p class="ltx_p" id="S3.SS2.p2.1">一个光子芯片的示例平面布局图见图 <a class="ltx_ref" href="#S3.F5" title="Figure 5 ‣ 3.2 Use Case II: Chip-scale structural variability mapping for quality assurance &amp; quality control ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">5</span></a>A，其包含 103 个独立组件和 1001 个光栅耦合器结构。所有 1104 个片上结构的计量（精密测量）可在 GDSII 设计阶段进行规划。光学测试完成后，<span class="ltx_text ltx_font_smallcaps" id="S3.SS2.p2.1.1">AutoSEM</span> 会生成可供图像采集使用的位置列表。图 <a class="ltx_ref" href="#S3.F5" title="Figure 5 ‣ 3.2 Use Case II: Chip-scale structural variability mapping for quality assurance &amp; quality control ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">5</span></a>A 中红框标出、并在图 <a class="ltx_ref" href="#S3.F5" title="Figure 5 ‣ 3.2 Use Case II: Chip-scale structural variability mapping for quality assurance &amp; quality control ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">5</span></a>B 中展示的，是一个包含 10 个光子交叉结构的样本；这些交叉结构涵盖两种不同的器件设计，并对应五个不同的内部孔偏置值。它们旨在测试逆设计光子交叉结构的性能灵敏度。可利用在明亮边缘信号与背景灰度级之间拟合 S 形函数的边缘检测算法（第 <a class="ltx_ref" href="#S2.SS2" title="2.2 Batch analysis workflow for key fabrication metric extraction ‣ 2 Methods ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">2.2</span></a> 节），生成器件的二值掩模，并比较设计与器件之间的关键尺寸变化（其中一个交叉结构在图 <a class="ltx_ref" href="#S3.F5" title="Figure 5 ‣ 3.2 Use Case II: Chip-scale structural variability mapping for quality assurance &amp; quality control ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">5</span></a>C 中以分开的 SEM/GDSII 视图展示）。这是逆设计器件内部特征的一项特殊要求，因为纳米尺度的结构变化会影响传输和串扰 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib14" title="">14</a>, <a class="ltx_ref" href="#bib.bib15" title="">15</a>, <a class="ltx_ref" href="#bib.bib19" title="">19</a>]</cite>。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S3.SS2.p3">
+<p class="ltx_p" id="S3.SS2.p3.1">在图<a class="ltx_ref" href="#S3.F6" title="Figure 6 ‣ 3.2 Use Case II: Chip-scale structural variability mapping for quality assurance &amp; quality control ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">6</span></a>A中，展示了微环谐振器（MRR）的设计，插图显示了MRR耦合间隙的图像。对于本研究中的MRR，耦合间隙在15个不同取值（MRR1–MRR15）上扫描以测试性能。用户将GDSII设计版图输入<span class="ltx_text ltx_font_smallcaps" id="S3.SS2.p3.1.1">AutoSEM</span>，对每个耦合间隙进行成像，并由<span class="ltx_text ltx_font_smallcaps" id="S3.SS2.p3.1.2">ProSEM</span>提取各间隙的临界尺寸与线边缘粗糙度变化。每个耦合间隙的设计宽度与测量宽度可见图<a class="ltx_ref" href="#S3.F6" title="Figure 6 ‣ 3.2 Use Case II: Chip-scale structural variability mapping for quality assurance &amp; quality control ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">6</span></a>B。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S3.SS2.p4">
+<p class="ltx_p" id="S3.SS2.p4.1">我们的自动化DBM工作流程具有预设扫描条件，可提高逐图像可靠性，加速寻找对制造变化具有容忍度的逆向设计结构，并加速亚10 nm尺度结构的微调。此外，能够对所有片上结构成像，提升了学术纳米制造设施中原本认为可达到的计量标准，使光学性能的任何趋势都能直接与制造过程中的变化相关联。我们认为，这种水平的计量自动化可以很容易地从芯片尺度扩展到晶圆尺度，采集时间将不再是计量的限速因素。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S3.SS3">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">3.3 </span>用例 III：面向基于卷积神经网络的工艺预测 &amp; 校正的大规模数据集采集</h3>
+<div class="ltx_para ltx_noindent" id="S3.SS3.p1">
+<p class="ltx_p" id="S3.SS3.p1.1">我们接下来展示该工作流程的一个有力用例，它拓宽了学术纳米制造设施中工艺校准的范围。这涉及在制造结构的SEM图像上训练卷积神经网络，其依据是McGill University与National Research Council Canada开展的结构变异性预测与校正研究<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib14" title="">14</a>, <a class="ltx_ref" href="#bib.bib15" title="">15</a>]</cite>。虽然他们的模型是在由代工厂EBL服务制造并成像的数据集上训练的<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib14" title="">14</a>]</cite>，但我们的自动化成像工作流程使学术洁净室也能获得这一能力。通过代工厂服务可以进行此类训练，但每次迭代耗时更长且成本高昂。代工厂制造并测量测试结构，然后返回数据。设计人员随后训练模型并生成校正后的版图，再将其送回代工厂进行制造。将制造与计量保留在同一设施内可缩短这一循环。我们还提出，我们的制造预测可以超越固定代工厂工艺的光刻畸变，涵盖更复杂的工艺步骤，例如光刻胶回流。</p>
+</div>
+<figure class="ltx_figure" id="S3.F7"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="242" id="S3.F7.g1" src="assets/Figure7.png" style="aspect-ratio:476/242;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 7：</span>（A）在 ZEP520A 中制作的九个示例测试图案，这些图案由对 <math alttext="5\times 5\,\mu" class="ltx_Math" display="inline" id="S3.F7.m7" intent=":literal"><semantics><mrow><mrow><mn>5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>5</mn></mrow><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">5\times 5\,\mu</annotation></semantics></math>m<sup class="ltx_sup" id="S3.F7.4">2</sup> 覆盖区内的噪声进行低通和带通滤波生成（比例尺 5 <math alttext="\mu" class="ltx_Math" display="inline" id="S3.F7.m9" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>m）。每个图案均以扫描电子显微镜（SEM）图像（上）融合到二值图案（下）的方式展示。（B）一小部分训练图块，分为三组，每组四个图块。每组展示四幅原始 GDSII 设计二值图、四幅原始 SEM 图像，以及四幅原始 SEM 图像的轮廓二值图。（C）卷积神经网络对 2 <math alttext="\mu" class="ltx_Math" display="inline" id="S3.F7.m10" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>m 逆向设计光子交叉结构中由回流引起的临界尺寸（CD）展宽的预测（上，绿色），以及为使所得回流能够将交叉结构畸变为原始预期设计而建议的“预校正器”设计变更（下）（比例尺 2 <math alttext="\mu" class="ltx_Math" display="inline" id="S3.F7.m11" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>m）。回流在 140 <sup class="ltx_sup" id="S3.F7.5">∘</sup>C 的设定烘烤温度下完成。</figcaption>
+</figure>
+<div class="ltx_para ltx_noindent" id="S3.SS3.p2">
+<p class="ltx_p" id="S3.SS3.p2.1">为了探究回流引起的结构变化的影响，通过薄膜椭偏测量确定 Zeon Corp. 的 ZEP520A 光刻胶的玻璃化转变温度（T<sub class="ltx_sub" id="S3.SS3.p2.1.1"><span class="ltx_text ltx_font_italic" id="S3.SS3.p2.1.1.1">g</span></sub>），并将其与制造商给出的 105 <sup class="ltx_sup" id="S3.SS3.p2.1.2">∘</sup>C 值 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib20" title="">20</a>]</cite> 进行比较。同一技术报告给出了 100–140 <sup class="ltx_sup" id="S3.SS3.p2.1.3">∘</sup>C 的显影后烘烤，而我们发现 105 <sup class="ltx_sup" id="S3.SS3.p2.1.4">∘</sup>C 下回流可忽略。根据这些测量结果，我们校准了 140 <sup class="ltx_sup" id="S3.SS3.p2.1.5">∘</sup>C 下的回流工艺配方，该配方可降低纳米加工器件中的线边缘粗糙度，代价是高达 <math alttext="\sim" class="ltx_Math" display="inline" id="S3.SS3.p2.m6" intent=":literal"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math><math alttext="10" class="ltx_Math" display="inline" id="S3.SS3.p2.m7" intent=":literal"><semantics><mn>10</mn><annotation encoding="application/x-tex">10</annotation></semantics></math> nm 的结构变化。这与利用热回流降低波导和微环谐振器制造中的边缘粗糙度的做法一致 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib21" title="">21</a>]</cite>。虽然已经建立了热回流模型 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib22" title="">22</a>, <a class="ltx_ref" href="#bib.bib23" title="">23</a>]</cite>，但我们没有发现针对任意电子束光刻（EBL）版图的、回流引起结构变化的算法预校正，可与采用邻近效应校正（PEC）对邻近效应畸变进行校正的方法相比。我们认为，这是因为化学性质、厚度、剂量、温度和回流时间都会各自影响回流后的几何形貌 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib21" title="">21</a>, <a class="ltx_ref" href="#bib.bib23" title="">23</a>]</cite>。我们没有尝试从物理上对该效应建模，而是在单个硅芯片上，于 <math alttext="5\times 5\,\mu" class="ltx_Math" display="inline" id="S3.SS3.p2.m8" intent=":literal"><semantics><mrow><mrow><mn>5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>5</mn></mrow><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">5\times 5\,\mu</annotation></semantics></math>m<sup class="ltx_sup" id="S3.SS3.p2.1.6">2</sup> 的覆盖区内、跨 30 种不同的剂量/电流组合制作 2700 个测试结构，并对这些图案在两种不同时间间隔下进行回流。该回流在 140 <sup class="ltx_sup" id="S3.SS3.p2.1.7">∘</sup>C 的设定烘烤温度下，以 60 s 和 90 s 的回流时长完成。这些图案按照 Gostimirovic 等人 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib14" title="">14</a>]</cite> 所述方法，由对噪声进行低通和带通滤波生成，可见于图 <a class="ltx_ref" href="#S3.F7" title="Figure 7 ‣ 3.3 Use Case III: Large-scale dataset acquisition for convolutional neural network-based process prediction &amp; correction ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">7</span></a>A。在特定的剂量/电流组合内，有 90 个不同的测试结构，其形成的岛状结构的面积和周长变化很大，以便捕捉各种可能特征下的回流效应。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S3.SS3.p3">
+<p class="ltx_p" id="S3.SS3.p3.1">生成这些测试图案时，扫描框已包含在原始 GDSII 设计文件中，可直接传入 <span class="ltx_text ltx_font_smallcaps" id="S3.SS3.p3.1.1">AutoSEM</span>。对于每个回流持续时间，以每种 90 个测试图案探索六种不同剂量（250–300 <math alttext="\mu" class="ltx_Math" display="inline" id="S3.SS3.p3.m1" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>C/cm<sup class="ltx_sup" id="S3.SS3.p3.1.2">2</sup>，步长为 10 <math alttext="\mu" class="ltx_Math" display="inline" id="S3.SS3.p3.m3" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>C/cm<sup class="ltx_sup" id="S3.SS3.p3.1.3">2</sup>），条件为 1 nA 束流和 300 <math alttext="\mu" class="ltx_Math" display="inline" id="S3.SS3.p3.m5" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>m 光阑；每个回流持续时间得到 540 幅不同测试图像，总计 1080 幅。每个图案在 8 <math alttext="\mu" class="ltx_Math" display="inline" id="S3.SS3.p3.m6" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>m 扫描框中以 2 nm/px 成像，条件如第 <a class="ltx_ref" href="#S2.SS1.SSS3" title="2.1.3 Image acquisition setup on the Raith eLine Plus pattern generator ‣ 2.1 Software architecture &amp; image acquisition workflow ‣ 2 Methods ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">2.1.3</span></a> 节所述。无人值守图像采集耗时 <math alttext="\sim" class="ltx_Math" display="inline" id="S3.SS3.p3.m7" intent=":literal"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math><math alttext="7.5" class="ltx_Math" display="inline" id="S3.SS3.p3.m8" intent=":literal"><semantics><mn>7.5</mn><annotation encoding="application/x-tex">7.5</annotation></semantics></math> 小时，自动后处理为训练准备图像。在预设扫描条件下，设计结构与图案化结构之间可可靠观察到高达 <math alttext="\sim" class="ltx_Math" display="inline" id="S3.SS3.p3.m9" intent=":literal"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math><math alttext="10" class="ltx_Math" display="inline" id="S3.SS3.p3.m10" intent=":literal"><semantics><mn>10</mn><annotation encoding="application/x-tex">10</annotation></semantics></math> nm 的回流结构变化。为制备卷积神经网络，图像被切成重叠的 128<math alttext="\times" class="ltx_Math" display="inline" id="S3.SS3.p3.m11" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math>128 px 图块，用于二值化和训练（小样本可见图 <a class="ltx_ref" href="#S3.F7" title="Figure 7 ‣ 3.3 Use Case III: Large-scale dataset acquisition for convolutional neural network-based process prediction &amp; correction ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">7</span></a>B）。该训练结果可见图 <a class="ltx_ref" href="#S3.F7" title="Figure 7 ‣ 3.3 Use Case III: Large-scale dataset acquisition for convolutional neural network-based process prediction &amp; correction ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">7</span></a>C，其预测了 2 <math alttext="\mu" class="ltx_Math" display="inline" id="S3.SS3.p3.m12" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>m 逆向设计光子交叉结构的关键尺寸（CD）展宽（上图）。这些展宽结果（上图，绿色）随后可用于应用“预校正器”模型 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib15" title="">15</a>, <a class="ltx_ref" href="#bib.bib24" title="">24</a>]</cite>，从而提出制造前设计修改（下图），使所得回流可将交叉结构畸变为原始预期设计。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S3.SS3.p4">
+<p class="ltx_p" id="S3.SS3.p4.1">没有自动化 DBM 工作流程，为网络训练构建大型可靠数据集对于学术纳米制造设施而言是不可行的。当在总计 2700 个测试结构上改变 30 种不同图案化参数组合时，手动对这些结构成像将需要经验丰富的用户连续成像数周才能采集该数据集。在多个不同图案数据集上探索多个温度将需要连续成像数月。</p>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S4">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">4 </span>讨论</h2>
+<section class="ltx_subsection" id="S4.SS1">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">4.1 </span>闭合制造反馈回路</h3>
+<div class="ltx_para ltx_noindent" id="S4.SS1.p1">
+<p class="ltx_p" id="S4.SS1.p1.1">自动化且全面地遍历图案化条件可高效闭合制造反馈回路，并支持最佳实践的工艺校准。自动化 DBM 工作流程还使学术洁净室设施内的所有用户都能使用该方法，无论其工艺校准经验如何。通过在设计阶段引入扫描框位置，用户可将全面计量纳入其纳米制造流程的结构中。自动化、无人值守的图像采集鼓励用户不仅在选定的片上器件处采集图像，还对全部相关设计区域完整成像。一旦成像不再是瓶颈，就可设计和制造大型测试结构数据集，以研究光刻胶回流等复杂工艺畸变。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S4.SS2">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">4.2 </span>方法学的局限与开放挑战</h3>
+<div class="ltx_para ltx_noindent" id="S4.SS2.p1">
+<p class="ltx_p" id="S4.SS2.p1.1">当前该方法的局限性在于，用户需以高标准执行三点装调（对准），才能正确进行旋转/工作距离校正。不一致会导致整个采集数据集出现系统误差。激光高度传感作为当前 Raith 图案发生器上的可选功能提供<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib8" title="">8</a>]</cite>，但未配备于本方法所基于的基础型 eLine Plus 型号；该功能可消除这一部分局限。它可校正工作距离、焦点和样品倾斜<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib10" title="">10</a>]</cite>，但不能校正面内旋转或平移，后者仍需要对样品标记执行三点装调（对准）。正在探索的一种未来适配方式，是利用 Raith <span class="ltx_text ltx_font_smallcaps" id="S4.SS2.p1.1.1">NanoSuite</span> 中的自动对准标记检测<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib8" title="">8</a>]</cite>。将自动对准标记检测脚本纳入现有位置列表工作流，可实现芯片/晶圆三点装调（对准）的自动化。将对准标记检测脚本与激光高度传感相结合，可确保在 eLine Plus 分析的任何样品上，每次数据集采集都一致地应用相同的旋转/工作距离校正。这样，采用该自动化工作流的学术洁净室可选择在流程中承担更多管理角色。这些设施不仅可维护扫描帧和经装调（对准）校正的写入场，还可维护用户在订购全芯片/晶圆计量时其设计平面图中必须包含的自动计量标记的尺寸和位置。这将显著提高自动化程度，把瓶颈从培训用户掌握整个成像流程，转变为仅培训他们掌握装载/卸载程序。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S4.SS3">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">4.3 </span>可推广的工作流与展望</h3>
+<div class="ltx_para ltx_noindent" id="S4.SS3.p1">
+<p class="ltx_p" id="S4.SS3.p1.1">我们相信，在 Raith 的协调下，该工作流可在任何配备 Raith <span class="ltx_text ltx_font_smallcaps" id="S4.SS3.p1.1.1">NanoSuite</span> 的图案发生器上实现。经过少量修改，它也可在任何具备旋转和工作距离校正以及应用编程接口（API）支持、可扫描位置列表的扫描电子显微镜（SEM）上运行。Raith eLine Plus 只是该工作流已应用过的一台已被取代的图案发生器。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S4.SS3.p2">
+<p class="ltx_p" id="S4.SS3.p2.1"><cite class="ltx_cite ltx_citemacro_cite">5 <a class="ltx_ref" href="#bib.bib25" title="">结论</a></cite></p>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S5">
+<h2 class="ltx_title ltx_title_section">最后，我们预期该工作流可推广到本方法所述硅光子学用例之外，并应用于几乎任何纳米加工。在我们设施内，用户正使用该工作流检查约瑟夫森结的临界尺寸。结面积以及限定该面积的纳米级线宽的变化，会改变超导量子比特的频率，而约瑟夫森结是超导量子比特的一个组成非线性元件<span class="ltx_tag ltx_tag_section">[</span>25, 26]。对数千个结进行自动 SEM 线宽计量已被用于建立结线宽与电阻之间的关系[27]，我们的工作流可用于改进该计量以及许多其他纳米加工应用的计量。</h2>
+<div class="ltx_para ltx_noindent" id="S5.p1">
+<p class="ltx_p" id="S5.p1.1">我们提出一种自动化 DBM 工作流，可将一台已被淘汰的 Raith eLine Plus 图形发生器改造为无人值守的临界尺寸扫描电子显微镜（CD-SEM），并使用<span class="ltx_text ltx_font_smallcaps" id="S5.p1.1.1">AutoSEM</span>自动完成基于 GDSII 设计版图的位置列表构建，同时使用 GenISys 软件提取关键制造指标。用例 I 展示如何在<math alttext="\sim" class="ltx_Math" display="inline" id="S5.p1.m1" intent=":literal"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math><math alttext="5.5" class="ltx_Math" display="inline" id="S5.p1.m2" intent=":literal"><semantics><mn>5.5</mn><annotation encoding="application/x-tex">5.5</annotation></semantics></math>小时内无人值守采集 400 幅等焦测试结构图像，并将其传入<span class="ltx_text ltx_font_smallcaps" id="S5.p1.1.2">ProSEM</span>和<span class="ltx_text ltx_font_smallcaps" id="S5.p1.1.3">Tracer</span>，以估计两种电子束光刻（EBL）光刻胶的等焦剂量、工艺模糊和工艺偏置。用例 II 强调如何在设计阶段组织对硅光子芯片上全部 1104 个结构的计量（精密测量）。用例 III 表明，对于每个回流时长，从 2700 个测试图案阵列中无人值守采集的 540 幅不同图像，可用于训练卷积神经网络，以预测回流引起的结构变化。主要限制在于用户需以高标准执行三点装调（对准）；目前正在探索将 Raith 的自动装调（对准）标记检测脚本整合到位置列表工作流中，以实现该步骤的自动化。我们预见，未来各设施将采用这一自动化工作流，并针对各自系统进行调整，以帮助用户利用现有设施硬件，为其纳米制造实现最佳实践计量（精密测量）。</p>
+</div>
+</section>
+<section class="ltx_section" id="Sx1">
+<h2 class="ltx_title ltx_title_section">致谢</h2>
+<div class="ltx_para ltx_noindent" id="Sx1.p1">
+<p class="ltx_p" id="Sx1.p1.1">我们谨此承认昆士兰大学所在的土地的传统所有者——Turrbal 和 Jagera 人民。我们感谢昆士兰大学显微与微分析中心的 Microscopy Australia 所提供的支持，并说明本研究使用了 NCRIS 支持的澳大利亚国家制造设施（ANFF）昆士兰节点。最后，作者希望将本文献给已故的 Roger Wepf，他对显微学的热情是推动本研究的动力。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="Sx1.p2">
+<p class="ltx_p" id="Sx1.p2.1">WG、HC、DP、FG、MR、AGW 参与了论文起草。WG、HC、ZD 参与了数据采集。WG、HC、DP、FG、LH、ZD 参与了数据分析。WG、HC 创建了<span class="ltx_text ltx_font_smallcaps" id="Sx1.p2.1.1">AutoSEM</span>，LH 创建了<span class="ltx_text ltx_font_smallcaps" id="Sx1.p2.1.2">ProSEM</span>/<span class="ltx_text ltx_font_smallcaps" id="Sx1.p2.1.3">Tracer</span>批量分析与可视化脚本，KM 提供了 JavaScript eLine Plus 自动化后端脚本。NT 提供了<span class="ltx_text ltx_font_smallcaps" id="Sx1.p2.1.4">Beamer</span>、<span class="ltx_text ltx_font_smallcaps" id="Sx1.p2.1.5">ProSEM</span>和<span class="ltx_text ltx_font_smallcaps" id="Sx1.p2.1.6">Tracer</span>工艺。工作流开发由 RW、HC、ZD 发起。本研究在编写<span class="ltx_text ltx_font_smallcaps" id="Sx1.p2.1.7">AutoSEM</span>时使用了 Anthropic 的 AI 模型 Opus 5.5，并使用 OpenAI 的模型 Codex 进行<span class="ltx_text ltx_font_smallcaps" id="Sx1.p2.1.8">ProSEM</span>自动化脚本编写和批量分析。Opus 5.5 用于数据可视化、校对和稿件起草过程中的改写。</p>
+</div>
+</section>
+<section class="ltx_section" id="Sx2">
+<h2 class="ltx_title ltx_title_section">资助</h2>
+<div class="ltx_para ltx_noindent" id="Sx2.p1">
+<p class="ltx_p" id="Sx2.p1.1">WG 获得昆士兰州政府量子与先进技术奖学金，并由昆士兰州政府环境、旅游、科学与创新部（DETSI）资助。AGW 获得澳大利亚政府资助的澳大利亚研究理事会桂冠研究员基金（Laureate Fellowship，FL210100045）。本研究部分由澳大利亚政府通过澳大利亚研究理事会工程量子系统卓越中心（EQUS，CE170100009）资助。</p>
+</div>
+</section>
+<section class="ltx_section" id="Sx3">
+<h2 class="ltx_title ltx_title_section">利益冲突</h2>
+<div class="ltx_para ltx_noindent" id="Sx3.p1">
+<p class="ltx_p" id="Sx3.p1.1">我们知悉 KM（隶属于 Raith Asia Ltd）和 NT（隶属于 GenISys GmbH）的商业利益，文中使用或描述了其硬件和软件（eLine Plus、EBPG5150、<span class="ltx_text ltx_font_smallcaps" id="Sx3.p1.1.1">NanoSuite</span>、<span class="ltx_text ltx_font_smallcaps" id="Sx3.p1.1.2">ProSEM</span>、<span class="ltx_text ltx_font_smallcaps" id="Sx3.p1.1.3">Tracer</span>、<span class="ltx_text ltx_font_smallcaps" id="Sx3.p1.1.4">Beamer</span>），并引用了其供应商材料。所有其他作者声明无利益冲突。</p>
+</div>
+</section>
+<section class="ltx_bibliography" id="bib">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+<ul class="ltx_biblist" id="bib.L1">
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib1"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">N. G. Orji <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Metrology for the next generation of semiconductor devices</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nature Electronics</span> <span class="ltx_text ltx_bib_volume">1</span> (<span class="ltx_text ltx_bib_number">10</span>), <span class="ltx_text ltx_bib_pages">pp. 532–547</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/s41928-018-0150-9" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="1 Introduction ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S1.p2.1" title="1 Introduction ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_report" id="bib.bib2"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">IEEE International Roadmap for Devices and Systems</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Metrology</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_type">IRDS 2023 Update</span>
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">Institute of Electrical and Electronics Engineers</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">doi:<a class="ltx_ref ltx_href" href="https://doi.org/10.60627/FF6X-D213" title="">10.60627/FF6X-D213</a></span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.60627/FF6X-D213" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://irds.ieee.org/images/files/pdf/2023/2023IRDS_MET.pdf" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="1 Introduction ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib3"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">GenISys GmbH</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">ProSEM: Automated Pattern &amp; Process Metrology</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note"><a class="ltx_ref ltx_url ltx_font_typewriter" href="https://prosem.genisys-gmbh.com/features.html" title="">https://prosem.genisys-gmbh.com/features.html</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="1 Introduction ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S2.SS2.p1.1" title="2.2 Batch analysis workflow for key fabrication metric extraction ‣ 2 Methods ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§2.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib4"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">GenISys GmbH</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">TRACER: Electron scattering and process effects quantified</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note"><a class="ltx_ref ltx_url ltx_font_typewriter" href="https://www.genisys-gmbh.com/tracer.html" title="">https://www.genisys-gmbh.com/tracer.html</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="1 Introduction ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S2.SS2.p2.1" title="2.2 Batch analysis workflow for key fabrication metric extraction ‣ 2 Methods ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§2.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib5"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">GenISys GmbH</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">BEAMER: Electron- and Laser-Beam Lithography Software</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note"><a class="ltx_ref ltx_url ltx_font_typewriter" href="https://www.genisys-gmbh.com/beamer.html" title="">https://www.genisys-gmbh.com/beamer.html</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="1 Introduction ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S2.SS2.p2.1" title="2.2 Batch analysis workflow for key fabrication metric extraction ‣ 2 Methods ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§2.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib6"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Y. Cho <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Automatic beam optimization method for scanning electron microscopy based on electron beam Kernel estimation</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Communications Engineering</span> <span class="ltx_text ltx_bib_volume">3</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 82</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/s44172-024-00230-3" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="1 Introduction ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S2.SS1.SSS2.p2.1" title="2.1.2 Custom UI development to automate position list structure ‣ 2.1 Software architecture &amp; image acquisition workflow ‣ 2 Methods ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§2.1.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib7"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">GenISys GmbH</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">InSPEC: Integrated SEM Metrology and Inspection</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note"><a class="ltx_ref ltx_url ltx_font_typewriter" href="https://www.genisys-gmbh.com/products/inspec.html" title="">https://www.genisys-gmbh.com/products/inspec.html</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="1 Introduction ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib8"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Raith GmbH</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">PIONEER | E-LINE | RAITH150: Multifunctional system family for maximum versatility</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note"><a class="ltx_ref ltx_url ltx_font_typewriter" href="https://raith.com/products/multifunctional-ebl/" title="">https://raith.com/products/multifunctional-ebl/</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 Introduction ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S4.SS2.p1.1" title="4.2 Limitations of methodology &amp; open challenges ‣ 4 Discussion ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§4.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib9"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Raith GmbH</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">ProImage</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note"><a class="ltx_ref ltx_url ltx_font_typewriter" href="https://raith.com/technologies/proimage" title="">https://raith.com/technologies/proimage</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 Introduction ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib10"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Raith GmbH</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">AutoRun – Automated EBL</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note"><a class="ltx_ref ltx_url ltx_font_typewriter" href="https://raith.com/technologies/autorun/" title="">https://raith.com/technologies/autorun/</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p3.1" title="1 Introduction ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S4.SS2.p1.1" title="4.2 Limitations of methodology &amp; open challenges ‣ 4 Discussion ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§4.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib11"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. Salvat-Pujol and J. S. Villarrubia</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Conventional vs. model-based measurement of patterned line widths from scanning electron microscopy profiles</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Ultramicroscopy</span> <span class="ltx_text ltx_bib_volume">206</span>, <span class="ltx_text ltx_bib_pages">pp. 112819</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1016/j.ultramic.2019.112819" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.SS2.p1.1" title="2.2 Batch analysis workflow for key fabrication metric extraction ‣ 2 Methods ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§2.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib12"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">G. G. Lopez <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2017)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Isofocal dose based proximity effect correction tolerance to the effective process blur</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Vacuum Science &amp; Technology B, Nanotechnology and Microelectronics: Materials, Processing, Measurement, and Phenomena</span> <span class="ltx_text ltx_bib_volume">35</span> (<span class="ltx_text ltx_bib_number">6</span>), <span class="ltx_text ltx_bib_pages">pp. 06G505</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1116/1.4995421" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.SS2.p2.1" title="2.2 Batch analysis workflow for key fabrication metric extraction ‣ 2 Methods ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§2.2</span></a>,
+<a class="ltx_ref" href="#S3.SS1.p1.1" title="3.1 Use Case I: Accelerated EBL process calibration via systematic parameter sweeps ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§3.1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib13"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">G. G. Lopez <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">On the trends and application of pattern density dependent isofocal dose of positive resists for 100 keV electron beam lithography</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Vacuum Science &amp; Technology B, Nanotechnology and Microelectronics: Materials, Processing, Measurement, and Phenomena</span> <span class="ltx_text ltx_bib_volume">36</span> (<span class="ltx_text ltx_bib_number">6</span>), <span class="ltx_text ltx_bib_pages">pp. 06JA05</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1116/1.5048206" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.SS2.p2.1" title="2.2 Batch analysis workflow for key fabrication metric extraction ‣ 2 Methods ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§2.2</span></a>,
+<a class="ltx_ref" href="#S3.SS1.SSS1.p2.1" title="3.1.1 Isofocal calibration of AR-P 6200.09 and ma-N 2403 ‣ 3.1 Use Case I: Accelerated EBL process calibration via systematic parameter sweeps ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§3.1.1</span></a>,
+<a class="ltx_ref" href="#S3.SS1.p1.1" title="3.1 Use Case I: Accelerated EBL process calibration via systematic parameter sweeps ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§3.1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib14"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Gostimirovic <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Deep Learning-Based Prediction of Fabrication-Process-Induced Structural Variations in Nanophotonic Devices</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">ACS Photonics</span> <span class="ltx_text ltx_bib_volume">9</span> (<span class="ltx_text ltx_bib_number">8</span>), <span class="ltx_text ltx_bib_pages">pp. 2623–2633</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1021/acsphotonics.1c01973" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.SS2.p2.1" title="3.2 Use Case II: Chip-scale structural variability mapping for quality assurance &amp; quality control ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§3.2</span></a>,
+<a class="ltx_ref" href="#S3.SS3.p1.1" title="3.3 Use Case III: Large-scale dataset acquisition for convolutional neural network-based process prediction &amp; correction ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§3.3</span></a>,
+<a class="ltx_ref" href="#S3.SS3.p2.1" title="3.3 Use Case III: Large-scale dataset acquisition for convolutional neural network-based process prediction &amp; correction ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§3.3</span></a>,
+<a class="ltx_ref" href="#S3.p1.1" title="3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib15"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Gostimirovic <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Improving Fabrication Fidelity of Integrated Nanophotonic Devices Using Deep Learning</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">ACS Photonics</span> <span class="ltx_text ltx_bib_volume">10</span> (<span class="ltx_text ltx_bib_number">6</span>), <span class="ltx_text ltx_bib_pages">pp. 1953–1961</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1021/acsphotonics.3c00389" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.SS2.p2.1" title="3.2 Use Case II: Chip-scale structural variability mapping for quality assurance &amp; quality control ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§3.2</span></a>,
+<a class="ltx_ref" href="#S3.SS3.p1.1" title="3.3 Use Case III: Large-scale dataset acquisition for convolutional neural network-based process prediction &amp; correction ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§3.3</span></a>,
+<a class="ltx_ref" href="#S3.SS3.p3.1" title="3.3 Use Case III: Large-scale dataset acquisition for convolutional neural network-based process prediction &amp; correction ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§3.3</span></a>,
+<a class="ltx_ref" href="#S3.p1.1" title="3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib16"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Allresist GmbH</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">E-Beam Resist AR-P 6200 series (CSAR 62)</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note"><a class="ltx_ref ltx_url ltx_font_typewriter" href="https://www.allresist.com/portfolio-item/e-beam-resist-ar-p-6200-series-csar-62/" title="">https://www.allresist.com/portfolio-item/e-beam-resist-ar-p-6200-series-csar-62/</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.SS1.SSS1.p1.1" title="3.1.1 Isofocal calibration of AR-P 6200.09 and ma-N 2403 ‣ 3.1 Use Case I: Accelerated EBL process calibration via systematic parameter sweeps ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§3.1.1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib17"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[17]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">micro resist technology GmbH</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">ma-N 2400 series – Negative Tone Photoresist Series</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note"><a class="ltx_ref ltx_url ltx_font_typewriter" href="https://microresist.de/en/produkt/ma-n-2400-series/" title="">https://microresist.de/en/produkt/ma-n-2400-series/</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.SS1.SSS1.p1.1" title="3.1.1 Isofocal calibration of AR-P 6200.09 and ma-N 2403 ‣ 3.1 Use Case I: Accelerated EBL process calibration via systematic parameter sweeps ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§3.1.1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib18"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[18]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">W. Bogaerts and L. Chrostowski</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Silicon Photonics Circuit Design: Methods, Tools and Challenges</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Laser &amp; Photonics Reviews</span> <span class="ltx_text ltx_bib_volume">12</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages">pp. 1700237</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1002/lpor.201700237" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.SS2.p1.1" title="3.2 Use Case II: Chip-scale structural variability mapping for quality assurance &amp; quality control ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§3.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib19"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[19]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">H. Ma <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Inverse-designed 6 <math alttext="\times" class="ltx_Math" display="inline" id="bib.bib19.m1" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> 6 waveguide crossing for a Benes-based network</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics Express</span> <span class="ltx_text ltx_bib_volume">32</span> (<span class="ltx_text ltx_bib_number">24</span>), <span class="ltx_text ltx_bib_pages">pp. 42908</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OE.539990" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.SS2.p1.1" title="3.2 Use Case II: Chip-scale structural variability mapping for quality assurance &amp; quality control ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§3.2</span></a>,
+<a class="ltx_ref" href="#S3.SS2.p2.1" title="3.2 Use Case II: Chip-scale structural variability mapping for quality assurance &amp; quality control ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§3.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib20"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[20]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">ZEON Corporation</span><span class="ltx_text ltx_bib_year"> (2003)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">ZEP520A Technical Report, Ver. 1.01</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note"><a class="ltx_ref ltx_url ltx_font_typewriter" href="https://www.nanophys.kth.se/nanolab/resists/zep520a-7-2.pdf" title="">https://www.nanophys.kth.se/nanolab/resists/zep520a-7-2.pdf</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.SS3.p2.1" title="3.3 Use Case III: Large-scale dataset acquisition for convolutional neural network-based process prediction &amp; correction ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§3.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib21"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[21]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. Sidorov and A. Rogozhin</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Thermal Reflow Simulation for PMMA Structures with Nonuniform Viscosity Profile</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Polymers</span> <span class="ltx_text ltx_bib_volume">15</span> (<span class="ltx_text ltx_bib_number">18</span>), <span class="ltx_text ltx_bib_pages">pp. 3731</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.3390/polym15183731" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.SS3.p2.1" title="3.3 Use Case III: Large-scale dataset acquisition for convolutional neural network-based process prediction &amp; correction ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§3.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib22"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[22]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Chia <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Neural network-based model of photoresist reflow</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Vacuum Science &amp; Technology B, Nanotechnology and Microelectronics: Materials, Processing, Measurement, and Phenomena</span> <span class="ltx_text ltx_bib_volume">37</span> (<span class="ltx_text ltx_bib_number">6</span>), <span class="ltx_text ltx_bib_pages">pp. 061604</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1116/1.5116857" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.SS3.p2.1" title="3.3 Use Case III: Large-scale dataset acquisition for convolutional neural network-based process prediction &amp; correction ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§3.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib23"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[23]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Kim</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Contact Hole Shrinkage: Simulation Study of Resist Flow Process and Its Application to Block Copolymers</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Micromachines</span> <span class="ltx_text ltx_bib_volume">15</span> (<span class="ltx_text ltx_bib_number">9</span>), <span class="ltx_text ltx_bib_pages">pp. 1151</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.3390/mi15091151" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.SS3.p2.1" title="3.3 Use Case III: Large-scale dataset acquisition for convolutional neural network-based process prediction &amp; correction ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§3.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib24"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[24]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. Azimi <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">SEMU-Net: A Segmentation-Based Corrector for Fabrication Process Variations of Nanophotonics with Microscopic Images</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">2025 IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages">pp. 1528–1536</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/WACV61041.2025.00156" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.SS3.p3.1" title="3.3 Use Case III: Large-scale dataset acquisition for convolutional neural network-based process prediction &amp; correction ‣ 3 Results ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§3.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib25"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[25]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. M. Kreikebaum <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Improving wafer-scale Josephson junction resistance variation in superconducting quantum coherent circuits</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Superconductor Science and Technology</span> <span class="ltx_text ltx_bib_volume">33</span> (<span class="ltx_text ltx_bib_number">6</span>), <span class="ltx_text ltx_bib_pages">pp. 06LT02</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1088/1361-6668/ab8617" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS3.p2.1" title="4.3 Generalisable workflow &amp; outlook ‣ 4 Discussion ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§4.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib26"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[26]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">N. Muthusubramanian <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Wafer-scale uniformity of Dolan-bridge and bridgeless Manhattan-style Josephson junctions for superconducting quantum processors</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Quantum Science and Technology</span> <span class="ltx_text ltx_bib_volume">9</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 025006</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1088/2058-9565/ad199c" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS3.p2.1" title="4.3 Generalisable workflow &amp; outlook ‣ 4 Discussion ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§4.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib27"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[27]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. A. Pishchimova <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Improving Josephson junction reproducibility for superconducting quantum circuits: junction area fluctuation</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Scientific Reports</span> <span class="ltx_text ltx_bib_volume">13</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 6772</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/s41598-023-34051-9" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS3.p2.1" title="4.3 Generalisable workflow &amp; outlook ‣ 4 Discussion ‣ Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM"><span class="ltx_text ltx_ref_tag">§4.3</span></a>.
+</span></li>
+</ul>
+</section><div about="" class="ltx_rdf" content="Will Gunn, Han-Hao Cheng, Daniel Peace, Fernando Gottardo, Lachlan Hanrahan, Zachary Degnan, Keith Moulding, Nit Taksatorn, Roger Wepf, Markus Rambach, Andrew G. White" property="dcterms:creator"></div>
+<div about="" class="ltx_rdf" content="Scanning electron microscopy, electron beam lithography, automated metrology, design-based metrology, Raith eLine Plus, silicon integrated photonics" property="dcterms:subject"></div>
+<div about="" class="ltx_rdf" content="physics.ins-det, physics.app-ph" property="dcterms:subject"></div>
+<div about="" class="ltx_rdf" content="Converting a superseded Raith electron beam pattern generator into an unattended Critical Dimension SEM" property="dcterms:title"></div>
+</article></div></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
