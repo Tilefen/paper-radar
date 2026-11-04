@@ -1,0 +1,1097 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>利用激光多普勒全息术低频光谱实现视网膜与脉络膜微血管功能表型分析</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style><style>
+.paper-reader{max-width:860px;margin:0 auto}
+.paper-reader h1{font-size:28px;line-height:1.35;margin:10px 0 6px}
+.paper-reader .original-title{color:var(--muted);font-size:14px;margin-bottom:18px}
+.paper-reader .meta{color:var(--muted);font-size:13px;margin-bottom:20px}
+.paper-reader .toc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:20px 0 28px;font-size:14px}
+.paper-reader .toc ol{margin:6px 0 0 18px;padding:0}
+.paper-reader .toc li{margin:3px 0}
+.paper-reader article{font-size:16px;line-height:1.9}
+.paper-reader h2{font-size:22px;margin:30px 0 10px}
+.paper-reader h3{font-size:18px;margin:22px 0 8px}
+.paper-reader figure{margin:20px 0;text-align:center}
+.paper-reader img{max-width:100%;height:auto}
+.paper-reader figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+.paper-reader table{display:block;overflow-x:auto;border-collapse:collapse;margin:16px 0;font-size:14px}
+.paper-reader math{overflow-x:auto;max-width:100%}
+.paper-reader pre{overflow-x:auto}
+</style></head><body class="">
+<header><a class="brand" href="../index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="../daily/index.html">日报</a><a href="../papers/index.html" aria-current="page">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 中文全文</div><h1>利用激光多普勒全息术低频光谱实现视网膜与脉络膜微血管功能表型分析</h1><div class="paper-reader"><h1>利用激光多普勒全息术低频光谱实现视网膜与脉络膜微血管功能表型分析</h1><p class="original-title">Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping</p><p class="meta">arXiv 2611.01052 · 机器翻译，公式与图表保留原文</p><nav class="toc"><strong>目录</strong><ol></ol></nav><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">利用激光多普勒全息术低频光谱实现视网膜与脉络膜微血管功能表型分析</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Zacharie Auray
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Langevin Institute, ESPCI Paris, PSL University, CNRS, Paris, France
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Adrien Gordon
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Langevin Institute, ESPCI Paris, PSL University, CNRS, Paris, France
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Gabriel Cellier
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Langevin Institute, ESPCI Paris, PSL University, CNRS, Paris, France
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Yann Fischer
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Langevin Institute, ESPCI Paris, PSL University, CNRS, Paris, France
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Michael Atlan
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Langevin Institute, ESPCI Paris, PSL University, CNRS, Paris, France
+</span></span></span></span></div>
+<div class="ltx_dates">October 31, 2026</div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">摘要</h6>
+<p class="ltx_p" id="abstract1.1">以37 kHz帧率记录的激光多普勒全息术光涨落谱，其低频部分通常被滤除，以显示视网膜与脉络膜主要血管中的功能性血流波形。我们通过选取完整心动周期，并在血管无法分辨、间歇性眼动可能主导信号的区域依次采用空间中值与逐搏中值处理，构建出毛细血管相关区域内的时变谱超出量（SE）分布。在每个相位处，谱超出量将近 <math alttext="\pm 2" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><mrow><mo>±</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\pm 2</annotation></semantics></math> kHz 处两个固定低频峰之间的多普勒谱积分面积，与由近 <math alttext="\pm 18.5" class="ltx_Math" display="inline" id="abstract1.m2" intent=":literal"><semantics><mrow><mo>±</mo><mn>18.5</mn></mrow><annotation encoding="application/x-tex">\pm 18.5</annotation></semantics></math> kHz 处高频尾部定义的参考面积进行比较。所得波形以归一化心动相位为横轴显示，在整个心动周期内保留了变化，为探索其时间组织规律提供了基础。我们用谱超出量指数（SEI）来概括谱超出量强度，SEI 定义为 SE 的时间中值；同时还给出了频谱池化后的另一种评估方式。一个代表性记录说明了该构建过程。其生理特异性与重复性仍有待量化。</p>
+</div>
+<section class="ltx_section" id="S1">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">I </span>引言</h2>
+<div class="ltx_para" id="S1.p1">
+<p class="ltx_p" id="S1.p1.1">视网膜激光多普勒全息术（LDH）利用超高速相机，测量眼底运动血细胞所散射光中随频率分辨的涨落。在37 kHz的记录帧率下，通常滤除低于6 kHz的频率成分，以显示视网膜与脉络膜主要血管中的功能性血流波形 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib2" title="">29</a>, <a class="ltx_ref" href="#bib.bib3" title="">32</a>, <a class="ltx_ref" href="#bib.bib4" title="">34</a>, <a class="ltx_ref" href="#bib.bib42" title="">2</a>]</cite>。毛细血管相关区域的谱形提供了一个互补的观测量，但其解释取决于散射几何、多重散射、红细胞压积、血管密度以及运动 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">4</a>, <a class="ltx_ref" href="#bib.bib6" title="">35</a>, <a class="ltx_ref" href="#bib.bib8" title="">16</a>, <a class="ltx_ref" href="#bib.bib10" title="">8</a>]</cite>。</p>
+</div>
+<div class="ltx_para" id="S1.p2">
+<p class="ltx_p" id="S1.p2.1">传统相位分辨多普勒OCT通过光学相移测量轴向运动。在毛细血管中，微小的轴向相位增量可能接近相位噪声本底，对横向流动尤其如此，这使得脉络膜毛细血管难以评估 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib16" title="">30</a>]</cite>。散斑方差、去相关时间与频谱展宽提供了互补的运动灵敏度。在适当的光学模型下，去相关时间与频谱宽度可用于估计具有物理单位的速度，尽管这种推断不如直接测量轴向多普勒频移那样直接 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib46" title="">38</a>, <a class="ltx_ref" href="#bib.bib16" title="">30</a>]</cite>。OCT血管成像（OCTA）利用重复B扫描之间的变化，形成深度分辨的微血管图 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib47" title="">23</a>, <a class="ltx_ref" href="#bib.bib48" title="">44</a>]</cite>。</p>
+</div>
+<div class="ltx_para" id="S1.p3">
+<p class="ltx_p" id="S1.p3.1">时间采样对恢复毛细血管波动至关重要。Migacz et al. 利用1.6-MHz傅里叶域锁模激光器和接近2 kHz的B扫描速率，提升了脉络膜毛细血管层与脉络膜的OCTA对比度<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib49" title="">26</a>]</cite>，其速度远快于常规3–5 ms扫描间隔所对应的几百赫兹重复率<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib51" title="">45</a>]</cite>。Puyo et al. 采用2 kHz重复OCT B扫描，分辨出心跳引起的脉络膜毛细血管层频谱展宽，并以赫兹为单位的谱宽指数对其进行了量化<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib16" title="">30</a>]</cite>。在该构型下，他们记录的OCT频谱集中在约1 kHz以下。</p>
+</div>
+<div class="ltx_para" id="S1.p4">
+<p class="ltx_p" id="S1.p4.1">这些模态之间的一个关键区别在于光学切片所选定的动态光散射状态。OCT与OCTA利用相干门控将信号定位于深度方向，并抑制多次散射的贡献，而常规en face激光多普勒全息术（LDH）和激光散斑对比度成像（LSCI）不具备这种深度门控<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib46" title="">38</a>, <a class="ltx_ref" href="#bib.bib16" title="">30</a>]</cite>。在en face视网膜图像的给定位置处，未经深度门控探测到的光子可能在与运动血细胞的连续相互作用中累积了多普勒频移。因此，在速度相当的情况下，预期会出现更宽的涨落谱和更快的去相关<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">4</a>, <a class="ltx_ref" href="#bib.bib9" title="">9</a>]</cite>。</p>
+</div>
+<div class="ltx_para" id="S1.p5">
+<p class="ltx_p" id="S1.p5.1">这些发现促使我们分析LDH中与毛细血管相关的光谱动态。在接近2 kHz时，代表性眼底图像呈现弥散的对比度，血管轮廓无法分辨。间歇性扫视产生宽带条纹，掩盖了较弱但反复出现的光谱特征<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib3" title="">32</a>, <a class="ltx_ref" href="#bib.bib4" title="">34</a>, <a class="ltx_ref" href="#bib.bib5" title="">31</a>]</cite>。我们力求在无光学切片的条件下恢复这些特征：选取无视网膜或脉络膜可见血管的区域，保留完整的心动周期，先进行空间中值处理，再在各心跳的对应相位处进行聚合。空间选取限制了可分辨血管的贡献，而中值聚合则抑制了间歇性运动伪影。这些步骤共同揭示出低频光谱结构及其在一个心动周期内的变化。</p>
+</div>
+<section class="ltx_subsection" id="S1.SS1">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">I.1 </span>OCTA与视网膜和脉络膜微血管床</h3>
+<div class="ltx_para" id="S1.SS1.p1">
+<p class="ltx_p" id="S1.SS1.p1.1">视网膜与脉络膜循环供应不同的神经区域。视盘周围放射状毛细血管伴行于神经纤维层轴突；黄斑的浅层、中层和深层血管丛供应视网膜内层。投影分辨OCTA阐明了这些分层网络，并减少了投影伪影。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib22" title="">19</a>, <a class="ltx_ref" href="#bib.bib24" title="">49</a>, <a class="ltx_ref" href="#bib.bib25" title="">7</a>]</cite>脉络膜毛细血管层为布鲁赫膜下方的视网膜色素上皮（RPE）和光感受器提供支持。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib23" title="">25</a>]</cite>表<a class="ltx_ref" href="#S1.T1" title="Table 1 ‣ I.4 AMD: choriocapillaris support and early progression ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">1</span></a>概括了这些生物学背景。</p>
+</div>
+<div class="ltx_para" id="S1.SS1.p2">
+<p class="ltx_p" id="S1.SS1.p2.1">光学相干断层扫描血管成像（OCTA）可用于评估毛细血管密度、无灌注、中心凹无血管区（FAZ）几何形态以及脉络膜毛细血管层血流信号缺损。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib25" title="">7</a>, <a class="ltx_ref" href="#bib.bib12" title="">37</a>, <a class="ltx_ref" href="#bib.bib30" title="">40</a>]</cite> 密度与血流空洞指标描述的是可检测血流的分布，并不直接测量绝对灌注量。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib50" title="">50</a>]</cite> 稀疏的重复扫描与扫描间隔限制了频谱表征，并决定灵敏度与去相关饱和。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib51" title="">45</a>]</cite> 分割、衰减、投影伪影以及图像质量同样会影响可见的血管网络。en face 激光多普勒全息术（LDH）沿深度对散射进行积分，因此其频谱信号目前还无法归属于某一层血管丛。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S1.SS2">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">I.2 </span>青光眼：视盘周围与黄斑微血管系统</h3>
+<div class="ltx_para" id="S1.SS2.p1">
+<p class="ltx_p" id="S1.SS2.p1.1">OCTA已证实青光眼存在视盘灌注与血管密度降低。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib26" title="">20</a>]</cite> 基线黄斑与视神经头血管密度较低与视网膜神经纤维层（RNFL）变薄更快相关，<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib27" title="">27</a>]</cite> 并且视神经头毛细血管密度早期下降更快、随后出现视野进展。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib28" title="">41</a>]</cite> 血管与神经变化相互耦合，因此这些相关性并不能确立血管的因果作用。RNFL与神经节细胞结构、视野，以及黄斑与视盘OCTA，为功能性频谱测量提供了相关比较指标。激光散斑血流图测得的视神经头搏动性提供了相关的动态比较指标。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib15" title="">15</a>]</cite></p>
+</div>
+</section>
+<section class="ltx_subsection" id="S1.SS3">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">I.3 </span>糖尿病视网膜病变：血管丛特异性缺血与血管功能</h3>
+<div class="ltx_para" id="S1.SS3.p1">
+<p class="ltx_p" id="S1.SS3.p1.1">糖尿病视网膜病变（DR）对黄斑各血管丛的影响并不均衡。前瞻性OCTA研究已将深层血管丛中心凹无血管区几何形态及血管密度与DR进展联系起来，并将浅层血管丛密度与水肿发生联系起来。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib30" title="">40</a>]</cite> 更近期的研究将预测扩展至视力下降与深层毛细血管丛灌注缺损。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib32" title="">47</a>, <a class="ltx_ref" href="#bib.bib33" title="">51</a>]</cite> 视盘旁脉络膜测量也已被作为纵向预测指标加以研究。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib31" title="">18</a>]</cite> 闪烁诱发的视网膜血管扩张受损提供了功能性比较指标。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib29" title="">24</a>]</cite> 这些发现促使在解剖结构、疾病阶段、代谢状态、治疗与光学质量之外，一并评估心脏频谱动力学。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S1.SS4">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">I.4 </span>年龄相关性黄斑变性：脉络膜毛细血管层的支持作用与早期进展</h3>
+<div class="ltx_para" id="S1.SS4.p1">
+<p class="ltx_p" id="S1.SS4.p1.1">在年龄相关性黄斑变性（AMD）中，脉络膜毛细血管层—Bruch膜—视网膜色素上皮（RPE）界面为光感受器代谢提供支持。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib23" title="">25</a>]</cite> OCTA血流信号缺损与进展相关，<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib13" title="">11</a>, <a class="ltx_ref" href="#bib.bib35" title="">28</a>]</cite> 并与视觉功能障碍相关，尤其是视杆细胞介导的暗适应延迟。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib34" title="">21</a>]</cite> 玻璃膜疣、RPE改变、衰减与分割会影响测量信号，而视网膜与更深层脉络膜的散射则对LDH有贡献。因此，结构OCT、脉络膜毛细血管层OCTA与暗适应是研究功能性频谱读出的相关比较指标。</p>
+</div>
+<figure class="ltx_table" id="S1.T1">
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_table">表 1: </span>为频谱过剩分析提供依据的微血管区域与已确立的比较指标。这些是生物学背景，并非已证实的LDH深度归属。</figcaption>
+<table class="ltx_tabular ltx_guessed_headers ltx_align_middle" id="S1.T1.2">
+<thead class="ltx_thead">
+<tr class="ltx_tr" id="S1.T1.2.1">
+<th class="ltx_td ltx_align_left ltx_align_top ltx_th ltx_th_column" id="S1.T1.2.1.1">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.1.1.1" style="width:79.3pt;">
+<span class="ltx_p" id="S1.T1.2.1.1.1.1">Territory</span>
+</span></th>
+<th class="ltx_td ltx_align_left ltx_align_top ltx_th ltx_th_column" id="S1.T1.2.1.2">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.1.2.1" style="width:107.0pt;">
+<span class="ltx_p" id="S1.T1.2.1.2.1.1">生物学与临床背景</span>
+</span></th>
+<th class="ltx_td ltx_align_left ltx_align_top ltx_th ltx_th_column" id="S1.T1.2.1.3">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.1.3.1" style="width:120.8pt;">
+<span class="ltx_p" id="S1.T1.2.1.3.1.1">Established comparators</span>
+</span></th></tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="S1.T1.2.2">
+<td class="ltx_td ltx_align_left ltx_align_top ltx_border_t" id="S1.T1.2.2.1">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.2.1.1" style="width:79.3pt;">
+<span class="ltx_p" id="S1.T1.2.2.1.1.1">放射状视盘周围毛细血管</span>
+</span></td>
+<td class="ltx_td ltx_align_left ltx_align_top ltx_border_t" id="S1.T1.2.2.2">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.2.2.1" style="width:107.0pt;">
+<span class="ltx_p" id="S1.T1.2.2.2.1.1">为神经纤维层轴突提供支持；青光眼</span>
+</span></td>
+<td class="ltx_td ltx_align_left ltx_align_top ltx_border_t" id="S1.T1.2.2.3">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.2.3.1" style="width:120.8pt;">
+<span class="ltx_p" id="S1.T1.2.2.3.1.1">视网膜神经纤维层（RNFL）与神经节细胞结构、视野、视神经乳头及黄斑OCTA血管密度</span>
+</span></td></tr>
+<tr class="ltx_tr" id="S1.T1.2.3">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S1.T1.2.3.1">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.3.1.1" style="width:79.3pt;">
+<span class="ltx_p" id="S1.T1.2.3.1.1.1">Macular retinal plexuses</span>
+</span></td>
+<td class="ltx_td ltx_align_left ltx_align_top" id="S1.T1.2.3.2">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.3.2.1" style="width:107.0pt;">
+<span class="ltx_p" id="S1.T1.2.3.2.1.1">为视网膜内层提供支持；糖尿病视网膜病变（DR）与黄斑缺血</span>
+</span></td>
+<td class="ltx_td ltx_align_left ltx_align_top" id="S1.T1.2.3.3">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.3.3.1" style="width:120.8pt;">
+<span class="ltx_p" id="S1.T1.2.3.3.1.1">可分辨血管丛的OCTA、无灌注、中心凹无血管区形态、DR分期及水肿</span>
+</span></td></tr>
+<tr class="ltx_tr" id="S1.T1.2.4">
+<td class="ltx_td ltx_align_left ltx_align_top" id="S1.T1.2.4.1">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.4.1.1" style="width:79.3pt;">
+<span class="ltx_p" id="S1.T1.2.4.1.1.1">Choriocapillaris</span>
+</span></td>
+<td class="ltx_td ltx_align_left ltx_align_top" id="S1.T1.2.4.2">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.4.2.1" style="width:107.0pt;">
+<span class="ltx_p" id="S1.T1.2.4.2.1.1">为视网膜色素上皮（RPE）与光感受器提供支持；年龄相关性黄斑变性（AMD）</span>
+</span></td>
+<td class="ltx_td ltx_align_left ltx_align_top" id="S1.T1.2.4.3">
+<span class="ltx_inline-block ltx_align_top" id="S1.T1.2.4.3.1" style="width:120.8pt;">
+<span class="ltx_p" id="S1.T1.2.4.3.1.1">OCTA血流信号缺失、玻璃膜疣与RPE结构、视杆细胞介导的暗适应</span>
+</span></td></tr>
+</tbody>
+</table>
+</figure>
+</section>
+<section class="ltx_subsection" id="S1.SS5">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">I.5 </span>研究定位与目标</h3>
+<div class="ltx_para" id="S1.SS5.p1">
+<p class="ltx_p" id="S1.SS5.p1.1">多普勒OCT、激光散斑方法与眼科超声可提供互补的血流动力学测量，其空间、时间与深度灵敏度各不相同。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib20" title="">48</a>, <a class="ltx_ref" href="#bib.bib14" title="">10</a>, <a class="ltx_ref" href="#bib.bib11" title="">3</a>, <a class="ltx_ref" href="#bib.bib21" title="">43</a>]</cite> 激光多普勒全息（LDH）将全场光谱与心动周期波形测量相结合。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib18" title="">33</a>, <a class="ltx_ref" href="#bib.bib19" title="">17</a>]</cite> 排除血管的区域中可能仍含有未分辨的微血管、较大血管的渗漏以及非血管性散射，因此该信号与毛细血管相关，却不具备解剖学特异性。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib17" title="">36</a>, <a class="ltx_ref" href="#bib.bib16" title="">30</a>]</cite></p>
+</div>
+<div class="ltx_para" id="S1.SS5.p2">
+<p class="ltx_p" id="S1.SS5.p2.1">主要结果是构建了沿对齐心动周期的光谱超额波形<math alttext="\mathrm{SE}(t)" class="ltx_Math" display="inline" id="S1.SS5.p2.m1" intent=":literal"><semantics><mrow><mi>SE</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathrm{SE}(t)</annotation></semantics></math>，并以归一化相位<math alttext="t/T" class="ltx_Math" display="inline" id="S1.SS5.p2.m2" intent=":literal"><semantics><mrow><mi>t</mi><mo>/</mo><mi>T</mi></mrow><annotation encoding="application/x-tex">t/T</annotation></semantics></math>为横轴显示。SEI以时间中位数概括其强度；文中还定义了一种替代的合并光谱评估方法。一条代表性记录说明了该构建过程。所保留的时间信息为后续探索波形组织形式奠定了基础，包括 Buisson 等人<cite class="ltx_cite ltx_citemacro_cite">讨论的描述符。<a class="ltx_ref" href="#bib.bib45" title="">[</a>6</cite>]</p>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S2">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">II </span>实验方法</h2>
+<div class="ltx_para" id="S2.p1">
+<p class="ltx_p" id="S2.p1.1">光学系统与记录条件遵循相关的LDH原始研究方案。</p>
+</div>
+<section class="ltx_subsection" id="S2.SS1">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">II.1 </span>光学系统</h3>
+<div class="ltx_para" id="S2.SS1.p1">
+<p class="ltx_p" id="S2.SS1.p1.1">用于超高速激光多普勒全息的临床样机与光学配置如图<a class="ltx_ref" href="#S2.F1" title="Figure 1 ‣ II.1 Optical system ‣ II Experimental methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">1</span></a>所示。</p>
+</div>
+<figure class="ltx_figure" id="S2.F1"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="292" id="S2.F1.g1" src="assets/DopplerHolographySetup.png" style="aspect-ratio:467/292;" width="467"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">Figure 1: </span>852-nm同轴激光多普勒全息检眼镜的光学结构。光纤传输的光被分入照明光路与参考光路。扩散片与中继光学元件提供视网膜照明；眼底后向散射光与参考场重新合束，并由高速相机以干涉方式记录。该图示出了获取全息图所用的光学配置，全场多普勒功率谱即由这些全息图重建。</figcaption>
+</figure>
+<div class="ltx_para" id="S2.SS1.p2">
+<p class="ltx_p" id="S2.SS1.p2.1">视网膜干涉图由一台基于内联式马赫–曾德尔干涉仪的同轴数字全息检眼镜采集，其工作波长为<math alttext="\lambda=852" class="ltx_Math" display="inline" id="S2.SS1.p2.m1" intent=":literal"><semantics><mrow><mi>λ</mi><mo>=</mo><mn>852</mn></mrow><annotation encoding="application/x-tex">\lambda=852</annotation></semantics></math> nm。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib42" title="">2</a>]</cite> 采用保偏光纤，将二极管激光器（Thorlabs FPV852P）发出的光按<math alttext="90/10" class="ltx_Math" display="inline" id="S2.SS1.p2.m2" intent=":literal"><semantics><mrow><mn>90</mn><mo>/</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">90/10</annotation></semantics></math>的功率比分入照明臂与参考臂。在照明臂中，一片工程扩散片（Thorlabs ED1-C20-MD，<math alttext="20^{\circ}" class="ltx_Math" display="inline" id="S2.SS1.p2.m3" intent=":literal"><semantics><msup><mn>20</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">20^{\circ}</annotation></semantics></math>圆形平顶）与两片60-mm双凸透镜提供漫射麦克斯韦照明。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib41" title="">5</a>]</cite> 眼底后向散射的正交偏振光与参考光束重新合束，并由Phantom S711相机记录，像素数为<math alttext="512\times 320" class="ltx_Math" display="inline" id="S2.SS1.p2.m4" intent=":literal"><semantics><mrow><mn>512</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>320</mn></mrow><annotation encoding="application/x-tex">512\times 320</annotation></semantics></math>，像素间距为<math alttext="20~\mu\mathrm{m}" class="ltx_Math" display="inline" id="S2.SS1.p2.m5" intent=":literal"><semantics><mrow><mn>20</mn><mo lspace="0.330em" rspace="0em">​</mo><mi>μ</mi><mo lspace="0em" rspace="0em">​</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">20~\mu\mathrm{m}</annotation></semantics></math>。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S2.SS2">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">II.2 </span>记录条件</h3>
+<div class="ltx_para" id="S2.SS2.p1">
+<p class="ltx_p" id="S2.SS2.p1.1">在取得书面知情同意后，我们在一名健康25岁男性的一只眼中，于未经药物性散瞳的条件下采集了代表性记录的视网膜全息图。采集过程中，受试者用对侧眼注视静态注视靶标。所有操作均遵循《赫尔辛基宣言》，并获得当地伦理委员会批准。进入人眼的漫射焦点处的光功率为5.0 mW。在对这一852 nm漫射麦克斯韦（Maxwellian）构型的报告评估中，最保守的设计建议是工作光功率不超过约6 mW，该限值由ISO 15004-2:2024的虹膜估计给出；ANSI Z80.36-2021的视网膜设计估计约为11 mW，且眼前节条件并非限制因素。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib41" title="">5</a>]</cite></p>
+</div>
+<div class="ltx_para" id="S2.SS2.p2">
+<p class="ltx_p" id="S2.SS2.p2.1">本次采集包含163,840幅干涉图，在约4.4 s内以37 kHz的帧率记录；保留四个完整心动周期用于分析。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib42" title="">2</a>]</cite> 采集与实时可视化可由Holovibes支持，这是一个图形处理器（GPU）加速的框架，用于实时全息图重建、高速相机流传输与同步记录。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib43" title="">13</a>]</cite> 谱过剩波形与谱过剩指数在随后的分析中导出。</p>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S3">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">III </span>方法</h2>
+<section class="ltx_subsection" id="S3.SS1">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">III.1 </span>重建与多普勒频谱的时间解调</h3>
+<div class="ltx_para" id="S3.SS1.p1">
+<p class="ltx_p" id="S3.SS1.p1.1">记录的干涉图通过菲涅耳变换，以480 mm的重建距离从相机平面数值传播到视网膜共轭平面。该变换将二次空间相位因子与二维傅里叶变换相结合，以恢复复视网膜光场<math alttext="H(x,y,n)" class="ltx_Math" display="inline" id="S3.SS1.p1.m1" intent=":literal"><semantics><mrow><mi>H</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>,</mo><mi>n</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">H(x,y,n)</annotation></semantics></math>（对应相机帧<math alttext="n" class="ltx_Math" display="inline" id="S3.SS1.p1.m2" intent=":literal"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>）。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib3" title="">32</a>, <a class="ltx_ref" href="#bib.bib42" title="">2</a>]</cite> 在每个由256帧组成的非重叠块中，将复光场排列为时空矩阵并进行奇异值分解（SVD）。在重建滤波光场之前，去除与最大奇异值对应的24个分量，以抑制占主导的空间相干杂波与眼球整体运动。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib5" title="">31</a>]</cite> 随后对每个像素处的滤波复光场进行256点时间快速傅里叶变换（FFT），得到复多普勒幅度<math alttext="E(x,y,\tau,\omega)" class="ltx_Math" display="inline" id="S3.SS1.p1.m3" intent=":literal"><semantics><mrow><mi>E</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>,</mo><mi>τ</mi><mo>,</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">E(x,y,\tau,\omega)</annotation></semantics></math>及其功率谱<math alttext="S\sim\left|E\right|^{2}" class="ltx_Math" display="inline" id="S3.SS1.p1.m4" intent=":literal"><semantics><mrow><mi>S</mi><mo>∼</mo><msup><mrow><mo>|</mo><mi>E</mi><mo>|</mo></mrow><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">S\sim\left|E\right|^{2}</annotation></semantics></math>，其中<math alttext="\tau" class="ltx_Math" display="inline" id="S3.SS1.p1.m5" intent=":literal"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math>为采集时间窗的索引，<math alttext="\omega" class="ltx_Math" display="inline" id="S3.SS1.p1.m6" intent=":literal"><semantics><mi>ω</mi><annotation encoding="application/x-tex">\omega</annotation></semantics></math>为多普勒角频率。在<math alttext="f_{s}=37" class="ltx_Math" display="inline" id="S3.SS1.p1.m7" intent=":literal"><semantics><mrow><msub><mi>f</mi><mi>s</mi></msub><mo>=</mo><mn>37</mn></mrow><annotation encoding="application/x-tex">f_{s}=37</annotation></semantics></math> kHz下，每个时间窗跨越6.92 ms，原始FFT频点间隔为144.5 Hz。对每组四个相邻原始FFT频点的功率取平均，可将完整的带符号频谱保留为64个导出频点，其标定间隔为<math alttext="\delta f=4f_{s}/256=0.578125" class="ltx_Math" display="inline" id="S3.SS1.p1.m8" intent=":literal"><semantics><mrow><mrow><mi>δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>f</mi></mrow><mo>=</mo><mrow><mrow><mn>4</mn><mo lspace="0em" rspace="0em">​</mo><msub><mi>f</mi><mi>s</mi></msub></mrow><mo>/</mo><mn>256</mn></mrow><mo>=</mo><mn>0.578125</mn></mrow><annotation encoding="application/x-tex">\delta f=4f_{s}/256=0.578125</annotation></semantics></math> kHz。EyeFlow v1.24.0为每个导出频点赋予其四个原始频点的带符号频率均值。频率以千赫兹表示为<math alttext="f=\omega/(2\pi)" class="ltx_Math" display="inline" id="S3.SS1.p1.m9" intent=":literal"><semantics><mrow><mi>f</mi><mo>=</mo><mrow><mi>ω</mi><mo>/</mo><mrow><mo stretchy="false">(</mo><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><mi>π</mi></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">f=\omega/(2\pi)</annotation></semantics></math>，正、负分支按其存储的FFT顺序保留；奈奎斯特极限为<math alttext="\pm 18.5" class="ltx_Math" display="inline" id="S3.SS1.p1.m10" intent=":literal"><semantics><mrow><mo>±</mo><mn>18.5</mn></mrow><annotation encoding="application/x-tex">\pm 18.5</annotation></semantics></math> kHz。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib36" title="">12</a>]</cite> 随后将带时间戳的频谱配准到统一的归一化心动相位网格<math alttext="t/T" class="ltx_Math" display="inline" id="S3.SS1.p1.m11" intent=":literal"><semantics><mrow><mi>t</mi><mo>/</mo><mi>T</mi></mrow><annotation encoding="application/x-tex">t/T</annotation></semantics></math>与完整心动周期<math alttext="b" class="ltx_Math" display="inline" id="S3.SS1.p1.m12" intent=":literal"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>上。SVD剔除阶数是固定的处理选择；残余运动由后续的稳健池化加以处理，而非假定其在该阶段已被完全去除。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S3.SS2">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">III.2 </span>通过空间滤波与完整心动周期池化恢复低频谱</h3>
+<div class="ltx_para" id="S3.SS2.p1">
+<p class="ltx_p" id="S3.SS2.p1.1">超高速激光多普勒全息术（LDH）可获得整个眼底的多普勒功率谱。在低频下，空间图样以弥散分布为主而非可分辨的血管结构，因此分析对象是谱形，而非血管形态。恢复处理由三种互补操作组合而成。第一，空间判别与滤波在中心视场内排除分割出的可见视网膜血管、脉络膜血管以及视盘，所用的是独立获取的血管掩模，而非低频血管对比度。已有研究表明，多普勒全息图相关的动脉—静脉分割可从心动特征中获益<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib44" title="">14</a>]</cite>，但这并不能说明保留区域具有毛细血管特异性。记录保留掩模的覆盖率。第二，心动配准保留四个完整心动周期，并丢弃边缘处不完整的周期。相位零点取动脉波形时间导数的最大值，对应收缩期最大加速度。每个周期延伸至该标志点下一次出现处，并重新缩放为归一化相位<math alttext="t/T" class="ltx_Math" display="inline" id="S3.SS2.p1.m1" intent=":literal"><semantics><mrow><mi>t</mi><mo>/</mo><mi>T</mi></mrow><annotation encoding="application/x-tex">t/T</annotation></semantics></math>。第三，先在每个采集时刻与导出的频谱分箱上，对保留的、已排除血管的像素计算中值谱；有限的负空间中值被截断为零。随后在每个完整心动周期内，将这些空间中值线性插值到统一的心动相位网格上。记<math alttext="S(t,b,\omega)" class="ltx_Math" display="inline" id="S3.SS2.p1.m2" intent=":literal"><semantics><mrow><mi>S</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo>,</mo><mi>b</mi><mo>,</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">S(t,b,\omega)</annotation></semantics></math>为这些相位对齐的空间中值谱。EyeFlow v1.24.0 在每个频率上对所有有效的相位—心动周期样本取一次中值，以构成池化谱：</p>
+<table class="ltx_equation ltx_eqn_table" id="S3.E1">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="S(\omega)\equiv\med_{t,b}\!S(t,b,\omega)," class="ltx_Math" display="block" id="S3.E1.m1" intent=":literal"><semantics><mrow><mrow><mrow><mi>S</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><mo rspace="0.1389em">≡</mo><mrow><mrow><msub><mo lspace="0.1389em" rspace="0.337em">median</mo><mrow><mi>t</mi><mo>,</mo><mi>b</mi></mrow></msub><mi>S</mi></mrow><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo>,</mo><mi>b</mi><mo>,</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">S(\omega)\equiv\med_{t,b}\!S(t,b,\omega),</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(1)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S3.SS2.p1.2">而心动相位分辨谱为</p>
+<table class="ltx_equation ltx_eqn_table" id="S3.E2">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="S(t,\omega)\equiv\med_{b}\!S(t,b,\omega)." class="ltx_Math" display="block" id="S3.E2.m1" intent=":literal"><semantics><mrow><mrow><mrow><mi>S</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo>,</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><mo rspace="0.1389em">≡</mo><mrow><mrow><msub><mo lspace="0.1389em" rspace="0.337em">median</mo><mi>b</mi></msub><mi>S</mi></mrow><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo>,</mo><mi>b</mi><mo>,</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">S(t,\omega)\equiv\med_{b}\!S(t,b,\omega).</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S3.SS2.p1.3">其中<math alttext="t" class="ltx_Math" display="inline" id="S3.SS2.p1.m3" intent=":literal"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>是配准后心动周期内的时间坐标，<math alttext="t/T" class="ltx_Math" display="inline" id="S3.SS2.p1.m4" intent=":literal"><semantics><mrow><mi>t</mi><mo>/</mo><mi>T</mi></mrow><annotation encoding="application/x-tex">t/T</annotation></semantics></math>为其归一化相位，<math alttext="b" class="ltx_Math" display="inline" id="S3.SS2.p1.m5" intent=":literal"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math>为完整心动周期的序号；<math alttext="\tau" class="ltx_Math" display="inline" id="S3.SS2.p1.m6" intent=":literal"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math>仍为采集时间坐标。每个心动周期都在同一相位网格上重采样。在式(<a class="ltx_ref" href="#S3.E1" title="In III.2 Recovering low-frequency spectra by spatial filtering and complete-beat pooling ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">1</span></a>)中，<math alttext="\med_{t,b}" class="ltx_Math" display="inline" id="S3.SS2.p1.m7" intent=":literal"><semantics><msub><mo>median</mo><mrow><mi>t</mi><mo>,</mo><mi>b</mi></mrow></msub><annotation encoding="application/x-tex">\med_{t,b}</annotation></semantics></math>表示对相位—心动周期样本取单次联合中值，而式(<a class="ltx_ref" href="#S3.E2" title="In III.2 Recovering low-frequency spectra by spatial filtering and complete-beat pooling ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">2</span></a>)则在每个相位处分别对各心动周期取中值。因此<math alttext="S(\omega)" class="ltx_Math" display="inline" id="S3.SS2.p1.m8" intent=":literal"><semantics><mrow><mi>S</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">S(\omega)</annotation></semantics></math>未必等于<math alttext="\med_{t}S(t,\omega)" class="ltx_Math" display="inline" id="S3.SS2.p1.m9" intent=":literal"><semantics><mrow><mrow><msub><mo>median</mo><mi>t</mi></msub><mi>S</mi></mrow><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo>,</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\med_{t}S(t,\omega)</annotation></semantics></math>：后者是嵌套中值，而中值一般不满足结合律。这两种归约都位于空间中值之后，省略非有限的相位—心动周期样本，并保留输入的分箱顺序。这种先进行空间归约、再按心动周期聚合的做法，可以抑制孤立且不重复的扫视条纹。图 <a class="ltx_ref" href="#S3.F2" title="Figure 2 ‣ III.2 Recovering low-frequency spectra by spatial filtering and complete-beat pooling ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">2</span></a>展示了测量区域的选取，而图 <a class="ltx_ref" href="#S3.F3" title="Figure 3 ‣ III.2 Recovering low-frequency spectra by spatial filtering and complete-beat pooling ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">3</span></a>和<a class="ltx_ref" href="#S3.F4" title="Figure 4 ‣ III.3 Construction of the spectral-excess distribution ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">4</span></a>展示了采集时间谱中的运动相关条纹及其紧凑的谱表示。</p>
+</div>
+<figure class="ltx_figure" id="S3.F2">
+<div class="ltx_flex_figure">
+<div class="ltx_flex_cell ltx_flex_size_2"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_square" height="229" id="S3.F2.g1" src="assets/moment0ff.png" style="aspect-ratio:229/229;" width="229"/></div><div class="ltx_flex_cell ltx_flex_size_2"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_square" height="229" id="S3.F2.g2" src="assets/band_0_3000_9000.png" style="aspect-ratio:229/229;" width="229"/></div><div class="ltx_flex_break"></div><div class="ltx_flex_cell ltx_flex_size_1">
+<p class="ltx_p ltx_figure_panel ltx_align_center" id="S3.F2.2"><span class="ltx_text ltx_align_center ltx_inline-block" id="S3.F2.2.1" style="font-size:90%;width:165.6pt;">(a)</span> <span class="ltx_text ltx_align_center ltx_inline-block" id="S3.F2.2.2" style="font-size:90%;width:165.6pt;">(b)</span></p></div><div class="ltx_flex_break"></div><div class="ltx_flex_cell ltx_flex_size_1"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_square" height="229" id="S3.F2.g3" src="assets/band_1_9000_18000.png" style="aspect-ratio:229/229;" width="229"/></div><div class="ltx_flex_break"></div><div class="ltx_flex_cell ltx_flex_size_1"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_square" height="229" id="S3.F2.g4" src="assets/260616_ABS1850789_R_2_gaps_mask.png" style="aspect-ratio:229/229;" width="229"/></div><div class="ltx_flex_break"></div><div class="ltx_flex_cell ltx_flex_size_1">
+<p class="ltx_p ltx_figure_panel ltx_align_center" id="S3.F2.3"><span class="ltx_text ltx_align_center ltx_inline-block" id="S3.F2.3.1" style="font-size:90%;width:165.6pt;">(c)</span> <span class="ltx_text ltx_align_center ltx_inline-block" id="S3.F2.3.2" style="font-size:90%;width:165.6pt;">(d)</span></p></div></div>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 2: </span>谱分析所用的眼底图与空间支撑区示例。(a) 平场校正后的零阶多普勒矩；(b) 3–9 kHz频段积分的多普勒功率；(c) 9–18 kHz多普勒功率；(d) 血管排除掩模。在(d)中，白色表示保留的像素，黑色表示被排除的血管、视盘及外视场区域。同一保留空间支撑区应用于每一个导出的频谱分箱。</figcaption>
+</figure>
+<figure class="ltx_figure" id="S3.F3"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="140" id="S3.F3.g1" src="assets/260616_ABS1850789_R_2_spectrograms_gaps_monochrome.png" style="aspect-ratio:371/140;" width="371"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 3：</span>在约4.4-s记录期间，取自排除血管的视网膜区域的采集时刻多普勒频谱图，尚未进行心动相位配准与四个保留完整搏动的聚合。窄的宽带瞬态条纹打断了原本较为持续的频率结构，与短暂的眼动事件一致。这类非重复的偏移促使我们采用空间中值以及随后的心动聚合来构建<math alttext="S(\omega)" class="ltx_Math" display="inline" id="S3.F3.m3" intent=":literal"><semantics><mrow><mi>S</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">S(\omega)</annotation></semantics></math>和<math alttext="S(t,\omega)" class="ltx_Math" display="inline" id="S3.F3.m4" intent=":literal"><semantics><mrow><mi>S</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo>,</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">S(t,\omega)</annotation></semantics></math>。物理频率标注单位为千赫兹；正、负支保留其存储的FFT顺序。</figcaption>
+</figure>
+<div class="ltx_para" id="S3.SS2.p2">
+<p class="ltx_p" id="S3.SS2.p2.1">EyeFlow v1.24.0为掩模配准、空间归约、心动配准、相位–搏动联合频谱池化以及光谱面积计算提供参考代码。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib36" title="">12</a>]</cite> 绘图所用的物理频率在整个分析中保持不变。面积在展开的存储箱坐标中求值，使用校准后的正频率箱间距<math alttext="\delta f" class="ltx_Math" display="inline" id="S3.SS2.p2.m1" intent=":literal"><semantics><mrow><mi>δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>f</mi></mrow><annotation encoding="application/x-tex">\delta f</annotation></semantics></math>，而不是跨过带符号显示轴上的不连续处进行积分。该间距的共同变化会同比缩放<math alttext="A" class="ltx_Math" display="inline" id="S3.SS2.p2.m2" intent=":literal"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>和<math alttext="A_{0}" class="ltx_Math" display="inline" id="S3.SS2.p2.m3" intent=":literal"><semantics><msub><mi>A</mi><mn>0</mn></msub><annotation encoding="application/x-tex">A_{0}</annotation></semantics></math>，并在二者的比值中抵消。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S3.SS3">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">III.3 </span>光谱过量分布的构建</h3>
+<div class="ltx_para" id="S3.SS3.p1">
+<p class="ltx_p" id="S3.SS3.p1.1">两个峰值索引<math alttext="j_{\mathrm{L}}" class="ltx_Math" display="inline" id="S3.SS3.p1.m1" intent=":literal"><semantics><msub><mi>j</mi><mi>L</mi></msub><annotation encoding="application/x-tex">j_{\mathrm{L}}</annotation></semantics></math>和<math alttext="j_{\mathrm{R}}" class="ltx_Math" display="inline" id="S3.SS3.p1.m2" intent=":literal"><semantics><msub><mi>j</mi><mi>R</mi></msub><annotation encoding="application/x-tex">j_{\mathrm{R}}</annotation></semantics></math>分别选为最接近<math alttext="+2" class="ltx_Math" display="inline" id="S3.SS3.p1.m3" intent=":literal"><semantics><mrow><mo>+</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">+2</annotation></semantics></math>kHz和<math alttext="-2" class="ltx_Math" display="inline" id="S3.SS3.p1.m4" intent=":literal"><semantics><mrow><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">-2</annotation></semantics></math>kHz的导出箱，并在整个心动周期内保持不变。按上述校准，它们的中心约为<math alttext="+1.95" class="ltx_Math" display="inline" id="S3.SS3.p1.m5" intent=":literal"><semantics><mrow><mo>+</mo><mn>1.95</mn></mrow><annotation encoding="application/x-tex">+1.95</annotation></semantics></math>kHz和<math alttext="-2.10" class="ltx_Math" display="inline" id="S3.SS3.p1.m6" intent=":literal"><semantics><mrow><mo>−</mo><mn>2.10</mn></mrow><annotation encoding="application/x-tex">-2.10</annotation></semantics></math>kHz。在每个相位下，<math alttext="A(t)" class="ltx_Math" display="inline" id="S3.SS3.p1.m7" intent=":literal"><semantics><mrow><mi>A</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">A(t)</annotation></semantics></math>为按存储箱顺序在这两个索引之间<math alttext="S(t,\omega)" class="ltx_Math" display="inline" id="S3.SS3.p1.m8" intent=":literal"><semantics><mrow><mi>S</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo>,</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">S(t,\omega)</annotation></semantics></math>下方的梯形面积。参考高度<math alttext="h_{\mathrm{v}}(t)" class="ltx_Math" display="inline" id="S3.SS3.p1.m9" intent=":literal"><semantics><mrow><msub><mi>h</mi><mi>v</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">h_{\mathrm{v}}(t)</annotation></semantics></math>为中心高频谷附近固定邻域内的功率中位数。参考实现采用存储箱的中心四分之一部分，对本64箱频谱而言包含16个箱，由此得到参考矩形<math alttext="A_{0}(t)=(j_{\mathrm{R}}-j_{\mathrm{L}})\delta f\,h_{\mathrm{v}}(t)" class="ltx_Math" display="inline" id="S3.SS3.p1.m10" intent=":literal"><semantics><mrow><mrow><msub><mi>A</mi><mn>0</mn></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mrow><mo stretchy="false">(</mo><mrow><msub><mi>j</mi><mi>R</mi></msub><mo>−</mo><msub><mi>j</mi><mi>L</mi></msub></mrow><mo stretchy="false">)</mo></mrow><mo lspace="0em" rspace="0em">​</mo><mi>δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>f</mi><mo lspace="0.170em" rspace="0em">​</mo><msub><mi>h</mi><mi>v</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">A_{0}(t)=(j_{\mathrm{R}}-j_{\mathrm{L}})\delta f\,h_{\mathrm{v}}(t)</annotation></semantics></math>。光谱过量为</p>
+<table class="ltx_equation ltx_eqn_table" id="S3.E3">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\mathrm{SE}(t)=\frac{A(t)-A_{0}(t)}{A_{0}(t)}=\frac{A(t)}{A_{0}(t)}-1." class="ltx_Math" display="block" id="S3.E3.m1" intent=":literal"><semantics><mrow><mrow><mrow><mi>SE</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mfrac><mrow><mrow><mi>A</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo>−</mo><mrow><msub><mi>A</mi><mn>0</mn></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><mrow><msub><mi>A</mi><mn>0</mn></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow></mfrac><mo>=</mo><mrow><mfrac><mrow><mi>A</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mrow><msub><mi>A</mi><mn>0</mn></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow></mfrac><mo>−</mo><mn>1</mn></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\mathrm{SE}(t)=\frac{A(t)-A_{0}(t)}{A_{0}(t)}=\frac{A(t)}{A_{0}(t)}-1.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(3)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S3.SS3.p1.2">在每个配准后的相位上计算该比值，即可构建整个心动周期内的<math alttext="\mathrm{SE}(t)" class="ltx_Math" display="inline" id="S3.SS3.p1.m11" intent=":literal"><semantics><mrow><mi>SE</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathrm{SE}(t)</annotation></semantics></math>分布。峰值索引保持不变，而中心谷参考值在每个相位重新计算。积分遵循存储的带符号箱顺序；共同的频率间距因子<math alttext="\delta f" class="ltx_Math" display="inline" id="S3.SS3.p1.m12" intent=":literal"><semantics><mrow><mi>δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>f</mi></mrow><annotation encoding="application/x-tex">\delta f</annotation></semantics></math>在比值中抵消。</p>
+</div>
+<figure class="ltx_figure" id="S3.F4"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="150" id="S3.F4.g1" src="assets/260616_ABS1850789_R_2_gaps_positive_freq_median_phase_all.png" style="aspect-ratio:371/150;" width="371"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 4：</span>构建光谱过量所依据的频谱。实线、虚线和点线分别给出池化频谱及其早期相位（前三分之一）和晚期相位（其余三分之二）的示意。两个带符号频率的数据块均保留其存储顺序。每条曲线都除以各自的中心谷中位数以便显示；这种显示归一化在计算光谱面积之前并不施加。浅色包络复现了源图中的离散度，灰色背景标出谷区。峰值索引为最接近<math alttext="\pm 2" class="ltx_Math" display="inline" id="S3.F4.m3" intent=":literal"><semantics><mrow><mo>±</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\pm 2</annotation></semantics></math>kHz的固定箱。池化频谱给出池化频谱索引；相位分辨频谱给出<math alttext="\mathrm{SE}(t)" class="ltx_Math" display="inline" id="S3.F4.m4" intent=":literal"><semantics><mrow><mi>SE</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathrm{SE}(t)</annotation></semantics></math>。物理频率以千赫兹显示，按先正后负的存储FFT顺序排列。</figcaption>
+</figure>
+<div class="ltx_para" id="S3.SS3.p2">
+<p class="ltx_p" id="S3.SS3.p2.1">谱超额度量的是经谷值归一化的相对面积。正值表示积分面积超过参考矩形；零表示二者面积相等，这并不要求谱完全平坦。<math alttext="A(t)" class="ltx_Math" display="inline" id="S3.SS3.p2.m1" intent=":literal"><semantics><mrow><mi>A</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">A(t)</annotation></semantics></math>的增大或<math alttext="A_{0}(t)" class="ltx_Math" display="inline" id="S3.SS3.p2.m2" intent=":literal"><semantics><mrow><msub><mi>A</mi><mn>0</mn></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">A_{0}(t)</annotation></semantics></math>的减小都会使<math alttext="\mathrm{SE}(t)" class="ltx_Math" display="inline" id="S3.SS3.p2.m3" intent=":literal"><semantics><mrow><mi>SE</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathrm{SE}(t)</annotation></semantics></math>升高，因此两条面积曲线都与波形一同保留（图<a class="ltx_ref" href="#S3.F5" title="Figure 5 ‣ III.3 Construction of the spectral-excess distribution ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">5</span></a>）。在给定相位处的公共乘性谱增益会相互抵消，但加性背景或随频率变化的背景不会抵消。需要正值且足够稳定的<math alttext="A_{0}(t)" class="ltx_Math" display="inline" id="S3.SS3.p2.m4" intent=":literal"><semantics><mrow><msub><mi>A</mi><mn>0</mn></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">A_{0}(t)</annotation></semantics></math>；对于无效或信号不足的分母，依据预先规定的质量判据加以标记。参考处理采用对 NaN 不敏感的中心频箱中位数。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib36" title="">12</a>]</cite></p>
+</div>
+<figure class="ltx_figure" id="S3.F5">
+<div class="ltx_flex_figure">
+<div class="ltx_flex_cell ltx_flex_size_1"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_landscape" height="293" id="S3.F5.g1" src="assets/260616_ABS1850789_R_2_gaps_A.png" style="aspect-ratio:471/293;" width="471"/></div><div class="ltx_flex_break"></div><div class="ltx_flex_cell ltx_flex_size_1"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_landscape" height="293" id="S3.F5.g2" src="assets/260616_ABS1850789_R_2_gaps_A0.png" style="aspect-ratio:471/293;" width="471"/></div><div class="ltx_flex_break"></div><div class="ltx_flex_cell ltx_flex_size_1"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_landscape" height="293" id="S3.F5.g3" src="assets/260616_ABS1850789_R_2_gaps_SE.png" style="aspect-ratio:471/293;" width="471"/></div></div>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 5：</span>由代表性记录中四个完整心动周期构造的<math alttext="\mathrm{SE}(t)" class="ltx_Math" display="inline" id="S3.F5.m6" intent=":literal"><semantics><mrow><mi>SE</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathrm{SE}(t)</annotation></semantics></math>，以归一化心动相位<math alttext="t/T" class="ltx_Math" display="inline" id="S3.F5.m7" intent=":literal"><semantics><mrow><mi>t</mi><mo>/</mo><mi>T</mi></mrow><annotation encoding="application/x-tex">t/T</annotation></semantics></math>为横坐标显示。相位零点为动脉波形的最大导数（收缩期最大加速度）。自上而下：(a) 积分峰-峰面积<math alttext="A(t)" class="ltx_Math" display="inline" id="S3.F5.m8" intent=":literal"><semantics><mrow><mi>A</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">A(t)</annotation></semantics></math>；(b) 中心谷值参考矩形<math alttext="A_{0}(t)" class="ltx_Math" display="inline" id="S3.F5.m9" intent=":literal"><semantics><mrow><msub><mi>A</mi><mn>0</mn></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">A_{0}(t)</annotation></semantics></math>；(c) 谱超额<math alttext="\mathrm{SE}(t)=A(t)/A_{0}(t)-1" class="ltx_Math" display="inline" id="S3.F5.m10" intent=":literal"><semantics><mrow><mrow><mi>SE</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mrow><mrow><mrow><mi>A</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo>/</mo><msub><mi>A</mi><mn>0</mn></msub></mrow><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo>−</mo><mn>1</mn></mrow></mrow><annotation encoding="application/x-tex">\mathrm{SE}(t)=A(t)/A_{0}(t)-1</annotation></semantics></math>。全程使用固定的峰值索引与逐相位的中心谷值中位数。比较分子曲线与分母曲线，有助于辨明二者各自对波形的贡献。该波形的时间中位数定义了式（<a class="ltx_ref" href="#S3.E4" title="In III.4 Spectral excess index ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">4</span></a>）中的谱超额指数（SEI）。</figcaption>
+</figure>
+</section>
+<section class="ltx_subsection" id="S3.SS4">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">III.4 </span>谱超额指数</h3>
+<div class="ltx_para" id="S3.SS4.p1">
+<p class="ltx_p" id="S3.SS4.p1.1">谱超额指数为</p>
+<table class="ltx_equation ltx_eqn_table" id="S3.E4">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\mathrm{SEI}=\med_{t}\!\mathrm{SE}(t)." class="ltx_Math" display="block" id="S3.E4.m1" intent=":literal"><semantics><mrow><mrow><mi>SEI</mi><mo rspace="0.1389em">=</mo><mrow><mrow><msub><mo lspace="0.1389em" rspace="0.337em">median</mo><mi>t</mi></msub><mi>SE</mi></mrow><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\mathrm{SEI}=\med_{t}\!\mathrm{SE}(t).</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S3.SS4.p1.2">中位数在配准后心动周期的等间隔有效相位采样上取值，用于概括典型的谱超额强度。</p>
+</div>
+<div class="ltx_para" id="S3.SS4.p2">
+<p class="ltx_p" id="S3.SS4.p2.1">SEI 也可在谱池化后计算。池化谱指数不同于<math alttext="\mathrm{SE}(t)" class="ltx_Math" display="inline" id="S3.SS4.p2.m1" intent=":literal"><semantics><mrow><mi>SE</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathrm{SE}(t)</annotation></semantics></math>的时间中位数（式（<a class="ltx_ref" href="#S3.E4" title="In III.4 Spectral excess index ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">4</span></a>））。对于这种替代评估，令<math alttext="A" class="ltx_Math" display="inline" id="S3.SS4.p2.m2" intent=":literal"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>为<math alttext="S(\omega)" class="ltx_Math" display="inline" id="S3.SS4.p2.m3" intent=":literal"><semantics><mrow><mi>S</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">S(\omega)</annotation></semantics></math>在两个固定峰值索引之间的梯形面积，<math alttext="h_{\mathrm{v}}" class="ltx_Math" display="inline" id="S3.SS4.p2.m4" intent=":literal"><semantics><msub><mi>h</mi><mi>v</mi></msub><annotation encoding="application/x-tex">h_{\mathrm{v}}</annotation></semantics></math>为同一中心参考邻域内的功率中位数，<math alttext="A_{0}=(j_{\mathrm{R}}-j_{\mathrm{L}})\delta f\,h_{\mathrm{v}}" class="ltx_Math" display="inline" id="S3.SS4.p2.m5" intent=":literal"><semantics><mrow><msub><mi>A</mi><mn>0</mn></msub><mo>=</mo><mrow><mrow><mo stretchy="false">(</mo><mrow><msub><mi>j</mi><mi>R</mi></msub><mo>−</mo><msub><mi>j</mi><mi>L</mi></msub></mrow><mo stretchy="false">)</mo></mrow><mo lspace="0em" rspace="0em">​</mo><mi>δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>f</mi><mo lspace="0.170em" rspace="0em">​</mo><msub><mi>h</mi><mi>v</mi></msub></mrow></mrow><annotation encoding="application/x-tex">A_{0}=(j_{\mathrm{R}}-j_{\mathrm{L}})\delta f\,h_{\mathrm{v}}</annotation></semantics></math>为相应的参考矩形。该指数即为<math alttext="(A-A_{0})/A_{0}" class="ltx_Math" display="inline" id="S3.SS4.p2.m6" intent=":literal"><semantics><mrow><mrow><mo stretchy="false">(</mo><mrow><mi>A</mi><mo>−</mo><msub><mi>A</mi><mn>0</mn></msub></mrow><mo stretchy="false">)</mo></mrow><mo>/</mo><msub><mi>A</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">(A-A_{0})/A_{0}</annotation></semantics></math>。先对谱进行池化再计算这一比值，所得结果未必等于逐相位比值的中位数。我们用<math alttext="\mathrm{SEI}_{\mathrm{pool}}=(A-A_{0})/A_{0}" class="ltx_Math" display="inline" id="S3.SS4.p2.m7" intent=":literal"><semantics><mrow><msub><mi>SEI</mi><mi>pool</mi></msub><mo>=</mo><mrow><mrow><mo stretchy="false">(</mo><mrow><mi>A</mi><mo>−</mo><msub><mi>A</mi><mn>0</mn></msub></mrow><mo stretchy="false">)</mo></mrow><mo>/</mo><msub><mi>A</mi><mn>0</mn></msub></mrow></mrow><annotation encoding="application/x-tex">\mathrm{SEI}_{\mathrm{pool}}=(A-A_{0})/A_{0}</annotation></semantics></math>表示这一替代量，以区别于式（<a class="ltx_ref" href="#S3.E4" title="In III.4 Spectral excess index ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">4</span></a>）。EyeFlow v1.24.0 导出的 SEI 为有效逐相位<math alttext="\mathrm{SE}(t)" class="ltx_Math" display="inline" id="S3.SS4.p2.m8" intent=":literal"><semantics><mrow><mi>SE</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathrm{SE}(t)</annotation></semantics></math>值的时间中位数；池化谱替代量在此定义为一种单独的描述性评估。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib36" title="">12</a>]</cite></p>
+</div>
+<div class="ltx_para" id="S3.SS4.p3">
+<p class="ltx_p" id="S3.SS4.p3.1">两种评估结果都是相对谱超额的无量纲度量。它们不用于测量绝对血流量、血细胞速度或毛细血管密度。二者均要求参考面积为正值且足够稳定，无效或信号不足的相位按与波形构造相同的质量判据加以标记。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S3.SS5">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">III.5 </span>质量控制</h3>
+<div class="ltx_para" id="S3.SS5.p1">
+<p class="ltx_p" id="S3.SS5.p1.1">所提出的眼底信号与非信号背景光功率之比（3 kHz附近）用于确认光信号是否充足，而不用于谱超额计算的归一化。质量审查还考察掩膜覆盖度、不稳定的谷值水平以及残留的扫视条纹。稳健聚合可减弱孤立伪影，但无法消除持续性污染。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib7" title="">22</a>, <a class="ltx_ref" href="#bib.bib8" title="">16</a>, <a class="ltx_ref" href="#bib.bib9" title="">9</a>, <a class="ltx_ref" href="#bib.bib5" title="">31</a>]</cite></p>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S4">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">IV </span>结果</h2>
+<section class="ltx_subsection" id="S4.SS1">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">IV.1 </span>相位分辨谱超额分布的恢复</h3>
+<div class="ltx_para" id="S4.SS1.p1">
+<p class="ltx_p" id="S4.SS1.p1.1">采集时间谱图显示，在持续存在的光谱结构之上叠加着间歇性宽带条纹（图 <a class="ltx_ref" href="#S3.F3" title="Figure 3 ‣ III.2 Recovering low-frequency spectra by spatial filtering and complete-beat pooling ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">3</span></a>）。通过空间剔除并聚合四个完整心动周期，得到中心存在凹谷、且在两个带符号频率区间出现峰值的光谱（图 <a class="ltx_ref" href="#S3.F4" title="Figure 4 ‣ III.3 Construction of the spectral-excess distribution ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">4</span></a>）。应用分相位面积比后，得到如图 <a class="ltx_ref" href="#S3.F5" title="Figure 5 ‣ III.3 Construction of the spectral-excess distribution ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">5</span></a>所示的 <math alttext="\mathrm{SE}(t)" class="ltx_Math" display="inline" id="S4.SS1.p1.m1" intent=":literal"><semantics><mrow><mi>SE</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathrm{SE}(t)</annotation></semantics></math> 分布，其中相位零点对应动脉收缩期最大加速度。在本例中，心动周期早期的一部分时段内光谱超出量较低，而在周期剩余的大部分时段内逐渐升高。独立的 <math alttext="A(t)" class="ltx_Math" display="inline" id="S4.SS1.p1.m2" intent=":literal"><semantics><mrow><mi>A</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">A(t)</annotation></semantics></math> 与 <math alttext="A_{0}(t)" class="ltx_Math" display="inline" id="S4.SS1.p1.m3" intent=":literal"><semantics><mrow><msub><mi>A</mi><mn>0</mn></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">A_{0}(t)</annotation></semantics></math> 曲线说明了为什么这种时间行为不能仅用积分面积来解释。所恢复的波形是该方法构建过程的主要输出：它同时保留了光谱超出量水平与心动相位的组织结构。</p>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S5">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">V </span>讨论</h2>
+<div class="ltx_para" id="S5.p1">
+<p class="ltx_p" id="S5.p1.1">本文的主要贡献，是从空间上弥散、且已剔除血管区域的视网膜多普勒光谱中，构建出按心动相位分辨的光谱超出量分布。空间甄别、完整心动周期筛选与稳健聚合，即使在无法分辨单根血管的低频图像（本文研究的出发点）中，也能恢复出一条紧致的波形。所得的 <math alttext="\mathrm{SE}(t)" class="ltx_Math" display="inline" id="S5.p1.m1" intent=":literal"><semantics><mrow><mi>SE</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathrm{SE}(t)</annotation></semantics></math> 保留了相对光谱超出量的时间信息与组织结构，而 SEI 则用其在整个心动周期上的中位数概括光谱超出量的强度。</p>
+</div>
+<div class="ltx_para" id="S5.p2">
+<p class="ltx_p" id="S5.p2.1">这两种读出量描述的都是复合光学信号。保留下来的血管间隙区域可能包含毛细血管、未分辨的小动脉和小静脉、来自可见血管的残余贡献，以及视网膜或脉络膜散射。它们的相对权重取决于血管几何形态、深度、血细胞比容、多重散射以及光学采样条件。该方法既不区分视网膜与脉络膜的贡献，也不指认特定的血管丛，更不能把光谱超出量换算为绝对灌注量或速度。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib6" title="">35</a>, <a class="ltx_ref" href="#bib.bib8" title="">16</a>, <a class="ltx_ref" href="#bib.bib10" title="">8</a>, <a class="ltx_ref" href="#bib.bib16" title="">30</a>]</cite> 加性背景、较小的凹谷参考区、不完善的配准以及残余眼动，都会影响波形及其标量摘要。因此，将 <math alttext="A(t)" class="ltx_Math" display="inline" id="S5.p2.m1" intent=":literal"><semantics><mrow><mi>A</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">A(t)</annotation></semantics></math>、<math alttext="A_{0}(t)" class="ltx_Math" display="inline" id="S5.p2.m2" intent=":literal"><semantics><mrow><msub><mi>A</mi><mn>0</mn></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">A_{0}(t)</annotation></semantics></math> 与 <math alttext="\mathrm{SE}(t)" class="ltx_Math" display="inline" id="S5.p2.m3" intent=":literal"><semantics><mrow><mi>SE</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathrm{SE}(t)</annotation></semantics></math> 一并查看，是结果解释中不可或缺的一环。</p>
+</div>
+<section class="ltx_subsection" id="S5.SS1">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">V.1 </span>与光学相干断层扫描血管成像（OCTA）及功能微血管表型分析的关系</h3>
+<div class="ltx_para" id="S5.SS1.p1">
+<p class="ltx_p" id="S5.SS1.p1.1">OCTA 与光谱超出量考察的是血管信号的不同方面。OCTA 定位视网膜和脉络膜层板内可探测的血流，并量化其空间分布；而 <math alttext="\mathrm{SE}(t)" class="ltx_Math" display="inline" id="S5.SS1.p1.m1" intent=":literal"><semantics><mrow><mi>SE</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathrm{SE}(t)</annotation></semantics></math> 描述的是深度积分后的多普勒光谱形状所具有的心动相位组织结构。这为检验二者的互补性提供了依据，但并不能据此假定某一方法具有更高的灵敏度或特异性。在青光眼中，相关比较包括视网膜神经纤维层（RNFL）与神经节细胞结构、视野，以及视神经乳头或黄斑区的 OCTA。在糖尿病视网膜病变（DR）中，相关比较包括各血管丛特异性的无灌注区、水肿与临床分期。在年龄相关性黄斑变性（AMD）中，相关比较包括脉络膜毛细血管血流信号缺损、玻璃膜疣/视网膜色素上皮（RPE）改变以及暗适应。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib27" title="">27</a>, <a class="ltx_ref" href="#bib.bib28" title="">41</a>, <a class="ltx_ref" href="#bib.bib30" title="">40</a>, <a class="ltx_ref" href="#bib.bib34" title="">21</a>, <a class="ltx_ref" href="#bib.bib35" title="">28</a>]</cite> 要确立生理特异性与临床相关性，离不开这类比较。</p>
+</div>
+<div class="ltx_para" id="S5.SS1.p2">
+<p class="ltx_p" id="S5.SS1.p2.1">对功能性微血管表型分析的更广泛关注也延伸到全身性疾病。视网膜光学相干断层扫描血管成像（OCTA）的测量结果已与心血管代谢因素和冠状动脉疾病相关联，<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib37" title="">1</a>, <a class="ltx_ref" href="#bib.bib38" title="">39</a>, <a class="ltx_ref" href="#bib.bib39" title="">46</a>]</cite> 而视网膜血管反应性也已被用于研究其与后续心血管事件的关系。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib40" title="">42</a>]</cite> 这些发现促使未来开展谱超出量的眼部与全身比较研究。它们并不能证明 SEI 或 <math alttext="\mathrm{SE}(t)" class="ltx_Math" display="inline" id="S5.SS1.p2.m1" intent=":literal"><semantics><mrow><mi>SE</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathrm{SE}(t)</annotation></semantics></math> 衡量的是全身微血管健康。必须在独立设计的研究中，评估其相对于解剖结构、OCT/OCTA、图像质量及全身协变量之外所增加的信息。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S5.SS2">
+<h3 class="ltx_title ltx_title_subsection">V.2 <span class="ltx_tag ltx_tag_subsection">探索时间组织结构的可能性</span></h3>
+<div class="ltx_para" id="S5.SS2.p1">
+<p class="ltx_p" id="S5.SS2.p1.1">完整的 <math alttext="\mathrm{SE}(t)" class="ltx_Math" display="inline" id="S5.SS2.p1.m1" intent=":literal"><semantics><mrow><mi>SE</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathrm{SE}(t)</annotation></semantics></math> 分布为描述时间组织结构提供了基础，其描述内容远不止单一的强度取值。候选的描述子族包括归一化时序与时间矩、波峰宽度、偏移与持续性、累积形状分位数、时间集中度或有效支撑、归一化斜率以及谐波组织。Buisson 等人提出的波形形状框架为视网膜动脉血流速度波形给出了这些描述子族的具体示例。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib45" title="">6</a>]</cite> 将此类数学描述子适配到谱超出量，便可对 SEI 值相近的信号加以比较，考察其超出量在心动周期内何时出现、展宽多广以及分布是否规则。</p>
+</div>
+<div class="ltx_para" id="S5.SS2.p2">
+<p class="ltx_p" id="S5.SS2.p2.1">这种适配需要明确的预处理与有效性规则，包括相位配准、采样以及任何谐波滤波。把波形幅度视为非负权重的描述子，要求谱超出量有限且非负，并且总和为正。这些数学方法的应用，并不会把动脉速度或累积位移的生理学解释转移到 <math alttext="\mathrm{SE}(t)" class="ltx_Math" display="inline" id="S5.SS2.p2.m1" intent=":literal"><semantics><mrow><mi>SE</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathrm{SE}(t)</annotation></semantics></math> 上。本文既未计算也未临床验证任何此类扩展的描述子集合；本研究的结果是构建该分布及其 SEI 汇总指标。</p>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S6">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">VI </span>结论</h2>
+<div class="ltx_para" id="S6.p1">
+<p class="ltx_p" id="S6.p1.1">通过血管剔除、完整心动周期选取和空间归并，再进行心动周期聚合，即可由视网膜多普勒谱构建出相位分辨的谱超出量波形 <math alttext="\mathrm{SE}(t)" class="ltx_Math" display="inline" id="S6.p1.m1" intent=":literal"><semantics><mrow><mi>SE</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathrm{SE}(t)</annotation></semantics></math>。SEI 以其时间中位数概括该波形的强度；另一种基于合并谱的评估方式则单独定义。一段代表性记录展示了这一构建过程，而完整波形则为后续探索时间组织结构提供了基础。技术重复性、生理特异性和临床价值仍有待确立。</p>
+</div>
+</section>
+<section class="ltx_section" id="Sx1">
+<h2 class="ltx_title ltx_title_section">开源代码可用性</h2>
+<div class="ltx_para" id="Sx1.p1">
+<p class="ltx_p" id="Sx1.p1.1">EyeFlow v1.24.0 在 <a class="ltx_ref ltx_url ltx_font_typewriter" href="https://github.com/DigitalHolography/EyeFlow/releases/tag/v1.24.0" title="">https://github.com/DigitalHolography/EyeFlow/releases/tag/v1.24.0</a> 提供参考的血管剔除、心动周期聚合以及经校准的谱处理流程。<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib36" title="">12</a>]</cite> 式（<a class="ltx_ref" href="#S3.E3" title="In III.3 Construction of the spectral-excess distribution ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">3</span></a>）与式（<a class="ltx_ref" href="#S3.E4" title="In III.4 Spectral excess index ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">4</span></a>）定义了相位分辨的谱超出量波形及其时间中位数指数。</p>
+</div>
+</section>
+<section class="ltx_bibliography" id="bib">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+<ul class="ltx_biblist" id="bib.L1">
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib37"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Arnould, C. Guenancia, A. Azemar, <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">The EYE-MI pilot study: a prospective acute coronary syndrome cohort evaluated with retinal optical coherence tomography angiography</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Investigative Ophthalmology &amp; Visual Science</span> <span class="ltx_text ltx_bib_volume">59</span> (<span class="ltx_text ltx_bib_number">10</span>), <span class="ltx_text ltx_bib_pages">pp. 4299–4306</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1167/iovs.18-24090" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1167/iovs.18-24090" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S5.SS1.p2.1" title="V.1 Relationship to OCTA and functional microvascular phenotyping ‣ V Discussion ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§V.1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib42"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Z. Auray, Y. Fischer, O. Martinache, and M. Atlan</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Ultrahigh-speed digital holography for quantitative Doppler imaging of the human retina</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text ltx_bib_external">2505.07823</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.48550/arXiv.2505.07823" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S2.SS1.p2.1" title="II.1 Optical system ‣ II Experimental methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§II.1</span></a>,
+<a class="ltx_ref" href="#S2.SS2.p2.1" title="II.2 Recording conditions ‣ II Experimental methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§II.2</span></a>,
+<a class="ltx_ref" href="#S3.SS1.p1.1" title="III.1 Reconstruction and temporal demodulation of the Doppler spectrum ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§III.1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib11"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. A. Boas and A. K. Dunn</span><span class="ltx_text ltx_bib_year"> (2010)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Laser speckle contrast imaging in biomedical optics</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Biomedical Optics</span> <span class="ltx_text ltx_bib_volume">15</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 011109</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/1.3285504" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS5.p1.1" title="I.5 Position and objectives ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.5</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib1"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. Bonner and R. Nossal</span><span class="ltx_text ltx_bib_year"> (1981)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Model for laser doppler measurements of blood flow in tissue</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Applied Optics</span> <span class="ltx_text ltx_bib_volume">20</span>, <span class="ltx_text ltx_bib_pages">pp. 2097–2107</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/AO.20.002097" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S1.p4.1" title="I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib41"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Z. Bratasz, O. Martinache, Y. Blazy, A. Denis, C. Auffret, J. Huignard, E. Rossi, J. Chhablani, J. Sahel, S. Bonnin, R. Hage, P. Koskas, D. Gatinel, C. Vignal, A. Yavchitz, V. Vasseur, R. Tadayoni, C. Ducloux, M. Ortoli, M. Tordjman, S. Tick, S. Mrejen, M. Paques, and M. Atlan</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Diffuse Maxwellian illumination for safe wide-field retinal Doppler holography</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">Version 3, revised May 2026</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text ltx_bib_external">2212.13347</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.48550/arXiv.2212.13347" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.SS1.p2.1" title="II.1 Optical system ‣ II Experimental methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§II.1</span></a>,
+<a class="ltx_ref" href="#S2.SS2.p1.1" title="II.2 Recording conditions ‣ II Experimental methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§II.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib45"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">G. Buisson, C. Paquet, L. Doucet, D. Gouyoumdjian, M. Boy Arnould, Y. Fischer, Z. Auray, and M. Atlan</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Transportable retinal Doppler holography waveform-shape metrics for functional microvascular assessment</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">Zenodo</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.5281/zenodo.18895922" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.5281/zenodo.18895922" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS5.p2.1" title="I.5 Position and objectives ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.5</span></a>,
+<a class="ltx_ref" href="#S5.SS2.p1.1" title="V.2 Possibilities for exploring temporal organization ‣ V Discussion ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§V.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib25"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. P. Campbell, M. Zhang, T. S. Hwang, S. T. Bailey, D. J. Wilson, Y. Jia, and D. Huang</span><span class="ltx_text ltx_bib_year"> (2017)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Detailed vascular anatomy of the human retina by projection-resolved optical coherence tomography angiography</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Scientific Reports</span> <span class="ltx_text ltx_bib_volume">7</span>, <span class="ltx_text ltx_bib_pages">pp. 42201</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">PMID: 28186181</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/srep42201" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1038/srep42201" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS1.p1.1" title="I.1 OCTA and the retinal and choroidal microvascular beds ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.1</span></a>,
+<a class="ltx_ref" href="#S1.SS1.p2.1" title="I.1 OCTA and the retinal and choroidal microvascular beds ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib10"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. A. Carp, M. B. Robinson, and M. A. Franceschini</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Diffuse correlation spectroscopy: current status and future outlook</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Neurophotonics</span> <span class="ltx_text ltx_bib_volume">10</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 013509</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/1.NPh.10.1.013509" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S5.p2.1" title="V Discussion ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§V</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib9"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. A. Carp, N. Roche-Labarbe, M. Franceschini, V. J. Srinivasan, S. Sakadžić, and D. A. Boas</span><span class="ltx_text ltx_bib_year"> (2011)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Due to intravascular multiple sequential scattering, diffuse correlation spectroscopy of tissue primarily measures relative red blood cell motion within vessels</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Biomedical Optics Express</span> <span class="ltx_text ltx_bib_volume">2</span> (<span class="ltx_text ltx_bib_number">7</span>), <span class="ltx_text ltx_bib_pages">pp. 2047–2054</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/BOE.2.002047" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p4.1" title="I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S3.SS5.p1.1" title="III.5 Quality control ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§III.5</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib14"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">W. Choi, B. Baumann, J. J. Liu, A. C. Clermont, E. P. Feener, J. S. Duker, and J. G. Fujimoto</span><span class="ltx_text ltx_bib_year"> (2012)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Measurement of pulsatile total blood flow in the human and rat retina with ultrahigh speed spectral/fourier domain oct</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Biomedical Optics Express</span> <span class="ltx_text ltx_bib_volume">3</span> (<span class="ltx_text ltx_bib_number">5</span>), <span class="ltx_text ltx_bib_pages">pp. 1047–1061</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/BOE.3.001047" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS5.p1.1" title="I.5 Position and objectives ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.5</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib13"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. Corvi, L. Tiosano, G. Corradetti, M. G. Nittala, S. Lindenberg, A. R. Alagorie, J. A. McLaughlin, T. K. Lee, and S. R. Sadda</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Choriocapillaris flow deficits as a risk factor for progression of age-related macular degeneration</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Retina</span> <span class="ltx_text ltx_bib_volume">41</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages">pp. 686–693</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1097/IAE.0000000000002990" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS4.p1.1" title="I.4 AMD: choriocapillaris support and early progression ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.4</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib36"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">DigitalHolography contributors</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">EyeFlow: open-source retinal low-frequency doppler spectral analysis</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">Software, version 1.24.0Released 23 October 2026; see the low-frequency spectra pipeline; accessed 31 October 2026</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://github.com/DigitalHolography/EyeFlow/releases/tag/v1.24.0" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.SS1.p1.1" title="III.1 Reconstruction and temporal demodulation of the Doppler spectrum ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§III.1</span></a>,
+<a class="ltx_ref" href="#S3.SS2.p2.1" title="III.2 Recovering low-frequency spectra by spatial filtering and complete-beat pooling ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§III.2</span></a>,
+<a class="ltx_ref" href="#S3.SS3.p2.1" title="III.3 Construction of the spectral-excess distribution ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§III.3</span></a>,
+<a class="ltx_ref" href="#S3.SS4.p2.1" title="III.4 Spectral excess index ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§III.4</span></a>,
+<a class="ltx_ref" href="#Sx1.p1.1" title="Open-source code availability ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_title">Open-source code availability</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib43"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Dubosc, M. Boy-Arnould, J. Guillou, T. Gragnic, A. Courselle, G. Hervé, <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Holovibes: real-time ultrahigh-speed digital hologram rendering and short-time analysis</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text ltx_bib_external">2508.03911</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.48550/arXiv.2508.03911" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://arxiv.org/abs/2508.03911" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.SS2.p2.1" title="II.2 Recording conditions ‣ II Experimental methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§II.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib44"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Dubosc, Y. Fischer, Z. Auray, N. Boutry, E. Carlinet, M. Atlan, and T. Geraud</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Improving segmentation of retinal arteries and veins using cardiac signal in Doppler holograms</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">Version 2, revised February 2026</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text ltx_bib_external">2511.14654</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.48550/arXiv.2511.14654" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://arxiv.org/abs/2511.14654" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.SS2.p1.1" title="III.2 Recovering low-frequency spectra by spatial filtering and complete-beat pooling ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§III.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib15"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">N. Enomoto, A. Anraku, G. Tomita, A. Iwase, T. Sato, N. Shoji, T. Shiba, T. Nakazawa, K. Sugiyama, K. Nitta, and M. Araie</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Characterization of laser speckle flowgraphy pulse waveform parameters for the evaluation of the optic nerve head and retinal circulation</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Scientific Reports</span> <span class="ltx_text ltx_bib_volume">11</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 6847</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/s41598-021-86280-5" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS2.p1.1" title="I.2 Glaucoma: peripapillary and macular microvasculature ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib8"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">I. Fredriksson, O. Burdakov, M. Larsson, and T. Strömberg</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Inverse monte carlo in a multilayered tissue model: merging diffuse reflectance spectroscopy and laser doppler flowmetry</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Biomedical Optics</span> <span class="ltx_text ltx_bib_volume">18</span>, <span class="ltx_text ltx_bib_pages">pp. 127004</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/1.JBO.18.12.127004" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S3.SS5.p1.1" title="III.5 Quality control ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§III.5</span></a>,
+<a class="ltx_ref" href="#S5.p2.1" title="V Discussion ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§V</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib19"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[17]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. M. Giammanco, G. G. Bazan Russo, and M. Giammanco</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Laser doppler holography for choroidal blood flow assessment: a systematic review of technical capabilities, validation studies, and clinical applications</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Frontiers in Ophthalmology</span> <span class="ltx_text ltx_bib_volume">6</span>, <span class="ltx_text ltx_bib_pages">pp. 1763171</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.3389/fopht.2026.1763171" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS5.p1.1" title="I.5 Position and objectives ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.5</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib31"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[18]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">X. Guo, Y. Chen, G. Bulloch, K. Xiong, Y. Chen, Y. Li, H. Liao, W. Huang, Z. Zhu, W. Wang, and Guangzhou Diabetic Eye Study Group</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Parapapillary choroidal microvasculature predicts diabetic retinopathy progression and diabetic macular edema development: a three-year prospective study</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">American Journal of Ophthalmology</span> <span class="ltx_text ltx_bib_volume">245</span>, <span class="ltx_text ltx_bib_pages">pp. 164–173</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">PMID: 35863493</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1016/j.ajo.2022.07.008" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1016/j.ajo.2022.07.008" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS3.p1.1" title="I.3 Diabetic retinopathy: plexus-specific ischemia and vascular function ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib22"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[19]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">P. Henkind</span><span class="ltx_text ltx_bib_year"> (1967)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Radial peripapillary capillaries of the retina. i. anatomy: human and comparative</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">British Journal of Ophthalmology</span> <span class="ltx_text ltx_bib_volume">51</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 115–123</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">PMID: 4959937; PMCID: PMC506341</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1136/bjo.51.2.115" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1136/bjo.51.2.115" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS1.p1.1" title="I.1 OCTA and the retinal and choroidal microvascular beds ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib26"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[20]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Y. Jia, E. Wei, X. Wang, X. Zhang, J. C. Morrison, M. Parikh, L. H. Lombardi, D. M. Gattey, R. L. Armour, B. Edmunds, M. F. Kraus, J. G. Fujimoto, and D. Huang</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Optical coherence tomography angiography of optic disc perfusion in glaucoma</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Ophthalmology</span> <span class="ltx_text ltx_bib_volume">121</span> (<span class="ltx_text ltx_bib_number">7</span>), <span class="ltx_text ltx_bib_pages">pp. 1322–1332</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">PMID: 24629312; PMCID: PMC4082728</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1016/j.ophtha.2014.01.021" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1016/j.ophtha.2014.01.021" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS2.p1.1" title="I.2 Glaucoma: peripapillary and macular microvasculature ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib34"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[21]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Kar, G. Corradetti, T. A. Swain, M. E. Clark, Jr. McGwin, C. Owsley, S. R. Sadda, and C. A. Curcio</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Choriocapillaris impairment is associated with delayed rod-mediated dark adaptation in age-related macular degeneration</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Investigative Ophthalmology &amp; Visual Science</span> <span class="ltx_text ltx_bib_volume">64</span> (<span class="ltx_text ltx_bib_number">12</span>), <span class="ltx_text ltx_bib_pages">pp. 41</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">PMID: 37768273; PMCID: PMC10540875</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1167/iovs.64.12.41" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1167/iovs.64.12.41" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS4.p1.1" title="I.4 AMD: choriocapillaris support and early progression ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.4</span></a>,
+<a class="ltx_ref" href="#S5.SS1.p1.1" title="V.1 Relationship to OCTA and functional microvascular phenotyping ‣ V Discussion ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§V.1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib7"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[22]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. P. Kernick, J. E. Tooke, and A. C. Shore</span><span class="ltx_text ltx_bib_year"> (1999)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">The biological zero signal in laser doppler fluximetry—origins and practical implications</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Pflügers Archiv</span> <span class="ltx_text ltx_bib_volume">437</span>, <span class="ltx_text ltx_bib_pages">pp. 624–631</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1007/s004240050826" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.SS5.p1.1" title="III.5 Quality control ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§III.5</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib47"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[23]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Makita, Y. Hong, M. Yamanari, T. Yatagai, and Y. Yasuno</span><span class="ltx_text ltx_bib_year"> (2006)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Optical coherence angiography</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics Express</span> <span class="ltx_text ltx_bib_volume">14</span> (<span class="ltx_text ltx_bib_number">17</span>), <span class="ltx_text ltx_bib_pages">pp. 7821–7840</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OE.14.007821" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/OE.14.007821" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib29"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[24]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Mandecka, J. Dawczynski, M. Blum, N. Müller, C. Kloos, G. Wolf, W. Vilser, H. Hoyer, and U. A. Müller</span><span class="ltx_text ltx_bib_year"> (2007)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Influence of flickering light on the retinal vessels in diabetic patients</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Diabetes Care</span> <span class="ltx_text ltx_bib_volume">30</span> (<span class="ltx_text ltx_bib_number">12</span>), <span class="ltx_text ltx_bib_pages">pp. 3048–3052</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">PMID: 17728481</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.2337/dc07-0927" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.2337/dc07-0927" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS3.p1.1" title="I.3 Diabetic retinopathy: plexus-specific ischemia and vascular function ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib23"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[25]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. S. McLeod and G. A. Lutty</span><span class="ltx_text ltx_bib_year"> (1994)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">High-resolution histologic analysis of the human choroidal vasculature</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Investigative Ophthalmology &amp; Visual Science</span> <span class="ltx_text ltx_bib_volume">35</span> (<span class="ltx_text ltx_bib_number">11</span>), <span class="ltx_text ltx_bib_pages">pp. 3799–3811</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">PMID: 7928177</span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS1.p1.1" title="I.1 OCTA and the retinal and choroidal microvascular beds ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.1</span></a>,
+<a class="ltx_ref" href="#S1.SS4.p1.1" title="I.4 AMD: choriocapillaris support and early progression ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.4</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib49"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[26]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. V. Migacz, I. Gorczynska, M. Azimipour, R. Jonnal, R. J. Zawadzki, and J. S. Werner</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Megahertz-rate optical coherence tomography angiography improves the contrast of the choriocapillaris and choroid in human retinal imaging</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Biomedical Optics Express</span> <span class="ltx_text ltx_bib_volume">10</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 50–65</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/BOE.10.000050" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/BOE.10.000050" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p3.1" title="I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib27"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[27]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Moghimi, L. M. Zangwill, R. C. Penteado, K. Hasenstab, E. Ghahari, H. Hou, M. Christopher, A. Yarmohammadi, P. I. C. Manalastas, T. Shoji, C. Bowd, and R. N. Weinreb</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Macular and optic nerve head vessel density and progressive retinal nerve fiber layer loss in glaucoma</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Ophthalmology</span> <span class="ltx_text ltx_bib_volume">125</span> (<span class="ltx_text ltx_bib_number">11</span>), <span class="ltx_text ltx_bib_pages">pp. 1720–1728</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">PMID: 29907322</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1016/j.ophtha.2018.05.006" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1016/j.ophtha.2018.05.006" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS2.p1.1" title="I.2 Glaucoma: peripapillary and macular microvasculature ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.2</span></a>,
+<a class="ltx_ref" href="#S5.SS1.p1.1" title="V.1 Relationship to OCTA and functional microvascular phenotyping ‣ V Discussion ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§V.1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib35"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[28]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Pu, L. Gao, T. N. Thomas, L. Goerdt, G. Corradetti, D. Kar, Jr. McGwin, J. N. Crosson, C. Owsley, and C. A. Curcio</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Choriocapillaris flow signal deficits are associated with AMD onset and early progression over three years: ALSTAR2 follow-up</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Investigative Ophthalmology &amp; Visual Science</span> <span class="ltx_text ltx_bib_volume">67</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages">pp. 51</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">PMID: 41879246; PMCID: PMC13035000</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1167/iovs.67.3.51" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1167/iovs.67.3.51" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS4.p1.1" title="I.4 AMD: choriocapillaris support and early progression ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.4</span></a>,
+<a class="ltx_ref" href="#S5.SS1.p1.1" title="V.1 Relationship to OCTA and functional microvascular phenotyping ‣ V Discussion ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§V.1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib2"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[29]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Puyo, I. Ferezou, A. Rancillac, M. Simonutti, M. Paques, J. Sahel, M. Fink, and M. Atlan</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Pulsatile microvascular blood flow imaging by short-time fourier transform analysis of ultrafast laser holographic interferometry</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">2015 8th Biomedical Engineering International Conference (BMEiCON)</span>,
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/BMEiCON.2015.7399525" title="">Document</a>,
+<span class="ltx_text ltx_bib_external">1510.01892</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib16"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[30]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Puyo, J. Franke, L. Kutzner, C. Pfäffle, H. Spahr, and G. Hüttmann</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Measuring choriocapillaris blood flow with laser doppler optical coherence tomography</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics Letters</span> <span class="ltx_text ltx_bib_volume">50</span> (<span class="ltx_text ltx_bib_number">8</span>), <span class="ltx_text ltx_bib_pages">pp. 2486–2489</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OL.551061" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS5.p1.1" title="I.5 Position and objectives ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.5</span></a>,
+<a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S1.p3.1" title="I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S1.p4.1" title="I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S5.p2.1" title="V Discussion ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§V</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib5"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[31]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Puyo, M. Paques, and M. Atlan</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Spatio-temporal filtering in laser doppler holography for retinal blood flow imaging</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Biomedical Optics Express</span> <span class="ltx_text ltx_bib_volume">11</span>, <span class="ltx_text ltx_bib_pages">pp. 3274–3287</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/BOE.392699" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p5.1" title="I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S3.SS1.p1.1" title="III.1 Reconstruction and temporal demodulation of the Doppler spectrum ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§III.1</span></a>,
+<a class="ltx_ref" href="#S3.SS5.p1.1" title="III.5 Quality control ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§III.5</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib3"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[32]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Puyo, M. Paques, M. Fink, J. Sahel, and M. Atlan</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">In vivo laser doppler holography of the human retina</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Biomedical Optics Express</span> <span class="ltx_text ltx_bib_volume">9</span>, <span class="ltx_text ltx_bib_pages">pp. 4113–4129</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/BOE.9.004113" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S1.p5.1" title="I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S3.SS1.p1.1" title="III.1 Reconstruction and temporal demodulation of the Doppler spectrum ‣ III Methods ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§III.1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib18"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[33]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Puyo, M. Paques, M. Fink, J. Sahel, and M. Atlan</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Choroidal vasculature imaging with laser doppler holography</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Biomedical Optics Express</span> <span class="ltx_text ltx_bib_volume">10</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 995–1012</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/BOE.10.000995" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS5.p1.1" title="I.5 Position and objectives ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.5</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib4"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[34]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Puyo, M. Paques, M. Fink, J. Sahel, and M. Atlan</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Waveform analysis of human retinal and choroidal blood flow with laser doppler holography</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Biomedical Optics Express</span> <span class="ltx_text ltx_bib_volume">10</span>, <span class="ltx_text ltx_bib_pages">pp. 4942–4963</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/BOE.10.004942" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S1.p5.1" title="I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib6"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[35]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">V. Rajan, B. Varghese, T. G. van Leeuwen, and W. Steenbergen</span><span class="ltx_text ltx_bib_year"> (2009)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Review of methodological developments in laser doppler flowmetry</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Lasers in Medical Science</span> <span class="ltx_text ltx_bib_volume">24</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 269–283</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1007/s10103-007-0524-0" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S5.p2.1" title="V Discussion ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§V</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib17"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[36]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. E. Riva and B. L. Petrig</span><span class="ltx_text ltx_bib_year"> (1995)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Choroidal blood flow by laser doppler flowmetry</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optical Engineering</span> <span class="ltx_text ltx_bib_volume">34</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages">pp. 746–752</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/12.195229" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS5.p1.1" title="I.5 Position and objectives ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.5</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib12"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[37]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. F. Spaide</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Choriocapillaris flow features follow a power law distribution: implications for characterization and mechanisms of disease progression</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">American Journal of Ophthalmology</span> <span class="ltx_text ltx_bib_volume">170</span>, <span class="ltx_text ltx_bib_pages">pp. 58–67</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1016/j.ajo.2016.07.023" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS1.p2.1" title="I.1 OCTA and the retinal and choroidal microvascular beds ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib46"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[38]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">V. J. Srinivasan, S. Sakadžić, I. Gorczynska, S. Ruvinskaya, W. Wu, J. G. Fujimoto, and D. A. Boas</span><span class="ltx_text ltx_bib_year"> (2010)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Quantitative cerebral blood flow with optical coherence tomography</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics Express</span> <span class="ltx_text ltx_bib_volume">18</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages">pp. 2477–2494</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OE.18.002477" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/OE.18.002477" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S1.p4.1" title="I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib38"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[39]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. T. Sun, S. Huang, W. Chan, <span class="ltx_text ltx_bib_etal">et al.</span></span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Impact of cardiometabolic factors on retinal vasculature: a 3 <math alttext="\times" class="ltx_Math" display="inline" id="bib.bib38.m1" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> 3, 6 <math alttext="\times" class="ltx_Math" display="inline" id="bib.bib38.m2" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> 6 and 8 <math alttext="\times" class="ltx_Math" display="inline" id="bib.bib38.m3" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> 8-mm optical coherence tomography angiography study</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Clinical &amp; Experimental Ophthalmology</span> <span class="ltx_text ltx_bib_volume">49</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages">pp. 260–269</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1111/ceo.13913" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1111/ceo.13913" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S5.SS1.p2.1" title="V.1 Relationship to OCTA and functional microvascular phenotyping ‣ V Discussion ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§V.1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib30"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[40]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Z. Sun, F. Tang, R. Wong, J. Lok, S. K. H. Szeto, J. C. K. Chan, C. K. M. Chan, C. C. Tham, D. S. Ng, and C. Y. Cheung</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">OCT angiography metrics predict progression of diabetic retinopathy and development of diabetic macular edema: a prospective study</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Ophthalmology</span> <span class="ltx_text ltx_bib_volume">126</span> (<span class="ltx_text ltx_bib_number">12</span>), <span class="ltx_text ltx_bib_pages">pp. 1675–1684</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">PMID: 31358386</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1016/j.ophtha.2019.06.016" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1016/j.ophtha.2019.06.016" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS1.p2.1" title="I.1 OCTA and the retinal and choroidal microvascular beds ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.1</span></a>,
+<a class="ltx_ref" href="#S1.SS3.p1.1" title="I.3 Diabetic retinopathy: plexus-specific ischemia and vascular function ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.3</span></a>,
+<a class="ltx_ref" href="#S5.SS1.p1.1" title="V.1 Relationship to OCTA and functional microvascular phenotyping ‣ V Discussion ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§V.1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib28"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[41]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">N. Tansuebchueasai, T. Nishida, S. Moghimi, J. Wu, G. Mahmoudinezhad, G. Gunasegaran, A. Kamalipour, L. M. Zangwill, and R. N. Weinreb</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Rate of initial optic nerve head capillary density loss and risk of visual field progression</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">JAMA Ophthalmology</span> <span class="ltx_text ltx_bib_volume">142</span> (<span class="ltx_text ltx_bib_number">6</span>), <span class="ltx_text ltx_bib_pages">pp. 530–537</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">PMID: 38696186; PMCID: PMC11066764</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1001/jamaophthalmol.2024.0906" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1001/jamaophthalmol.2024.0906" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS2.p1.1" title="I.2 Glaucoma: peripapillary and macular microvasculature ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.2</span></a>,
+<a class="ltx_ref" href="#S5.SS1.p1.1" title="V.1 Relationship to OCTA and functional microvascular phenotyping ‣ V Discussion ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§V.1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib40"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[42]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. D. Theuerle, A. H. Al-Fiadh, F. M. A. Islam, S. K. Patel, L. M. Burrell, T. Y. Wong, and O. Farouque</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Impaired retinal microvascular function predicts long-term adverse events in patients with cardiovascular disease</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Cardiovascular Research</span> <span class="ltx_text ltx_bib_volume">117</span> (<span class="ltx_text ltx_bib_number">8</span>), <span class="ltx_text ltx_bib_pages">pp. 1949–1957</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1093/cvr/cvaa245" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1093/cvr/cvaa245" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S5.SS1.p2.1" title="V.1 Relationship to OCTA and functional microvascular phenotyping ‣ V Discussion ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§V.1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib21"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[43]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. Urs, J. A. Ketterling, and R. H. Silverman</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Ultrafast ultrasound imaging of ocular anatomy and blood flow</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Investigative Ophthalmology &amp; Visual Science</span> <span class="ltx_text ltx_bib_volume">57</span> (<span class="ltx_text ltx_bib_number">8</span>), <span class="ltx_text ltx_bib_pages">pp. 3810–3816</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1167/iovs.16-19538" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS5.p1.1" title="I.5 Position and objectives ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.5</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib48"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[44]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. K. Wang, S. L. Jacques, Z. Ma, S. Hurst, S. R. Hanson, and A. Gruber</span><span class="ltx_text ltx_bib_year"> (2007)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Three dimensional optical angiography</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics Express</span> <span class="ltx_text ltx_bib_volume">15</span> (<span class="ltx_text ltx_bib_number">7</span>), <span class="ltx_text ltx_bib_pages">pp. 4083–4097</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OE.15.004083" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/OE.15.004083" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib51"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[45]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">X. Wei, T. T. Hormel, S. Pi, Y. Guo, Y. Jian, and Y. Jia</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">High dynamic range optical coherence tomography angiography (HDR-OCTA)</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Biomedical Optics Express</span> <span class="ltx_text ltx_bib_volume">10</span> (<span class="ltx_text ltx_bib_number">7</span>), <span class="ltx_text ltx_bib_pages">pp. 3560–3571</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/BOE.10.003560" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1364/BOE.10.003560" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS1.p2.1" title="I.1 OCTA and the retinal and choroidal microvascular beds ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.1</span></a>,
+<a class="ltx_ref" href="#S1.p3.1" title="I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib39"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[46]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. M. Yang, D. H. Yang, S. Lee, J. Kwak, Y. Lee, Y. J. Kim, J. Y. Lee, K. R. Sung, and Y. H. Yoon</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Subclinical coronary atherosclerosis and retinal optical coherence tomography angiography</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">JAMA Cardiology</span> <span class="ltx_text ltx_bib_volume">10</span> (<span class="ltx_text ltx_bib_number">11</span>), <span class="ltx_text ltx_bib_pages">pp. 1100–1111</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1001/jamacardio.2025.3036" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1001/jamacardio.2025.3036" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S5.SS1.p2.1" title="V.1 Relationship to OCTA and functional microvascular phenotyping ‣ V Discussion ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§V.1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib32"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[47]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Q. Yang, K. Y. C. Teo, Y. Hong, B. Tan, R. Tan, L. Schmetterer, C. C. Mun, G. C. M. Cheung, T. Y. Wong, and G. S. W. Tan</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Using OCT angiography to predict diabetic retinopathy progression and vision decline in a multiethnic cohort</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Ophthalmology Science</span> <span class="ltx_text ltx_bib_volume">6</span> (<span class="ltx_text ltx_bib_number">5</span>), <span class="ltx_text ltx_bib_pages">pp. 101111</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">PMID: 41958713; PMCID: PMC13059305</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1016/j.xops.2026.101111" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1016/j.xops.2026.101111" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS3.p1.1" title="I.3 Diabetic retinopathy: plexus-specific ischemia and vascular function ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib20"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[48]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Yazdanfar, A. M. Rollins, and J. A. Izatt</span><span class="ltx_text ltx_bib_year"> (2003)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">In vivo imaging of human retinal flow dynamics by color doppler optical coherence tomography</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Archives of Ophthalmology</span> <span class="ltx_text ltx_bib_volume">121</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 235–239</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1001/archopht.121.2.235" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS5.p1.1" title="I.5 Position and objectives ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.5</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib24"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[49]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">P. K. Yu, C. Balaratnasingam, J. Xu, W. H. Morgan, Z. Mammo, S. Han, P. Mackenzie, A. Merkur, A. Kirker, D. Albiani, M. V. Sarunic, and D. Yu</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Label-free density measurements of radial peripapillary capillaries in the human retina</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">PLOS ONE</span> <span class="ltx_text ltx_bib_volume">10</span> (<span class="ltx_text ltx_bib_number">8</span>), <span class="ltx_text ltx_bib_pages">pp. e0135151</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">PMID: 26252395; PMCID: PMC4529151</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1371/journal.pone.0135151" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1371/journal.pone.0135151" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS1.p1.1" title="I.1 OCTA and the retinal and choroidal microvascular beds ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib50"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[50]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Q. Zhang, F. Zheng, E. H. Motulsky, G. Gregori, Z. Chu, C. Chen, C. Li, L. de Sisternes, M. Durbin, P. J. Rosenfeld, and R. K. Wang</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A novel strategy for quantifying choriocapillaris flow voids using swept-source OCT angiography</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Investigative Ophthalmology &amp; Visual Science</span> <span class="ltx_text ltx_bib_volume">59</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 203–211</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1167/iovs.17-22953" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1167/iovs.17-22953" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS1.p2.1" title="I.1 OCTA and the retinal and choroidal microvascular beds ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib33"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[51]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Zhuang, S. Kakihara, A. Busza, B. Duffy, M. Abdelsalam, and A. A. Fawzi</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Baseline deep capillary plexus ischemia predicts earlier diabetic retinopathy complications than foveal avascular enlargement</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">American Journal of Ophthalmology</span> <span class="ltx_text ltx_bib_volume">292</span>, <span class="ltx_text ltx_bib_pages">pp. 322–334</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">PMID: 42600886</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1016/j.ajo.2026.08.014" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1016/j.ajo.2026.08.014" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.SS3.p1.1" title="I.3 Diabetic retinopathy: plexus-specific ischemia and vascular function ‣ I Introduction ‣ Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping"><span class="ltx_text ltx_ref_tag">§I.3</span></a>.
+</span></li>
+</ul>
+</section>
+</article></div></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
