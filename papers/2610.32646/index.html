@@ -1,0 +1,993 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>望远镜近旁浑浊、含气泡且流动水体中的计算成像</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style><style>
+.paper-reader{max-width:860px;margin:0 auto}
+.paper-reader h1{font-size:28px;line-height:1.35;margin:10px 0 6px}
+.paper-reader .original-title{color:var(--muted);font-size:14px;margin-bottom:18px}
+.paper-reader .meta{color:var(--muted);font-size:13px;margin-bottom:20px}
+.paper-reader .toc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:20px 0 28px;font-size:14px}
+.paper-reader .toc ol{margin:6px 0 0 18px;padding:0}
+.paper-reader .toc li{margin:3px 0}
+.paper-reader article{font-size:16px;line-height:1.9}
+.paper-reader h2{font-size:22px;margin:30px 0 10px}
+.paper-reader h3{font-size:18px;margin:22px 0 8px}
+.paper-reader figure{margin:20px 0;text-align:center}
+.paper-reader img{max-width:100%;height:auto}
+.paper-reader figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+.paper-reader table{display:block;overflow-x:auto;border-collapse:collapse;margin:16px 0;font-size:14px}
+.paper-reader math{overflow-x:auto;max-width:100%}
+.paper-reader pre{overflow-x:auto}
+</style></head><body class="">
+<header><a class="brand" href="../index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="../daily/index.html">日报</a><a href="../papers/index.html" aria-current="page">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 中文全文</div><h1>望远镜近旁浑浊、含气泡且流动水体中的计算成像</h1><div class="paper-reader"><h1>望远镜近旁浑浊、含气泡且流动水体中的计算成像</h1><p class="original-title">Computational imaging through turbid, bubbly and flowing water near the telescope</p><p class="meta">arXiv 2610.32646 · 机器翻译，公式与图表保留原文</p><nav class="toc"><strong>目录</strong><ol></ol></nav><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">望远镜近旁浑浊、含气泡且流动水体中的计算成像</h1>
+<span class="ltx_pubnotes ltx_pubnotes_meta"><span class="ltx_pubnotes_content"><span class="ltx_pubnote ltx_role_journal"><span class="ltx_note_name">Journal: </span>opticajournal</span><span class="ltx_pubnote ltx_role_type"><span class="ltx_note_name">Publication type: </span>Research Article</span></span></span>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Alexander Ingold
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"><sup class="ltx_sup" id="id1">1</sup> Sabina D. Menon
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"><sup class="ltx_sup" id="id2">2</sup> Aadhi Umamageswaran
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"><sup class="ltx_sup" id="id3">3</sup> Alec Ikei
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"><sup class="ltx_sup" id="id4">2</sup> May H. Hlaing
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"><sup class="ltx_sup" id="id5">2</sup> Syed N. Qadri
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"><sup class="ltx_sup" id="id6">2</sup> and Rajesh Menon<sup class="ltx_sup" id="id7">1,*</sup>
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_address"><span class="ltx_contact_name">Address: </span><sup class="ltx_sup" id="id8">1</sup> Department of Electrical and Computer Engineering, University of Utah, Salt Lake City, UT 84112, USA
+<br class="ltx_break"/><sup class="ltx_sup" id="id9">2</sup> U.S. Naval Research Laboratory Remote Sensing Division, Washington DC 20375, USA.
+<br class="ltx_break"/><sup class="ltx_sup" id="id10">3</sup> Department of Electrical Engineering and Computer Science, Massachusetts Institute of Technology, Cambridge, MA 02139 USA.
+</span>
+<span class="ltx_contact ltx_role_email"><span class="ltx_contact_name">Email: </span><a href="mailto:rmenon@eng.utah.edu"><sup class="ltx_sup" id="id11">*</sup>rmenon@eng.utah.edu</a>
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1">
+<p class="ltx_p" id="abstract1.1">碎波带或船舶尾流后方的相机，往往需要透过紧贴镜头且不断变化的浑浊、含气泡、流动水体成像，而复原网络通常只在显示图像上评分。我们构建了一个实测数据集：望远镜透过位于其物镜前45 mm处、厚25 mm的水层观测显示图像与实物，涵盖流动、气泡与浑浊度的七种组合，并以清水录像作为第二组参照。由于悬浮物将光散射到远超出1.3°视场的范围，浑浊主要表现为对比度下降，在西门子星图上降低4.4至4.8倍。对八帧取平均后再复原，相比单帧可将结构相似性（SSIM）提高0.032，而学习式帧融合收益甚微。单个原始帧即可支持五类别识别（96.8%），效果与复原图像相当。加入合成训练图像对后，显示图像的评分保持不变，但复原后的西门子星图与其清水录像的相关性从低于0.5提升到高于0.9。这些网络无需重新训练即可改善普通水下照片，而仅用实测图像对训练则无法做到。以数字源图像或清水录像为参照评分时，原始帧与复原图像的排序会反转。上述结果支持一套简洁流程：对帧取平均，直接对原始帧分类，并用实测与合成图像对训练的网络进行复原。</p>
+</div>
+<section class="ltx_section" id="S1">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">1 </span>引言</h2>
+<div class="ltx_para" id="S1.p1">
+<p class="ltx_p" id="S1.p1.1">许多相机需要透过紧贴光学元件且不断变化的水体成像。碎波带中的相机透过充满气泡和悬浮泥沙的破碎波浪观测；螺旋桨附近的传感器透过其尾流观测；水下平台向上透过运动的水面观测；港口、洪水与水产养殖相机则透过浑浊水体观测（图 <a class="ltx_ref" href="#S1.F1" title="Figure 1 ‣ 1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">1</span></a>a）。真正有价值的输出可能是一幅图像、关于场景内容的判断，或两者兼而有之。</p>
+</div>
+<figure class="ltx_figure" id="S1.F1"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="267" id="S1.F1.g1" src="assets/Fig1.png" style="aspect-ratio:476/267;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 1：</span>应用、装置与测量。（a）透过水体观测的相机：向上透过起伏且含气泡的水面、透过破碎碎波、透过船舶尾流，以及透过浑浊水体。（b）一台Seestar S50望远镜（50 mm光阑）透过一段25 mm的水路观测约15.2 m远处的显示图像或实物，水路近端面距物镜45 mm。电机驱动水流，气泵产生气泡，牛奶制造浑浊。照片展示了水箱的五种状态；另见可视化材料1–4。（c）显示的数字图像以及七种条件下记录的对应帧。请注意，清水图像为单帧，退化源于望远镜固有的光学特性与光路中的水。该图像仅用于说明，不纳入任何定量结果。</figcaption>
+</figure>
+<div class="ltx_para" id="S1.p2">
+<p class="ltx_p" id="S1.p2.1">水下图像形成通常被写为一个衰减的直接图像、一个前向散射分量和一个后向散射光幕 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib2" title="">29</a>, <a class="ltx_ref" href="#bib.bib3" title="">22</a>]</cite>。
+复原方法从偏振 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib6" title="">38</a>]</cite>、从图像先验 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib7" title="">18</a>, <a class="ltx_ref" href="#bib.bib8" title="">12</a>, <a class="ltx_ref" href="#bib.bib9" title="">33</a>]</cite>，或从一个修正模型（其中直接光与后向散射光的衰减不同）<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib4" title="">1</a>, <a class="ltx_ref" href="#bib.bib5" title="">2</a>]</cite>来估计透射率与光幕。学习型增强在 Underwater Image Enhancement Benchmark (UIEB) 上进行基准测试，其参考图像是增强方法的偏好输出而非清水拍摄图像 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib10" title="">24</a>]</cite>；参考文献 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib11" title="">4</a>]</cite> 对该领域作了综述。这些方法假设介质充满通往场景的光路，且介质是静态的。另一类文献研究运动的气-水界面，其折射在每帧中以不同方式局部扭曲图像；复原通过对序列进行配准、分解或学习来完成 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib12" title="">44</a>, <a class="ltx_ref" href="#bib.bib13" title="">31</a>, <a class="ltx_ref" href="#bib.bib14" title="">26</a>, <a class="ltx_ref" href="#bib.bib16" title="">23</a>, <a class="ltx_ref" href="#bib.bib15" title="">43</a>]</cite>。
+破碎波卷入的气泡作为散射体已被充分表征 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib17" title="">50</a>, <a class="ltx_ref" href="#bib.bib18" title="">42</a>, <a class="ltx_ref" href="#bib.bib19" title="">39</a>, <a class="ltx_ref" href="#bib.bib20" title="">35</a>]</cite>，但我们未发现任何在含气泡的浑浊水中、以实测真值为依据的成像或复原研究。</p>
+</div>
+<div class="ltx_para" id="S1.p3">
+<p class="ltx_p" id="S1.p3.1">学习型散射成像已能透过漫射体、厚板和动态介质恢复物体 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib21" title="">25</a>, <a class="ltx_ref" href="#bib.bib22" title="">28</a>, <a class="ltx_ref" href="#bib.bib23" title="">40</a>]</cite>，门控网络可适应一系列散射强度 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib24" title="">41</a>]</cite>。与我们的工作最接近的是，Liu 等人在透过浑浊水箱记录的成对图像上训练网络（目标显示在屏幕上），并透过牛奶和雾恢复了实物 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib25" title="">27</a>]</cite>。在我们此前的雾天工作中，用真实成对图像训练的网络实现了真实场景去雾 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib26" title="">34</a>]</cite>；像素级配准的雾室数据与合成数据微调相结合，使去雾跨越了域的差异 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">21</a>]</cite>。这些研究以显示的目标或清晰目标为参照对复原结果进行评分。</p>
+</div>
+<div class="ltx_para" id="S1.p4">
+<p class="ltx_p" id="S1.p4.1">透镜附近薄散射层的光学特性预示了这些问题应有的答案。靠近接收器的散射层是小角散射造成模糊的最不利位置，因为光瞳处的角度偏折直接映射为像面位移 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib32" title="">14</a>, <a class="ltx_ref" href="#bib.bib33" title="">16</a>]</cite>。然而，当散射瓣远宽于视场时，散射光会离开图像或扩展成近乎均匀的光幕，且介质以同一因子降低所有精细空间频率处的对比度 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib29" title="">8</a>, <a class="ltx_ref" href="#bib.bib30" title="">36</a>, <a class="ltx_ref" href="#bib.bib31" title="">13</a>]</cite>。浑浊介质的调制传递函数已被建模 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib27" title="">48</a>]</cite>，并用点光源和扇形星标进行了测量 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib28" title="">20</a>, <a class="ltx_ref" href="#bib.bib32" title="">14</a>, <a class="ltx_ref" href="#bib.bib34" title="">5</a>]</cite>，但尚未在含气泡和流动的条件下测量，也未与学习型复原或识别联系起来。</p>
+</div>
+<div class="ltx_para" id="S1.p5">
+<p class="ltx_p" id="S1.p5.1">如果水的作用主要是降低对比度，则可推出三点结论。第一，当各帧在模糊、像移或局部畸变上存在差异时，连拍方法相比单帧更具优势 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib36" title="">10</a>, <a class="ltx_ref" href="#bib.bib37" title="">17</a>, <a class="ltx_ref" href="#bib.bib38" title="">46</a>, <a class="ltx_ref" href="#bib.bib39" title="">7</a>, <a class="ltx_ref" href="#bib.bib40" title="">15</a>, <a class="ltx_ref" href="#bib.bib41" title="">3</a>, <a class="ltx_ref" href="#bib.bib42" title="">51</a>]</cite>；如果退化在整个视场内基本相同且变化缓慢，则几乎不会提供这种多样性，因此帧平均应承载大部分信息。第二，识别不应依赖复原。去雾与增强并不能可靠地改善分类或分割 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib43" title="">32</a>, <a class="ltx_ref" href="#bib.bib44" title="">37</a>, <a class="ltx_ref" href="#bib.bib45" title="">45</a>]</cite>，而且分类器对模糊和噪声比对对比度损失更敏感 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib46" title="">11</a>]</cite>，尽管训练中未出现过的退化仍会降低准确度 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib47" title="">19</a>]</cite>；因此我们直接在退化帧上训练分类器。第三，由于测量结果本身已包含结构信息，复原网络可以改善色调并抑制噪声，也可能凭空生成标准指标无法惩罚的结构 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib48" title="">6</a>]</cite>。出现哪一种情况取决于训练数据。</p>
+</div>
+<div class="ltx_para" id="S1.p6">
+<p class="ltx_p" id="S1.p6.1">我们在靠近光学元件的水体条件下检验这些预测。通过位于望远镜物镜前45 mm处的水槽记录流动、气泡和浑浊度的七种组合（图 <a class="ltx_ref" href="#S1.F1" title="Figure 1 ‣ 1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">1</span></a>b），其中显示图像用于成对评估，实物目标用于迁移测试。本文的贡献如下：</p>
+<ol class="ltx_enumerate" id="S1.I1">
+<li class="ltx_item" id="S1.I1.i1" style="list-style-type:none;"><span class="ltx_tag ltx_tag_item">1.</span>
+<div class="ltx_para" id="S1.I1.i1.p1">
+<p class="ltx_p" id="S1.I1.i1.p1.1">一个涵盖流动、气泡和浑浊条件下近镜头水体的数据集，记录时采用两类参考：显示的数字图像，以及同一批显示图像和实物目标的清水记录。</p>
+</div></li>
+<li class="ltx_item" id="S1.I1.i2" style="list-style-type:none;"><span class="ltx_tag ltx_tag_item">2.</span>
+<div class="ltx_para" id="S1.I1.i2.p1">
+<p class="ltx_p" id="S1.I1.i2.p1.1">西门子星靶测量结果表明，浑浊使对比度降至原来的四分之一到五分之一，而图像模糊较小，且无论有无气泡和流动均如此，这与散射瓣远宽于视场的预期一致。</p>
+</div></li>
+<li class="ltx_item" id="S1.I1.i3" style="list-style-type:none;"><span class="ltx_tag ltx_tag_item">3.</span>
+<div class="ltx_para" id="S1.I1.i3.p1">
+<p class="ltx_p" id="S1.I1.i3.p1.1">对学习式连拍融合与基于帧均值训练的网络所作的对比测试，涵盖三种网络架构，结果表明八帧相比其平均值带来的增益很有限。</p>
+</div></li>
+<li class="ltx_item" id="S1.I1.i4" style="list-style-type:none;"><span class="ltx_tag ltx_tag_item">4.</span>
+<div class="ltx_para" id="S1.I1.i4.p1">
+<p class="ltx_p" id="S1.I1.i4.p1.1">合成训练对，将我们的去雾方法 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">21</a>]</cite> 扩展到动态水体，使在显示图像上训练的网络能够迁移到实物目标而不生成虚构结构。在固定架构和训练预算下，这些训练对使显示图像上的得分保持不变，但把复原后西门子星靶与其清水记录的相关性从低于0.5提高到高于0.9。</p>
+</div></li>
+<li class="ltx_item" id="S1.I1.i5" style="list-style-type:none;"><span class="ltx_tag ltx_tag_item">5.</span>
+<div class="ltx_para" id="S1.I1.i5.p1">
+<p class="ltx_p" id="S1.I1.i5.p1.1">基于单张原始帧的类别识别（96.8%）与基于复原图像的识别结果相当，并证明参考的选取（数字源或清水记录）会逆转原始图像与复原图像的排名。</p>
+</div></li>
+</ol>
+</div>
+</section>
+<section class="ltx_section" id="S2">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">2 </span>方法</h2>
+<section class="ltx_subsection" id="S2.SS1">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">2.1 </span>装置与数据</h3>
+<div class="ltx_para" id="S2.SS1.p1">
+<p class="ltx_p" id="S2.SS1.p1.1">在笔记本电脑显示屏上显示的静态图像，或放置在显示屏位置的实物，由一台 Seestar S50 望远镜（ZWO）成像，其物镜光阑直径为 <math alttext="D=50" class="ltx_Math" display="inline" id="S2.SS1.p1.m1" intent=":literal"><semantics><mrow><mi>D</mi><mo>=</mo><mn>50</mn></mrow><annotation encoding="application/x-tex">D=50</annotation></semantics></math> mm、焦距为 <math alttext="f=250" class="ltx_Math" display="inline" id="S2.SS1.p1.m2" intent=":literal"><semantics><mrow><mi>f</mi><mo>=</mo><mn>250</mn></mrow><annotation encoding="application/x-tex">f=250</annotation></semantics></math> mm，成像于 Sony IMX462 彩色传感器（<math alttext="1920\times 1080" class="ltx_Math" display="inline" id="S2.SS1.p1.m3" intent=":literal"><semantics><mrow><mn>1920</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>1080</mn></mrow><annotation encoding="application/x-tex">1920\times 1080</annotation></semantics></math> 像素，2.9 µm 像素间距）上。用激光测距仪测得的物距为 15.2 m；不同测量时段的读数范围为 15.2 到 15.6 m。一个水程为 25 mm 的玻璃水槽，其近侧面距物镜 45 mm。</p>
+</div>
+<div class="ltx_para" id="S2.SS1.p2">
+<p class="ltx_p" id="S2.SS1.p2.1">七种条件分别为清水（C）、低速马达（LM）、高速马达（HM）、清水+气泡+马达（C+B+M）、浑浊（T）、浑浊+气泡（T+B）、浑浊+气泡+高速马达（T+B+HM）。浸没的马达以两种转速驱动水流，气泵产生气泡，在水中加入牛奶来设定浑浊度（第 S8.2 节）。我们不赋予经过标定的光学厚度；西门子星（Siemens star）的对比度（第 <a class="ltx_ref" href="#S3.SS2" title="3.2 Restoring images of real objects ‣ 3 Results ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">3.2</span></a> 节）作为严重程度的操作性度量。</p>
+</div>
+<div class="ltx_para" id="S2.SS1.p3">
+<p class="ltx_p" id="S2.SS1.p3.1">每幅显示的图像被分配到训练集、调优集或评估集之一，并在所有条件下保持该角色不变，因此在任何条件下，评估图像都不会出现在训练中。成对复原使用 2,648 条训练、365 条调优和 329 条评估录制数据，分别对应 580、76 和 72 幅图像。识别使用五个类别（服饰、艺术品、汽车、餐具和家具），在相同的身份角色下包含 2,758 条训练、372 条调优和 345 条评估录制数据；额外的录制数据具有经核实的类别标签，但没有被采纳的成对复原目标。从每条录制数据中截取 8 帧，裁剪到所显示的图像，并通过区域平均重采样为 <math alttext="256\times 256" class="ltx_Math" display="inline" id="S2.SS1.p3.m1" intent=":literal"><semantics><mrow><mn>256</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>256</mn></mrow><annotation encoding="application/x-tex">256\times 256</annotation></semantics></math> RGB 像素（第 S8.2 节）。光强取相机编码的 8-bit 数值除以 255，不进行辐射度线性化。</p>
+</div>
+<div class="ltx_para" id="S2.SS1.p4">
+<p class="ltx_p" id="S2.SS1.p4.1">二十四条实物录制数据仅用于评估。六件物体（西门子星、条形靶板、点阵、链条、徽标和带字母的标牌）在 T 和 T+B+HM 条件下录制。四件物体（西门子星、点阵和条形靶板在 C、C+B 和 C+B+HM 条件下录制。C+B 和 C+B+HM 是仅有物体的条件。清水与浑浊条件下的物体录制来自不同时段，因此其图像尺度最多相差 8%；配准方法见第 3.3 节。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S2.SS2">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">2.2 </span>图像形成模型</h3>
+<div class="ltx_para" id="S2.SS2.p1">
+<p class="ltx_p" id="S2.SS2.p1.1">设 <math alttext="O_{c}(\mathbf{x})" class="ltx_Math" display="inline" id="S2.SS2.p1.m1" intent=":literal"><semantics><mrow><msub><mi>O</mi><mi>c</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">O_{c}(\mathbf{x})</annotation></semantics></math> 为颜色通道 <math alttext="c" class="ltx_Math" display="inline" id="S2.SS2.p1.m2" intent=":literal"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math> 在图像位置 <math alttext="\mathbf{x}" class="ltx_Math" display="inline" id="S2.SS2.p1.m3" intent=":literal"><semantics><mi>𝐱</mi><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math> 处的场景，<math alttext="I_{c}(\mathbf{x},t)" class="ltx_Math" display="inline" id="S2.SS2.p1.m4" intent=":literal"><semantics><mrow><msub><mi>I</mi><mi>c</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo>,</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">I_{c}(\mathbf{x},t)</annotation></semantics></math> 为时刻 <math alttext="t" class="ltx_Math" display="inline" id="S2.SS2.p1.m5" intent=":literal"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> 记录的帧。我们写出</p>
+<table class="ltx_equation ltx_eqn_table" id="S2.E1">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="I_{c}(\mathbf{x},t)=\alpha_{c}(t)\,\bigl[h_{t}\ast O_{c}\bigr](\mathbf{x}-\mathbf{s}_{t})+V_{c}(t)+n_{c}(\mathbf{x},t)," class="ltx_Math" display="block" id="S2.E1.m1" intent=":literal"><semantics><mrow><mrow><mrow><msub><mi>I</mi><mi>c</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo>,</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mrow><msub><mi>α</mi><mi>c</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow><mo lspace="0.170em" rspace="0em">​</mo><mrow><mo maxsize="1.200em" minsize="1.200em">[</mo><mrow><msub><mi>h</mi><mi>t</mi></msub><mo lspace="0.222em" rspace="0.222em">∗</mo><msub><mi>O</mi><mi>c</mi></msub></mrow><mo maxsize="1.200em" minsize="1.200em">]</mo></mrow><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mrow><mi>𝐱</mi><mo>−</mo><msub><mi>𝐬</mi><mi>t</mi></msub></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>+</mo><mrow><msub><mi>V</mi><mi>c</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo>+</mo><mrow><msub><mi>n</mi><mi>c</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>𝐱</mi><mo>,</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">I_{c}(\mathbf{x},t)=\alpha_{c}(t)\,\bigl[h_{t}\ast O_{c}\bigr](\mathbf{x}-\mathbf{s}_{t})+V_{c}(t)+n_{c}(\mathbf{x},t),</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(1)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S2.SS2.p1.2">式中，<math alttext="\alpha_{c}" class="ltx_Math" display="inline" id="S2.SS2.p1.m6" intent=":literal"><semantics><msub><mi>α</mi><mi>c</mi></msub><annotation encoding="application/x-tex">\alpha_{c}</annotation></semantics></math> 为透射率，<math alttext="h_{t}" class="ltx_Math" display="inline" id="S2.SS2.p1.m7" intent=":literal"><semantics><msub><mi>h</mi><mi>t</mi></msub><annotation encoding="application/x-tex">h_{t}</annotation></semantics></math> 为点扩散函数，<math alttext="\ast" class="ltx_Math" display="inline" id="S2.SS2.p1.m8" intent=":literal"><semantics><mo>∗</mo><annotation encoding="application/x-tex">\ast</annotation></semantics></math> 表示卷积，<math alttext="\mathbf{s}_{t}" class="ltx_Math" display="inline" id="S2.SS2.p1.m9" intent=":literal"><semantics><msub><mi>𝐬</mi><mi>t</mi></msub><annotation encoding="application/x-tex">\mathbf{s}_{t}</annotation></semantics></math> 为整体图像平移，<math alttext="V_{c}" class="ltx_Math" display="inline" id="S2.SS2.p1.m10" intent=":literal"><semantics><msub><mi>V</mi><mi>c</mi></msub><annotation encoding="application/x-tex">V_{c}</annotation></semantics></math> 为在整个视场内均匀的光幕，<math alttext="n_{c}" class="ltx_Math" display="inline" id="S2.SS2.p1.m11" intent=":literal"><semantics><msub><mi>n</mi><mi>c</mi></msub><annotation encoding="application/x-tex">n_{c}</annotation></semantics></math> 为噪声。</p>
+</div>
+<div class="ltx_para" id="S2.SS2.p2">
+<p class="ltx_p" id="S2.SS2.p2.1">几何结构的两个性质使这一形式成立。第一，水层中平面距物镜 57.5 mm，不到物距的 0.4%，因此来自不同视场点的光束在水中几乎完全重叠：在中平面处，来自视场中心和边缘、直径为 <math alttext="D" class="ltx_Math" display="inline" id="S2.SS2.p2.m1" intent=":literal"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math> 的两束光，其照射区域除 1.6% 外完全重合。因此退化在整个视场内是相同的，<math alttext="h_{t}" class="ltx_Math" display="inline" id="S2.SS2.p2.m2" intent=":literal"><semantics><msub><mi>h</mi><mi>t</mi></msub><annotation encoding="application/x-tex">h_{t}</annotation></semantics></math>、<math alttext="\mathbf{s}_{t}" class="ltx_Math" display="inline" id="S2.SS2.p2.m3" intent=":literal"><semantics><msub><mi>𝐬</mi><mi>t</mi></msub><annotation encoding="application/x-tex">\mathbf{s}_{t}</annotation></semantics></math> 和 <math alttext="V_{c}" class="ltx_Math" display="inline" id="S2.SS2.p2.m4" intent=":literal"><semantics><msub><mi>V</mi><mi>c</mi></msub><annotation encoding="application/x-tex">V_{c}</annotation></semantics></math> 不依赖于 <math alttext="\mathbf{x}" class="ltx_Math" display="inline" id="S2.SS2.p2.m5" intent=":literal"><semantics><mi>𝐱</mi><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math>。</p>
+</div>
+<div class="ltx_para" id="S2.SS2.p3">
+<p class="ltx_p" id="S2.SS2.p3.1">其次，位置本身并不能防止模糊；靠近接收器的层是小角散射最不利的位置 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib32" title="">14</a>]</cite>。由于散射瓣相对视场很宽，模糊有所减弱（但并未消除）。在水中偏转达0.30 rad的光仍能进入物镜，但只有沿轴向 <math alttext="\pm 8.3" class="ltx_Math" display="inline" id="S2.SS2.p3.m1" intent=":literal"><semantics><mrow><mo>±</mo><mn>8.3</mn></mrow><annotation encoding="application/x-tex">\pm 8.3</annotation></semantics></math> mrad（空气中为 <math alttext="\pm 11.1" class="ltx_Math" display="inline" id="S2.SS2.p3.m2" intent=":literal"><semantics><mrow><mo>±</mo><mn>11.1</mn></mrow><annotation encoding="application/x-tex">\pm 11.1</annotation></semantics></math> mrad）范围内传播的光才能到达传感器。对于各向异性为 <math alttext="g=0.9" class="ltx_Math" display="inline" id="S2.SS2.p3.m3" intent=":literal"><semantics><mrow><mi>g</mi><mo>=</mo><mn>0.9</mn></mrow><annotation encoding="application/x-tex">g=0.9</annotation></semantics></math> 的 Henyey-Greenstein 相函数——这是水中牛奶的典型值 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib35" title="">30</a>]</cite>——单次散射光中仅有0.33%被偏转小于该角度，且对于任意 <math alttext="g\leq 0.95" class="ltx_Math" display="inline" id="S2.SS2.p3.m4" intent=":literal"><semantics><mrow><mi>g</mi><mo>≤</mo><mn>0.95</mn></mrow><annotation encoding="application/x-tex">g\leq 0.95</annotation></semantics></math>，该比例均低于1.3%。因此，散射把光线从图像中移除，或将其展布到远大于视场的角范围，而不是形成光晕。周围环境的光被水散射后射向物镜，叠加了一层近似均匀的光幕。因此，浊度应当使 <math alttext="\alpha_{c}" class="ltx_Math" display="inline" id="S2.SS2.p3.m5" intent=":literal"><semantics><msub><mi>α</mi><mi>c</mi></msub><annotation encoding="application/x-tex">\alpha_{c}</annotation></semantics></math> 降低、<math alttext="V_{c}" class="ltx_Math" display="inline" id="S2.SS2.p3.m6" intent=":literal"><semantics><msub><mi>V</mi><mi>c</mi></msub><annotation encoding="application/x-tex">V_{c}</annotation></semantics></math> 升高，而 <math alttext="h_{t}" class="ltx_Math" display="inline" id="S2.SS2.p3.m7" intent=":literal"><semantics><msub><mi>h</mi><mi>t</mi></msub><annotation encoding="application/x-tex">h_{t}</annotation></semantics></math> 仍保持接近清水时的形式，这正是气溶胶调制传递函数的平台区 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib29" title="">8</a>, <a class="ltx_ref" href="#bib.bib30" title="">36</a>]</cite>。</p>
+</div>
+<div class="ltx_para" id="S2.SS2.p4">
+<p class="ltx_p" id="S2.SS2.p4.1">流动与气泡的作用不同。光瞳附近的气泡是随光束移动的毫米量级折射与遮挡元件，而流动会使水体产生倾斜和畸变；两者都会在整个视场内一致地改变 <math alttext="\mathbf{s}_{t}" class="ltx_Math" display="inline" id="S2.SS2.p4.m1" intent=":literal"><semantics><msub><mi>𝐬</mi><mi>t</mi></msub><annotation encoding="application/x-tex">\mathbf{s}_{t}</annotation></semantics></math> 和 <math alttext="h_{t}" class="ltx_Math" display="inline" id="S2.SS2.p4.m2" intent=":literal"><semantics><msub><mi>h</mi><mi>t</mi></msub><annotation encoding="application/x-tex">h_{t}</annotation></semantics></math>，且不引入光幕。若 <math alttext="h_{t}" class="ltx_Math" display="inline" id="S2.SS2.p4.m3" intent=":literal"><semantics><msub><mi>h</mi><mi>t</mi></msub><annotation encoding="application/x-tex">h_{t}</annotation></semantics></math> 在帧间变化剧烈，连拍方法仍可从这些变化中获益：在每个空间频率上优先选取通过性最好的帧 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib36" title="">10</a>]</cite>。当 <math alttext="h_{t}" class="ltx_Math" display="inline" id="S2.SS2.p4.m4" intent=":literal"><semantics><msub><mi>h</mi><mi>t</mi></msub><annotation encoding="application/x-tex">h_{t}</annotation></semantics></math> 在这八帧中变化较小时，增益应当很小，第 <a class="ltx_ref" href="#S3.SS1" title="3.1 Eight frames add little beyond their average ‣ 3 Results ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">3.1</span></a> 节对此进行了检验。补充材料 1 的第 S8.1 节给出了推导。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S2.SS3">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">2.3 </span>复原、基线与识别</h3>
+<div class="ltx_para" id="S2.SS3.p1">
+<p class="ltx_p" id="S2.SS3.p1.1">主复原网络为联合RGB的 Restormer <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib50" title="">49</a>]</cite>。该网络训练65,536次更新，将记录帧映射为显示的数字图像，其损失函数综合了 Charbonnier 像素误差、SSIM 与图像梯度误差（第 S8.3 节）。每四次更新中有一次使用合成样本对而非实测样本对，沿用我们此前的去雾工作 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">21</a>]</cite>。每个合成样本对从固定的 COCO test2017 源列表中取一幅干净的 <math alttext="256\times 256" class="ltx_Math" display="inline" id="S2.SS3.p1.m1" intent=":literal"><semantics><mrow><mn>256</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>256</mn></mrow><annotation encoding="application/x-tex">256\times 256</annotation></semantics></math> 自然图像裁块作为目标，并按式（<a class="ltx_ref" href="#S2.E1" title="In 2.2 Image-formation model ‣ 2 Methods ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">1</span></a>）对其施加八次退化：随通道变化的透射率 <math alttext="\alpha_{c}" class="ltx_Math" display="inline" id="S2.SS3.p1.m2" intent=":literal"><semantics><msub><mi>α</mi><mi>c</mi></msub><annotation encoding="application/x-tex">\alpha_{c}</annotation></semantics></math>、加性光幕 <math alttext="V_{c}" class="ltx_Math" display="inline" id="S2.SS3.p1.m3" intent=":literal"><semantics><msub><mi>V</mi><mi>c</mi></msub><annotation encoding="application/x-tex">V_{c}</annotation></semantics></math>、在图像上缓慢变化的平滑增益、对应 <math alttext="h_{t}" class="ltx_Math" display="inline" id="S2.SS3.p1.m4" intent=":literal"><semantics><msub><mi>h</mi><mi>t</mi></msub><annotation encoding="application/x-tex">h_{t}</annotation></semantics></math> 的高斯模糊，以及弱的独立噪声，参数在八个视角间漂移2%。退化强度从无到强不等，参数范围仅依据训练录像拟合。生成器并未显式建模气泡或折射，其参数也不是经过标定的光学厚度。</p>
+</div>
+<div class="ltx_para" id="S2.SS3.p2">
+<p class="ltx_p" id="S2.SS3.p2.1">分别训练的模型要么接收八帧（连拍），要么接收其算术平均值并复制到全部八个输入中（训练均值），因此两者只有输入不同。EDVR <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib38" title="">46</a>]</cite> 与 NAFNet <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib51" title="">9</a>]</cite> 分别采用单帧、均值与连拍输入，作为架构对照。一个仅用实测图像对训练、且预算相同的 Restormer，用于分离合成数据的影响。主要的复原对比使用随机种子 1337，而第 S4 节给出了当前数据集上 Restormer 的双种子对比，所完成的种子为 1337 和 4099；检查点按调优集 SSIM 最高选取<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib49" title="">47</a>]</cite>。</p>
+</div>
+<div class="ltx_para" id="S2.SS3.p3">
+<p class="ltx_p" id="S2.SS3.p3.1">不训练的基线方法是对八帧均值做逐通道对比度拉伸：减去第 1 百分位数，除以到第 99 百分位数的范围，再截断到 <math alttext="[0,1]" class="ltx_Math" display="inline" id="S2.SS3.p3.m1" intent=":literal"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0,1]</annotation></semantics></math>。当 <math alttext="h_{t}" class="ltx_Math" display="inline" id="S2.SS3.p3.m2" intent=":literal"><semantics><msub><mi>h</mi><mi>t</mi></msub><annotation encoding="application/x-tex">h_{t}</annotation></semantics></math> 接近 δ 函数且场景覆盖从暗到亮的范围时，该操作可在相差一个比例因子的意义上抵消式（<a class="ltx_ref" href="#S2.E1" title="In 2.2 Image-formation model ‣ 2 Methods ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">1</span></a>）中的 <math alttext="\alpha_{c}" class="ltx_Math" display="inline" id="S2.SS3.p3.m3" intent=":literal"><semantics><msub><mi>α</mi><mi>c</mi></msub><annotation encoding="application/x-tex">\alpha_{c}</annotation></semantics></math> 与 <math alttext="V_{c}" class="ltx_Math" display="inline" id="S2.SS3.p3.m4" intent=":literal"><semantics><msub><mi>V</mi><mi>c</mi></msub><annotation encoding="application/x-tex">V_{c}</annotation></semantics></math>。它的作用是检验测量本身包含什么，而不是作为一种复原方法。</p>
+</div>
+<div class="ltx_para" id="S2.SS3.p4">
+<p class="ltx_p" id="S2.SS3.p4.1">识别采用在 ImageNet 上预训练的 ResNet-50，输出五类，在全部七种条件下汇集的训练数据上训练 1,000 次更新，随机种子为 1337、2027 和 4099。其输入为单帧原始图像、八帧原始图像（对帧嵌入取平均），或复原器的输出；第 S3 节和表 S4 列出全部 10 种输入。在同一条件内对同一幅图像的各次录制的类别概率取平均，得到每条件的准确度，再对各条件取平均，得到每幅图像的一个标签。</p>
+</div>
+<figure class="ltx_figure" id="S2.F2"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="357" id="S2.F2.g1" src="assets/Fig2.png" style="aspect-ratio:476/357;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 2：</span>显示图像的复原结果。(a) 在各条件下，由以帧均值训练的网络和以八帧训练的网络所复原的保留图像。(b) 相对于显示图像的 SSIM：实测单帧、由 8 帧均值复原，以及由帧连拍复原（视频）；<math alttext="n" class="ltx_Math" display="inline" id="S2.F2.m2" intent=":literal"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> 为评估图像的数量。另见可视化 5–11。</figcaption>
+</figure>
+</section>
+</section>
+<section class="ltx_section" id="S3">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">3 </span>结果</h2>
+<section class="ltx_subsection" id="S3.SS1">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">3.1 </span>八帧相对于其平均值几乎没有额外增益</h3>
+<div class="ltx_para" id="S3.SS1.p1">
+<p class="ltx_p" id="S3.SS1.p1.1">我们以相对于显示数字图像的 SSIM 评价复原效果，计算时在 <math alttext="[0,1]" class="ltx_Math" display="inline" id="S3.SS1.p1.m2" intent=":literal"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0,1]</annotation></semantics></math> 中对 RGB 值使用 <math alttext="7\times 7" class="ltx_Math" display="inline" id="S3.SS1.p1.m1" intent=":literal"><semantics><mrow><mn>7</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>7</mn></mrow><annotation encoding="application/x-tex">7\times 7</annotation></semantics></math> 均匀窗口。峰值信噪比（PSNR）与平均绝对误差（MAE）列于表 S2。分数先在同一条件内对每幅图像的各次录制取平均，再对各图像等权平均。配对 95% 区间来自对评估图像按类别分层进行的 10,000 次自助重采样。</p>
+</div>
+<div class="ltx_para" id="S3.SS1.p2">
+<p class="ltx_p" id="S3.SS1.p2.1">在七种条件下，实测单帧的 SSIM 为 0.3848，八帧的普通平均为 0.3878（表 S2）。以该平均值训练的 Restormer 达到 0.6756；以八帧训练的达到 0.6753，连拍减均值之差为 <math alttext="-0.0003" class="ltx_Math" display="inline" id="S3.SS1.p2.m1" intent=":literal"><semantics><mrow><mo>−</mo><mn>0.0003</mn></mrow><annotation encoding="application/x-tex">-0.0003</annotation></semantics></math>（区间 <math alttext="[-0.0028,0.0018]" class="ltx_Math" display="inline" id="S3.SS1.p2.m2" intent=":literal"><semantics><mrow><mo stretchy="false">[</mo><mrow><mrow><mo>−</mo><mn>0.0028</mn></mrow><mo>,</mo><mn>0.0018</mn></mrow><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[-0.0028,0.0018]</annotation></semantics></math>）。从实测单帧到连拍网络的提升中有 99% 来自训练。EDVR 呈现相同的规律，训练后的均值输入领先 0.0099（区间 <math alttext="[0.0074,0.0126]" class="ltx_Math" display="inline" id="S3.SS1.p2.m3" intent=":literal"><semantics><mrow><mo stretchy="false">[</mo><mn>0.0074</mn><mo>,</mo><mn>0.0126</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0.0074,0.0126]</annotation></semantics></math>）。以单帧训练的 Restormer 达到 0.643，因此在复原前对八帧取平均可增加 0.0322 SSIM（95% 配对区间 [0.0283, 0.0361]）。学习式连拍融合并未给 Restormer 带来明确的进一步提升。</p>
+</div>
+<div class="ltx_para" id="S3.SS1.p3">
+<p class="ltx_p" id="S3.SS1.p3.1">保真度随条件的变化大于随输入的变化（图 <a class="ltx_ref" href="#S2.F2" title="Figure 2 ‣ 2.3 Restoration, baselines and recognition ‣ 2 Methods ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">2</span></a>b）。清水流动的代价很小：LM 和 HM 分别得 0.750 和 0.762，高于 C 的 0.661，后者合并了两次清水采集。训练后的平均得分在 C+B+M 中为 0.540，在 T+B 中最低，为 0.516；三种浑浊条件介于 0.516 与 0.586 之间。在每种条件下，连拍网络与训练均值网络的得分相差不超过 0.008。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S3.SS2">
+<h3 class="ltx_title ltx_title_subsection">3.2 复原真实物体的图像</h3>
+<div class="ltx_para" id="S3.SS2.p1">
+<p class="ltx_p" id="S3.SS2.p1.1">透过浑浊水记录的真实物体呈现为近乎均匀的灰色（图 S6），气泡和流动会进一步使其退化（图 <a class="ltx_ref" href="#S3.F3" title="Figure 3 ‣ 3.2 Restoring images of real objects ‣ 3 Results ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">3</span></a>）。对八帧平均图像作对比度拉伸（无需训练），即可显现出文字、分辨率靶标的条纹以及西门子星图的辐条。训练后的网络给出更干净的色彩和更少的噪声。</p>
+</div>
+<figure class="ltx_figure" id="S3.F3"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="370" id="S3.F3.g1" src="assets/Fig4.png" style="aspect-ratio:476/370;" width="476"/>
+<figcaption class="ltx_caption ltx_centering">图 3：含气泡且电机高速（T+B+HM）的浑浊水中的真实物体。各行依次为：记录的单帧；八帧平均图像的对比度拉伸（未训练）；仅用实测数据训练的 Restormer；用合成数据在帧平均图像上训练的 Restormer；同样方法作用于全部八帧。见可视化 12 和 13。</figcaption>
+</figure>
+<div class="ltx_para" id="S3.SS2.p2">
+<p class="ltx_p" id="S3.SS2.p2.1">西门子星图使这一分析定量化（图 S5；第 S7.1 节）。我们测量辐条调制度 <math alttext="m" class="ltx_Math" display="inline" id="S3.SS2.p2.m1" intent=":literal"><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>，即辐条频率处方位角傅里叶分量的幅值除以平均光强，并将其表示为半径、进而表示为空间频率的函数。以记录的八帧平均图像估计中心后，外侧调制度从 C 中的 0.407 降至 T 中的 0.092，下降 4.4 倍；从 C+B+HM 中的 0.277 降至 T+B+HM 中的 0.058，下降 4.8 倍。所有记录均保留了 16 个辐条周期。透过浑浊水的分辨率由光学系统和噪声决定，正如式 (<a class="ltx_ref" href="#S2.E1" title="In 2.2 Image-formation model ‣ 2 Methods ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">1</span></a>) 所预测。第 S7.1 节给出详细分析和灵敏度检验。</p>
+</div>
+<div class="ltx_para" id="S3.SS2.p3">
+<p class="ltx_p" id="S3.SS2.p3.1">拉伸检验的是测量中包含什么；当保真度重要时，它不能替代复原。在图 <a class="ltx_ref" href="#S1.F1" title="Figure 1 ‣ 1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">1</span></a>c 的预留图像上，拉伸提高了 C、LM 和 HM 中的 SSIM（从 0.46–0.51 升至 0.57–0.58），却降低了 T、T+B 和 T+B+HM 中的 SSIM（从 0.55–0.56 降至 0.21–0.25），因为它把噪声按与信号相同的倍数放大，且不能重现显示的色调。在浑浊条件下，连拍网络达到 0.61 至 0.66。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S3.SS3">
+<h3 class="ltx_title ltx_title_subsection">3.3 合成训练数据使复原迁移到真实物体</h3>
+<div class="ltx_para" id="S3.SS3.p1">
+<p class="ltx_p" id="S3.SS3.p1.1">真实物体没有数字真值，因此我们将每个输出与同一物体的清水记录进行比较。每幅图像通过在尺度上搜索（0.92 到 1.08）配准到清水八帧平均图像，该搜索吸收了不同拍摄之间放大率的变化，随后进行亚像素相位相关。我们报告重叠区域上亮度的皮尔逊相关系数。相关性忽略式 (<a class="ltx_ref" href="#S2.E1" title="In 2.2 Image-formation model ‣ 2 Methods ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">1</span></a>) 的增益与偏置 (<math alttext="\alpha_{c}" class="ltx_Math" display="inline" id="S3.SS3.p1.m1" intent=":literal"><semantics><msub><mi>α</mi><mi>c</mi></msub><annotation encoding="application/x-tex">\alpha_{c}</annotation></semantics></math>, <math alttext="V_{c}" class="ltx_Math" display="inline" id="S3.SS3.p1.m2" intent=":literal"><semantics><msub><mi>V</mi><mi>c</mi></msub><annotation encoding="application/x-tex">V_{c}</annotation></semantics></math>)，因此它衡量的是结构上的一致，而非色调上的一致。详见第 7.2 节。</p>
+</div>
+<div class="ltx_para" id="S3.SS3.p2">
+<p class="ltx_p" id="S3.SS3.p2.1">把合成图像对加入训练（如我们的去雾工作 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">21</a>]</cite>所做），正是使复原能够从显示图像迁移到物理物体的关键。在显示图像上看不出这一效果：仅用实测图像对训练的 Restormer 与混合训练的 Restormer 的 SSIM 分别为 0.6759 和 0.6753，混合减去实测的差值为 <math alttext="-0.0006" class="ltx_Math" display="inline" id="S3.SS3.p2.m1" intent=":literal"><semantics><mrow><mo>−</mo><mn>0.0006</mn></mrow><annotation encoding="application/x-tex">-0.0006</annotation></semantics></math>（区间 <math alttext="[-0.0033,0.0020]" class="ltx_Math" display="inline" id="S3.SS3.p2.m2" intent=":literal"><semantics><mrow><mo stretchy="false">[</mo><mrow><mrow><mo>−</mo><mn>0.0033</mn></mrow><mo>,</mo><mn>0.0020</mn></mrow><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[-0.0033,0.0020]</annotation></semantics></math>）。在物理物体上，这一效果很明显（表 S7）。透过浑浊水体，录制的八帧均值与清水录制之间的相关性为：西门子星图 0.92 至 0.94，条形靶 0.73 至 0.81，点阵 0.52 至 0.64。使用合成图像对时，网络的结果与这些数值相差不超过 0.05，同时色调更干净、噪声更少。不使用合成图像对时，网络在星图上降至 0.35 至 0.47，在条形靶上降至 0.52 至 0.62，并在均匀区域填入颗粒状纹理、使字母变形（图 <a class="ltx_ref" href="#S3.F3" title="Figure 3 ‣ 3.2 Restoring images of real objects ‣ 3 Results ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">3</span></a>）。同样的规律也出现在含气泡的清水中：录制均值的相关性为 0.92 至 0.99，仅用实测图像对训练的网络为 0.48 至 0.88。没有任何网络与清水录制的一致性比录制均值高出 0.03 以上：在这些物理物体实例中，复原改善了色调并降低了噪声，而结构一致性相当。因此，显示图像上的评分无法预测在物理物体上的表现。一个可能的原因是，实测图像对教给网络两件事：一是抵消水体的影响，二是把相机所拍摄的显示画面映射回数字文件，而后者不适用于真实表面。合成图像对不含显示器或相机的响应，因此把网络锚定在抵消式 (<a class="ltx_ref" href="#S2.E1" title="In 2.2 Image-formation model ‣ 2 Methods ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">1</span></a>) 上。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S3.SS4">
+<h3 class="ltx_title ltx_title_subsection">3.4 <span class="ltx_tag ltx_tag_subsection">向普通水下照片的迁移</span></h3>
+<div class="ltx_para" id="S3.SS4.p1">
+<p class="ltx_p" id="S3.SS4.p1.1">为了进一步检验迁移能力，我们不再重新训练，直接把复原器应用于来自 Underwater Image Enhancement Benchmark (UIEB) <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib10" title="">24</a>]</cite> 的照片。这些是普通水下场景，水充满了通向场景的光路，与我们的水箱几何结构相去甚远。每张照片的长边被缩放到最多 256 像素，并重复作为全部八帧输入，因此该测试考察的是单幅图像迁移而非时间融合。用合成图像对训练的网络使鱼类和珊瑚礁结构在困难照片中更易辨认（图 <a class="ltx_ref" href="#S3.F4" title="Figure 4 ‣ 3.4 Transfer to ordinary underwater photographs ‣ 3 Results ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">4</span></a>）。在 890 张带有参考图像的 UIEB 图像上，这些网络把 SSIM 从未改变输入的 0.760 提升到 0.765 至 0.846 之间，其中在录制均值上训练的 Restormer 最高（补充材料 1，表 S3）。仅用实测图像对训练的 Restormer 降至 0.359，远低于未改变的输入，这在一个新域上重现了物理物体上出现的失效（3.3 节）。逐通道对比度拉伸的得分高于任何网络（0.874）。UIEB 的参考图像是由人工评分者挑选的增强图像，而非清水拍摄的图像，因此这些分数衡量的是与优选增强结果的一致性，而非保真度；不过这一排序仍与退化主要表现为对比度损失这一判断相符。</p>
+</div>
+<figure class="ltx_figure" id="S3.F4"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="147" id="S3.F4.g1" src="assets/uieb.png" style="aspect-ratio:476/147;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 4：</span>无需重新训练即可复原普通水下照片。两幅没有参考图像的困难 UIEB 照片：(a) 暗光鱼类场景，(b) 礁坡。各列依次为：未改动的输入，以及 EDVR（单帧输入）、Restormer（在均值记录上训练）和 NAFNet（单帧输入）的输出，所有模型均使用合成图像对训练。对于每种架构，所示模型是在 890 幅带参考图像的 UIEB 图像上平均 SSIM 最高的那个。每张照片均作为全部八帧输入重复送入。所有面板使用相同的显示范围，未进行亮度或色彩调整。</figcaption>
+</figure>
+</section>
+<section class="ltx_subsection" id="S3.SS5">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">3.5 </span>识别可直接作用于原始帧</h3>
+<div class="ltx_para" id="S3.SS5.p1">
+<p class="ltx_p" id="S3.SS5.p1.1">A classifier reading one raw frame identifies the category of 96.76% of evaluation
+images (standard deviation 1.60 over three classifier seeds). Eight raw frames give
+96.76%, and the burst-restored image 97.22% (Fig. S3). Across all 10
+inputs, accuracy ranges from 95.4% to 99.5%, a spread of about three images out
+of 72.
+Relative to raw single-frame recognition, raw eight-frame recognition changes accuracy by
+0 percentage points (95% paired identity-bootstrap interval -1.85 to 1.85), and burst-restored recognition changes it by
+0.46 points (-2.31 to 3.24). These intervals resample identities and condition on the three fitted classifier seeds.</p>
+</div>
+<div class="ltx_para" id="S3.SS5.p2">
+<p class="ltx_p" id="S3.SS5.p2.1">复原唯一有帮助的条件是清水同时含气泡与电机（C+B+M）的情形。准确度从原始单帧的 80.7% 提升到连拍复原的 91.3%，配对差值为 <math alttext="+10.7" class="ltx_Math" display="inline" id="S3.SS5.p2.m1" intent=":literal"><semantics><mrow><mo>+</mo><mn>10.7</mn></mrow><annotation encoding="application/x-tex">+10.7</annotation></semantics></math> 个百分点（在五个类别共 50 幅图像上，95% 区间为 <math alttext="+3.3" class="ltx_Math" display="inline" id="S3.SS5.p2.m2" intent=":literal"><semantics><mrow><mo>+</mo><mn>3.3</mn></mrow><annotation encoding="application/x-tex">+3.3</annotation></semantics></math> 至 <math alttext="+18.7" class="ltx_Math" display="inline" id="S3.SS5.p2.m3" intent=":literal"><semantics><mrow><mo>+</mo><mn>18.7</mn></mrow><annotation encoding="application/x-tex">+18.7</annotation></semantics></math>；对七种条件作 Bonferroni 校正后为 <math alttext="+0.7" class="ltx_Math" display="inline" id="S3.SS5.p2.m4" intent=":literal"><semantics><mrow><mo>+</mo><mn>0.7</mn></mrow><annotation encoding="application/x-tex">+0.7</annotation></semantics></math> 至 <math alttext="+22.0" class="ltx_Math" display="inline" id="S3.SS5.p2.m5" intent=":literal"><semantics><mrow><mo>+</mo><mn>22.0</mn></mrow><annotation encoding="application/x-tex">+22.0</annotation></semantics></math>）。该区间对图像进行重采样，而非对训练随机种子重采样。C+B+M 同时也是复原保真度较低的条件：在清水中，气泡改变的是点扩散函数，而非叠加一层雾翳。各条件所含的图像数量与类别数量不同；T+B 只有 2 个类别共 9 幅图像，因此不作解读。</p>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S4">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">4 </span>Discussion</h2>
+<div class="ltx_para" id="S4.p1">
+<p class="ltx_p" id="S4.p1.1">几何结构与散射体共同决定了上述结果。由于不同视场点的光束在靠近透镜的水体中几乎完全重叠，我们将这种退化近似为空间均匀的。由于浑浊悬浊液的散射角度远大于视场，浑浊度会使光线从图像中逸出，而从周围散射进来的光线则形成一层均匀的光幕，正如气溶胶调制传递函数的平台区 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib29" title="">8</a>, <a class="ltx_ref" href="#bib.bib30" title="">36</a>]</cite> 所示。散射体更大（散射瓣更窄）或视场更宽，都会使系统转向浴帘效应中模糊占主导的区域 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib32" title="">14</a>]</cite>。在这一近似下，气泡与水流使一个共享的点扩散函数发生移动和变形。连拍融合带来的收益很小，说明八帧之间有用的多样性有限。当模糊在帧与帧之间强烈变化时（如相机抖动 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib36" title="">10</a>]</cite>），或在视场内各处不同时（如波浪起伏的表面或大气湍流 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib13" title="">31</a>, <a class="ltx_ref" href="#bib.bib41" title="">3</a>, <a class="ltx_ref" href="#bib.bib42" title="">51</a>]</cite>），多帧方法才会受益。同样的图景也解释了为什么对比度拉伸能显现出真实物体，以及为什么在原始帧上训练的分类器对它们的读出效果与对复原图像一样好，这与去雾并不总能可靠地有助于识别的发现一致 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib43" title="">32</a>, <a class="ltx_ref" href="#bib.bib45" title="">45</a>]</cite>。</p>
+</div>
+<div class="ltx_para" id="S4.p2">
+<p class="ltx_p" id="S4.p2.1">这也界定了在这一机制下复原究竟为何而做。训练好的网络能改善色调，并抑制对比度拉伸所放大的噪声；当气泡改变清水中的点扩散函数时，它还能提升识别率。合成训练对减少了在真实物体上凭空生成的结构，而这种失效是显示图像上的评分无法揭示的 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib48" title="">6</a>]</cite>。结合我们在雾条件下得到的结果 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">21</a>]</cite>，这提示了一种面向散射介质的学习型复原通用方案：用实测图像对进行训练以保证真实性，再加入由简单的衰减—光幕模型构建的合成图像对，使网络学会反演介质本身，而非反演显示效果。</p>
+</div>
+<div class="ltx_para" id="S4.p3">
+<p class="ltx_p" id="S4.p3.1">复原的评分方式同样重要。对于70幅图像的279段评估录像（这些图像还各有一段独立的清水录像，即未复原的八帧平均），我们既以数字源图像为参照、也以该清水录像为参照对每个输出打分。以数字源为参照时，连拍网络比八帧平均高出0.294 SSIM和11.25 dB PSNR。以清水录像为参照时，排序反转：未复原的八帧平均得0.842 SSIM和27.24 dB，连拍网络为0.449和8.83 dB，相差 <math alttext="-18.4" class="ltx_Math" display="inline" id="S4.p3.m1" intent=":literal"><semantics><mrow><mo>−</mo><mn>18.4</mn></mrow><annotation encoding="application/x-tex">-18.4</annotation></semantics></math> dB（区间 <math alttext="[-19.9,-16.9]" class="ltx_Math" display="inline" id="S4.p3.m2" intent=":literal"><semantics><mrow><mo stretchy="false">[</mo><mrow><mrow><mo>−</mo><mn>19.9</mn></mrow><mo>,</mo><mrow><mo>−</mo><mn>16.9</mn></mrow></mrow><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[-19.9,-16.9]</annotation></semantics></math>）。以数字源为参照训练的网络学会了撤销显示与相机引入的色调和模糊；而清水录像保留了这些效应。色调误差还会掩盖平均带来的收益：以清水录像为参照，八帧比单帧将PSNR提高0.37 dB（区间 <math alttext="[0.18,0.59]" class="ltx_Math" display="inline" id="S4.p3.m3" intent=":literal"><semantics><mrow><mo stretchy="false">[</mo><mn>0.18</mn><mo>,</mo><mn>0.59</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0.18,0.59]</annotation></semantics></math>），而以数字源为参照则提高 <math alttext="-0.005" class="ltx_Math" display="inline" id="S4.p3.m4" intent=":literal"><semantics><mrow><mo>−</mo><mn>0.005</mn></mrow><annotation encoding="application/x-tex">-0.005</annotation></semantics></math> dB（区间 <math alttext="[-0.018,0.007]" class="ltx_Math" display="inline" id="S4.p3.m5" intent=":literal"><semantics><mrow><mo stretchy="false">[</mo><mrow><mrow><mo>−</mo><mn>0.018</mn></mrow><mo>,</mo><mn>0.007</mn></mrow><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[-0.018,0.007]</annotation></semantics></math>）。单用任何一种参照都无法衡量保真度。一项仅以显示图像为参照进行训练和评分的研究 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib25" title="">27</a>]</cite>，测得的是显示与相机响应的一部分以及水的作用；同时给出两种参照，或采用忽略色调的评分（如我们对物理物体所用的那样），即可将二者区分开。</p>
+</div>
+<div class="ltx_para" id="S4.p4">
+<p class="ltx_p" id="S4.p4.1">对所测试的物理物体，对各帧取平均并拉伸对比度能显露出大量结构。若目标是得到标签，直接进行分类很有效；若需要干净的图像，可加入一个用合成数据训练的网络。近镜头的几何构型出现在以下情形：上视相机上方的含气泡或起伏的水面层、相机观察窗处的尾流或气泡幕，或窗口处的浑浊层（图 <a class="ltx_ref" href="#S1.F1" title="Figure 1 ‣ 1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">1</span></a>a）。当散射沿长路径铺开，或散射瓣比视场更窄时，前向散射光会到达传感器，式 (<a class="ltx_ref" href="#S2.E1" title="In 2.2 Image-formation model ‣ 2 Methods ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">1</span></a>) 不再成立；该工况是后续工作的主题。目标是静止的；只测试了一种浊度水平和一种气泡源；物理物体的结果基于六件物体的24段录像，浊水录像与清水录像来自不同的采集时段；评估图像在此前的分析中已被查看过。</p>
+</div>
+</section>
+<section class="ltx_section" id="S5">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">5 </span>结论</h2>
+<div class="ltx_para" id="S5.p1">
+<p class="ltx_p" id="S5.p1.1">镜头附近含气泡且浑浊的运动水体主要遮蔽对比度；大部分结构仍保留在测量结果中。对比度拉伸能在记录对比度下降超过四倍的物理物体上将其揭示出来。对八帧取均值的复原捕获了多帧增益，而学习式融合带来的额外收益很小。合成训练样本对使在显示图像上训练的网络能够迁移到物理物体和普通水下照片，且凭空生成的结构比仅用实测样本对训练时更少。识别在原始帧上即可奏效，而参照的选择决定了复原看起来是否有帮助。</p>
+</div>
+<div class="ltx_para" id="S5.p2">
+<p class="ltx_p" id="S5.p2.1">这些结果为如何构建与测试能够透过动态水体成像的相机提供了启示。帧平均与对比度拉伸的开销很低，而且由于分类器直接读取原始帧，浮标、无人机和水下航行器便可在不进行机上复原处理的情况下，透过浪花、尾迹和浑浊水体识别目标。由于只有当散射瓣宽于视场时退化才保持对比度受限，因此在水体后方配置窄视场光学系统即可让处理保持简单。最后，将实测图像对与由简单衰减—遮罩模型生成的合成图像对相结合，并以能够区分色调与结构的参考图像进行评估，这为在其他动态散射介质（如车窗上的雨水或挡风玻璃上的雾气）中进行学习式成像提供了一套方法，而在这些场景中实测真值十分稀缺。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S5.p3">
+<p class="ltx_p" id="S5.p3.1"><span class="ltx_text ltx_font_bold" id="S5.p3.1.1">经费资助。</span> A.I. 和 R.M. 感谢美国能源部基金 #55801063 的资助。S.D.M. 感谢科学与工程见习计划（SEAP）的支持，该计划由美国工程教育学会（ASEE）代表美国海军部下属的海军研究办公室组织实施。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S5.p4">
+<p class="ltx_p" id="S5.p4.1"><span class="ltx_text ltx_font_bold" id="S5.p4.1.1">致谢。</span> 谨此感谢犹他大学高性能计算中心提供的支持与资源。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S5.p5">
+<p class="ltx_p" id="S5.p5.1"><span class="ltx_text ltx_font_bold" id="S5.p5.1.1">利益声明。</span> 作者声明不存在利益冲突。作者仅将大语言模型（LLM）用于语法润色和组织建议。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S5.p6">
+<p class="ltx_p" id="S5.p6.1"><span class="ltx_text ltx_font_bold" id="S5.p6.1.1">数据可用性。</span> 支撑本文结果的数据和代码见补充文档，发表后也将发布在 Github 页面上。</p>
+</div>
+<div class="ltx_para ltx_noindent" id="S5.p7">
+<p class="ltx_p" id="S5.p7.1"><span class="ltx_text ltx_font_bold" id="S5.p7.1.1">补充文档。</span>
+补充材料 1 提供了采集与帧采样细节、复原和识别的方案及结果、当前数据集的双随机种子 Restormer 对比、独立的清晰参考与时间分析、实物与西门子星图对比，以及配套的图像形成和合成训练方法。</p>
+</div>
+</section>
+<section class="ltx_bibliography" id="bib">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+<ul class="ltx_biblist" id="bib.L1">
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib4"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Akkaynak and T. Treibitz</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A revised underwater image formation model</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proc. IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages">pp. 6723–6732</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/CVPR.2018.00703" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib5"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Akkaynak and T. Treibitz</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Sea-thru: a method for removing water from underwater images</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proc. IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages">pp. 1682–1691</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/CVPR.2019.00178" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib41"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">N. Anantrasirichai, A. Achim, N. G. Kingsbury, and D. R. Bull</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Atmospheric turbulence mitigation using complex wavelet-based fusion</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Transactions on Image Processing</span> <span class="ltx_text ltx_bib_volume">22</span> (<span class="ltx_text ltx_bib_number">6</span>), <span class="ltx_text ltx_bib_pages">pp. 2398–2408</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/TIP.2013.2249078" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p5.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S4.p1.1" title="4 Discussion ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§4</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib11"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Anwar and C. Li</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Diving deeper into underwater image enhancement: a survey</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Signal Processing: Image Communication</span> <span class="ltx_text ltx_bib_volume">89</span>, <span class="ltx_text ltx_bib_pages">pp. 115978</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1016/j.image.2020.115978" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib34"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. Berrocal, S. Pettersson, and E. Kristensson</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">High-contrast imaging through scattering media using structured illumination and Fourier filtering</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics Letters</span> <span class="ltx_text ltx_bib_volume">41</span> (<span class="ltx_text ltx_bib_number">23</span>), <span class="ltx_text ltx_bib_pages">pp. 5612</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OL.41.005612" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p4.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib48"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Bhadra, V. A. Kelkar, F. J. Brooks, and M. A. Anastasio</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">On hallucinations in tomographic image reconstruction</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Transactions on Medical Imaging</span> <span class="ltx_text ltx_bib_volume">40</span> (<span class="ltx_text ltx_bib_number">11</span>), <span class="ltx_text ltx_bib_pages">pp. 3249–3260</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/TMI.2021.3077857" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p5.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S4.p2.1" title="4 Discussion ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§4</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib39"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">G. Bhat, M. Danelljan, L. Van Gool, and R. Timofte</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Deep burst super-resolution</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proc. IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages">pp. 9205–9214</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/CVPR46437.2021.00909" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p5.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib29"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. R. Bissonnette</span><span class="ltx_text ltx_bib_year"> (1992)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Imaging through fog and rain</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optical Engineering</span> <span class="ltx_text ltx_bib_volume">31</span> (<span class="ltx_text ltx_bib_number">5</span>), <span class="ltx_text ltx_bib_pages">pp. 1045–1052</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/12.56145" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p4.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S2.SS2.p3.1" title="2.2 Image-formation model ‣ 2 Methods ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§2.2</span></a>,
+<a class="ltx_ref" href="#S4.p1.1" title="4 Discussion ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§4</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib51"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Chen, X. Chu, X. Zhang, and J. Sun</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Simple baselines for image restoration</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proc. European Conference on Computer Vision (ECCV)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">Lecture Notes in Computer Science</span>, <span class="ltx_text ltx_bib_pages">pp. 17–33</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1007/978-3-031-20071-7%5F2" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.SS3.p2.1" title="2.3 Restoration, baselines and recognition ‣ 2 Methods ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§2.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib36"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Delbracio and G. Sapiro</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Burst deblurring: removing camera shake through Fourier burst accumulation</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proc. IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages">pp. 2385–2393</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/CVPR.2015.7298852" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p5.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S2.SS2.p4.1" title="2.2 Image-formation model ‣ 2 Methods ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§2.2</span></a>,
+<a class="ltx_ref" href="#S4.p1.1" title="4 Discussion ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§4</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib46"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Dodge and L. Karam</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Understanding how image quality affects deep neural networks</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proc. 8th International Conference on Quality of Multimedia Experience (QoMEX)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages">pp. 1–6</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/QoMEX.2016.7498955" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p5.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib8"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">P. L. J. Drews, E. R. Nascimento, S. S. C. Botelho, and M. F. M. Campos</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Underwater depth estimation and image restoration based on single images</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Computer Graphics and Applications</span> <span class="ltx_text ltx_bib_volume">36</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 24–35</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/MCG.2016.26" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib31"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">I. Dror and N. S. Kopeika</span><span class="ltx_text ltx_bib_year"> (1995)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Experimental comparison of turbulence modulation transfer function and aerosol modulation transfer function through the open atmosphere</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of the Optical Society of America A</span> <span class="ltx_text ltx_bib_volume">12</span> (<span class="ltx_text ltx_bib_number">5</span>), <span class="ltx_text ltx_bib_pages">pp. 970</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/JOSAA.12.000970" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p4.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib32"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">I. Dror, A. Sandrov, and N. S. Kopeika</span><span class="ltx_text ltx_bib_year"> (1998)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Experimental investigation of the influence of the relative position of the scattering layer on image quality: the shower curtain effect</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Applied Optics</span> <span class="ltx_text ltx_bib_volume">37</span> (<span class="ltx_text ltx_bib_number">27</span>), <span class="ltx_text ltx_bib_pages">pp. 6495</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/AO.37.006495" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p4.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S2.SS2.p3.1" title="2.2 Image-formation model ‣ 2 Methods ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§2.2</span></a>,
+<a class="ltx_ref" href="#S4.p1.1" title="4 Discussion ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§4</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib40"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Dudhane, S. W. Zamir, S. Khan, F. S. Khan, and M. Yang</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Burstormer: burst image restoration and enhancement transformer</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proc. IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages">pp. 5703–5712</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/CVPR52729.2023.00552" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p5.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib33"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. Edrei and G. Scarcelli</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Optical imaging through dynamic turbid media using the Fourier-domain shower-curtain effect</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optica</span> <span class="ltx_text ltx_bib_volume">3</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 71</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OPTICA.3.000071" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p4.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib37"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[17]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. W. Hasinoff, D. Sharlet, R. Geiss, A. Adams, J. T. Barron, F. Kainz, J. Chen, and M. Levoy</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Burst photography for high dynamic range and low-light imaging on mobile cameras</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">ACM Transactions on Graphics</span> <span class="ltx_text ltx_bib_volume">35</span> (<span class="ltx_text ltx_bib_number">6</span>), <span class="ltx_text ltx_bib_pages">pp. 1–12</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1145/2980179.2980254" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p5.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib7"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[18]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. He, J. Sun, and X. Tang</span><span class="ltx_text ltx_bib_year"> (2011)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Single image haze removal using dark channel prior</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Transactions on Pattern Analysis and Machine Intelligence</span> <span class="ltx_text ltx_bib_volume">33</span> (<span class="ltx_text ltx_bib_number">12</span>), <span class="ltx_text ltx_bib_pages">pp. 2341–2353</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/TPAMI.2010.168" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib47"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[19]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Hendrycks and T. Dietterich</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Benchmarking neural network robustness to common corruptions and perturbations</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proc. International Conference on Learning Representations (ICLR)</span>,
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.48550/arXiv.1903.12261" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p5.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib28"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[20]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">W. Hou, D. J. Gray, A. D. Weidemann, and R. A. Arnone</span><span class="ltx_text ltx_bib_year"> (2008)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Comparison and validation of point spread models for imaging in natural waters</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics Express</span> <span class="ltx_text ltx_bib_volume">16</span> (<span class="ltx_text ltx_bib_number">13</span>), <span class="ltx_text ltx_bib_pages">pp. 9958</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OE.16.009958" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p4.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib1"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[21]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Ingold, S. D. Menon, M. Yellepeddy, A. Ikei, J. D. Hodges, J. Baker, S. N. Qadri, and R. Menon</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">From fog chamber to aircraft window: pixel-registered imaging and synthetic fine-tuning enable cross-domain defogging</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics Express</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">Accepted; update volume and pages</span>
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OE.608819" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.I1.i4.p1.1" title="In 1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">item 4</span></a>,
+<a class="ltx_ref" href="#S1.p3.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S2.SS3.p1.1" title="2.3 Restoration, baselines and recognition ‣ 2 Methods ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§2.3</span></a>,
+<a class="ltx_ref" href="#S3.SS3.p2.1" title="3.3 Synthetic training data lets restoration transfer to physical objects ‣ 3 Results ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§3.3</span></a>,
+<a class="ltx_ref" href="#S4.p2.1" title="4 Discussion ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§4</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib3"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[22]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. S. Jaffe</span><span class="ltx_text ltx_bib_year"> (1990)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Computer modeling and the design of optimal underwater imaging systems</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Journal of Oceanic Engineering</span> <span class="ltx_text ltx_bib_volume">15</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 101–111</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/48.50695" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib16"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[23]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. G. James, P. Agrawal, and A. Rajwade</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Restoration of non-rigidly distorted underwater images using a combination of compressive sensing and local polynomial image representations</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proc. IEEE/CVF International Conference on Computer Vision (ICCV)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages">pp. 7838–7847</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/ICCV.2019.00793" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib10"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[24]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Li, C. Guo, W. Ren, R. Cong, J. Hou, S. Kwong, and D. Tao</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">An underwater image enhancement benchmark dataset and beyond</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Transactions on Image Processing</span> <span class="ltx_text ltx_bib_volume">29</span>, <span class="ltx_text ltx_bib_pages">pp. 4376–4389</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/TIP.2019.2955241" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S3.SS4.p1.1" title="3.4 Transfer to ordinary underwater photographs ‣ 3 Results ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§3.4</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib21"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[25]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Y. Li, Y. Xue, and L. Tian</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Deep speckle correlation: a deep learning approach toward scalable imaging through scattering media</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optica</span> <span class="ltx_text ltx_bib_volume">5</span> (<span class="ltx_text ltx_bib_number">10</span>), <span class="ltx_text ltx_bib_pages">pp. 1181–1190</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OPTICA.5.001181" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p3.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib14"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[26]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Z. Li, Z. Murez, D. Kriegman, R. Ramamoorthi, and M. Chandraker</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Learning to see through turbulent water</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proc. IEEE Winter Conference on Applications of Computer Vision (WACV)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages">pp. 512–520</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/WACV.2018.00062" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib25"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[27]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">H. Liu, F. Wang, Y. Jin, X. Ma, S. Li, Y. Bian, and G. Situ</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Learning-based real-time imaging through dynamic scattering media</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Light: Science &amp; Applications</span> <span class="ltx_text ltx_bib_volume">13</span>, <span class="ltx_text ltx_bib_pages">pp. 194</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/s41377-024-01569-0" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p3.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S4.p3.1" title="4 Discussion ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§4</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib22"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[28]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Lyu, H. Wang, G. Li, S. Zheng, and G. Situ</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Learning-based lensless imaging through optically thick scattering media</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Advanced Photonics</span> <span class="ltx_text ltx_bib_volume">1</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages">pp. 036002</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/1.AP.1.3.036002" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p3.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib2"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[29]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">B. L. McGlamery</span><span class="ltx_text ltx_bib_year"> (1980)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A computer model for underwater camera systems</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Ocean Optics VI</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">Proc. SPIE</span>, Vol. <span class="ltx_text ltx_bib_volume">208</span>, <span class="ltx_text ltx_bib_pages">pp. 221–231</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/12.958279" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib35"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[30]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. G. Narasimhan, M. Gupta, C. Donner, R. Ramamoorthi, S. K. Nayar, and H. W. Jensen</span><span class="ltx_text ltx_bib_year"> (2006)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Acquiring scattering properties of participating media by dilution</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">ACM Transactions on Graphics</span> <span class="ltx_text ltx_bib_volume">25</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages">pp. 1003–1012</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1145/1141911.1141986" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.SS2.p3.1" title="2.2 Image-formation model ‣ 2 Methods ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§2.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib13"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[31]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">O. Oreifej, G. Shu, T. Pace, and M. Shah</span><span class="ltx_text ltx_bib_year"> (2011)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A two-stage reconstruction approach for seeing through water</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proc. IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages">pp. 1153–1160</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/CVPR.2011.5995428" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S4.p1.1" title="4 Discussion ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§4</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib43"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[32]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Y. Pei, Y. Huang, Q. Zou, Y. Lu, and S. Wang</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Does haze removal help CNN-based image classification?</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proc. European Conference on Computer Vision (ECCV)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">Lecture Notes in Computer Science</span>, <span class="ltx_text ltx_bib_pages">pp. 697–712</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1007/978-3-030-01249-6%5F42" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p5.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S4.p1.1" title="4 Discussion ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§4</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib9"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[33]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Y. Peng and P. C. Cosman</span><span class="ltx_text ltx_bib_year"> (2017)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Underwater image restoration based on image blurriness and light absorption</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Transactions on Image Processing</span> <span class="ltx_text ltx_bib_volume">26</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages">pp. 1579–1594</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/TIP.2017.2663846" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib26"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[34]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Pollak and R. Menon</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Image-to-image machine translation enables computational defogging in real-world images</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics Express</span> <span class="ltx_text ltx_bib_volume">32</span> (<span class="ltx_text ltx_bib_number">19</span>), <span class="ltx_text ltx_bib_pages">pp. 33852</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OE.532576" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p3.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib20"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[35]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Randolph, H. M. Dierssen, M. Twardowski, A. Cifuentes-Lorenzen, and C. J. Zappa</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Optical measurements of small deeply penetrating bubble populations generated by breaking waves in the Southern Ocean</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Geophysical Research: Oceans</span> <span class="ltx_text ltx_bib_volume">119</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 757–776</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1002/2013JC009227" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib30"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[36]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Sadot and N. S. Kopeika</span><span class="ltx_text ltx_bib_year"> (1993)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Imaging through the atmosphere: practical instrumentation-based theory and verification of aerosol modulation transfer function</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of the Optical Society of America A</span> <span class="ltx_text ltx_bib_volume">10</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 172</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/JOSAA.10.000172" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p4.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S2.SS2.p3.1" title="2.2 Image-formation model ‣ 2 Methods ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§2.2</span></a>,
+<a class="ltx_ref" href="#S4.p1.1" title="4 Discussion ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§4</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib44"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[37]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Sakaridis, D. Dai, and L. Van Gool</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Semantic foggy scene understanding with synthetic data</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">International Journal of Computer Vision</span> <span class="ltx_text ltx_bib_volume">126</span> (<span class="ltx_text ltx_bib_number">9</span>), <span class="ltx_text ltx_bib_pages">pp. 973–992</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1007/s11263-018-1072-8" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p5.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib6"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[38]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Y. Y. Schechner and N. Karpel</span><span class="ltx_text ltx_bib_year"> (2005)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Recovery of underwater visibility and structure by polarization analysis</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Journal of Oceanic Engineering</span> <span class="ltx_text ltx_bib_volume">30</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages">pp. 570–587</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/JOE.2005.850871" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib19"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[39]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Stramski and J. Tegowski</span><span class="ltx_text ltx_bib_year"> (2001)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Effects of intermittent entrainment of air bubbles by breaking wind waves on ocean reflectance and underwater light field</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Geophysical Research: Oceans</span> <span class="ltx_text ltx_bib_volume">106</span> (<span class="ltx_text ltx_bib_number">C12</span>), <span class="ltx_text ltx_bib_pages">pp. 31345–31360</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1029/2000JC000461" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib23"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[40]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Y. Sun, J. Shi, L. Sun, J. Fan, and G. Zeng</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Image reconstruction through dynamic scattering media based on deep learning</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics Express</span> <span class="ltx_text ltx_bib_volume">27</span> (<span class="ltx_text ltx_bib_number">11</span>), <span class="ltx_text ltx_bib_pages">pp. 16032</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OE.27.016032" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p3.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib24"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[41]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">W. Tahir, H. Wang, and L. Tian</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Adaptive 3D descattering with a dynamic synthesis network</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Light: Science &amp; Applications</span> <span class="ltx_text ltx_bib_volume">11</span>, <span class="ltx_text ltx_bib_pages">pp. 42</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/s41377-022-00730-x" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p3.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib18"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[42]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. J. Terrill, W. K. Melville, and D. Stramski</span><span class="ltx_text ltx_bib_year"> (2001)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Bubble entrainment by breaking waves and their influence on optical scattering in the upper ocean</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Geophysical Research: Oceans</span> <span class="ltx_text ltx_bib_volume">106</span> (<span class="ltx_text ltx_bib_number">C8</span>), <span class="ltx_text ltx_bib_pages">pp. 16815–16823</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1029/2000JC000496" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib15"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[43]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Thapa, N. Li, and J. Ye</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Dynamic fluid surface reconstruction using deep neural network</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proc. IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages">pp. 21–30</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/CVPR42600.2020.00010" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib12"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[44]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Y. Tian and S. G. Narasimhan</span><span class="ltx_text ltx_bib_year"> (2009)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Seeing through water: image restoration using model-based tracking</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proc. IEEE 12th International Conference on Computer Vision (ICCV)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages">pp. 2303–2310</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/ICCV.2009.5459440" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib45"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[45]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. G. VidalMata, S. Banerjee, B. RichardWebster, M. Albright, P. Davalos, S. McCloskey, B. Miller, A. Tambo, S. Ghosh, S. Nagesh, Y. Yuan, Y. Hu, J. Wu, W. Yang, X. Zhang, J. Liu, Z. Wang, H. Chen, T. Huang, W. Chin, Y. Li, M. Lababidi, C. Otto, and W. J. Scheirer</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Bridging the gap between computational photography and visual recognition</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Transactions on Pattern Analysis and Machine Intelligence</span> <span class="ltx_text ltx_bib_volume">43</span> (<span class="ltx_text ltx_bib_number">12</span>), <span class="ltx_text ltx_bib_pages">pp. 4272–4290</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/TPAMI.2020.2996538" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p5.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S4.p1.1" title="4 Discussion ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§4</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib38"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[46]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">X. Wang, K. C. K. Chan, K. Yu, C. Dong, and C. C. Loy</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">EDVR: video restoration with enhanced deformable convolutional networks</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proc. IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages">pp. 1954–1963</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/CVPRW.2019.00247" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p5.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S2.SS3.p2.1" title="2.3 Restoration, baselines and recognition ‣ 2 Methods ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§2.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib49"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[47]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Z. Wang, A. C. Bovik, H. R. Sheikh, and E. P. Simoncelli</span><span class="ltx_text ltx_bib_year"> (2004)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Image quality assessment: from error visibility to structural similarity</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Transactions on Image Processing</span> <span class="ltx_text ltx_bib_volume">13</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages">pp. 600–612</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/TIP.2003.819861" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.SS3.p2.1" title="2.3 Restoration, baselines and recognition ‣ 2 Methods ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§2.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib27"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[48]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">W. H. Wells</span><span class="ltx_text ltx_bib_year"> (1969)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Loss of resolution in water as a result of multiple small-angle scattering</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of the Optical Society of America</span> <span class="ltx_text ltx_bib_volume">59</span> (<span class="ltx_text ltx_bib_number">6</span>), <span class="ltx_text ltx_bib_pages">pp. 686</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/JOSA.59.000686" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p4.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib50"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[49]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. W. Zamir, A. Arora, S. Khan, M. Hayat, F. S. Khan, and M. Yang</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Restormer: efficient transformer for high-resolution image restoration</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Proc. IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages">pp. 5718–5729</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/CVPR52688.2022.00564" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.SS3.p1.1" title="2.3 Restoration, baselines and recognition ‣ 2 Methods ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§2.3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib17"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[50]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">X. Zhang, M. R. Lewis, and B. D. Johnson</span><span class="ltx_text ltx_bib_year"> (1998)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Influence of bubbles on scattering of light in the ocean</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Applied Optics</span> <span class="ltx_text ltx_bib_volume">37</span> (<span class="ltx_text ltx_bib_number">27</span>), <span class="ltx_text ltx_bib_pages">pp. 6525</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/AO.37.006525" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib42"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[51]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">X. Zhang, Z. Mao, N. Chimitt, and S. H. Chan</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Imaging through the atmosphere using turbulence mitigation transformer</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Transactions on Computational Imaging</span> <span class="ltx_text ltx_bib_volume">10</span>, <span class="ltx_text ltx_bib_pages">pp. 115–128</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/TCI.2024.3354421" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p5.1" title="1 Introduction ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S4.p1.1" title="4 Discussion ‣ Computational imaging through turbid, bubbly and flowing water near the telescope"><span class="ltx_text ltx_ref_tag">§4</span></a>.
+</span></li>
+</ul>
+</section>
+</article></div></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
