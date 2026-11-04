@@ -1,0 +1,127 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>可重构自由空间光互连：活塞微镜阵列</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style><style>
+.paper-reader{max-width:860px;margin:0 auto}
+.paper-reader h1{font-size:28px;line-height:1.35;margin:10px 0 6px}
+.paper-reader .original-title{color:var(--muted);font-size:14px;margin-bottom:18px}
+.paper-reader .meta{color:var(--muted);font-size:13px;margin-bottom:20px}
+.paper-reader .toc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:20px 0 28px;font-size:14px}
+.paper-reader .toc ol{margin:6px 0 0 18px;padding:0}
+.paper-reader .toc li{margin:3px 0}
+.paper-reader article{font-size:16px;line-height:1.9}
+.paper-reader h2{font-size:22px;margin:30px 0 10px}
+.paper-reader h3{font-size:18px;margin:22px 0 8px}
+.paper-reader figure{margin:20px 0;text-align:center}
+.paper-reader img{max-width:100%;height:auto}
+.paper-reader figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+.paper-reader table{display:block;overflow-x:auto;border-collapse:collapse;margin:16px 0;font-size:14px}
+.paper-reader math{overflow-x:auto;max-width:100%}
+.paper-reader pre{overflow-x:auto}
+</style></head><body class="">
+<header><a class="brand" href="../index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="../daily/index.html">日报</a><a href="../papers/index.html" aria-current="page">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 中文全文</div><h1>可重构自由空间光互连：活塞微镜阵列</h1><div class="paper-reader"><h1>可重构自由空间光互连：活塞微镜阵列</h1><p class="meta">arXiv 2610.30757 · 13 页</p><article><p>1 可重构自由空间光互连 Jaekwon Lee1,2, Carson G. Valdez1,2, Anne R. Kroo1,2, David A. B. Miller1,2, 和 Olav Solgaard1,2,* 1Edward L. Ginzton Laboratory, Stanford University, 348 Via Pueblo, Stanford, 94305, CA, USA 2 Electrical Engineering, Stanford University, 350 Jane Stanford Way, Stanford, 94305, CA, USA *通讯作者。电子邮箱：solgaard@stanford.edu 摘要 自由空间光互连可以支持大量低数据速率通道，同时避免当今广泛采用的基于光波导或光纤的系统所带来的成本、能耗和封装约束。我们提出一种基于可重构微反射镜阵列的自由空间光互连系统，并表明由于其二维扩展特性，该系统的扩展性良好。我们讨论了</p><p>通道数扩展模型，将我们的演示结果与理论进行比较，并预测通道数超过10,000时，采用低速通道（例如，&lt;10 Gbps）可实现100 Tbps。在采用活塞运动式微反射镜阵列的概念验证系统中，我们演示了九个同时得到优化的通道。该优化在通道间距等于光束半径两倍的条件下实现了-21.7 dB的平均最坏情况串扰，其通道间隔小于平面倾斜镜所需的情形。我们还针对不同通道间隔、同时照明以及不同输出数量进一步研究了优化流程，其最坏情况串扰通常小于平面倾斜</p><p>镜的情形。总体而言，这项工作证明了活塞运动式微反射镜在所提出的光互连方案中的优势。关键词：光互连、相位光调制器、微反射镜阵列、装调、自由空间 短距离光互连已成为降低数据中心能耗的一种有前景的解决方案1，前提是它能同时实现&lt;1 pJ/bit、&gt;100 Tbps/socket和&lt;$0.10/Gbps2。实践表明，用基于波导或光纤的系统达到这些目标相当困难2–6。单模光纤、光纤阵列单元以及其他光纤相关配件合计占共封装光学（CPO）交换机成本的&gt;30%6，即便部署的光纤数量仅为</p><p>约1,000。因此，每通道需要较大的带宽（即&gt;200 Gbps/lane），这在能耗与总带宽之间引入了权衡。另一方面，使用节能的低速光纤通道（即&lt;10 Gbps/channel）受光纤数量限制5,7，总可达带宽被限制在1-5 Tbps。因此，大量慢速通道方案（即慢而宽的系统）需要可靠、无光纤的通信8,9，用约10 Gbps的通道实现100 Tbps需要&gt;10,000个通道10。随着微发光二极管（micro-LEDs）5等节能但速率较低的光源的出现，扩展到30,000个以上通道的系统可能更为有利。基于微反射镜的自由空间链路具有</p><p>已有少数研究利用垂直腔面发射激光器（VCSEL）和倾斜运动微镜提出了相关方案11,12。然而，这些工作或未具备真正的可重构性11，或仅具有一维可重构性且调制机制复杂12，不适用于 slow-and-wide（慢而宽）系统。另一方面，光纤开关13,14展示了可扩展的方案，但其面向基于光纤的系统，因而受限于≤300通道，且所用反射镜填充因子低，无法进一步扩展到&gt;1,000通道。在本工作中，我们提出一种自由空间光互连系统，由一对微机电系统（MEMS）微镜阵列构成，作为二维可重构光子</p><p>通道，面向 VCSEL 或 micro-LED 等面发射光源。我们开展了原理验证实验，展示了所提系统的二维可重构性；在现有技术条件下，该系统有望扩展到&gt;1,000通道。我们的结果还为通道数量的进一步扩展提供了技术路线图。</p><p>2 自由空间光互连的扩展 图 1 | 所提出的自由空间光互连。(a) 系统示意图。发射阵列与接收阵列中的单元通过一对微镜阵列一一映射，使光束垂直入射到芯片上。系统的自由空间特性可实现节省空间的光束重叠。图中所示为 10×10 的通信通道阵列。(b) 串扰结构说明。通道间距定义为反射镜处光束半径 ω 的 kb 倍，最坏情况串扰强烈依赖于 kb。(c) 在光罩限制下，倾斜镜阵列与活塞式反射镜阵列的可重构通道数量的扩展情况，其自变量为</p><p>微镜参数：倾斜镜的最大光学偏转角，以及活塞式运动反射镜的最小像素间距。更大的光罩可实现更多的通道数，通道数与光罩面积扩展的平方根成正比。图 1(a) 展示了所提系统，其采用集成了微透镜的面发射光源、两个微镜阵列以及集成了微透镜的光电探测器阵列15。该系统既可采用倾斜镜，通过在两个不同方向上的机械转动对光束进行几何偏转14；也可采用活塞式运动反射镜，通过对反射光束整体施加相位倾斜来实现偏转16。在倾斜镜架构中，每个通道由两个倾斜镜支撑：其中一个将</p><p>将输入光束投射到一个输出反射镜上，该反射镜再将该光束导向所需的输出信道。活塞式反射镜架构同样采用一个输入和一个输出，但此处的反射镜由多个活塞式反射镜组成，通过衍射使光束发生偏转。两个微反射镜以与芯片平面成45°的角度进行封装，这是最优角度（补充信息）。与现有的光纤交换器13,14相比，该系统具有多项优势——(1) 较短的波长（λ=450 nm或更短）可提高信道密度；(2) 信道可原位装调（对准），无需精对准封装，从而降低封装成本；(3) 制造成本由并行光刻工艺决定，而非串行光纤</p><p>拉制；(4) 所有输入/输出光束均垂直于芯片，有利于实现高能效（即微型化）的发射器和探测器8。虽然文献中已有光纤交换器的扩展性研究13,17，但我们提出另一组方程，去除这三个主要假设，从而得到更准确的信道数量——(1) 最大光学偏转角很小（小角近似）；(2) 任意两反射镜之间的间距恒定（等间距近似）；(3) 芯片占位为正方形（方形芯片近似）。该方程仍受光阑尺寸与间距（即衍射）之间权衡关系的支配，如补充信息所示：</p><p>𝑠𝑠1 = 𝑁𝑁1(𝑁𝑁1 − 1)𝜆𝜆𝑘𝑘𝑏𝑏2𝜋𝜋𝜋𝜋𝜋𝜋𝑠𝑠𝜋𝜋 1 + 𝑡𝑡𝑡𝑡𝑡𝑡𝛼𝛼1𝑡𝑡𝑡𝑡𝑡𝑡𝛼𝛼1 (0 &lt; 𝛼𝛼1 &lt; 𝜋𝜋4) (1a) 𝑠𝑠2 = 𝑁𝑁2(𝑁𝑁2 − 1)𝜆𝜆𝑘𝑘𝑏𝑏2𝜋𝜋𝑡𝑡 𝑡𝑡𝑡𝑡 𝛼𝛼2 11 − 2(𝑁𝑁1 − 1)𝑑𝑑1𝑠𝑠𝑠𝑠𝑡𝑡 𝜋𝜋𝑝𝑝𝑏𝑏 (1b) 式中，kb是与应用相关的参数，表示信道间距（即信道间距定义为kb乘以反射镜处的光束半径ω），λ为波长，β=45°为光束的入射角，pb为两个阵列之间的最大直线间距，s1(s2)=N1d1（N2d2）、N1(N2)、α1（α2）和d1(d2)分别为芯片沿各轴的最小长度、信道的线性数量、最大光学偏转角和光阑尺寸。同样的方程也适用于活塞式运动反射镜，而其光学偏转角在实际中</p><p>𝛼𝛼1 = sin−1(𝜆𝜆/2Λcosβ) and 𝛼𝛼2 = sin−1(𝜆𝜆/2Λ)16,18，其中Λ为活塞式反射镜阵列的间距：𝑠𝑠1 = 𝑁𝑁1(𝑁𝑁1 − 1)𝜆𝜆𝑘𝑘𝑏𝑏2𝜋𝜋𝜋𝜋𝜋𝜋𝑠𝑠𝜋𝜋 1 + tan{sin−1(𝜆𝜆/2Λcosβ)}tan{sin−1(𝜆𝜆/2Λcosβ)} ≈ 2𝑁𝑁1(𝑁𝑁1 − 1)𝑘𝑘𝑏𝑏2Λ𝜋𝜋 (2a) 𝑠𝑠2 = 𝑁𝑁2(𝑁𝑁2 − 1)𝜆𝜆𝑘𝑘𝑏𝑏2𝜋𝜋 tan{sin−1(𝜆𝜆/2Λ)} 11 − 2(𝑁𝑁1 − 1)𝑑𝑑1𝑠𝑠𝑠𝑠𝑡𝑡 𝜋𝜋𝑝𝑝𝑏𝑏 ≈ 2𝑁𝑁2(𝑁𝑁2 − 1)𝑘𝑘𝑏𝑏2Λ𝜋𝜋 (2b) 简化形式由小角近似得到。每个信道由𝑀𝑀1 × 𝑀𝑀2个活塞式反射镜组成：𝑀𝑀1 = 𝑠𝑠1𝑁𝑁1𝛬𝛬 ≈ 2(𝑁𝑁1 − 1)𝑘𝑘𝑏𝑏2𝜋𝜋 (3a) 𝑀𝑀2 = 𝑠𝑠2𝑁𝑁2𝛬𝛬 ≈ 2(𝑁𝑁2 − 1)𝑘𝑘𝑏𝑏2𝜋𝜋 (3b) 这表明每个信道所需的活塞式反射镜数量大致随信道数量线性增长。例如，在kb=2的情况下，100个信道要求每个反射镜均为23×23的反射镜阵列。</p><p>图 1 (b)展示了k b在式(1a-3b)中的作用。与传统光纤开关不同，垂直入射到微透镜上的光无需考虑模式重叠即可耦合进光电探测器。因此，最坏情况串扰按被光阑捕获的功率之比计算：𝐶𝐶𝐶𝐶𝜋𝜋 𝑠𝑠𝑠𝑠𝑡𝑡𝑡𝑡 𝐶𝐶𝑘𝑘 = 1 0 log ⎣ ⎢ ⎢ ⎢ ⎡∫ ∫ exp �−2{(𝑥𝑥 − 𝑑𝑑)2 + 𝑦𝑦2}𝜔𝜔2 �𝑑𝑑2−𝑑𝑑2 𝑑𝑑𝑥𝑥𝑑𝑑2−𝑑𝑑2 𝑑𝑑𝑦𝑦 ∫ ∫ e xp �− 2(𝑥𝑥2 + 𝑦𝑦2)𝜔𝜔2 �𝑑𝑑2−𝑑𝑑2 𝑑𝑑𝑥𝑥𝑑𝑑2−𝑑𝑑2 𝑑𝑑𝑦𝑦 ⎦⎥⎥ ⎥ ⎤ (4) 其中，d=kbω为通道尺寸，ω为反射镜处的光束半径。图 1 (b)插图给出了光纤开关与所提系统在理论串扰为-20 dB(2.15 vs 2.33)、-30 dB(2.63 vs 3.09)和-40 dB(3.03 vs 3.72)时对应的kb值。值得注意的是，式(4)假设</p><p>采用平面反射镜与基模高斯光束。在实际系统中，由于非理想因素，所需的kb往往大于该预测值(例如，-40 dB13对应kb≈3.5)。</p><p>在给定α(Λ)与kb的条件下，可在式(1a-1b)或式(2a-2b)的约束范围内，通过最大化整数N1N2并采用圆形光束假设𝑑𝑑1𝜋𝜋𝜋𝜋𝑠𝑠𝜋𝜋 = 𝑑𝑑2来求得最优通道数。图 1 (c)展示了通道数量的扩展规律。通道数受限于26 ×33 mm2的标准掩模版尺寸；若采用更大的掩模版，通道数随掩模版面积的平方根增长。较大的α(较小的Λ)可减小间隔从而抑制衍射，而较小的kb可在给定衍射极限下最大化通道密度，二者均提高了通道密度。</p><p>所提系统的扩展能力优于基于波导的方案(例如，受掩模版限制时为80-128通道3)和基于光纤的方案(例如，每个封装136-300通道14)。此外，所提方法使多掩模版方案更加实用，并将拼接误差降至最低。例如，通过装调(对准)三块独立的10,000通道掩模版，可实现约30,000个通道。不过，扩展到&gt;10,000通道仍具挑战：对于-20 dB串扰，需要≥19.25°的机械偏转角(即≥38.5°的光偏转角)，或≤360 nm的活塞镜间距。然而，此处的各向异性分析表明，倾斜轴所需的角度明显小于另一轴——上述例子沿倾斜轴仅需8.6°机械角或≤1.08 µm的间距。</p><p>轴。这对微镜十分有利：前者放宽了倾斜镜的弹簧设计要求，后者则为镜面下方的晶体管集成留出更大空间。总体而言，所提系统为&gt;10,000通道的扩展提供了清晰的技术路径。 实验装置 图 2 (a)展示了实验装置。来自450 nm激光二极管的光以接近45°的入射角照射到微镜阵列并被反射。Texas Instruments相位光调制器(TI-PLM)16具有10.8 μm像素间距、94.5 %填充因子和4-bit位深(即16个相位等级)16，由显示接口19控制。一块固定反射镜将光反射回TI-PLM进行第二次反射，并</p><p>采用CMOS相机替代集成微透镜的光电探测器阵列，以模拟图 1 (a-b) 中的系统。光束聚焦于固定反射镜上，TI-PLM 距固定反射镜约一个瑞利长度17。TI-PLM 处的光束半径为 377 μm × 332 μm，投影到反射镜上为 533 μm × 332 μm。重新标定 TI-PLM 的相位级次，以解决斜入射导致的有效行程缩减√2的问题（补充信息）。图 2 | 实验装置。(a) 实验装置旨在模拟图 1 (a) 中提出的器件并评估其性能。采用发射波长为 450 nm、经透镜聚焦的激光二极管作为发射阵列</p><p>元器件。CMOS相机上的每个感兴趣区域对应接收阵列的一个单元，该单元包含一个微透镜和一个光电探测器。固定反射镜使光束在 TI-PLM 的不同区域上反射两次，等效于一对微反射镜。CMOS相机的输出与 TI-PLM 的输入均连接到计算机，构成一个优化闭环。(b) 在优化前评估了九种输入配置，初始设置为相位梯度图案，以有效地产生倾斜光束。结果 图 3 (a) 显示了微反射镜阵列的初始设置，即九个（即 3 ×3）不同的反射镜，每个尺寸为 98 × 62 像素，对应 kb=2。图 2 (b) 显示了利用</p><p>这些反射镜的九种配置。在配置 i 中，倾斜（即相位斜坡）图案首先将光束从中心反射镜导向所需的反射镜 i（例如 i=5 对应平面图案），随后反射镜 i 通过保持中心图案的 180 °旋转副本来抵消返回光束的角度。各配置之间仅中心反射镜不同，周围八个反射镜在全部九种配置中共享。这模拟了密集排列的阵列，其中周围反射镜被设置用于各自的有源信道。因此，某一配置中的图案会作为有害串扰影响其他配置：未被主反射镜捕获的光束（例如约占初始功率的 ~9 %）被周围反射镜捕获</p><p>并汇聚到不需要的信道中，即便对于理想高斯光束也会产生 -16.2 dB 的串扰。图 3 (a) 显示，在活塞反射镜阵列上计算得到的倾斜图案（即优化之前）由于光束轮廓非理想、阵列填充因子不为 1 以及相位分辨率有限，引入了大得多的平均最坏情况串扰，达 -4.7 dB。完成初始设置后，采用为光电探测器阵列设计的流程对全部九个信道进行协同优化，详见方法部分。图 3 (b) 显示了优化结果。优化后的系统性能优于 -16.2 dB 的理想值，平均最坏情况串扰为 -21.7 dB。图 3 (c)</p><p>显示了最大串扰从约 -3 dB 优化至 &lt; -20 dB 的过程，图 3 (d) 评估了各通道的积分光强。对比图 3 (c) 与 (d)，当优化推进到细像素时，信号损耗开始占据主导，这源于复杂图样的散射损耗以及 TI-PLM 有限的位深。例如，通道 4 的信号损耗出现三个下陷，分别对应向 12× 12、24 ×24 和 36× 36 梯度的过渡。通道 7 受影响最小，信号损耗为 -0.25 dB；而通道 5 的绝对光强始终最高，它起始于平坦相位级次 0。此次优化带来的平均损耗为 -1.24</p><p>dB，当相位分辨率提高后，该值将得到改善20。图 3 (e) 给出优化前后的串扰图。优化后，串扰大多处于 -30 至 -20 dB 范围内，这在 kb=2 时使用平面倾斜镜是无法实现的。因此，该优化同时校正了非理想的光束轮廓与实验中的非理想因素，并且同样可用于以廉价的多模垂直腔面发射激光器（VCSEL）或微型发光二极管（micro-LED）作为光源的场合。采用多模光源的可行性见补充信息（Supplementary Information）。</p><p>图 3 | 九个不同通道的优化。(a-b) 九个通道的评估：(a) 仅采用倾斜相位梯度图样、优化前；(b) 逐像素优化。共测试九种配置，每种配置占用一个主通道，并评估其到其他通道的串扰。优化大幅降低了串扰，同时保持了各通道清晰明确的输出。(c-d) 优化的权衡。(c) 串扰，(d) 信号损耗。当优化进入更精细的阶段时会出现信号损耗，其原因是离散相位级次以及由此导致的像素间散射损耗。(e) 优化前后的串扰评估。蓝色色调的数据点表示串扰低于 -20 dB，红色色调的数据点表示</p><p>串扰高于 -20 dB。优化将所有串扰抑制至 &lt; -20 dB。</p><p>图 4 比较了 kb=2、2.33 和 3.09 时的优化结果，其理论串扰分别为 -16.2 dB、-20 dB、-30 dB。图 4 (a) 比较了不同 kb 值下的优化。kb 值越大，在相同轮次下产生的串扰越小。最终串扰为：kb=2 时 -21.7 dB，kb=2.33 时 -24.3 dB，kb=3.09 时 -24.5 dB。与此同时，平均信号光强的起始值随 kb 增大而降低，这是 (i) 感兴趣区域（ROI）更大导致信噪比下降与 (ii) 光束偏转角更大时偏转效率更低21 两者共同作用的结果。因此，当 kb ≥ 2.33 时，测得的串扰受相机噪声基底限制，如图 4 (b) 所示。随着更精细的</p><p>等低噪声光电探测器硬件时，预期串扰可更低：kb=2.33 时为 -26.4 dB，kb=3.09 时为 -32.0 dB。图 4 | 串扰随 kb（2.0、2.33 和 3.09）优化的变化。(a) 三种情况下最坏平均串扰与平均信号光强优化结果的比较。kb 越大，最坏平均串扰收敛越快，但平均信号光强的初始值也越低，且随优化进一步下降，kb 越大越明显。(b) 将优化结果与平面反射镜的理论值进行比较。优化后的活塞式反射镜在 kb=2.33 以内实现了更优的串扰，之后受限于相机噪声本底。在实际系统中，每个通道将由独立光源照明并单独调制</p><p>（例如 &gt; GHz）。为展示优化在实际系统中的可行性，图 5(a) 给出了多路一对一通道在同时照明下的优化结果。九个通道由覆盖所有通道的准平顶光束照明，每个通道通过反射镜图案本身在 ON 状态（即目标图案）与 OFF 状态（即相位级次为 6 和 13 的二元光栅，将光导向光路之外）之间调制。图 5(a) 表明，通过单独调制每个通道，可以在其他通道的光存在的情况下进行优化，如图 5(b) 所示。优化过程中，平均 OFF/ON 比被优化</p><p>从 -8.33 dB 优化到 -17.02 dB，低于 kb=2 时计入所有邻近通道影响的理想值 -10.1 dB。该实验呈现的是非理想情形，因此并不代表系统的极限。首先，准平顶光束属于会降低串扰性能的非理想情形。其次，反射镜的调制速度与 CMOS 相机的采集速率将速率限制在 &lt;1 Hz。最后，调制状态并不完美，背景较大，因为相位级次 6 与 13 之间的相位差并非恰好 π，导致 0 级衍射存在泄漏。图 5(c) 将理论计算与本文演示结果进行对比。活塞式运动反射镜在通道扩展方面具有优势</p><p>，使其能够在串扰 &lt;-20 dB 的条件下实现 kb=2。所演示的通道跨度为 1060 µm × 670 µm，而在 14.7 ×8.6 mm2 面积内集成 1358×800 个微反射镜的 TI-PLM 芯片将产生约 156 个此类通道，而理想情况下约为 374 个可重构通道，受限于体光学元件导致的非理想光束束腰。进一步的改进可通过将投射到反射镜上的光束半径调整为最优值 ω=236 × 333 µm 而非当前值 ω=332 × 533 µm 来实现。此外，在此像素间距下，通过将反射镜数量向光罩极限扩展，可实现 &gt;1,000 个通道。</p><p>8 图 5 | 同时照明期间的优化。(a) 通过调制不同的通道对并提取来自其他通道的串扰，实现了同时照明下九个通道的优化。平均而言，OFF/ON 比从 -8.33 dB 降至 -17.02 dB。(b) 优化前后各通道调制情况的相机图像。(c) 再次给出活塞运动反射镜的理论通道规模扩展曲线，并标出本工作获得的数据点。经外推，此处所示的通道密度接近理论值。图 6 展示了活塞运动反射镜的另一项优势：实现一对多映射，可将光束以相近的光强发送到两个或四个不同位置。这样即可</p><p>实现单向光扇出。图 6(a) 显示优化前的输出，其中图样 A–D 在&quot;方法&quot;部分中描述。理想情况下，图样 A 应将 16.4% 的光束导向每个对角光斑，而图样 B 和 C 应将 40.5% 的光束导向两个对称光斑。然而，输出中出现了若干不需要的衍射级次。图 6(b) 给出优化后的最坏情况串扰：A 为 -18.3 dB，B 为 -19.4 dB，C 为 -18.8 dB，D 为 -19.6 dB，表明多输出通道具有更大的串扰。目前，返回图样是图样 A–D 旋转 180° 后的副本，以确保垂直入射到相机，这会因</p><p>第二次反射时的扇出而导致信号进一步减弱。预计可以通过对第一和第二反射镜分别进行优化来改进优化效果，同时利用集成微透镜的小型光电探测器等硬件确保垂直入射。</p><p>9 图 6 | 多输出图样的优化。(a) 优化前和(b) 优化后的优化热图与相机图像。活塞运动微反射镜同样可以对多输出图样进行优化，尽管随着输出数量增加性能略有下降，表明优化仍有改进空间，主要在于提高信号光强。讨论 本文提出了一种基于活塞运动微反射镜阵列的自由空间光互连系统，并通过实验验证了其可重构性。对九种不同配置进行协同优化，在 kb=2 时实现了 &lt; -20 dB 的串扰，这是仅可倾斜的平面反射镜所无法做到的。该方法在</p><p>其他通道同时工作的情况下同样有效，因此适用于实际系统。所演示的通道间距和尺寸可在单个 TI-PLM 芯片上扩展至约 156 个可重构通道。在这一间距下实现约 1,000 个通道，需要在将芯片扩展到光罩极限的同时缩小光阑尺寸。活塞运动反射镜还能借助多输出图样实现光扇出，这对于资源解聚（如存储器与图形处理器（GPU）之间的连接）尤其有用。总体而言，我们展示了活塞运动反射镜相对于倾斜镜的两项优势——(i) 通过像素优化降低通道串扰，(ii) 将一个</p><p>输入到多个输出。本研究提出了一个重要问题：对于光互连而言，倾斜镜与活塞式反射镜哪一种更有利。一方面，倾斜镜可能更具优势，因为较大的倾斜角（例如 ≥19.25°）在实际中比亚微米反射镜间距（例如 ≤360 nm）更容易实现。例如，学术上已演示的最小活塞式反射镜间距为 500 nm22，而学术上已演示的大角度倾斜镜的机械角度可达 ±60 ° mechanical23。此外，大信道数所需的活塞式反射镜数量远多于倾斜镜。例如，10,000 个完全可重构信道需要 100×100 个倾斜镜，或 25,000×25,000 个活塞式反射镜（250×250</p><p>个反射镜对应一个信道）。因此，良率成为活塞式反射镜需要考虑的问题。此外，与角度相关的衍射效率对于大间距反射镜可能是一个问题。另一方面，高填充因子的模拟式倾斜镜不易获得，而活塞式微反射镜阵列正日益商业化，其间距有 10.8 µm16 或 16 µm20 等。</p><p>10 此外，本工作中的像素优化与组播可进一步降低对活塞式反射镜的信道数需求。例如，多个通信信道可容纳在单个可重构信道内。对于数据速率为 3.3 Gbps/lane、间距为 50 µ m5 的基于 micro-LED 的光互连，本工作所示的单个信道内约可容纳 36 个 micro-LED，从而达到约118 Gbps/channel 的数据速率。在同一 lane 内，电学重构可与来自活塞式反射镜的光束轮廓控制/装调（对准）相结合。尽管该设想可能需要复杂的光学设计、其可行性尚待验证，但它表明了活塞式反射镜的优势</p><p>类似地，活塞式反射镜可用于低信道数的应用，例如光纤交换器14，这可由 TI-PLM NIR24 等近红外相位调制器实现。最后，像素优化可以调整光束的焦点 18。结合多次（例如 ≥ 4）反射，在每次反射之间聚焦可克服 Eqs. (1a-2b) 中所述的光阑尺寸与间隔之间的折衷，因为它使光束能够在衍射极小的情况下传播更长的距离。尽管如此，未来的硬件改进，例如大角度倾斜镜或小间距活塞式反射镜，可进一步推动本研究。此外，活塞式反射镜将受益于不断增加的</p><p>可在精细优化中最小化散射损耗的相位分辨率。最后，倾斜-活塞式运动反射镜25 可以作为一种独特的方案，兼得倾斜镜与活塞式运动反射镜两者的优势。另一方面，非 MEMS 相位调制方法（例如超表面上的液晶26）在缩小像素间距方面同样可能有用。方法 基础 相位图样构造 正文中的倾斜图样给出由解析式计算得到的相位梯度：ϕ(𝑥𝑥𝑖𝑖𝑖𝑖, 𝑦𝑦𝑖𝑖𝑖𝑖, 𝜃𝜃𝑥𝑥, 𝜃𝜃𝑦𝑦) = 𝑚𝑚𝜋𝜋𝑑𝑑 �2𝜋𝜋𝜆𝜆 ��sin �𝜋𝜋4 + 𝜃𝜃𝑥𝑥� − sin �𝜋𝜋4�� 𝑥𝑥𝑖𝑖𝑖𝑖 + 𝑠𝑠𝑠𝑠𝑡𝑡𝜃𝜃𝑦𝑦𝑦𝑦𝑖𝑖𝑖𝑖 � , 2𝜋𝜋� (5) 其中，(𝑥𝑥𝑖𝑖𝑖𝑖, 𝑦𝑦𝑖𝑖𝑖𝑖) 为相对于图样中心的位移，𝜃𝜃𝑥𝑥、𝜃𝜃𝑦𝑦 为</p><p>x 与 y 方向上的光偏转角，𝜆𝜆 为波长。相位级次在每个像素中心处计算，并被设置为最接近的可用相位级次。图 6 中所用的初始相位图样由下列各式定义：ϕ𝐴𝐴(𝑥𝑥𝑖𝑖𝑖𝑖, 𝑦𝑦𝑖𝑖𝑖𝑖) = (𝜑𝜑1 − 𝜑𝜑0)𝑚𝑚𝜋𝜋𝑑𝑑 ��𝑥𝑥𝑖𝑖𝑖𝑖ℎΛ� + �𝑦𝑦𝑖𝑖𝑖𝑖ℎΛ� , 2� + 𝜑𝜑0 (6a) ϕ𝐵𝐵(𝑥𝑥𝑖𝑖𝑖𝑖, 𝑦𝑦𝑖𝑖𝑖𝑖) = (𝜑𝜑1 − 𝜑𝜑0)𝑚𝑚𝜋𝜋𝑑𝑑 ��𝑥𝑥𝑖𝑖𝑖𝑖ℎΛ� , 2� + 𝜑𝜑0 (6b) ϕ𝐶𝐶 (𝑥𝑥𝑖𝑖𝑖𝑖, 𝑦𝑦𝑖𝑖𝑖𝑖) = (𝜑𝜑1 − 𝜑𝜑0)𝑚𝑚𝜋𝜋𝑑𝑑 ��𝑦𝑦𝑖𝑖𝑖𝑖ℎΛ� , 2� + 𝜑𝜑0 (6c) ϕ𝐷𝐷(𝑥𝑥𝑖𝑖𝑖𝑖, 𝑦𝑦𝑖𝑖𝑖𝑖) = 𝜑𝜑0 (6d) 其中，Λ 为像素间距，h 为图样以像素为单位的半周期，𝜑𝜑0 = 0 为基础级次，𝜑𝜑1 = 0.92𝜋𝜋 为二元光栅级次。[ ] 表示向下取整运算。</p><p>优化方法 优化采用梯度上升法，其中 N 维梯度通过对图样施加 N2 种不同微扰，并用相机对感兴趣区域（ROI）进行测量来实验确定。优化步骤从粗像素（即每通道 3×3 种微扰）逐步推进到细像素（即每通道 36×36 种微扰）。微扰采用已知最小 Hadamard 矩阵27 的图样，其阶数等于或大于元件数，以引入高于噪声限的相互正交微扰。通过最大化下列品质因数来最小化串扰：</p><p>11 𝐽𝐽𝑖𝑖 = 10 log10 𝐼𝐼𝑖𝑖,𝑖𝑖 − 𝐼𝐼𝑏𝑏𝑏𝑏 max 𝑗𝑗≠𝑖𝑖 𝐼𝐼𝑖𝑖,𝑗𝑗 − 𝐼𝐼𝑏𝑏𝑏𝑏 (7) 其中，Ji 为第 i 个图样的品质因数，Ii,j 为主图样为第 i 个图样时第 j 个感兴趣区域（ROI）的平均光强，Ibg 为从实验装置测得的平均背景光强。最大化 Ji 等价于最小化配置 i 下对其他单元的最坏串扰，即 -Ji。优化流程针对常规光电探测器阵列设计，因此不使用相机捕获的完整光强分布；优化器唯一可获得的信息是每个 ROI 的积分光强。全部 9 个图样通过优化总体品质因数进行优化：𝐹𝐹𝐹𝐹𝑀𝑀 = � e xp(−𝐽𝐽𝑖𝑖)∑ exp(−𝐽𝐽𝑖𝑖)𝑖𝑖=1−9 𝐽𝐽𝑖𝑖𝑖𝑖=1−9 (8)</p><p>即 J1,J2, …, J9 的软最大值（soft-maximum）。Softmax 函数使品质因数（FOM）可微，同时保留其定义，即优化最差（也就是最小的）Ji。数据可用性 支撑本研究结果的数据可在本文和补充材料中获取。代码可用性 优化代码已随稿件提交，并可按需提供。致谢 本文所呈现的信息、数据或工作部分由斯坦福能源博士后奖学金（Stanford Energy Postdoctoral Fellowship）和 Precourt 能源研究所（Precourt Institute for Energy）资助，部分由斯坦福可持续发展加速器（Stanford Sustainability Accelerator）资助。作者贡献 O. Solgaard 与 J. Lee 构思了本研究，O. Solgaard 监督了该项目。J. Lee 设计了</p><p>实验。J. Lee 与 C. G. Valdez 搭建了测量装置，C. G. Valdez、A. R. Kroo 和 D. A. B. Miller 在故障排查方面提供了建议。J. Lee 开展了实验并分析了数据。J. Lee 撰写了论文，并吸收了所有作者的意见。所有作者均参与了核验与修改。其他信息 补充材料：补充材料以单独文档形式提供。</p><p>12 利益冲突 作者声明无利益冲突。人工智能使用披露 图 1 (a-b) 和图 2 (a) 部分由 Blender 制作，其脚本由 Claude Fable 5 编写。脚本经作者核验，输出图像经作者审查。Claude Fable 5 和 ChatGPT Astro 6.1 用于协助实现实验数据采集所用的 Python 代码。物理模型与数值方法由作者设计，作者对所有 AI 辅助代码进行了审查、测试与验证。参考文献 1. Shehabi, A. et al. 2024 United States Data Center Energy Usage Report. LBNL-2001637 (2024). 2. Grutter, K., Salter, T. &amp; Horton, T. Findings of the 2nd Photonics and Electronics Technology for</p><p>Extreme Scale Computing Workgroup (REPETE): Design Challenges for Socket Level Photonic I/O. Preprint at https://doi.org/10.48550/ARXIV.2110.11759 (2021). 3. Seok, T. J., Kwon, K., Henriksson, J., Luo, J. &amp; Wu, M. C. Wafer-scale silicon photonic switches beyond die size limit. Optica 6, 490 (2019). 4. Song, S. et al. A 32 Gb/s/λ 256Gb/S/Fiber Half-Rate Bandpass-Filtered Clock-Forwarding DWDM Optical Link in a 3D-Stacked 7nm EIC/65nm PIC Technology. in 2026 IEEE International Solid- State Circuits Conference (ISSCC) 396–398 (IEEE, San Francisco, CA, USA, 2026). doi:10.1109/ISSCC49663.2026.11409081. 5. Pezeshki, B. et al. 304 channel MicroLED based CMOS transceiver IC with aggregate 1 Tbps and sub-pJ per bit capability. in Optical Fiber Communication Conference (OFC) 2024 (2024), paper</p><p>M3A.1 M3A.1 (Optica Publishing Group, 2024). doi:10.1364/OFC.2024.M3A.1. 6. Goldman Sachs Global Investment Research. Optical Networking: The Next Mega Trend in AI Infrastructure. https://www.goldmansachs.com/pdfs/insights/goldman-sachs-research/optical- networking-the-next-mega-trend-in-ai-infrastructure/report.pdf (2026). 7. Daudlin, S. et al. Three-dimensional photonic integration for ultra-low-energy, high-bandwidth interchip data links. Nat. Photon. 19, 502–509 (2025).</p><h2>8. Miller, D. A. B. Attojoule Optoelectronics for Low-Energy Information Processing and</h2><p>Communications. Journal of Lightwave Technology 35, 346–396 (2017). 9. Miller, D. A. B. Waves, modes, communications, and optics: a tutorial. Adv. Opt. Photon. 11, 679 (2019).</p><h2>10. Pezeshki, B. et al. 10-Gb/s NRZ Per Lane Data Links With Transferred Micro-LEDs With</h2><p>Record BER and Energy Efficiency. IEEE Photon. Technol. Lett. 37, 453–456 (2025). 11. Ciftcioglu, B. et al. 3-D integrated heterogeneous intra-chip free-space optical interconnect. Opt. Express 20, 4331 (2012).</p><h2>12. Wang, K. et al. High-Speed Reconfigurable Free-Space Optical Interconnects with</h2><p>Carrierless-Amplitude-Phase Modulation and Space-Time-Block Code. J. Lightwave Technol. 37, 627–633 (2019). 13. Hagelin, P. M., Krishnamoorthy, U., Heritage, J. P. &amp; Solgaard, O. Scalable optical cross- connect switch using micromachined mirrors. IEEE Photon. Technol. Lett. 12, 882–884 (2000). 14. Urata, R. et al. Mission Apollo: Landing Optical Circuit Switching at Datacenter Scale. Preprint at https://doi.org/10.48550/ARXIV.2208.10041 (2022).</p><h2>15. Lee, J., Valdez, C. G., Kroo, A. R., Miller, D. A. B. &amp; Solgaard, O. Free-Space</h2><p>Reconfigurable Optical Interconnects for the Next Generation Datacenters. in 2026 International Conference on Optical MEMS and Nanophotonics (OMN) 1–2 (IEEE, Saint-Alexis-des-Monts, QC, Canada, 2026). doi:10.1109/OMN70392.2026.11646797.</p><p>13 16. Ouyang, B., Gong, S., Lawrence, T. &amp; Hall, J. Evaluating Texas instruments Phase Light Modulator (PLM). in Ocean Sensing and Monitoring XIV (eds Hou, W. ‘Will’ &amp; Mullen, L. J.) 18 (SPIE, Orlando, United States, 2022). doi:10.1117/12.2623938.</p><h2>17. Solgaard, O. Optical MEMS Fiber Switches (Chapter 8.6). in Photonic Microsystems 318–</h2><p>326 (Springer US, Boston, MA, 2009). doi:10.1007/978-0-387-68351-5_8. 18. Lee, J. &amp; Solgaard, O. Simulation studies on overcoming two challenges in phase-modulating micromirrors. in Emerging Digital Micromirror Device-based Systems and Applications XVIII (eds Lyubarsky, A. &amp; Bridger, K.) 36 (SPIE, San Francisco, United States, 2026). doi:10.1117/12.3098273. 19. Rocha, J. C. A. et al. Fast and light-efficient wavefront shaping with a MEMS phase-only light modulator. Opt. Express 32, 43300 (2024). 20. Payne, A. et al. Planar Light Valve and Displacement Phase Modulator: MEMS-based spatial light modulators for high-speed amplitude and phase modulation. J. Optical Microsystems 6, (2026). 21. Magnusson, R. &amp; Gaylord, T. K. Diffraction efficiencies of thin phase gratings with arbitrary</p><p>grating shape. J. Opt. Soc. Am. 68, 806 (1978). 22. Stahl, R. et al. Modular sub-wavelength diffractive light modulator for high-definition holographic displays. J. Phys.: Conf. Ser. 415, 012057 (2013). 23. Pollock, C., Javor, J., Stange, A., Barrett, L. K. &amp; Bishop, D. J. Extreme angle, tip-tilt MEMS micromirror enabling full hemispheric, quasi-static optical coverage. Opt. Express 27, 15318 (2019).</p><h2>24. Walker, Z. et al. Texas Instruments phase light modulator (PLM) for near infrared</h2><p>applications. in Emerging Digital Micromirror Device-based Systems and Applications XVIII (eds Lyubarsky, A. &amp; Bridger, K.) 11 (SPIE, San Francisco, United States, 2026). doi:10.1117/12.3077906. 25. Jung, I. W., Krishnamoorthy, U. &amp; Solgaard, O. High Fill-Factor Two-Axis Gimbaled Tip- Tilt-Piston Micromirror Array Actuated by Self-Aligned Vertical Electrostatic Combdrives. J. Microelectromech. Syst. 15, 563–571 (2006).</p><h2>26. Liu, X., Duan, X., Li, B., Zheng, Z. &amp; Li, Q. Liquid Crystal on Metasurfaces Toward</h2><p>Dynamic Photonic Control. Adv Funct Materials 36, e29188 (2026). 27. Hedayat, A. &amp; Wallis, W. D. Hadamard Matrices and Their Applications. Ann. Statist. 6, (1978).</p></article></div></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
