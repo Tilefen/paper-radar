@@ -1,0 +1,190 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>论文日报 · 2026-11-04</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style></head><body class="">
+<header><a class="brand" href="index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="daily/index.html" aria-current="page">日报</a><a href="papers/index.html">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 每日论文推荐</div><h1>论文日报 · 2026-11-04</h1><p class="lede">本期 10 篇，按阅读价值排序。</p><div class="metrics"><div><strong>10</strong>全文解读</div><div><strong>0</strong>优先团队</div><div><strong>0</strong>待重试</div></div><nav><a href="#trends">样本观察</a><a href="#briefs">今日速览</a><a href="#digest">全文解读</a><a href="#topic">今日专题</a></nav><section id="trends"><h2><span class="no">01</span>当日样本观察</h2><div class="trends"><article class="trend"><h3>计算重建成为光学计量的第二条链路</h3><p>当天样本中，LDV多视角重建、单像素相位成像和全息层析都把硬件采集与模型重建绑定：前者用复值NeRF补视角，中者用20个标量测量重建28×28相位，后者用折射率层析分离TGV几何与纹理。这是样本观察，不是全行业断言；共同代价是输入扫描数、编码图案或模型先验成为新的工艺窗口。</p><div class="sources"><a href="#paper-2611.00527">自动超声激光扫描的三维神经渲染</a> · <a href="#paper-2611.01675">面向单像素定量相位成像的学习型光学压缩</a> · <a href="#paper-2611.02225">基于全息层析的玻璃通孔三维几何与内壁纹理无损计量</a></div></article><article class="trend"><h3>光纤/波导链路以共模抑制和选择性增益换稳定度</h3><p>布里渊梳齿放大、单腔双向双梳和在线芯间移相分别用窄增益带、&gt;77%共享腔和固定加载轴来压低噪声/漂移；样本显示收益都伴随带宽、灵敏度或偏振选择性的约束。此为当天样本推断，迁移到其他波长或封装前需重测增益带、共模抑制比和偏振依赖。</p><div class="sources"><a href="#paper-2611.03038">用于光原子钟的布里渊梳齿放大器</a> · <a href="#paper-2611.02150">光学光谱不对称实现近完美共模抑制下单腔双梳光纤激光器的差分折射率传感</a> · <a href="#paper-2611.03304">使用商用偏振控制器的多芯光纤在线芯间相位控制</a></div></article><article class="trend"><h3>可编程光学前端的收益由损耗与工作窗口决定</h3><p>随机patch SLM分束用halo换强度比可调，SPAD阵列用MZI路由换宽通量适应，单像素方案用学习编码换低测量数；但halo随patch尺寸向焦点集中，MZI的1.32 dB超额损耗在窄通量窗口反而亏，学习编码则依赖物体统计与解码器迁移。样本提示可编程性只在跨度足够大且损耗可控时回本；这是基于三篇样本的推断。</p><div class="sources"><a href="#paper-2611.02755">基于随机相位掩模的相位锁定连续可调强度比分束</a> · <a href="#paper-2611.01111">波导集成Ge-on-Si SPAD阵列中的最优扇出与路由损耗盈亏</a> · <a href="#paper-2611.01675">面向单像素定量相位成像的学习型光学压缩</a></div></article></div></section><section id="briefs"><h2><span class="no">02</span>今日速览</h2><ol class="briefs"><li><a href="#paper-2611.03038">用于光原子钟的布里渊梳齿放大器</a><span>用受激布里渊散射选择性放大频梳单根梳齿以替代窄线宽时钟激光，并在片上实现62.9 dB增益与40 dB泵浦噪声抑制。</span></li><li><a href="#paper-2611.02150">光学光谱不对称实现近完美共模抑制下单腔双梳光纤激光器的差分折射率传感</a><span>在单腔双向双梳光纤激光器中共用腔内MMI传感器，利用顺/逆时针梳的光谱不对称经腔色散产生Δfrep差分响应，实现温度漂移抑制超过两个数量级的折射率传感。</span></li><li><a href="#paper-2611.03459">正常色散注入 Kerr 腔中由像差稳定的光子弹</a><span>数值证明在近自成像的垂直发射 Kerr–Gires–Tournois 干涉仪中，透镜/镜面球差引入的四阶衍射可稳定二维局域态与三维光子弹，无像差时光子弹不存在。</span></li><li><a href="#paper-2611.03304">使用商用偏振控制器的多芯光纤在线芯间相位控制</a><span>将商用在线偏振控制器当作多芯光纤芯间移相器，在四芯跳线中实现约0.95 rad可逆芯间相位，无需扇出或自由空间光路。</span></li><li><a href="#paper-2611.01111">波导集成Ge-on-Si SPAD阵列中的最优扇出与路由损耗盈亏</a><span>用计数信息率统一权衡SPAD阵列扇出的暗计数与死时间，给出最优扇出、临界通量和MZI路由盈亏条件。</span></li><li><a href="#paper-2611.00527">自动超声激光扫描的三维神经渲染</a><span>固定LDV多角度扫描+机械臂转动+PZT激励，复数NeRF重建三维表面速度场；留出角ZNCC 0.60，RGB基线0.28。</span></li><li><a href="#paper-2611.01052">解锁低频激光多普勒全息光谱用于视网膜和脉络膜微血管功能表型分析</a><span>在852 nm视网膜激光多普勒全息中保留低频，构建心动相位分辨的谱超额波形与SEI指标。</span></li><li><a href="#paper-2611.02755">基于随机相位掩模的相位锁定连续可调强度比分束</a><span>用随机分区相位掩模把单个SLM变成共路分束器，在保持两焦点空间模式与相对相位的同时连续调节强度比，并给出散斑halo的闭式模型。</span></li><li><a href="#paper-2611.01675">面向单像素定量相位成像的学习型光学压缩</a><span>用20个学习到的SLM相位编码把28×28定量相位图压缩到20个标量测量，实验实现约40倍压缩并验证解码器迁移。</span></li><li><a href="#paper-2611.02225">基于全息层析的玻璃通孔三维几何与内壁纹理无损计量</a><span>用450 nm LED全息层析无损重建未金属化TGV的三维折射率，并分离宏观形状与内壁纹理。</span></li></ol></section><section id="digest"><h2><span class="no">03</span>重点论文 · 全文 insight</h2><input id="search" type="search" placeholder="筛选标题、机构、标签…" aria-label="筛选论文"><article class="paper" id="paper-2611.03038" data-search="Brillouin comb line amplifiers for optical atomic clocks 用于光原子钟的布里渊梳齿放大器 机构待核验 laser">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>用于光原子钟的布里渊梳齿放大器</h3><a class="original" href="https://arxiv.org/abs/2611.03038" target="_blank" rel="noopener noreferrer">Brillouin comb line amplifiers for optical atomic clocks ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-11-02（UTC）</p><p class="reason">读它能判断SBS梳齿放大能否替代低噪声激光，以及片上增益、插损与噪声转移的工程边界。</p>
+<h4>研究问题</h4><p>传统光原子钟依赖窄线宽、可调谐且稳定的时钟激光，体积、功耗和成本高；直接频梳光谱又受多梳齿同时激发、单梳齿功率低和脉冲多普勒消除不足限制。论文要回答：能否用布里渊放大单根/两根梳齿，在保持频梳相位相干的同时获得足够荧光信噪比和时钟稳定度，并推进片上集成。</p><h4>核心方法</h4><p>先在510 m高非线性光纤中用反向泵浦的受激布里渊散射选择性放大间隔为n×f_rep的两根频梳线（1552/1560 nm），倍频到780/776 nm驱动87Rb 5S1/2→5D5/2双光子跃迁；以420 nm荧光解调误差信号，反馈频梳腔内快压电致动器调f_rep实现闭环。进一步将20 cm As2S3-GeSiO2螺旋波导与GeSiO2波导异质集成，光纤阵列封装，用低成本DFB泵浦，表征增益、插损、频率噪声与RIN。</p>
+<h4>实验结果</h4><ul><li>闭环时钟重叠Allan偏差为1.9×10^-13@1.5 s，约1000 s内按1/√τ下降，到8.6×10^-15@3000 s。</li><li>放大梳齿频率噪声底为6 Hz²/Hz@30 kHz频偏，比高端商用光纤激光低约一个数量级。</li><li>20 cm As2S3-GeSiO2 SBS放大器：on/off增益62.9 dB，计传播损耗净增益55.3 dB，计总插损净增益52.0 dB，G_B≈804 m^-1 W^-1。</li><li>用高相噪DFB泵浦时，泵浦噪声向放大梳齿的转移最多抑制40 dB。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>SBS增益带宽比典型200 MHz梳齿间隔窄约一个数量级，因此可只放大目标梳齿；在梳齿选择或低噪声放大链路中，应把增益带宽、f_rep和泵浦失谐作为联合设计参数，否则邻齿串扰或泵浦泄漏会改变噪声与功率预算。</li><li>片上20 cm短互作用长度避免长光纤中低频弛豫振荡导致的RIN抬升，并把环境相位噪声降低；代价是短长度需要高G_B、低损耗波导，且表中净插损仍为52.0 dB，链路预算需权衡。</li><li>泵浦噪声转移最多抑制40 dB，使高相噪DFB可替代高质量激光；但热种子自发布里渊散射会给出白FN底，若调制频率靠近热噪声主导区，需重新分配泵浦/探测功率和增益。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>闭环时钟演示使用510 m HNLF的SBS放大，片上器件仅表征放大器；全片上BE-DFCS闭环未验证（分析者判断）。</li><li>片上净插入损耗52.0 dB，且依赖光纤阵列耦合；温度/应变长期稳定性和封装可靠性未给出，长光纤放大器的长期稳定度仍受时变应变与温度梯度影响。</li></ul></article><article class="paper" id="paper-2611.02150" data-search="Optical spectral asymmetry enables differential refractive-index sensing under near-perfect common-mode suppression in a single-cavity dual-comb fiber laser 光学光谱不对称实现近完美共模抑制下单腔双梳光纤激光器的差分折射率传感 机构待核验 laser">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>光学光谱不对称实现近完美共模抑制下单腔双梳光纤激光器的差分折射率传感</h3><a class="original" href="https://arxiv.org/abs/2611.02150" target="_blank" rel="noopener noreferrer">Optical spectral asymmetry enables differential refractive-index sensing under near-perfect common-mode suppression in a single-cavity dual-comb fiber laser ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-11-01（UTC）</p><p class="reason">读完可了解单腔双梳如何把共模抑制转化为可设计的差分传感机制，以及灵敏度—稳定性权衡的量化边界。</p>
+<h4>研究问题</h4><p>单腔双向双梳光纤激光器能提供近完美共模抑制，但这种抑制通常也会抵消差分传感信号；同时传统双腔双梳受非共模光路限制，温度漂移只能部分抵消。论文要回答：在共模抑制极强的单腔架构中，折射率差分传感是否仍然存在，以及其物理来源和灵敏度—稳定性边界。</p><h4>核心方法</h4><p>在环形光纤腔内插入MMI传感器（1556.6 nm，包层去除多模光纤纤芯125 μm、长58.94 mm，两端接8.5 μm单模光纤），由976 nm双LD各950 mW泵浦；EDF置于MMI两侧补偿损耗，采用非线性偏振旋转与两方向独立SAM实现双向锁模。CW/CCW梳共享&gt;77%腔长，重频36.182/36.280 MHz；通过Δfrep读取RI。两方向因EDF增益/偏振相关传播产生光谱不对称，经腔色散把质心波长差转成不对称frep响应，从而在强共模抑制下保留差分信号。</p>
+<h4>实验结果</h4><ul><li>CW/CCW梳平均输出功率分别为4.86 mW和2.36 mW，重频分别为36.182 MHz和36.280 MHz。</li><li>单腔Δfrep漂移标准偏差为0.162 Hz（1 s门时间、1 s采样间隔）；双腔对照残余漂移标准偏差为4.01 Hz。</li><li>单腔RI传感灵敏度737 Hz/RIU，线性R²=0.993，分辨率1.32×10⁻⁴ RIU；双腔对照灵敏度1.87×10⁴ Hz/RIU、R²=0.997、分辨率2.09×10⁻⁴ RIU。</li><li>由光谱质心差与腔色散估算的CW/CCW frep灵敏度为5946.1/5218.3 Hz/RIU，对应差分灵敏度727.8 Hz/RIU。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>共用传感腔把共模噪声和差分信号一起压低，形成灵敏度与长期稳定性的正交取舍；若应用以长期漂移为主，可优先单腔架构，若追求短时高灵敏则需保留双腔或外加信号增强。</li><li>光谱不对称可当作设计自由度：通过调整EDF位置/增益谱和腔色散，可在不破坏共模抑制的情况下调节CW/CCW质心差，从而工程化Δfrep灵敏度；迁移到其他MMI或微流控传感时需先测两方向光谱质心与dfrep/dλ。</li><li>腔内MMI会引入损耗、滤波和偏振扰动，双向稳定锁模依赖泵浦余量、EDF增益补偿和独立SAM；复制该方案时应把MMI插损与双向增益平衡作为首要工艺窗口。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>灵敏度因共用传感腔降低约一个数量级；论文指出在较短测量时间和温和环境波动下，漂移抑制优势未充分转化为RI分辨率，长期监测优势仍需更长时间/更大温度扰动验证。</li><li>测试样品仅乙醇-水四个RI点（1.3180–1.3281 RIU），每点5次重复；提供文本未给出环境温度控制范围，也未展示生物/工业实际样品。</li></ul></article><article class="paper" id="paper-2611.03459" data-search="Aberration stabilized light bullets in normal dispersion injected Kerr resonators 正常色散注入 Kerr 腔中由像差稳定的光子弹 机构待核验 optical_design">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>正常色散注入 Kerr 腔中由像差稳定的光子弹</h3><a class="original" href="https://arxiv.org/abs/2611.03459" target="_blank" rel="noopener noreferrer">Aberration stabilized light bullets in normal dispersion injected Kerr resonators ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-11-02（UTC）</p><p class="reason">读完可知道近自成像条件下球差符号与幅值如何决定多维局域态的存在窗口，以及仿真给出的分岔与稳定性边界。</p>
+<h4>研究问题</h4><p>三维光子弹（同时在横向与传播方向受限并保形的脉冲）在保守 Kerr 系统中会塌缩失稳。论文研究在正常色散、光注入的垂直发射 Kerr–Gires–Tournois 干涉仪中，透镜与镜面球差在近自成像条件下产生的四阶衍射能否提供横向约束，从而稳定二维局域态与三维光子弹，并刻画其分岔结构。</p><h4>核心方法</h4><p>在均匀场极限下建立含三阶色散、傍轴衍射 B 与球差四阶衍射 S 的广义时空 Lugiato–Lefever 方程；横向算子由 Huygens–Fresnel 变换结合 ABCD 矩阵从成像条件微扰导出。用分裂步 Fourier 法直接时域仿真：2D 区域 [-30,30]×[-50,50]、256×256 网格、周期边界加小噪声；3D 区域 [-30,30]²×[-50,50]。相对已有工作，把球差（而非材料/势场）作为唯一横向约束项，并扫描注入 Y、衍射 B、像差 S。</p>
+<h4>实验结果</h4><ul><li>无像差（S=0）时二维只稳定倾斜、横向漂移的二峰与三峰局域态，注入范围窄，直的与暗态均不存在；2D 参数 θ=4、d₂=-0.4、d₃=0.3、B=0.15~0.8、Y=2.39。</li><li>取小负球差 S=-0.5、B=10⁻² 时出现多稳解族：直二峰、倾斜三/四峰、振荡态与七 LS 束缚态；且在 B&lt;0（如 B=-1.186~-0.22 附近）仍稳定，说明横向局域完全由四阶衍射提供。</li><li>三分支演化显示超临界 Andronov–Hopf 分岔（B_H≈-0.9），振荡支在 B_c≈-0.22 处消失并跳向倾斜态，回扫在 B_h≈-0.415 失稳，呈滞后；振荡周期按对数律变化，符合同宿分岔标度。</li><li>3D（Y=2.49、S=-0.5）找到直二/三峰与倾斜三峰光子弹，稳定区在 B 上比 2D 更窄、限于小 |B|，即仅当球差主导傍轴衍射（近自成像）时存在；S=0 时未找到任何稳定光子弹。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>把成像链的球差刻意保留在或引入近自成像外腔，可当作可调的高阶衍射旋钮来抑制自聚焦塌缩并稳定多峰/倾斜态——但符号须为负（S&lt;0，等效大横向波数衍射增强），适用于宽口径面发射或简并腔。</li><li>三维稳定窗口比二维窄且要求 |B| 小，意味着工程上需把系统调到傍轴衍射接近抵消、球差主导的自成像点附近；球差随 |S|→0 时结构横向压缩并消失（超额强度按 |S|^(1/4) 标度），可视为对装调容差的定性约束。</li><li>倾斜光子弹在 (x,y) 面内倾角任意、形成连续族，对以横向模式/指向控制为目标的器件是双刃剑：既是自由度也是指向不稳定来源，需靠破缺对称性（非对称像差或注入）选向。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>作者明确：仅用直接时域积分，只能得到稳定解，不稳定支、鞍结与折叠蛇行结构、同宿场景中的不稳定鞍支均无法证实；数值延拓工具（pde2path 有限元需大量辅助场、Fourier 版本仅支持偶数阶算子）尚不适用。</li><li>分析者判断：全文为归一化参数的纯理论/仿真工作，无实物器件或实验验证，B、S、Y、d₂、d₃ 未给出物理单位换算与实际像差/腔参量对应关系，迁移到具体腔体需自行建标定关系。</li></ul></article><article class="paper" id="paper-2611.03304" data-search="Inline inter-core phase control in multi-core fiber with a commercial polarization controller 使用商用偏振控制器的多芯光纤在线芯间相位控制 机构待核验 laser">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>使用商用偏振控制器的多芯光纤在线芯间相位控制</h3><a class="original" href="https://arxiv.org/abs/2611.03304" target="_blank" rel="noopener noreferrer">Inline inter-core phase control in multi-core fiber with a commercial polarization controller ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-11-02（UTC）</p><p class="reason">读完可判断商用IPC能否替代MCF扇出做慢速芯间相位稳定，并了解其偏振选择性、机械迟滞与模型失效边界。</p>
+<h4>研究问题</h4><p>多芯光纤干涉需要控制芯间相位，但现有方案需扇出到单模光纤或自由空间光学，缺少紧凑在线元件。论文验证商用在线偏振控制器能否作为芯间移相器，并用应力-双折射模型给出工作条件。</p><h4>核心方法</h4><p>把商用Thorlabs在线偏振控制器夹在四芯跳线（Fibercore SM-4C1500）上，距FC/PC接头数厘米。与常规旋转光纤改变双折射轴不同，固定加载轴相对芯阵的角度，仅改变压力；用直径受压圆盘应力模型预测主应力轴，使输入偏振沿主应力轴时Jones矩阵对角，各芯只累加绝对相位而不旋转偏振，即纯芯间移相。1550 nm连续光经DEMUX进入MCF，逐芯偏振计测Stokes；另用光纤BS分至芯1/4、MBS合束，单光子探测器记录，FFT提取驱动频率分量反演芯间相位。</p>
+<h4>实验结果</h4><ul><li>V偏振输入下，双芯干涉给出可逆芯间相位0.95±0.02 rad。</li><li>该相位存在与工作点无关的下界0.38 rad，说明单器件在非最优工作点仍能提供可用相位调制。</li><li>H偏振输入时提取值降至0.58/0.59 rad，明显低于V输入，显示器件对输入偏振敏感。</li><li>H和V输入下，芯1与芯4的S1在整个加载范围内保持近似恒定，支持纯移相工作条件。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>若目标是稳定全MCF干涉仪的亚赫兹芯间漂移，可把商用IPC当低速移相器；关键是把输入偏振锁到主应力轴，使各芯Jones矩阵对角，这样下游残余偏振旋转主要降低条纹可见度，而不会把偏振调制误读成相位调制。若偏振未知或漂移，残余偏振相关性会直接变成相位控制误差，原文估计V输入下至多约80%相位与偏振无关。</li><li>机械迟滞和力零点不确定使开环相位重复性差；工程上应按闭环反馈使用，依赖芯间相位随压力单调增加，而不是要求精确开环标定；需要更大相位行程时可串联多个IPC，初步两器件约1.5 rad，但噪声较大。</li><li>简化模型在理想对称直径压缩下预测芯1/4无芯间相位，实测约1 rad，说明实际接触几何或护套不对称主导；换器件或安装方式后不能直接沿用模型幅度，需逐台标定。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>简化直径受压圆盘模型忽略护套、缓冲层、包层和实际接触几何，对芯1/4在理想对称加载下预测零芯间相位，只用于识别工作条件，不能预测实测相位幅度。</li><li>偏振测量对芯间retardance差异的分辨率约15°，存在run-to-run迟滞与力零点不确定；H通道受漂移背景限制只能读作上界（E12），作者未声称开环相位重复性。</li></ul></article><article class="paper" id="paper-2611.01111" data-search="Optimal Fan-Out and Break-Even Routing Loss in Waveguide-Integrated Ge-on-Si SPAD Arrays 波导集成Ge-on-Si SPAD阵列中的最优扇出与路由损耗盈亏 机构待核验 laser">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>波导集成Ge-on-Si SPAD阵列中的最优扇出与路由损耗盈亏</h3><a class="original" href="https://arxiv.org/abs/2611.01111" target="_blank" rel="noopener noreferrer">Optimal Fan-Out and Break-Even Routing Loss in Waveguide-Integrated Ge-on-Si SPAD Arrays ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-31（UTC）</p><p class="reason">可快速掌握SPAD阵列何时值得用可编程MZI分光，以及暗计数限制下1 dB插损约折损2 dB信息量的设计规则。</p>
+<h4>研究问题</h4><p>将波导模式分给多个Ge-on-Si SPAD可缓解死时间饱和，却成倍增加暗计数；工程上缺少统一指标回答：给定暗计数、死时间、探测效率和输入光通量，应开启几个像素，以及热光MZI可编程分光树增加的插损何时值得。</p><h4>核心方法</h4><p>把非瘫痪型SPAD像素建模为更新过程，以计数渐近信息率Γ（单位s^-1）把暗计数、死时间和光传输折进同一指标；用加权矩估计量达到该信息率，并推导最优像素负载、精确效率、最优扇出和临界通量的闭式解。随后在64组16像素模拟阵列上比较四种架构：等分MMI树、静态MMI树（未校准及校准理想基准）、理想可编程树、每节点0.43 dB插损的热光MZI树（相对等分多1.32 dB超额损耗），并用事件级蒙特卡洛校验计数统计与估计量方差。</p>
+<h4>实验结果</h4><ul><li>标称像素（Dτ=0.01）下最优预死时间信号负载 y*=1.005×10^6 s^-1，峰值信息效率0.819。</li><li>16像素、平均传输T=0.818时临界通量Φc=9.8×10^7 s^-1；等分到全部像素仅在该通量以上最优。</li><li>热光MZI树相对等分树低通量增益13.2 dB，但在约2.8×10^7 s^-1以上反而低于等分树。</li><li>在单一已知通量下，校准静态分光优于1.32 dB超额损耗MZI树：中位惩罚从10^4 s^-1的2.69 dB降至10^10 s^-1的0.14 dB。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>若一个芯片只需服务已知或窄通量窗口，应优先固定/校准分光比而不是上MZI可编程树；只有通量跨度超过约2.5个数量级且超额损耗远低于3 dB时，可编程路由才可能回本。</li><li>暗计数离散会放大低通量下的像素选择增益（均匀阵列12.6 dB，σlnD=1.05时14.9 dB），因此逐像素筛选/标定可能比增加路由级数更划算；但在高通量饱和区该增益几乎消失。</li><li>单一固定扇出无法覆盖宽通量范围：最佳固定k=4仍在某段通量损失达5.7 dB；设计时应按预期通量分布选k，或明确接受跨档损失。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>全部结果为代表性文献参数下的仿真，未与实测Ge-on-Si SPAD阵列对照；Bcal为理想校准基准，实际静态器件会因固定MMI比例或片上trim损耗而低于该基准。</li><li>模型忽略后脉冲、光/电串扰、时间抖动及时间分辨信息，并假设通量在观测时间内平稳且已知；热光效率与加热功率的温度依赖未闭合。</li></ul></article><article class="paper" id="paper-2611.00527" data-search="3D Neural Rendering for Automated Ultrasonic Laser Scans 自动超声激光扫描的三维神经渲染 机构待核验 laser">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>自动超声激光扫描的三维神经渲染</h3><a class="original" href="https://arxiv.org/abs/2611.00527" target="_blank" rel="noopener noreferrer">3D Neural Rendering for Automated Ultrasonic Laser Scans ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-10-31（UTC）</p><p class="reason">读它可了解LDV多视角复值数据如何接入NeRF，以及背景掩膜、位姿来源和输出头改动对重建指标的实际影响。</p>
+<h4>研究问题</h4><p>现有ASSESS/LDV稳态超声扫描多停留在平面二维投影，缺乏将多视角复值速度扫描合成三维表面波场的方法；LDV只测沿光束方向的复速度，常规RGB NeRF会量化并丢弃虚部，且稀疏视角重建尚未解决。</p><h4>核心方法</h4><p>固定Polytec VibroFlex Q-Tech LDV，经电动振镜在二维平面栅格扫描；UFactory xArm6夹持工件，夹爪内PZT提供50–90 kHz稳态Lamb波激励，按等角度步进采集复值速度。用机械臂运动学解析生成虚拟相机位姿，rembg掩膜去除静止背景；将nerfacto输出头由三通道sigmoid改为两通道tanh，直接以实/虚速度通道训练，保留complex64信息并重建表面速度场。</p>
+<h4>实验结果</h4><ul><li>在留出视角上，复值管线平均ZNCC为0.60，同一数据训练的RGB nerfacto基线为0.28。</li><li>重建波场在全轨道旋转平滑，插值角度仍空间连续；作者据此认为网络学到潜在三维表面速度场，而非简单插值。</li><li>掩膜消融显示，去除背景后训练发散和视觉伪影显著减少，相对真值的ZNCC有可测提升。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>多视角LDV三维测量可优先用机械臂运动学生成位姿并用掩膜清背景；前提是旋转轴与扫描窗口中心对齐、仅沿可见单轨道重建，否则位姿误差和静止背景噪声会污染神经场。</li><li>复值振动数据应保留实/虚双通道并用tanh输出，避免RGB量化损失；但掩膜背景赋零会使输出头零偏拉低幅值，建议按信号幅值加权损失或分离正负速度分量。</li><li>激光散斑与LDV扫描标定漂移会被多视角重建误学成几何，训练前做背景掩膜/标定校正是必要工序；对产线LDV检测，光路稳定性和背景杂散控制与算法同等重要。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>论文明确：未实现稀疏输入重建，高保真渲染约需60次扫描（近连续角度覆盖）；所有位姿仅在单轨道，顶/底面未观测，且只重建被照表面、无内部波场。</li><li>分析者判断：仅展示两个焊接铝件和实验室LDV/机械臂平台，未报告产线节拍、重复性、不同材料/表面/温度鲁棒性及缺陷检出率/误报率，迁移前需补验证。</li></ul></article><article class="paper" id="paper-2611.01052" data-search="Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping 解锁低频激光多普勒全息光谱用于视网膜和脉络膜微血管功能表型分析 CNRS / ESPCI Paris CNRS ESPCI Paris laser">
+<div class="paper-meta"><span class="pill">CNRS</span><span class="pill">ESPCI Paris</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>解锁低频激光多普勒全息光谱用于视网膜和脉络膜微血管功能表型分析</h3><a class="original" href="https://arxiv.org/abs/2611.01052" target="_blank" rel="noopener noreferrer">Unlocking Low-Frequency Laser Doppler Holography Spectra for Functional Retinal and Choroidal Microvascular Phenotyping ↗</a>
+<a class="reading-link" href="papers/2611.01052/index.html">阅读中文全文 →</a>
+<p class="muted">全文机构行（模型提取） · 论文更新于 2026-10-31（UTC）</p><p class="reason">读完可掌握低频LDH的采集/重建/谱超额处理参数与适用边界，判断是否迁移到其他激光多普勒或散斑成像。</p>
+<h4>研究问题</h4><p>在无深度门控的视网膜激光多普勒全息中，低频段通常被滤除；当毛细血管不可分辨且间歇眼动主导信号时，如何从排除可见血管的区域恢复与心动周期相关的低频谱结构，并形成可汇总的波形和标量指标，用于视网膜/脉络膜微血管功能表型探索。</p><h4>核心方法</h4><p>系统为852 nm同轴数字全息眼底镜：保偏光纤90/10分光，20°平顶扩散器加两片60 mm双凸透镜作漫射照明，背散射与参考光干涉后由Phantom S711在512×320像素、20 μm像元下以37 kHz记录。重建用480 mm Fresnel变换；每256帧SVD去掉最大24个成分；256点FFT得64个导出频点（间隔0.578125 kHz，Nyquist ±18.5 kHz）。用血管/视盘掩模排除可见血管，保留4个完整心动周期；先在排除区做空间中值，再按相位跨beat取中值。以±2 kHz附近固定峰间梯形面积A(t)与中心16频点中值构成的参考矩形A0(t)求SE(t)=A/A0−1，SEI取SE(t)时间中值。</p>
+<h4>实验结果</h4><ul><li>系统采用852 nm同轴数字全息眼底镜记录视网膜干涉图。</li><li>单次采集含163,840幅干涉图，约4.4 s、37 kHz，保留4个完整心动周期。</li><li>处理把频谱导出为64个频点，标定间隔0.578125 kHz。</li><li>代表记录中SE(t)在早期周期部分较低、随后大部分周期升高。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>固定±2 kHz峰间面积与中心谷参考的比值只抵消共同乘性光谱增益，不抵消加性/频率相关背景；迁移到其他多普勒或散斑光谱时，应同时监控A(t)与A0(t)并设参考区质量门限。</li><li>先空间中值、再按心动相位跨beat中值，可削弱孤立扫视条纹但保留周期相关结构；适用于眼动/运动伪影强的活体全息或散斑序列，代价是牺牲瞬态事件与单帧空间细节。</li><li>20°平顶扩散器加5 mW入眼功率表明全视野眼底LDH把漫射照明均匀性和光安全边界作为系统约束；但原文未给均匀性、视场或波前指标，不能据此做公差分配。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>单受试者、单次代表性记录（n=1），未量化生理特异性、技术重复性或临床价值；方法不能分离视网膜/脉络膜、特定血管丛，也不能转为绝对灌注或速度。</li><li>空间/跨beat中值只能削弱孤立伪影，不能去除持续污染；加性背景、小参考区、配准误差与残余眼动会影响SE(t)和SEI。</li></ul></article><article class="paper" id="paper-2611.02755" data-search="Phase-locked beam splitting with continuously tunable intensity ratio using stochastic phase masks 基于随机相位掩模的相位锁定连续可调强度比分束 机构待核验 display">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>基于随机相位掩模的相位锁定连续可调强度比分束</h3><a class="original" href="https://arxiv.org/abs/2611.02755" target="_blank" rel="noopener noreferrer">Phase-locked beam splitting with continuously tunable intensity ratio using stochastic phase masks ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-11-02（UTC）</p><p class="reason">读完可判断随机patch SLM分束能否替代固定相位板/光栅，并掌握强度比、相位稳定性、halo与patch尺寸的取舍。</p>
+<h4>研究问题</h4><p>现有共路相位锁定分束方案（π相位板、二值光栅、棋盘SLM）的强度比由掩模几何固定为50/50，无法在不引入独立光路衰减器的情况下独立调节两焦点强度，同时保持空间模式和相对相位不变。</p><h4>核心方法</h4><p>在反射式相位型LCoS SLM（1920×1200，8 µm像素，2π相位深度）孔径上划分方形patch，每个patch随机分配给A、B、D三个线性相位斜坡之一；A/B沿X反向倾斜，在f=200 mm透镜焦面形成相距100 µm的两个相位锁定焦点，D沿Y以10倍斜率偏置作功率dump。由目标强度反解patch分数ξ_A、ξ_B，用随机分区替代周期棋盘；推导集合平均焦面强度为相干焦点（峰值∝ξ_c²）加由patch尺寸决定的散斑halo，并用100个随机mask的相机平均与Fraunhofer数值传播验证。</p>
+<h4>实验结果</h4><ul><li>实验演示两焦点强度比可在0→1连续调谐而不畸变空间模式，相对相位保持在几十mrad内。</li><li>在强度比扫描中，两焦点相对相位保持48 mrad rms。</li><li>patch尺寸s从8增至64时，halo总功率不变但向焦点附近集中，焦点附近电平从约−38 dB升至−22 dB。</li><li>论文给出patch尺寸操作窗口s≈4–16，为定性边界。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>对泵浦-探测或双焦点相位测量，随机patch分束把强度比调节移到SLM编码，省去机械衰减器；代价是1−Σξ²功率进入散斑halo，适合焦面动态范围不极端、可接受halo在−20 dB以下的共路干涉实验。</li><li>SLM分束设计应同时约束边界密度与光斑内patch数：小patch降低halo靠近焦点的风险但增加边缘场损耗，大patch反之；固定随机种子可保证同一掩模可重复，但不同种子间强度比会漂移。</li><li>闭式模型可先算相干焦点功率（ξ_c²），再用patch kernel估halo包络；若系统本底已接近−20 dB，则s=8的halo低于本底，s=64需重点评估焦点附近信噪比。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>实验仅在线性光学、λ=1030 nm、单SLM上完成；作者明确高阶谐波产生相位表征为后续工作，未验证非线性/高功率条件。</li><li>随机编码的代价是halo携带1−Σξ²总功率；固定强度比时确定性光栅效率更高但不可调；patch尺寸上下界为定性边界且受SLM边缘场影响，非通用规则。</li></ul></article><article class="paper" id="paper-2611.01675" data-search="Learned optical compression for single-pixel quantitative phase imaging 面向单像素定量相位成像的学习型光学压缩 机构待核验 display">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★★☆</span></div>
+<h3>面向单像素定量相位成像的学习型光学压缩</h3><a class="original" href="https://arxiv.org/abs/2611.01675" target="_blank" rel="noopener noreferrer">Learned optical compression for single-pixel quantitative phase imaging ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-11-01（UTC）</p><p class="reason">可了解光学编码器与解码器联合优化在单像素相位成像中的实际收益、20测量预算下的编码策略对比，以及冻结编码器后仅调解码器的迁移边界。</p>
+<h4>研究问题</h4><p>定量相位成像通常依赖空间分辨强度图；单像素方案虽避开阵列探测器，却需要高效的光学编码。相位到强度映射是非线性的，随机、Hadamard、Fourier等预设图案未必能在少量标量测量中保留足够相位信息。论文要解决的是：如何学习一种与物体统计和数字重建器联合优化的紧凑光学测量表示，在实验可实现的单像素系统里用远少于重建像素数的测量获得高保真定量相位图，并能复用同一编码器适应新数据。</p><h4>核心方法</h4><p>系统用单个可重构相位SLM作为光学编码器：20个学习到的相位图案（0–2π）依次与待测相位物体叠加，635 nm相干光经4f中继后传播5.2 cm，CMOS相机上约0.1 mm宽ROI的平均强度给出一个标量测量；20个图案形成20维测量向量。数字解码器由全连接层和转置卷积层组成，与编码器通过可微衍射传播模型端到端联合训练，损失为相位重建MSE加探测器孔径能量惩罚。部署时编码图案冻结，并可仅用实验数据微调解码器。与已有单像素QPI使用预设随机/Hadamard/Fourier图案不同，这里光学编码与解码器一起学习，且编码图案与输入物体无关。</p>
+<h4>实验结果</h4><ul><li>635 nm实验用20个标量强度测量重建28×28像素定量相位图，测量/输出像素比2.55%，对应约40倍维度压缩。</li><li>盲测MNIST相位物体，实验迁移学习T=900后PCC 0.945±0.034、PSNR 22.2±2.9 dB。</li><li>光栅类相位物体在T=900实验迁移后PCC 0.848±0.233、PSNR 19.6±4.3 dB，20个光学编码图案保持冻结。</li><li>同20测量预算、同解码器架构的仿真盲测中，联合优化编码器比随机、Hadamard、Fourier编码的mean PSNR分别高11.4、11.9、12.7 dB。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>可把SLM/可编程相位掩模当作任务专用光学编码器，与解码器端到端联合优化；当物体统计相对稳定时，编码器可冻结，现场只需少量配对数据微调解码器即可吸收仿真-实验差异并迁移到新分布（EMNIST、BloodMNIST实验支持）。适用条件是编码图案与物体无关且系统像差/噪声可由解码器补偿。</li><li>对非线性相位-强度测量，Hadamard/Fourier等在线性强度成像中有效的基不一定最优；设计相位测量链路时，应把编码图案与重建器放在同一测量预算下做基准比较，而不是只更换重建网络。</li><li>单像素ROI平均可降低探测器阵列要求，但测量数M决定可恢复的空间特征尺度；往更细结构迁移前需按目标最小周期标定M，171 µm最短周期bin的掉点说明不能直接外推到更细光栅。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>采集为时间复用串行：20个SLM图案逐个显示，速度主要受SLM刷新与稳定时间限制；原文提出空间并行/多通道可提升吞吐，但未实验验证。</li><li>重建分辨率仅28×28，最短周期171 µm bin的零样本PCC 0.351、迁移后0.447，细结构仍受限；实验用SLM显示相位物体，尚未用独立物理相位样品验证。</li></ul></article><article class="paper" id="paper-2611.02225" data-search="Nondestructive 3D Metrology of Through-Glass Via Geometry and Internal Wall Texture Using Holotomography 基于全息层析的玻璃通孔三维几何与内壁纹理无损计量 机构待核验 vision">
+<div class="paper-meta"><span class="pill">机构待核验</span><span>阅读优先级 ★★★☆☆</span></div>
+<h3>基于全息层析的玻璃通孔三维几何与内壁纹理无损计量</h3><a class="original" href="https://arxiv.org/abs/2611.02225" target="_blank" rel="noopener noreferrer">Nondestructive 3D Metrology of Through-Glass Via Geometry and Internal Wall Texture Using Holotomography ↗</a>
+
+<p class="muted">作者机构中未确认目标大公司 · 论文更新于 2026-11-01（UTC）</p><p class="reason">读完能判断折射率匹配、MP-HT端点定位和ISO L滤波这套流程是否可迁移到透明微孔/内壁的无损检测。</p>
+<h4>研究问题</h4><p>未金属化玻璃通孔（TGV）的内部腰部与侧壁形貌难以无损表征：表面观察只能看到开口，截面检查需破坏样品。论文要在完整TGV中同时获得三维几何（顶/腰/底径、锥角、长度）和内壁纹理/粗糙度，并评估测量重复性与跨模态差异。</p><h4>核心方法</h4><p>在两类基板共192个未金属化TGV上，用450 nm LED、照明NA 0.68/收集NA 0.7、轴向步进0.703 µm，每层4幅强度图经3D PSF去卷积和TV正则重建折射率；以折射率匹配油降低壁面折射；RI分割结合MP-HT定位轴向端点；圆/沙漏拟合提取顶/腰/底径与锥角；ISO 16610-61高斯L滤波分离波纹和纹理，以Sa表征侧壁粗糙度。</p>
+<h4>实验结果</h4><ul><li>两类基板的锥角趋势不同：HR壁更接近轴向（更接近90°），LR通孔的沙漏形更明显。</li><li>侧壁粗糙度Sa均值：HR为0.841±0.028 µm，LR为0.272±0.098 µm（HR离散度更小）。</li><li>物理翻转/重装比较的合并偏差仅+0.002 µm，95%一致性界限为−0.094至+0.097 µm，6个点落在界限外。</li><li>HT与micro-CT的Sa差异呈类别依赖：HR较micro-CT高+0.124 µm，LR低−0.164 µm。</li></ul>
+<div class="insight"><h4>工程启示 <small>分析推断</small></h4><ul><li>对玻璃内壁这类高折射率对比结构，浸没介质选在1.465–1.500可压低壁面折射伪影；但油残留会进入后续工艺，需把清洗或挥发性介质纳入流程设计。</li><li>MP-HT端点定位能抑制RI分割向浸没液泄漏；在有限角层析中把形态学表示作为第二通道，比只调Otsu阈值更稳。但合成IoU只衡量体积重叠，不能当边界位置精度。</li><li>把宏观形状、波纹和细纹理按明确截止波长分开，并报告Sa的滤波带，才能让HT与micro-CT/接触式粗糙度可比；迁移时应先固定λc和角向采样。</li></ul></div>
+<h4>局限与阅读提醒</h4><ul><li>作者明确说翻转后平均偏差小不建立绝对精度或同条件重复性；批量厚度用卡尺读数且不与单个孔共位，合成IoU也只是体积重叠而非边界位置误差。</li><li>仅验证未填充、透明TGV；金属化/键合后的不透明层会阻挡可见光，需要不同成像配置；浸没油残留也是实际流程风险。</li></ul></article></section><section id="topic"><h2><span class="no">04</span>今日专题</h2><div class="topic"><h3>有限维度、损耗与噪声预算下的选择性光学增益/路由</h3><p>五篇样本都把“少通道/少测量/窄带选通”作为手段：SBS用窄于典型200 MHz梳齿间隔的增益带只放大目标梳齿，代价是20 cm片上波导仍有52.0 dB净插损；单腔双梳用&gt;77%共享腔压共模漂移，却把RI灵敏度降到737 Hz/RIU；随机patch SLM用1−Σξ²功率进入halo换0→1强度比；SPAD MZI树以1.32 dB超额损耗换宽通量，但仅在约2.5个数量级跨度以上才可能回本；单像素QPI用20个测量重建28×28相位，依赖冻结编码器与解码器迁移。工艺窗口上，SBS需高G_B低损耗波导与泵浦失谐控制，双梳需EDF增益/独立SAM平衡，SLM需patch尺寸约4–16，SPAD需按通量分布选k，单像素需固定编码并标定ROI。测试条件差异大（510 m HNLF vs 20 cm芯片、1 s门时间、1550/635 nm），横向比较只能看预算趋势。推断：若目标是低噪声窄带信号，优先SBS/共享腔；若通量或物体分布跨档，再考虑可编程路由/学习编码，且把额外损耗和halo计入链路预算。</p><div class="sources"><a href="#paper-2611.03038">用于光原子钟的布里渊梳齿放大器</a> · <a href="#paper-2611.02150">光学光谱不对称实现近完美共模抑制下单腔双梳光纤激光器的差分折射率传感</a> · <a href="#paper-2611.02755">基于随机相位掩模的相位锁定连续可调强度比分束</a> · <a href="#paper-2611.01111">波导集成Ge-on-Si SPAD阵列中的最优扇出与路由损耗盈亏</a> · <a href="#paper-2611.01675">面向单像素定量相位成像的学习型光学压缩</a></div></div></section></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
