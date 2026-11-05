@@ -1,0 +1,799 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>热辐射的非互易磁光光束偏转</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style><style>
+.paper-reader{max-width:860px;margin:0 auto}
+.paper-reader h1{font-size:28px;line-height:1.35;margin:10px 0 6px}
+.paper-reader .original-title{color:var(--muted);font-size:14px;margin-bottom:18px}
+.paper-reader .meta{color:var(--muted);font-size:13px;margin-bottom:20px}
+.paper-reader .toc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:20px 0 28px;font-size:14px}
+.paper-reader .toc ol{margin:6px 0 0 18px;padding:0}
+.paper-reader .toc li{margin:3px 0}
+.paper-reader article{font-size:16px;line-height:1.9}
+.paper-reader h2{font-size:22px;margin:30px 0 10px}
+.paper-reader h3{font-size:18px;margin:22px 0 8px}
+.paper-reader figure{margin:20px 0;text-align:center}
+.paper-reader img{max-width:100%;height:auto}
+.paper-reader figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+.paper-reader table{display:block;overflow-x:auto;border-collapse:collapse;margin:16px 0;font-size:14px}
+.paper-reader math{overflow-x:auto;max-width:100%}
+.paper-reader pre{overflow-x:auto}
+</style></head><body class="">
+<header><a class="brand" href="../index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="../daily/index.html">日报</a><a href="../papers/index.html" aria-current="page">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 中文全文</div><h1>热辐射的非互易磁光光束偏转</h1><div class="paper-reader"><h1>热辐射的非互易磁光光束偏转</h1><p class="original-title">Nonreciprocal magneto-optic beam steering of thermal emission</p><p class="meta">arXiv 2610.33935 · 机器翻译，公式与图表保留原文</p><nav class="toc"><strong>目录</strong><ol></ol></nav><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">热辐射的非互易磁光光束偏转</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Mason Christiansen
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Department of Materials Science and Engineering, University of California, Los Angeles, Los Angeles, CA 90095, USA
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Daniel Cui
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Department of Materials Science and Engineering, University of California, Los Angeles, Los Angeles, CA 90095, USA
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Aaswath P. Raman
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_email"><span class="ltx_contact_name">Email: </span><a href="mailto:aaswath@ucla.edu">aaswath@ucla.edu</a>
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Department of Materials Science and Engineering, University of California, Los Angeles, Los Angeles, CA 90095, USA
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>California NanoSystems Institute, University of California, Los Angeles, Los Angeles, CA 90095, USA
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">摘要</h6>
+<p class="ltx_p" id="abstract1.1">传统热发射器遵循基尔霍夫热辐射定律，该定律将吸收率与发射率联系起来，并对一系列辐射能量技术和传感系统施加了根本限制。利用磁光材料可以克服这一约束，这类材料在施加磁场下表现出非互易热辐射。尽管磁光器件的光谱非互易性已在理论和实验上得到研究，但对热辐射方向的非互易控制受到的关注要少得多。在此，我们提出并通过数值模拟演示了热辐射的非互易光束偏转，其中外加磁场消除了<math alttext="\pm k_{x}" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><mrow><mo>±</mo><msub><mi>k</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">\pm k_{x}</annotation></semantics></math>处导模之间的简并，从而实现不对称且可调的方向性热辐射。我们重点介绍一种工作在<math alttext="24.5\,\mu" class="ltx_Math" display="inline" id="abstract1.m2" intent=":literal"><semantics><mrow><mn>24.5</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">24.5\,\mu</annotation></semantics></math>m的III-V族半导体光子结构，该波长处激光源很少。该结构在<math alttext="50\," class="ltx_Math" display="inline" id="abstract1.m5" intent=":literal"><semantics><mn>50</mn><annotation encoding="application/x-tex">50\,</annotation></semantics></math>mT下表现出<math alttext="\theta=\pm 75^{\circ}" class="ltx_Math" display="inline" id="abstract1.m4" intent=":literal"><semantics><mrow><mi>θ</mi><mo>=</mo><mrow><mo>±</mo><msup><mn>75</mn><mo>∘</mo></msup></mrow></mrow><annotation encoding="application/x-tex">\theta=\pm 75^{\circ}</annotation></semantics></math>之间大于<math alttext="0.5" class="ltx_Math" display="inline" id="abstract1.m3" intent=":literal"><semantics><mn>0.5</mn><annotation encoding="application/x-tex">0.5</annotation></semantics></math>的非互易性，在<math alttext="150\," class="ltx_Math" display="inline" id="abstract1.m6" intent=":literal"><semantics><mn>150</mn><annotation encoding="application/x-tex">150\,</annotation></semantics></math>mT下表现出超过0.6的峰值发射率不对称性，并在<math alttext="0" class="ltx_Math" display="inline" id="abstract1.m8" intent=":literal"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>与<math alttext="1\," class="ltx_Math" display="inline" id="abstract1.m9" intent=":literal"><semantics><mn>1</mn><annotation encoding="application/x-tex">1\,</annotation></semantics></math>T之间实现<math alttext="22^{\circ}" class="ltx_Math" display="inline" id="abstract1.m7" intent=":literal"><semantics><msup><mn>22</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">22^{\circ}</annotation></semantics></math>的光束偏转。我们的方法提供了一种偏转热辐射光束的固态手段，为白炽光源的磁控光束扫描提供了一条潜在途径。</p>
+</div>
+<section class="ltx_section" id="S1">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">I </span>引言</h2>
+<div class="ltx_para" id="S1.p1">
+<p class="ltx_p" id="S1.p1.1">热辐射是电磁辐射的一种基本形式，是许多自然过程和技术过程的核心。由于热辐射和吸收在能量转换 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib8" title="">26</a>, <a class="ltx_ref" href="#bib.bib1" title="">3</a>]</cite>、成像 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib12" title="">7</a>, <a class="ltx_ref" href="#bib.bib13" title="">18</a>, <a class="ltx_ref" href="#bib.bib14" title="">31</a>]</cite>、传感 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib15" title="">21</a>]</cite>和辐射冷却 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib7" title="">25</a>, <a class="ltx_ref" href="#bib.bib9" title="">29</a>]</cite>中的应用，控制其特性对许多技术具有重要意义。大量工作致力于利用表面等离激元 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib11" title="">32</a>]</cite>、表面声子极化激元 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib21" title="">6</a>]</cite>和介电常数近零（ENZ）模式 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib3" title="">8</a>, <a class="ltx_ref" href="#bib.bib8" title="">26</a>]</cite>，以及通过光子晶体 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib20" title="">14</a>]</cite>和基于超材料的架构 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib22" title="">34</a>, <a class="ltx_ref" href="#bib.bib23" title="">17</a>]</cite>，来设计材料的光谱和方向发射率。此外，人们还探索了动态调制材料光谱和方向发射率的能力 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib11" title="">32</a>, <a class="ltx_ref" href="#bib.bib5" title="">16</a>, <a class="ltx_ref" href="#bib.bib10" title="">30</a>, <a class="ltx_ref" href="#bib.bib6" title="">22</a>, <a class="ltx_ref" href="#bib.bib2" title="">4</a>, <a class="ltx_ref" href="#bib.bib4" title="">9</a>]</cite>。然而，这些使用互易材料和器件的技术受到基尔霍夫热辐射定律的约束。</p>
+</div>
+<div class="ltx_para" id="S1.p2">
+<p class="ltx_p" id="S1.p2.1">基尔霍夫定律指出，对于特定波长的光、相对材料表面法线的角度以及偏振，材料的吸收率和发射率相等。这给一系列辐射能源技术以及传感系统的效率带来了根本性限制<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib35" title="">10</a>, <a class="ltx_ref" href="#bib.bib36" title="">24</a>, <a class="ltx_ref" href="#bib.bib37" title="">23</a>]</cite>。然而，在违反洛伦兹互易性的材料中，基尔霍夫定律可以被违背，包括表现出强磁光响应的材料，这使得在给定波长和入射角下发射率与吸收率可能不同。基于此，人们提出了一系列结构，包括磁光光子晶体<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib24" title="">38</a>]</cite>、光栅和导模共振结构<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib25" title="">36</a>, <a class="ltx_ref" href="#bib.bib32" title="">37</a>]</cite>，以及无需任何外场即可打破互易性的磁性外尔半金属<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib26" title="">20</a>, <a class="ltx_ref" href="#bib.bib34" title="">12</a>]</cite>。近期工作还主要通过向重掺杂 III-V 族半导体系统施加大的磁场（<math alttext="&gt;" class="ltx_Math" display="inline" id="S1.p2.m1" intent=":literal"><semantics><mo>&gt;</mo><annotation encoding="application/x-tex">&gt;</annotation></semantics></math> 1 T）在实验上演示了非互易热发射<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib16" title="">27</a>, <a class="ltx_ref" href="#bib.bib17" title="">28</a>, <a class="ltx_ref" href="#bib.bib29" title="">19</a>, <a class="ltx_ref" href="#bib.bib30" title="">35</a>, <a class="ltx_ref" href="#bib.bib31" title="">15</a>]</cite>。在几乎所有这些工作中，目标都是在给定波长下解耦吸收和发射通道，因为这样做可能提高太阳能与热光伏能量转换技术的效率<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib27" title="">5</a>, <a class="ltx_ref" href="#bib.bib28" title="">1</a>, <a class="ltx_ref" href="#bib.bib35" title="">10</a>, <a class="ltx_ref" href="#bib.bib36" title="">24</a>, <a class="ltx_ref" href="#bib.bib37" title="">23</a>]</cite>。</p>
+</div>
+<div class="ltx_para" id="S1.p3">
+<p class="ltx_p" id="S1.p3.1">相比之下，利用非互易性来控制热发射的方向在很大程度上仍未被探索。打破时间反演对称性并不只是在固定角度下解耦吸收率与发射率；它还可以消除以<math alttext="+k_{x}" class="ltx_Math" display="inline" id="S1.p3.m1" intent=":literal"><semantics><mrow><mo>+</mo><msub><mi>k</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">+k_{x}</annotation></semantics></math>和<math alttext="-k_{x}" class="ltx_Math" display="inline" id="S1.p3.m2" intent=":literal"><semantics><mrow><mo>−</mo><msub><mi>k</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">-k_{x}</annotation></semantics></math>传播的模式之间的简并。在互易系统中，洛伦兹互易性要求散射矩阵是对称的<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib38" title="">11</a>]</cite>，这约束色散关系满足<math alttext="\omega(k_{x})=\omega(-k_{x})" class="ltx_Math" display="inline" id="S1.p3.m3" intent=":literal"><semantics><mrow><mrow><mi>ω</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><msub><mi>k</mi><mi>x</mi></msub><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mi>ω</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mrow><mo>−</mo><msub><mi>k</mi><mi>x</mi></msub></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\omega(k_{x})=\omega(-k_{x})</annotation></semantics></math>。磁微扰打破这种对称性，使色散对于相反波矢沿相反方向发生位移。由于发射角由<math alttext="k_{x}" class="ltx_Math" display="inline" id="S1.p3.m4" intent=":literal"><semantics><msub><mi>k</mi><mi>x</mi></msub><annotation encoding="application/x-tex">k_{x}</annotation></semantics></math>决定，这种位移就是峰值发射方向的改变，而该方向完全由外部磁场控制。因此，非互易性不仅提供了光谱控制，还开辟了一条对热辐射束进行磁控转向的途径：无需运动部件，也不受限制传统定向发射器的对称<math alttext="\pm\theta" class="ltx_Math" display="inline" id="S1.p3.m5" intent=":literal"><semantics><mrow><mo>±</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">\pm\theta</annotation></semantics></math>发射的束缚。我们这里所追求的正是非互易性的这种角度效应，而非光谱效应。</p>
+</div>
+<div class="ltx_para" id="S1.p4">
+<p class="ltx_p" id="S1.p4.1">本文提出并通过数值模拟验证了一种用于光束偏转的磁光方法，该方法能够对热发射实现非互易且不对称的控制。具体而言，我们给出了一种全III-V族半导体结构，其非互易对比度大于<math alttext="0.5" class="ltx_Math" display="inline" id="S1.p4.m1" intent=":literal"><semantics><mn>0.5</mn><annotation encoding="application/x-tex">0.5</annotation></semantics></math>，该对比度在<math alttext="\theta=\pm 75^{\circ}" class="ltx_Math" display="inline" id="S1.p4.m2" intent=":literal"><semantics><mrow><mi>θ</mi><mo>=</mo><mrow><mo>±</mo><msup><mn>75</mn><mo>∘</mo></msup></mrow></mrow><annotation encoding="application/x-tex">\theta=\pm 75^{\circ}</annotation></semantics></math>之间于<math alttext="50" class="ltx_Math" display="inline" id="S1.p4.m3" intent=":literal"><semantics><mn>50</mn><annotation encoding="application/x-tex">50</annotation></semantics></math> mT下测得；在<math alttext="150" class="ltx_Math" display="inline" id="S1.p4.m4" intent=":literal"><semantics><mn>150</mn><annotation encoding="application/x-tex">150</annotation></semantics></math> mT下峰值发射率不对称度超过0.6；以及<math alttext="22^{\circ}" class="ltx_Math" display="inline" id="S1.p4.m5" intent=":literal"><semantics><msup><mn>22</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">22^{\circ}</annotation></semantics></math>的光束偏转，该偏转在<math alttext="0" class="ltx_Math" display="inline" id="S1.p4.m6" intent=":literal"><semantics><mn>0</mn><annotation encoding="application/x-tex">0</annotation></semantics></math>至<math alttext="1" class="ltx_Math" display="inline" id="S1.p4.m7" intent=":literal"><semantics><mn>1</mn><annotation encoding="application/x-tex">1</annotation></semantics></math> T下针对<math alttext="24.5" class="ltx_Math" display="inline" id="S1.p4.m8" intent=":literal"><semantics><mn>24.5</mn><annotation encoding="application/x-tex">24.5</annotation></semantics></math> <math alttext="\mu" class="ltx_Math" display="inline" id="S1.p4.m9" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>m光实现。与传统各向同性且宽带的热发射不同，该结构的发射在方向和波长上均受到限制，并在<math alttext="\pm\theta" class="ltx_Math" display="inline" id="S1.p4.m10" intent=":literal"><semantics><mrow><mo>±</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">\pm\theta</annotation></semantics></math>之间呈强不对称。该器件工作在20–25 <math alttext="\mu" class="ltx_Math" display="inline" id="S1.p4.m11" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>m范围内，该范围内现有激光源很少<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib18" title="">33</a>]</cite>。此外，调制所施加的磁场为利用白炽光源实现光束扫描提供了一条潜在途径。</p>
+</div>
+<figure class="ltx_figure" id="S1.F1"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="250" id="S1.F1.g1" src="assets/fig1_7.png" style="aspect-ratio:645/250;" width="645"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 1：</span>(a) 器件一个周期的示意图。底层由重掺杂InAs构成并充当光学反射器，而中间层由较低掺杂的InAs构成并充当有源层。顶层为本征In<sub class="ltx_sub" id="S1.F1.4"><span class="ltx_text ltx_font_italic" id="S1.F1.4.1">0.53</span></sub>Ga<sub class="ltx_sub" id="S1.F1.5"><span class="ltx_text ltx_font_italic" id="S1.F1.5.1">0.47</span></sub>As，表面带有光栅。(b) 器件的三维渲染图，显示零磁场下对称的发射率。(c) 沿蓝色箭头方向施加磁场时，发射率方向和幅值的变化。</figcaption>
+</figure>
+</section>
+<section class="ltx_section" id="S2">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">II </span>结果</h2>
+<div class="ltx_para" id="S2.p1">
+<p class="ltx_p" id="S2.p1.1">作为我们的模型系统，我们考虑一种由三层III-V族半导体构成的结构，如图 <a class="ltx_ref" href="#S1.F1" title="Figure 1 ‣ I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">1</span></a>(a) 所示。顶层厚度 <math alttext="t_{1}" class="ltx_Math" display="inline" id="S2.p1.m1" intent=":literal"><semantics><msub><mi>t</mi><mn>1</mn></msub><annotation encoding="application/x-tex">t_{1}</annotation></semantics></math> 为 4<math alttext="\,\mu" class="ltx_Math" display="inline" id="S2.p1.m2" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\,\mu</annotation></semantics></math>m（不包括光栅），为本征In<sub class="ltx_sub" id="S2.p1.1.1"><span class="ltx_text ltx_font_italic" id="S2.p1.1.1.1">0.53</span></sub>Ga<sub class="ltx_sub" id="S2.p1.1.2"><span class="ltx_text ltx_font_italic" id="S2.p1.1.2.1">0.47</span></sub>As，并且其表面刻蚀有光栅，该光栅提供将自由空间辐射耦合到结构导模所需的平面内动量。中间层为掺杂InAs，厚度 <math alttext="t_{2}" class="ltx_Math" display="inline" id="S2.p1.m5" intent=":literal"><semantics><msub><mi>t</mi><mn>2</mn></msub><annotation encoding="application/x-tex">t_{2}</annotation></semantics></math> 为 5<math alttext="\,\mu" class="ltx_Math" display="inline" id="S2.p1.m6" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\,\mu</annotation></semantics></math>m，是负责器件非互易行为的有源层。底层为重掺杂InAs，厚度 <math alttext="t_{3}" class="ltx_Math" display="inline" id="S2.p1.m7" intent=":literal"><semantics><msub><mi>t</mi><mn>3</mn></msub><annotation encoding="application/x-tex">t_{3}</annotation></semantics></math> 为 1<math alttext="\,\mu" class="ltx_Math" display="inline" id="S2.p1.m8" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\,\mu</annotation></semantics></math>m，并且由于高载流子密度，在该波长范围内充当反射器。光栅宽度 <math alttext="w" class="ltx_Math" display="inline" id="S2.p1.m9" intent=":literal"><semantics><mi>w</mi><annotation encoding="application/x-tex">w</annotation></semantics></math> 为 5<math alttext="\,\mu" class="ltx_Math" display="inline" id="S2.p1.m10" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\,\mu</annotation></semantics></math>m，高度 <math alttext="h" class="ltx_Math" display="inline" id="S2.p1.m11" intent=":literal"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math> 为 0.27<math alttext="\,\mu" class="ltx_Math" display="inline" id="S2.p1.m12" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\,\mu</annotation></semantics></math>m，结构周期 <math alttext="p" class="ltx_Math" display="inline" id="S2.p1.m13" intent=":literal"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> 为 10<math alttext="\,\mu" class="ltx_Math" display="inline" id="S2.p1.m14" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\,\mu</annotation></semantics></math>m。各层的载流子浓度、有效电子质量和散射速率汇总于表 <a class="ltx_ref" href="#S5.T1" title="Table 1 ‣ V Methods ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">1</span></a>。</p>
+</div>
+<div class="ltx_para" id="S2.p2">
+<p class="ltx_p" id="S2.p2.1">有源层的掺杂浓度决定等离子体频率，从而决定ENZ波长。浓度为<math alttext="7.8\times 10^{17}\," class="ltx_Math" display="inline" id="S2.p2.m1" intent=":literal"><semantics><mrow><mn>7.8</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mn>17</mn></msup></mrow><annotation encoding="application/x-tex">7.8\times 10^{17}\,</annotation></semantics></math>cm<sup class="ltx_sup" id="S2.p2.1.1"><span class="ltx_text ltx_font_italic" id="S2.p2.1.1.1">-3</span></sup>时，ENZ条件位于<math alttext="24.1\,\mu" class="ltx_Math" display="inline" id="S2.p2.m3" intent=":literal"><semantics><mrow><mn>24.1</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">24.1\,\mu</annotation></semantics></math>m。有源层的<math alttext="5\,\mu" class="ltx_Math" display="inline" id="S2.p2.m4" intent=":literal"><semantics><mrow><mn>5</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">5\,\mu</annotation></semantics></math>m厚度足以支持受限表面模，同时仍足够薄，使该模式在上界面处保持可观的场幅值。重掺杂底层的等离子体波长为<math alttext="1.8\,\mu" class="ltx_Math" display="inline" id="S2.p2.m5" intent=":literal"><semantics><mrow><mn>1.8</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">1.8\,\mu</annotation></semantics></math>m，因而在本文考虑的全部波段内呈金属性，所以它充当抑制透射的背反射器。本征In<sub class="ltx_sub" id="S2.p2.1.2"><span class="ltx_text ltx_font_italic" id="S2.p2.1.2.1">0.53</span></sub>Ga<sub class="ltx_sub" id="S2.p2.1.3"><span class="ltx_text ltx_font_italic" id="S2.p2.1.3.1">0.47</span></sub>As顶层在该范围内透明，其<math alttext="4\,\mu" class="ltx_Math" display="inline" id="S2.p2.m8" intent=":literal"><semantics><mrow><mn>4</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">4\,\mu</annotation></semantics></math>m厚度使共振波腹位于有源层附近。</p>
+</div>
+<div class="ltx_para" id="S2.p3">
+<p class="ltx_p" id="S2.p3.1">非互易行为源于有源层的磁光响应，其中外加磁场在介电常数张量中引入非对角分量</p>
+<table class="ltx_equationgroup ltx_eqn_align ltx_eqn_table" id="S2.EGx1">
+<tbody id="S2.E1"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell"><math alttext="\displaystyle\varepsilon=\begin{pmatrix}\varepsilon_{xx}&amp;\varepsilon_{xy}&amp;0\\
+\varepsilon_{yx}&amp;\varepsilon_{yy}&amp;0\\
+0&amp;0&amp;\varepsilon_{zz}\end{pmatrix}" class="ltx_Math" display="inline" id="S2.E1.m1" intent=":literal"><semantics><mrow><mi>ε</mi><mo>=</mo><mrow><mo>(</mo><mtable columnspacing="5pt" rowspacing="0pt"><mtr><mtd><msub><mi>ε</mi><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>x</mi></mrow></msub></mtd><mtd><msub><mi>ε</mi><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow></msub></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><msub><mi>ε</mi><mrow><mi>y</mi><mo lspace="0em" rspace="0em">​</mo><mi>x</mi></mrow></msub></mtd><mtd><msub><mi>ε</mi><mrow><mi>y</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow></msub></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><msub><mi>ε</mi><mrow><mi>z</mi><mo lspace="0em" rspace="0em">​</mo><mi>z</mi></mrow></msub></mtd></mtr></mtable><mo>)</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle\varepsilon=\begin{pmatrix}\varepsilon_{xx}&amp;\varepsilon_{xy}&amp;0\\
+\varepsilon_{yx}&amp;\varepsilon_{yy}&amp;0\\
+0&amp;0&amp;\varepsilon_{zz}\end{pmatrix}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(1)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S2.p3.2">其元素定义为</p>
+<table class="ltx_equationgroup ltx_eqn_align ltx_eqn_table" id="S2.EGx2">
+<tbody id="S2.E2"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell"><math alttext="\displaystyle\varepsilon_{xx}" class="ltx_Math" display="inline" id="S2.E2.m1" intent=":literal"><semantics><msub><mi>ε</mi><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>x</mi></mrow></msub><annotation encoding="application/x-tex">\displaystyle\varepsilon_{xx}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math alttext="\displaystyle=\varepsilon_{yy}=\varepsilon_{\infty}-\frac{\omega_{p}^{2}(\omega+i\gamma)}{\omega\left[(\omega+i\gamma)^{2}-\omega_{c}^{2}\right]}" class="ltx_Math" display="inline" id="S2.E2.m2" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>=</mo><msub><mi>ε</mi><mrow><mi>y</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow></msub><mo>=</mo><mrow><msub><mi>ε</mi><mi mathvariant="normal">∞</mi></msub><mo>−</mo><mstyle displaystyle="true"><mfrac><mrow><msubsup><mi>ω</mi><mi>p</mi><mn>2</mn></msubsup><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mrow><mi>ω</mi><mo>+</mo><mrow><mi>i</mi><mo lspace="0em" rspace="0em">​</mo><mi>γ</mi></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow><mrow><mi>ω</mi><mo>⁡</mo><mrow><mo>[</mo><mrow><msup><mrow><mo stretchy="false">(</mo><mrow><mi>ω</mi><mo>+</mo><mrow><mi>i</mi><mo lspace="0em" rspace="0em">​</mo><mi>γ</mi></mrow></mrow><mo stretchy="false">)</mo></mrow><mn>2</mn></msup><mo>−</mo><msubsup><mi>ω</mi><mi>c</mi><mn>2</mn></msubsup></mrow><mo>]</mo></mrow></mrow></mfrac></mstyle></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=\varepsilon_{yy}=\varepsilon_{\infty}-\frac{\omega_{p}^{2}(\omega+i\gamma)}{\omega\left[(\omega+i\gamma)^{2}-\omega_{c}^{2}\right]}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2)</span></td></tr></tbody>
+<tbody id="S2.E3"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell"><math alttext="\displaystyle\varepsilon_{xy}" class="ltx_Math" display="inline" id="S2.E3.m1" intent=":literal"><semantics><msub><mi>ε</mi><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow></msub><annotation encoding="application/x-tex">\displaystyle\varepsilon_{xy}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math alttext="\displaystyle=-\varepsilon_{yx}=i\frac{\omega_{p}^{2}\omega_{c}}{\omega\left[(\omega+i\gamma)^{2}-\omega_{c}^{2}\right]}" class="ltx_Math" display="inline" id="S2.E3.m2" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>=</mo><mrow><mo>−</mo><msub><mi>ε</mi><mrow><mi>y</mi><mo lspace="0em" rspace="0em">​</mo><mi>x</mi></mrow></msub></mrow><mo>=</mo><mrow><mi>i</mi><mo lspace="0em" rspace="0em">​</mo><mstyle displaystyle="true"><mfrac><mrow><msubsup><mi>ω</mi><mi>p</mi><mn>2</mn></msubsup><mo lspace="0em" rspace="0em">​</mo><msub><mi>ω</mi><mi>c</mi></msub></mrow><mrow><mi>ω</mi><mo>⁡</mo><mrow><mo>[</mo><mrow><msup><mrow><mo stretchy="false">(</mo><mrow><mi>ω</mi><mo>+</mo><mrow><mi>i</mi><mo lspace="0em" rspace="0em">​</mo><mi>γ</mi></mrow></mrow><mo stretchy="false">)</mo></mrow><mn>2</mn></msup><mo>−</mo><msubsup><mi>ω</mi><mi>c</mi><mn>2</mn></msubsup></mrow><mo>]</mo></mrow></mrow></mfrac></mstyle></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=-\varepsilon_{yx}=i\frac{\omega_{p}^{2}\omega_{c}}{\omega\left[(\omega+i\gamma)^{2}-\omega_{c}^{2}\right]}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(3)</span></td></tr></tbody>
+<tbody id="S2.E4"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell"><math alttext="\displaystyle\varepsilon_{zz}" class="ltx_Math" display="inline" id="S2.E4.m1" intent=":literal"><semantics><msub><mi>ε</mi><mrow><mi>z</mi><mo lspace="0em" rspace="0em">​</mo><mi>z</mi></mrow></msub><annotation encoding="application/x-tex">\displaystyle\varepsilon_{zz}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math alttext="\displaystyle=\varepsilon_{\infty}-\frac{\omega_{p}^{2}}{\omega(\omega+i\gamma)}." class="ltx_Math" display="inline" id="S2.E4.m2" intent=":literal"><semantics><mrow><mrow><mphantom></mphantom><mo>=</mo><mrow><msub><mi>ε</mi><mi mathvariant="normal">∞</mi></msub><mo>−</mo><mstyle displaystyle="true"><mfrac><msubsup><mi>ω</mi><mi>p</mi><mn>2</mn></msubsup><mrow><mi>ω</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mrow><mi>ω</mi><mo>+</mo><mrow><mi>i</mi><mo lspace="0em" rspace="0em">​</mo><mi>γ</mi></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow></mfrac></mstyle></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\displaystyle=\varepsilon_{\infty}-\frac{\omega_{p}^{2}}{\omega(\omega+i\gamma)}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S2.p3.3">这里<math alttext="\gamma" class="ltx_Math" display="inline" id="S2.p3.m1" intent=":literal"><semantics><mi>γ</mi><annotation encoding="application/x-tex">\gamma</annotation></semantics></math>是散射率，<math alttext="\omega_{p}=\sqrt{ne^{2}/(m_{e}\varepsilon_{0})}" class="ltx_Math" display="inline" id="S2.p3.m2" intent=":literal"><semantics><mrow><msub><mi>ω</mi><mi>p</mi></msub><mo>=</mo><msqrt><mrow><mrow><mi>n</mi><mo lspace="0em" rspace="0em">​</mo><msup><mi>e</mi><mn>2</mn></msup></mrow><mo>/</mo><mrow><mo stretchy="false">(</mo><mrow><msub><mi>m</mi><mi>e</mi></msub><mo lspace="0em" rspace="0em">​</mo><msub><mi>ε</mi><mn>0</mn></msub></mrow><mo stretchy="false">)</mo></mrow></mrow></msqrt></mrow><annotation encoding="application/x-tex">\omega_{p}=\sqrt{ne^{2}/(m_{e}\varepsilon_{0})}</annotation></semantics></math>是等离子体频率，<math alttext="\omega_{c}=eB/m_{e}" class="ltx_Math" display="inline" id="S2.p3.m3" intent=":literal"><semantics><mrow><msub><mi>ω</mi><mi>c</mi></msub><mo>=</mo><mrow><mrow><mi>e</mi><mo lspace="0em" rspace="0em">​</mo><mi>B</mi></mrow><mo>/</mo><msub><mi>m</mi><mi>e</mi></msub></mrow></mrow><annotation encoding="application/x-tex">\omega_{c}=eB/m_{e}</annotation></semantics></math>是回旋频率，<math alttext="n" class="ltx_Math" display="inline" id="S2.p3.m4" intent=":literal"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>是自由载流子浓度，<math alttext="B" class="ltx_Math" display="inline" id="S2.p3.m5" intent=":literal"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>是外加磁场。当<math alttext="B=0" class="ltx_Math" display="inline" id="S2.p3.m6" intent=":literal"><semantics><mrow><mi>B</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">B=0</annotation></semantics></math>时，<math alttext="\varepsilon_{xx}=\varepsilon_{yy}=\varepsilon_{zz}" class="ltx_Math" display="inline" id="S2.p3.m7" intent=":literal"><semantics><mrow><msub><mi>ε</mi><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>x</mi></mrow></msub><mo>=</mo><msub><mi>ε</mi><mrow><mi>y</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow></msub><mo>=</mo><msub><mi>ε</mi><mrow><mi>z</mi><mo lspace="0em" rspace="0em">​</mo><mi>z</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\varepsilon_{xx}=\varepsilon_{yy}=\varepsilon_{zz}</annotation></semantics></math>以及介电常数张量的非对角分量<math alttext="\varepsilon_{xy}" class="ltx_Math" display="inline" id="S2.p3.m8" intent=":literal"><semantics><msub><mi>ε</mi><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow></msub><annotation encoding="application/x-tex">\varepsilon_{xy}</annotation></semantics></math>和<math alttext="\varepsilon_{yx}" class="ltx_Math" display="inline" id="S2.p3.m9" intent=":literal"><semantics><msub><mi>ε</mi><mrow><mi>y</mi><mo lspace="0em" rspace="0em">​</mo><mi>x</mi></mrow></msub><annotation encoding="application/x-tex">\varepsilon_{yx}</annotation></semantics></math>均为零，因此材料是各向同性的，且色散满足<math alttext="\omega(k)=\omega(-k)" class="ltx_Math" display="inline" id="S2.p3.m10" intent=":literal"><semantics><mrow><mrow><mi>ω</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mi>ω</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mrow><mo>−</mo><mi>k</mi></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\omega(k)=\omega(-k)</annotation></semantics></math>。施加磁场后，由于自由载流子作回旋运动，介电常数张量获得反对称非对角分量，导致<math alttext="\varepsilon_{xy}" class="ltx_Math" display="inline" id="S2.p3.m11" intent=":literal"><semantics><msub><mi>ε</mi><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow></msub><annotation encoding="application/x-tex">\varepsilon_{xy}</annotation></semantics></math>和<math alttext="\varepsilon_{yx}" class="ltx_Math" display="inline" id="S2.p3.m12" intent=":literal"><semantics><msub><mi>ε</mi><mrow><mi>y</mi><mo lspace="0em" rspace="0em">​</mo><mi>x</mi></mrow></msub><annotation encoding="application/x-tex">\varepsilon_{yx}</annotation></semantics></math>变为非零，因此材料不再服从时间反演对称性。此时色散具有方向依赖性，使得<math alttext="\omega(k)\neq\omega(-k)" class="ltx_Math" display="inline" id="S2.p3.m13" intent=":literal"><semantics><mrow><mrow><mi>ω</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>k</mi><mo stretchy="false">)</mo></mrow></mrow><mo>≠</mo><mrow><mi>ω</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mrow><mo>−</mo><mi>k</mi></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\omega(k)\neq\omega(-k)</annotation></semantics></math>，因此<math alttext="\alpha(\theta)\neq\alpha(-\theta)" class="ltx_Math" display="inline" id="S2.p3.m14" intent=":literal"><semantics><mrow><mrow><mi>α</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow></mrow><mo>≠</mo><mrow><mi>α</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mrow><mo>−</mo><mi>θ</mi></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\alpha(\theta)\neq\alpha(-\theta)</annotation></semantics></math>；又因为<math alttext="\epsilon(\theta)=\alpha(-\theta)" class="ltx_Math" display="inline" id="S2.p3.m15" intent=":literal"><semantics><mrow><mrow><mi>ϵ</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mi>α</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mrow><mo>−</mo><mi>θ</mi></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\epsilon(\theta)=\alpha(-\theta)</annotation></semantics></math>，可以得出结论：<math alttext="\epsilon(\theta)\neq\epsilon(-\theta)" class="ltx_Math" display="inline" id="S2.p3.m16" intent=":literal"><semantics><mrow><mrow><mi>ϵ</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow></mrow><mo>≠</mo><mrow><mi>ϵ</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mrow><mo>−</mo><mi>θ</mi></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\epsilon(\theta)\neq\epsilon(-\theta)</annotation></semantics></math>。</p>
+</div>
+<div class="ltx_para" id="S2.p4">
+<p class="ltx_p" id="S2.p4.1">在全文里，我们取<math alttext="\hat{z}" class="ltx_Math" display="inline" id="S2.p4.m1" intent=":literal"><semantics><mover accent="true"><mi>z</mi><mo>^</mo></mover><annotation encoding="application/x-tex">\hat{z}</annotation></semantics></math>平行于光栅槽，<math alttext="\hat{x}" class="ltx_Math" display="inline" id="S2.p4.m2" intent=":literal"><semantics><mover accent="true"><mi>x</mi><mo>^</mo></mover><annotation encoding="application/x-tex">\hat{x}</annotation></semantics></math>沿表面平面内的周期方向，<math alttext="\hat{y}" class="ltx_Math" display="inline" id="S2.p4.m3" intent=":literal"><semantics><mover accent="true"><mi>y</mi><mo>^</mo></mover><annotation encoding="application/x-tex">\hat{y}</annotation></semantics></math>垂直于表面。外加磁场沿<math alttext="\hat{z}" class="ltx_Math" display="inline" id="S2.p4.m4" intent=":literal"><semantics><mover accent="true"><mi>z</mi><mo>^</mo></mover><annotation encoding="application/x-tex">\hat{z}</annotation></semantics></math>取向，平行于槽且垂直于入射面，即Voigt构型。在该几何结构中，非对角元<math alttext="\varepsilon_{xy}" class="ltx_Math" display="inline" id="S2.p4.m5" intent=":literal"><semantics><msub><mi>ε</mi><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>y</mi></mrow></msub><annotation encoding="application/x-tex">\varepsilon_{xy}</annotation></semantics></math>和<math alttext="\varepsilon_{yx}" class="ltx_Math" display="inline" id="S2.p4.m6" intent=":literal"><semantics><msub><mi>ε</mi><mrow><mi>y</mi><mo lspace="0em" rspace="0em">​</mo><mi>x</mi></mrow></msub><annotation encoding="application/x-tex">\varepsilon_{yx}</annotation></semantics></math>耦合横磁偏振光的面内和面外场分量，因此本文报道的所有发射率均针对TM偏振。横电偏振光的电场沿<math alttext="\hat{z}" class="ltx_Math" display="inline" id="S2.p4.m7" intent=":literal"><semantics><mover accent="true"><mi>z</mi><mo>^</mo></mover><annotation encoding="application/x-tex">\hat{z}</annotation></semantics></math>，因此仅对<math alttext="\varepsilon_{zz}" class="ltx_Math" display="inline" id="S2.p4.m8" intent=":literal"><semantics><msub><mi>ε</mi><mrow><mi>z</mi><mo lspace="0em" rspace="0em">​</mo><mi>z</mi></mrow></msub><annotation encoding="application/x-tex">\varepsilon_{zz}</annotation></semantics></math>采样，且其不受磁场影响；在所有场强下，TE发射率关于<math alttext="\theta" class="ltx_Math" display="inline" id="S2.p4.m9" intent=":literal"><semantics><mi>θ</mi><annotation encoding="application/x-tex">\theta</annotation></semantics></math>对称，因此我们的分析不再进一步考虑它。</p>
+</div>
+<figure class="ltx_figure" id="S2.F2"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_square" height="533" id="S2.F2.g1" src="assets/fig2_4.png" style="aspect-ratio:645/533;" width="645"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 2：</span>器件在 (a) <math alttext="0\," class="ltx_Math" display="inline" id="S2.F2.m6" intent=":literal"><semantics><mn>0</mn><annotation encoding="application/x-tex">0\,</annotation></semantics></math>T 和 (b) <math alttext="1\," class="ltx_Math" display="inline" id="S2.F2.m7" intent=":literal"><semantics><mn>1</mn><annotation encoding="application/x-tex">1\,</annotation></semantics></math>T 下的光谱与方向发射率。(c) 1 和 <math alttext="0\," class="ltx_Math" display="inline" id="S2.F2.m8" intent=":literal"><semantics><mn>0</mn><annotation encoding="application/x-tex">0\,</annotation></semantics></math>T 下光谱与方向发射率之差。(d) 在 <math alttext="\lambda=22\,\mu" class="ltx_Math" display="inline" id="S2.F2.m9" intent=":literal"><semantics><mrow><mi>λ</mi><mo>=</mo><mrow><mn>22</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow></mrow><annotation encoding="application/x-tex">\lambda=22\,\mu</annotation></semantics></math>m 处、1 和 <math alttext="0\," class="ltx_Math" display="inline" id="S2.F2.m10" intent=":literal"><semantics><mn>0</mn><annotation encoding="application/x-tex">0\,</annotation></semantics></math>T 下发射率随角度的变化（如 (c) 中黑线所示）。</figcaption>
+</figure>
+<div class="ltx_para" id="S2.p5">
+<p class="ltx_p" id="S2.p5.1">对于该结构，在比有源层的介电常数近零（ENZ）波长更长的波长处，随着<math alttext="B" class="ltx_Math" display="inline" id="S2.p5.m1" intent=":literal"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>增大，<math alttext="+\theta" class="ltx_Math" display="inline" id="S2.p5.m2" intent=":literal"><semantics><mrow><mo>+</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">+\theta</annotation></semantics></math>的发射率幅度增大并向法线方向偏移，而<math alttext="-\theta" class="ltx_Math" display="inline" id="S2.p5.m3" intent=":literal"><semantics><mrow><mo>−</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">-\theta</annotation></semantics></math>的发射率幅度减小并移向斜角方向，如图 <a class="ltx_ref" href="#S1.F1" title="Figure 1 ‣ I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">1</span></a>(b) 和 (c) 定性所示。图 <a class="ltx_ref" href="#S2.F2" title="Figure 2 ‣ II Results ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">2</span></a>给出了器件在<math alttext="B=0\,\mathrm{T}" class="ltx_Math" display="inline" id="S2.p5.m4" intent=":literal"><semantics><mrow><mi>B</mi><mo>=</mo><mrow><mn>0</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>T</mi></mrow></mrow><annotation encoding="application/x-tex">B=0\,\mathrm{T}</annotation></semantics></math>和<math alttext="B=1\,\mathrm{T}" class="ltx_Math" display="inline" id="S2.p5.m5" intent=":literal"><semantics><mrow><mi>B</mi><mo>=</mo><mrow><mn>1</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>T</mi></mrow></mrow><annotation encoding="application/x-tex">B=1\,\mathrm{T}</annotation></semantics></math>下的模拟光谱与方向发射率。正如预期，在图 <a class="ltx_ref" href="#S2.F2" title="Figure 2 ‣ II Results ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">2</span></a>(a) 中，由于没有外加磁场，因而没有非互易性，发射率关于法线完全对称。图 <a class="ltx_ref" href="#S2.F2" title="Figure 2 ‣ II Results ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">2</span></a>(b) 中同样的对称性在施加<math alttext="1\," class="ltx_Math" display="inline" id="S2.p5.m6" intent=":literal"><semantics><mn>1</mn><annotation encoding="application/x-tex">1\,</annotation></semantics></math>T磁场时被打破。</p>
+</div>
+<div class="ltx_para" id="S2.p6">
+<p class="ltx_p" id="S2.p6.1">除非互易模式外，在<math alttext="24.1\,\mu" class="ltx_Math" display="inline" id="S2.p6.m1" intent=":literal"><semantics><mrow><mn>24.1</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">24.1\,\mu</annotation></semantics></math>m的ENZ波长处，发射率变得近乎全向。这是ENZ模式平坦色散的结果：当<math alttext="\varepsilon_{xx}\rightarrow 0" class="ltx_Math" display="inline" id="S2.p6.m2" intent=":literal"><semantics><mrow><msub><mi>ε</mi><mrow><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>x</mi></mrow></msub><mo stretchy="false">→</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\varepsilon_{xx}\rightarrow 0</annotation></semantics></math>时，共振频率变得几乎与<math alttext="k_{x}" class="ltx_Math" display="inline" id="S2.p6.m3" intent=":literal"><semantics><msub><mi>k</mi><mi>x</mi></msub><annotation encoding="application/x-tex">k_{x}</annotation></semantics></math>无关，因此宽范围的面内波矢、并因而宽范围的发射角，在几乎相同的波长处满足共振条件。</p>
+</div>
+<div class="ltx_para" id="S2.p7">
+<p class="ltx_p" id="S2.p7.1">图 <a class="ltx_ref" href="#S2.F2" title="Figure 2 ‣ II Results ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">2</span></a>(a) 和 (b) 中关注的模式是导模共振（GMR），它起源于 <math alttext="20\,\mu" class="ltx_Math" display="inline" id="S2.p7.m1" intent=":literal"><semantics><mrow><mn>20</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">20\,\mu</annotation></semantics></math>m 附近的正入射，并随波长增大向更倾斜的角度移动。磁场使 GMR 色散变为非互易，导致 <math alttext="+k_{x}" class="ltx_Math" display="inline" id="S2.p7.m2" intent=":literal"><semantics><mrow><mo>+</mo><msub><mi>k</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">+k_{x}</annotation></semantics></math> 和 <math alttext="-k_{x}" class="ltx_Math" display="inline" id="S2.p7.m3" intent=":literal"><semantics><mrow><mo>−</mo><msub><mi>k</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">-k_{x}</annotation></semantics></math> 处的共振发生不同移动。由于 GMR 遵循色散关系 <math alttext="\omega(k_{x})" class="ltx_Math" display="inline" id="S2.p7.m4" intent=":literal"><semantics><mrow><mi>ω</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><msub><mi>k</mi><mi>x</mi></msub><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\omega(k_{x})</annotation></semantics></math>，磁致共振频率变化伴随相应的面内波矢变化，从而使峰值发射角发生移动，产生光束偏转。最大的光束偏转出现在 GMR 色散相对平坦的区域。在该区域，共振波长的微小磁致移动会产生发射角的大幅变化。</p>
+</div>
+<div class="ltx_para" id="S2.p8">
+<p class="ltx_p" id="S2.p8.1">图 <a class="ltx_ref" href="#S2.F2" title="Figure 2 ‣ II Results ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">2</span></a>(c) 显示了图 <a class="ltx_ref" href="#S2.F2" title="Figure 2 ‣ II Results ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">2</span></a>(a) 与 (b) 之间的差异，并最清晰地展示了整个模式的光束偏转。蓝线表示零外加磁场时模式所在的位置，红线表示施加 <math alttext="1\," class="ltx_Math" display="inline" id="S2.p8.m1" intent=":literal"><semantics><mn>1</mn><annotation encoding="application/x-tex">1\,</annotation></semantics></math>T 时模式移动到的位置。对于给定波长，从蓝模到红模（在法线同一侧）的角间隔即为所实现的光束偏转量。图 <a class="ltx_ref" href="#S2.F2" title="Figure 2 ‣ II Results ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">2</span></a>(d) 展示了特定波长 <math alttext="22\,\mu" class="ltx_Math" display="inline" id="S2.p8.m2" intent=":literal"><semantics><mrow><mn>22</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">22\,\mu</annotation></semantics></math>m 处的光束偏转，如图 <a class="ltx_ref" href="#S2.F2" title="Figure 2 ‣ II Results ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">2</span></a>(c) 中黑线所示。注意，由于磁场使模式在正角度下向更长波长移动、在负角度下向更短波长移动，<math alttext="+\theta" class="ltx_Math" display="inline" id="S2.p8.m3" intent=":literal"><semantics><mrow><mo>+</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">+\theta</annotation></semantics></math>峰向法线移动，而 <math alttext="-\theta" class="ltx_Math" display="inline" id="S2.p8.m4" intent=":literal"><semantics><mrow><mo>−</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">-\theta</annotation></semantics></math>峰远离法线。</p>
+</div>
+<figure class="ltx_figure" id="S2.F3"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="186" id="S2.F3.g1" src="assets/fig3_11.png" style="aspect-ratio:645/186;" width="645"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 3：</span>(a) 多个磁场值下，器件在 24.5 <math alttext="\mu" class="ltx_Math" display="inline" id="S2.F3.m6" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>m 处的发射率随角度变化。(b) 随磁场变化的非对称性，定义为 <math alttext="+\theta" class="ltx_Math" display="inline" id="S2.F3.m7" intent=":literal"><semantics><mrow><mo>+</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">+\theta</annotation></semantics></math> 处的峰值发射率与 <math alttext="-\theta" class="ltx_Math" display="inline" id="S2.F3.m8" intent=":literal"><semantics><mrow><mo>−</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">-\theta</annotation></semantics></math> 处追踪的峰值发射率之差。(c) 随磁场变化的非互易性，定义为 <math alttext="+\theta" class="ltx_Math" display="inline" id="S2.F3.m9" intent=":literal"><semantics><mrow><mo>+</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">+\theta</annotation></semantics></math> 处的峰值发射率与对应对称角 <math alttext="-\theta" class="ltx_Math" display="inline" id="S2.F3.m10" intent=":literal"><semantics><mrow><mo>−</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">-\theta</annotation></semantics></math> 处的发射率之差。相应的发射率也一并示出。</figcaption>
+</figure>
+<div class="ltx_para" id="S2.p9">
+<p class="ltx_p" id="S2.p9.1">虽然在 <math alttext="22\,\mu" class="ltx_Math" display="inline" id="S2.p9.m1" intent=":literal"><semantics><mrow><mn>22</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">22\,\mu</annotation></semantics></math>m 附近的波长处观察到光束偏转，但 <math alttext="+\theta" class="ltx_Math" display="inline" id="S2.p9.m2" intent=":literal"><semantics><mrow><mo>+</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">+\theta</annotation></semantics></math> 和 <math alttext="-\theta" class="ltx_Math" display="inline" id="S2.p9.m3" intent=":literal"><semantics><mrow><mo>−</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">-\theta</annotation></semantics></math> 处的发射率峰值仍大致相等。相比之下，对于大于有源层 ENZ 波长的波长，该结构同时表现出显著的光束偏转和发射率峰值之间的强非对称性。</p>
+</div>
+<div class="ltx_para" id="S2.p10">
+<p class="ltx_p" id="S2.p10.1">图 <a class="ltx_ref" href="#S2.F3" title="Figure 3 ‣ II Results ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">3</span></a>(a) 显示了在<math alttext="24.5\,\mu" class="ltx_Math" display="inline" id="S2.p10.m1" intent=":literal"><semantics><mrow><mn>24.5</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">24.5\,\mu</annotation></semantics></math>m处、若干外加磁场下的角发射率。随着磁场增大，<math alttext="+\theta" class="ltx_Math" display="inline" id="S2.p10.m2" intent=":literal"><semantics><mrow><mo>+</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">+\theta</annotation></semantics></math>处的发射峰向法线方向移动且幅度增大，而<math alttext="-\theta" class="ltx_Math" display="inline" id="S2.p10.m3" intent=":literal"><semantics><mrow><mo>−</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">-\theta</annotation></semantics></math>处的相应峰幅度显著减小并最终消失。这种不对称性用<math alttext="+\theta" class="ltx_Math" display="inline" id="S2.p10.m4" intent=":literal"><semantics><mrow><mo>+</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">+\theta</annotation></semantics></math>与<math alttext="-\theta" class="ltx_Math" display="inline" id="S2.p10.m5" intent=":literal"><semantics><mrow><mo>−</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">-\theta</annotation></semantics></math>处峰值的差来量化，如图 <a class="ltx_ref" href="#S2.F3" title="Figure 3 ‣ II Results ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">3</span></a>(b) 所示，并在<math alttext="150\," class="ltx_Math" display="inline" id="S2.p10.m6" intent=":literal"><semantics><mn>150</mn><annotation encoding="application/x-tex">150\,</annotation></semantics></math>mT时超过0.6。在足够高的磁场下，一个独立的近法线发射峰会变得比<math alttext="-\theta" class="ltx_Math" display="inline" id="S2.p10.m7" intent=":literal"><semantics><mrow><mo>−</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">-\theta</annotation></semantics></math>峰更大。该近法线特征源于弱的 Fabry-Perot 共振[图 <a class="ltx_ref" href="#S3.F4" title="Figure 4 ‣ III Modeling &amp; Discussion ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">4</span></a>(c)]，被排除在分析之外。我们仅追踪零磁场下存在的一对峰及其随磁场增大在角度和幅度上的演化。</p>
+</div>
+<div class="ltx_para" id="S2.p11">
+<p class="ltx_p" id="S2.p11.1">在该波长处也存在显著的非互易性。我们将非互易性定义为<math alttext="+\theta" class="ltx_Math" display="inline" id="S2.p11.m1" intent=":literal"><semantics><mrow><mo>+</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">+\theta</annotation></semantics></math>处的峰值发射率与对应负角度处发射率之差，如图 <a class="ltx_ref" href="#S2.F3" title="Figure 3 ‣ II Results ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">3</span></a>(c) 所示。由于<math alttext="\epsilon(-\theta)=\alpha(\theta)" class="ltx_Math" display="inline" id="S2.p11.m2" intent=":literal"><semantics><mrow><mrow><mi>ϵ</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mrow><mo>−</mo><mi>θ</mi></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mi>α</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\epsilon(-\theta)=\alpha(\theta)</annotation></semantics></math>，这等价于<math alttext="\epsilon(\theta)-\alpha(\theta)" class="ltx_Math" display="inline" id="S2.p11.m3" intent=":literal"><semantics><mrow><mrow><mi>ϵ</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow></mrow><mo>−</mo><mrow><mi>α</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\epsilon(\theta)-\alpha(\theta)</annotation></semantics></math>，因此直接量化了对基尔霍夫定律的违反。值得注意的是，在仅施加<math alttext="50\," class="ltx_Math" display="inline" id="S2.p11.m4" intent=":literal"><semantics><mn>50</mn><annotation encoding="application/x-tex">50\,</annotation></semantics></math>mT磁场时，非互易性大于0.5。</p>
+</div>
+</section>
+<section class="ltx_section" id="S3">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">III </span>建模与讨论</h2>
+<figure class="ltx_figure" id="S3.F4"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="242" id="S3.F4.g1" src="assets/fig4_5.png" style="aspect-ratio:645/242;" width="645"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 4：</span>(a) 由仿真与微扰理论预测的光束偏转角度随磁场的变化。(b) 电场的<math alttext="x" class="ltx_Math" display="inline" id="S3.F4.m9" intent=":literal"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>分量（在<math alttext="\lambda=24.5\,\mu" class="ltx_Math" display="inline" id="S3.F4.m10" intent=":literal"><semantics><mrow><mi>λ</mi><mo>=</mo><mrow><mn>24.5</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow></mrow><annotation encoding="application/x-tex">\lambda=24.5\,\mu</annotation></semantics></math>m、<math alttext="B=1\," class="ltx_Math" display="inline" id="S3.F4.m11" intent=":literal"><semantics><mrow><mi>B</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">B=1\,</annotation></semantics></math>T 和<math alttext="\theta=54.1^{\circ}" class="ltx_Math" display="inline" id="S3.F4.m12" intent=":literal"><semantics><mrow><mi>θ</mi><mo>=</mo><msup><mn>54.1</mn><mo>∘</mo></msup></mrow><annotation encoding="application/x-tex">\theta=54.1^{\circ}</annotation></semantics></math>处），对应最大发射率的角度。(c) 电场的<math alttext="x" class="ltx_Math" display="inline" id="S3.F4.m13" intent=":literal"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>分量（在<math alttext="\lambda=24.5\,\mu" class="ltx_Math" display="inline" id="S3.F4.m14" intent=":literal"><semantics><mrow><mi>λ</mi><mo>=</mo><mrow><mn>24.5</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow></mrow><annotation encoding="application/x-tex">\lambda=24.5\,\mu</annotation></semantics></math>m、<math alttext="B=1\," class="ltx_Math" display="inline" id="S3.F4.m15" intent=":literal"><semantics><mrow><mi>B</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">B=1\,</annotation></semantics></math>T 和<math alttext="\theta=0^{\circ}" class="ltx_Math" display="inline" id="S3.F4.m16" intent=":literal"><semantics><mrow><mi>θ</mi><mo>=</mo><msup><mn>0</mn><mo>∘</mo></msup></mrow><annotation encoding="application/x-tex">\theta=0^{\circ}</annotation></semantics></math>处）。</figcaption>
+</figure>
+<div class="ltx_para" id="S3.p1">
+<p class="ltx_p" id="S3.p1.1">光束偏转量如图 <a class="ltx_ref" href="#S3.F4" title="Figure 4 ‣ III Modeling &amp; Discussion ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">4</span></a>(a) 所示。在外加磁场为<math alttext="1\," class="ltx_Math" display="inline" id="S3.p1.m1" intent=":literal"><semantics><mn>1</mn><annotation encoding="application/x-tex">1\,</annotation></semantics></math>T时，发射峰偏转<math alttext="22^{\circ}" class="ltx_Math" display="inline" id="S3.p1.m2" intent=":literal"><semantics><msup><mn>22</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">22^{\circ}</annotation></semantics></math>。此外，仿真得到的偏转角与文献<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib19" title="">2</a>]</cite>中提出的微扰理论预测结果吻合良好，这使我们确信观测到的偏转源于磁场引起的模式色散修正。该微扰理论预测由外加磁场引起的共振频率偏移。其输入为未微扰模式的面内电场分量和面外磁场分量，以及相关材料性质。由此得到的频率偏移为</p>
+<table class="ltx_equation ltx_eqn_table" id="S3.E5">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\Delta\omega=-\omega_{c}F," class="ltx_Math" display="block" id="S3.E5.m1" intent=":literal"><semantics><mrow><mrow><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>ω</mi></mrow><mo>=</mo><mrow><mo>−</mo><mrow><msub><mi>ω</mi><mi>c</mi></msub><mo lspace="0em" rspace="0em">​</mo><mi>F</mi></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\Delta\omega=-\omega_{c}F,</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(5)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S3.p1.2">where</p>
+<table class="ltx_equation ltx_eqn_table" id="S3.E6">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="F=\frac{\dfrac{\omega_{p}^{2}\varepsilon_{\infty}}{\omega^{2}}\displaystyle\iint_{\mathrm{active}}\operatorname{Im}\left(E_{x}^{*}E_{y}-E_{y}^{*}E_{x}\right)\,dx\,dy}{\displaystyle\iint\left\{\frac{1}{2}\left[\varepsilon_{\infty}\left(|E_{x}|^{2}+|E_{y}|^{2}\right)+\mu_{0}|H_{z}|^{2}\right]+\frac{1}{2\varepsilon_{\infty}\omega_{p}^{2}}\left(|V_{x}|^{2}+|V_{y}|^{2}\right)\right\}\,dx\,dy}." class="ltx_Math" display="block" id="S3.E6.m1" intent=":literal"><semantics><mrow><mrow><mi>F</mi><mo>=</mo><mfrac><mrow><mstyle displaystyle="true"><mfrac><mrow><msubsup><mi>ω</mi><mi>p</mi><mn>2</mn></msubsup><mo lspace="0em" rspace="0em">​</mo><msub><mi>ε</mi><mi mathvariant="normal">∞</mi></msub></mrow><msup><mi>ω</mi><mn>2</mn></msup></mfrac></mstyle><mo lspace="0em" rspace="0em">​</mo><mrow><msub><mo>∬</mo><mi>active</mi></msub><mrow><mrow><mi>Im</mi><mo>⁡</mo><mrow><mo>(</mo><mrow><mrow><msubsup><mi>E</mi><mi>x</mi><mo>∗</mo></msubsup><mo lspace="0em" rspace="0em">​</mo><msub><mi>E</mi><mi>y</mi></msub></mrow><mo>−</mo><mrow><msubsup><mi>E</mi><mi>y</mi><mo>∗</mo></msubsup><mo lspace="0em" rspace="0em">​</mo><msub><mi>E</mi><mi>x</mi></msub></mrow></mrow><mo>)</mo></mrow></mrow><mo lspace="0.170em" rspace="0em">​</mo><mrow><mo rspace="0em">𝑑</mo><mi>x</mi></mrow><mo lspace="0.170em" rspace="0em">​</mo><mrow><mo rspace="0em">𝑑</mo><mi>y</mi></mrow></mrow></mrow></mrow><mrow><mo rspace="0em">∬</mo><mrow><mrow><mo>{</mo><mrow><mrow><mstyle displaystyle="true"><mfrac><mn>1</mn><mn>2</mn></mfrac></mstyle><mo lspace="0em" rspace="0em">​</mo><mrow><mo>[</mo><mrow><mrow><msub><mi>ε</mi><mi mathvariant="normal">∞</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo>(</mo><mrow><msup><mrow><mo stretchy="false">|</mo><msub><mi>E</mi><mi>x</mi></msub><mo stretchy="false">|</mo></mrow><mn>2</mn></msup><mo>+</mo><msup><mrow><mo stretchy="false">|</mo><msub><mi>E</mi><mi>y</mi></msub><mo stretchy="false">|</mo></mrow><mn>2</mn></msup></mrow><mo>)</mo></mrow></mrow><mo>+</mo><mrow><msub><mi>μ</mi><mn>0</mn></msub><mo lspace="0em" rspace="0em">​</mo><msup><mrow><mo stretchy="false">|</mo><msub><mi>H</mi><mi>z</mi></msub><mo stretchy="false">|</mo></mrow><mn>2</mn></msup></mrow></mrow><mo>]</mo></mrow></mrow><mo>+</mo><mrow><mstyle displaystyle="true"><mfrac><mn>1</mn><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><msub><mi>ε</mi><mi mathvariant="normal">∞</mi></msub><mo lspace="0em" rspace="0em">​</mo><msubsup><mi>ω</mi><mi>p</mi><mn>2</mn></msubsup></mrow></mfrac></mstyle><mo lspace="0em" rspace="0em">​</mo><mrow><mo>(</mo><mrow><msup><mrow><mo stretchy="false">|</mo><msub><mi>V</mi><mi>x</mi></msub><mo stretchy="false">|</mo></mrow><mn>2</mn></msup><mo>+</mo><msup><mrow><mo stretchy="false">|</mo><msub><mi>V</mi><mi>y</mi></msub><mo stretchy="false">|</mo></mrow><mn>2</mn></msup></mrow><mo>)</mo></mrow></mrow></mrow><mo>}</mo></mrow><mo lspace="0.170em" rspace="0em">​</mo><mrow><mo rspace="0em">𝑑</mo><mi>x</mi></mrow><mo lspace="0.170em" rspace="0em">​</mo><mrow><mo rspace="0em">𝑑</mo><mi>y</mi></mrow></mrow></mrow></mfrac></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">F=\frac{\dfrac{\omega_{p}^{2}\varepsilon_{\infty}}{\omega^{2}}\displaystyle\iint_{\mathrm{active}}\operatorname{Im}\left(E_{x}^{*}E_{y}-E_{y}^{*}E_{x}\right)\,dx\,dy}{\displaystyle\iint\left\{\frac{1}{2}\left[\varepsilon_{\infty}\left(|E_{x}|^{2}+|E_{y}|^{2}\right)+\mu_{0}|H_{z}|^{2}\right]+\frac{1}{2\varepsilon_{\infty}\omega_{p}^{2}}\left(|V_{x}|^{2}+|V_{y}|^{2}\right)\right\}\,dx\,dy}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S3.p1.3">这里，<math alttext="\mathbf{V}=\partial\mathbf{P}/\partial t" class="ltx_Math" display="inline" id="S3.p1.m3" intent=":literal"><semantics><mrow><mi>𝐕</mi><mo rspace="0.111em">=</mo><mrow><mo>∂</mo><mrow><mi>𝐏</mi><mo rspace="0.055em">/</mo><mrow><mo>∂</mo><mi>t</mi></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">\mathbf{V}=\partial\mathbf{P}/\partial t</annotation></semantics></math>是自由载流子偏振场<math alttext="\mathbf{P}" class="ltx_Math" display="inline" id="S3.p1.m4" intent=":literal"><semantics><mi>𝐏</mi><annotation encoding="application/x-tex">\mathbf{P}</annotation></semantics></math>的时间导数；分子中的积分是对磁光有源层进行的，分母为未微扰模式<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib19" title="">2</a>]</cite>的动能与势能之和。</p>
+</div>
+<div class="ltx_para" id="S3.p2">
+<p class="ltx_p" id="S3.p2.1">为了将该微扰理论应用于固定波长下的光束偏转，我们对式（<a class="ltx_ref" href="#S3.E5" title="In III Modeling &amp; Discussion ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">5</span></a>）利用<math alttext="\omega_{c}=eB/m_{e}" class="ltx_Math" display="inline" id="S3.p2.m1" intent=":literal"><semantics><mrow><msub><mi>ω</mi><mi>c</mi></msub><mo>=</mo><mrow><mrow><mi>e</mi><mo lspace="0em" rspace="0em">​</mo><mi>B</mi></mrow><mo>/</mo><msub><mi>m</mi><mi>e</mi></msub></mrow></mrow><annotation encoding="application/x-tex">\omega_{c}=eB/m_{e}</annotation></semantics></math>进行反演，以确定产生指定频率偏移所需的磁场：</p>
+<table class="ltx_equation ltx_eqn_table" id="S3.E7">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="B=-\frac{m_{e}\,\Delta\omega}{eF}." class="ltx_Math" display="block" id="S3.E7.m1" intent=":literal"><semantics><mrow><mrow><mi>B</mi><mo>=</mo><mrow><mo>−</mo><mfrac><mrow><msub><mi>m</mi><mi>e</mi></msub><mo lspace="0.170em" rspace="0em">​</mo><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>ω</mi></mrow><mrow><mi>e</mi><mo lspace="0em" rspace="0em">​</mo><mi>F</mi></mrow></mfrac></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">B=-\frac{m_{e}\,\Delta\omega}{eF}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(7)</span></td></tr></tbody>
+</table>
+</div>
+<div class="ltx_para" id="S3.p3">
+<p class="ltx_p" id="S3.p3.1">随后，我们利用导模共振（GMR）的零场色散，将发射角的目标变化量<math alttext="\Delta\theta" class="ltx_Math" display="inline" id="S3.p3.m1" intent=":literal"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>θ</mi></mrow><annotation encoding="application/x-tex">\Delta\theta</annotation></semantics></math>与相应波长偏移<math alttext="\Delta\lambda" class="ltx_Math" display="inline" id="S3.p3.m2" intent=":literal"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>λ</mi></mrow><annotation encoding="application/x-tex">\Delta\lambda</annotation></semantics></math>联系起来，该偏移是将共振移至目标波长<math alttext="24.5\,\mu" class="ltx_Math" display="inline" id="S3.p3.m3" intent=":literal"><semantics><mrow><mn>24.5</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">24.5\,\mu</annotation></semantics></math>m所需的。将该<math alttext="\Delta\lambda" class="ltx_Math" display="inline" id="S3.p3.m4" intent=":literal"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>λ</mi></mrow><annotation encoding="application/x-tex">\Delta\lambda</annotation></semantics></math>转换为频移<math alttext="\Delta\omega" class="ltx_Math" display="inline" id="S3.p3.m5" intent=":literal"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>ω</mi></mrow><annotation encoding="application/x-tex">\Delta\omega</annotation></semantics></math>，再将其用于式（<a class="ltx_ref" href="#S3.E7" title="In III Modeling &amp; Discussion ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">7</span></a>）以计算所需磁场。对一系列偏转角重复此过程，可得到外加磁场与光束偏转角之间的关系，并将其与图 <a class="ltx_ref" href="#S3.F4" title="Figure 4 ‣ III Modeling &amp; Discussion ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">4</span></a>(a)中的全波仿真进行比较。</p>
+</div>
+<div class="ltx_para" id="S3.p4">
+<p class="ltx_p" id="S3.p4.1">电场的<math alttext="x" class="ltx_Math" display="inline" id="S3.p4.m1" intent=":literal"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>分量<math alttext="E_{x}" class="ltx_Math" display="inline" id="S3.p4.m2" intent=":literal"><semantics><msub><mi>E</mi><mi>x</mi></msub><annotation encoding="application/x-tex">E_{x}</annotation></semantics></math>在<math alttext="1\," class="ltx_Math" display="inline" id="S3.p4.m3" intent=":literal"><semantics><mn>1</mn><annotation encoding="application/x-tex">1\,</annotation></semantics></math>T下最大发射率对应的角度处，如图 <a class="ltx_ref" href="#S3.F4" title="Figure 4 ‣ III Modeling &amp; Discussion ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">4</span></a>(b)所示，与导模共振一致。相反，法向入射下的<math alttext="E_{x}" class="ltx_Math" display="inline" id="S3.p4.m4" intent=":literal"><semantics><msub><mi>E</mi><mi>x</mi></msub><annotation encoding="application/x-tex">E_{x}</annotation></semantics></math>，图 <a class="ltx_ref" href="#S3.F4" title="Figure 4 ‣ III Modeling &amp; Discussion ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">4</span></a>(c)，具有弱法布里–珀罗共振的特征，该共振导致近法向发射率随磁场增大而增大。</p>
+</div>
+<div class="ltx_para" id="S3.p5">
+<p class="ltx_p" id="S3.p5.1">由于光束偏转的实用价值取决于偏转范围相对于光束自身宽度的比值，我们还提取了发射率峰的角半高全宽（FWHM）。零场下，位于<math alttext="24.5\,\mu" class="ltx_Math" display="inline" id="S3.p5.m1" intent=":literal"><semantics><mrow><mn>24.5</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">24.5\,\mu</annotation></semantics></math>m处的峰FWHM为<math alttext="5.6^{\circ}" class="ltx_Math" display="inline" id="S3.p5.m2" intent=":literal"><semantics><msup><mn>5.6</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">5.6^{\circ}</annotation></semantics></math>；在<math alttext="1\," class="ltx_Math" display="inline" id="S3.p5.m3" intent=":literal"><semantics><mn>1</mn><annotation encoding="application/x-tex">1\,</annotation></semantics></math>T下，随着模式向法向移动，偏转后的峰变窄至<math alttext="1.9^{\circ}" class="ltx_Math" display="inline" id="S3.p5.m4" intent=":literal"><semantics><msup><mn>1.9</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">1.9^{\circ}</annotation></semantics></math>。因此，<math alttext="22^{\circ}" class="ltx_Math" display="inline" id="S3.p5.m5" intent=":literal"><semantics><msup><mn>22</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">22^{\circ}</annotation></semantics></math>的偏转范围接近零场FWHM的四倍。我们注意到，线宽由模式的总损耗率决定，其贡献来自有源层的自由载流子散射率<math alttext="\gamma" class="ltx_Math" display="inline" id="S3.p5.m6" intent=":literal"><semantics><mi>γ</mi><annotation encoding="application/x-tex">\gamma</annotation></semantics></math>以及通过光栅的辐射泄漏。</p>
+</div>
+<div class="ltx_para" id="S3.p6">
+<p class="ltx_p" id="S3.p6.1">此前非互易热辐射的实验演示依赖于超过<math alttext="1\," class="ltx_Math" display="inline" id="S3.p6.m1" intent=":literal"><semantics><mn>1</mn><annotation encoding="application/x-tex">1\,</annotation></semantics></math>T的磁场，这在实际中需要超导磁体或大型电磁铁，从而实际上将该效应限制在实验室<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib16" title="">27</a>, <a class="ltx_ref" href="#bib.bib17" title="">28</a>]</cite>内。相比之下，本文考虑的结构产生大于<math alttext="0.5" class="ltx_Math" display="inline" id="S3.p6.m2" intent=":literal"><semantics><mn>0.5</mn><annotation encoding="application/x-tex">0.5</annotation></semantics></math>的发射率差，对应磁场为<math alttext="50\," class="ltx_Math" display="inline" id="S3.p6.m3" intent=":literal"><semantics><mn>50</mn><annotation encoding="application/x-tex">50\,</annotation></semantics></math>mT，该磁场很容易由小型永磁体或紧凑的空心线圈产生。调制和光束偏转原则上可通过小型电磁铁组件实现。由于偏转机制是磁性的而非机械的，调制速率由电磁铁而非发射器决定。对于电感为<math alttext="L" class="ltx_Math" display="inline" id="S3.p6.m4" intent=":literal"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math>、电阻为<math alttext="R" class="ltx_Math" display="inline" id="S3.p6.m5" intent=":literal"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>的线圈，磁场以时间常数<math alttext="L/R" class="ltx_Math" display="inline" id="S3.p6.m6" intent=":literal"><semantics><mrow><mi>L</mi><mo>/</mo><mi>R</mi></mrow><annotation encoding="application/x-tex">L/R</annotation></semantics></math>跟随驱动电流；对于产生<math alttext="50\," class="ltx_Math" display="inline" id="S3.p6.m7" intent=":literal"><semantics><mn>50</mn><annotation encoding="application/x-tex">50\,</annotation></semantics></math>mT的紧凑线圈，这对应约100 Hz的带宽。最后，我们注意到上述结果是在室温下计算的。升高温度会增加声子散射率，因而使<math alttext="\gamma" class="ltx_Math" display="inline" id="S3.p6.m8" intent=":literal"><semantics><mi>γ</mi><annotation encoding="application/x-tex">\gamma</annotation></semantics></math>增大，使共振展宽，并可能降低其峰值发射率。此外，载流子浓度的任何温度依赖性都可能使ENZ波长移动，因此需要进行考虑这一点的适当设计修改。</p>
+</div>
+</section>
+<section class="ltx_section" id="S4">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">IV </span>结论</h2>
+<div class="ltx_para" id="S4.p1">
+<p class="ltx_p" id="S4.p1.1">我们提出了一种全III-V族半导体结构，并通过仿真表明，该结构能够产生大于<math alttext="50\%" class="ltx_Math" display="inline" id="S4.p1.m1" intent=":literal"><semantics><mrow><mn>50</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">50\%</annotation></semantics></math>的非对称发射率差异，该差异介于<math alttext="\theta=\pm 75^{\circ}" class="ltx_Math" display="inline" id="S4.p1.m2" intent=":literal"><semantics><mrow><mi>θ</mi><mo>=</mo><mrow><mo>±</mo><msup><mn>75</mn><mo>∘</mo></msup></mrow></mrow><annotation encoding="application/x-tex">\theta=\pm 75^{\circ}</annotation></semantics></math>（在<math alttext="50\," class="ltx_Math" display="inline" id="S4.p1.m3" intent=":literal"><semantics><mn>50</mn><annotation encoding="application/x-tex">50\,</annotation></semantics></math>mT下）与<math alttext="22^{\circ}" class="ltx_Math" display="inline" id="S4.p1.m4" intent=":literal"><semantics><msup><mn>22</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">22^{\circ}</annotation></semantics></math>的光束偏转（对应施加<math alttext="1\," class="ltx_Math" display="inline" id="S4.p1.m5" intent=":literal"><semantics><mn>1</mn><annotation encoding="application/x-tex">1\,</annotation></semantics></math>T场）之间。这种行为由有源层的磁光响应实现，该响应打破洛伦兹互易性，使器件能够违反基尔霍夫热辐射定律，并产生强非对称的定向热发射。</p>
+</div>
+<div class="ltx_para" id="S4.p2">
+<p class="ltx_p" id="S4.p2.1">与仍关于表面法线对称的传统定向热发射器不同，该器件的非对称性使得高发射率仅被限制在正角或负角。此外，由于偏转机制是磁性的而非机械式的，峰值热发射的方向原则上可以被调制，从而能够使用白炽光源实现光束扫描。该器件工作在<math alttext="20" class="ltx_Math" display="inline" id="S4.p2.m1" intent=":literal"><semantics><mn>20</mn><annotation encoding="application/x-tex">20</annotation></semantics></math>–<math alttext="25\,\mu" class="ltx_Math" display="inline" id="S4.p2.m2" intent=":literal"><semantics><mrow><mn>25</mn><mo lspace="0.170em" rspace="0em">​</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">25\,\mu</annotation></semantics></math>m波长范围，该范围内相干光源稀缺，现有方案体积庞大或需要低温工作，这凸显了其作为紧凑、可调谐定向远红外辐射源的潜力。我们强调，这种光源不能替代激光器，因为它是白炽发射体，因而在空间和时间上均不相干。最终，动态控制热发射方向和不对称性的能力，有望为红外传感、成像、自由空间光通信和辐射能技术带来新能力。</p>
+</div>
+<div class="ltx_acknowledgements" id="S4.acknowledgements1">
+<h6 class="ltx_title ltx_title_acknowledgements">致谢。</h6>
+This material was based upon work supported by the National Science Foundation under grant no. ECCS-2146577. D.C. acknowledges support of the Department of Defense National Defense Science and Engineering Graduate Fellowship.
+
+</div>
+</section>
+<section class="ltx_section" id="S5">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">V </span>方法</h2>
+<div class="ltx_para" id="S5.p1">
+<p class="ltx_p" id="S5.p1.1">我们使用 COMSOL Multiphysics 中的 Electromagnetic Waves, Frequency Domain 模块对器件进行了二维全波有限元仿真。我们在<math alttext="\hat{x}" class="ltx_Math" display="inline" id="S5.p1.m1" intent=":literal"><semantics><mover accent="true"><mi>x</mi><mo>^</mo></mover><annotation encoding="application/x-tex">\hat{x}</annotation></semantics></math>方向施加了 Floquet 边界条件。根据仿真，我们计算了入射 TM 偏振光的反射率，随后用其确定吸收率（<math alttext="\alpha(\lambda,\theta)=1-R(\lambda,\theta)" class="ltx_Math" display="inline" id="S5.p1.m2" intent=":literal"><semantics><mrow><mrow><mi>α</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>λ</mi><mo>,</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mn>1</mn><mo>−</mo><mrow><mi>R</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>λ</mi><mo>,</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">\alpha(\lambda,\theta)=1-R(\lambda,\theta)</annotation></semantics></math>，假设无透射）和发射率（<math alttext="\epsilon(\lambda,\theta)=\alpha(\lambda,-\theta)" class="ltx_Math" display="inline" id="S5.p1.m3" intent=":literal"><semantics><mrow><mrow><mi>ϵ</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>λ</mi><mo>,</mo><mi>θ</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mi>α</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>λ</mi><mo>,</mo><mrow><mo>−</mo><mi>θ</mi></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\epsilon(\lambda,\theta)=\alpha(\lambda,-\theta)</annotation></semantics></math>，该关系适用于本几何结构）。各层的载流子浓度、有效电子质量和散射率总结于表 <a class="ltx_ref" href="#S5.T1" title="Table 1 ‣ V Methods ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">1</span></a>中。有源层的材料参数取自参考文献 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib24" title="">38</a>]</cite>，InGaAs 的折射率模型来自参考文献 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib33" title="">13</a>]</cite>。</p>
+</div>
+<figure class="ltx_table" id="S5.T1">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table">表 1：</span>仿真中使用的材料参数。<math alttext="m_{0}" class="ltx_Math" display="inline" id="S5.T1.m2" intent=":literal"><semantics><msub><mi>m</mi><mn>0</mn></msub><annotation encoding="application/x-tex">m_{0}</annotation></semantics></math>为自由电子质量。</figcaption>
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle" id="S5.T1.2">
+<thead class="ltx_thead">
+<tr class="ltx_tr" id="S5.T1.2.1">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_t" id="S5.T1.2.1.1" style="padding-left:10.0pt;padding-right:10.0pt;"><span class="ltx_rule" style="width:0.0pt;height:12.0pt;--ltx-bg-color:black;display:inline-block;"></span>
+Layer</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="S5.T1.2.1.2" style="padding-left:10.0pt;padding-right:10.0pt;">载流子浓度（cm<sup class="ltx_sup" id="S5.T1.2.1.2.1"><span class="ltx_text ltx_font_italic" id="S5.T1.2.1.2.1.1">-3</span></sup>）</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="S5.T1.2.1.3" style="padding-left:10.0pt;padding-right:10.0pt;"><math alttext="m_{e}/m_{0}" class="ltx_Math" display="inline" id="S5.T1.m4" intent=":literal"><semantics><mrow><msub><mi>m</mi><mi>e</mi></msub><mo>/</mo><msub><mi>m</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">m_{e}/m_{0}</annotation></semantics></math></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_t" id="S5.T1.2.1.4" style="padding-left:10.0pt;padding-right:10.0pt;"><math alttext="\gamma" class="ltx_Math" display="inline" id="S5.T1.m5" intent=":literal"><semantics><mi>γ</mi><annotation encoding="application/x-tex">\gamma</annotation></semantics></math> (Hz)</th></tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="S5.T1.2.2">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t" id="S5.T1.2.2.1" style="padding-left:10.0pt;padding-right:10.0pt;"><span class="ltx_rule" style="width:0.0pt;height:12.0pt;--ltx-bg-color:black;display:inline-block;"></span>
+InAs<sub class="ltx_sub" id="S5.T1.2.2.1.1"><span class="ltx_text ltx_font_italic" id="S5.T1.2.2.1.1.1">active</span></sub></th>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T1.2.2.2" style="padding-left:10.0pt;padding-right:10.0pt;"><math alttext="7.8\times 10^{17}" class="ltx_Math" display="inline" id="S5.T1.m7" intent=":literal"><semantics><mrow><mn>7.8</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mn>17</mn></msup></mrow><annotation encoding="application/x-tex">7.8\times 10^{17}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T1.2.2.3" style="padding-left:10.0pt;padding-right:10.0pt;">0.033</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S5.T1.2.2.4" style="padding-left:10.0pt;padding-right:10.0pt;"><math alttext="1.55\times 10^{11}" class="ltx_Math" display="inline" id="S5.T1.m8" intent=":literal"><semantics><mrow><mn>1.55</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mn>11</mn></msup></mrow><annotation encoding="application/x-tex">1.55\times 10^{11}</annotation></semantics></math></td></tr>
+<tr class="ltx_tr" id="S5.T1.2.3">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_b" id="S5.T1.2.3.1" style="padding-left:10.0pt;padding-right:10.0pt;">InAs<sub class="ltx_sub" id="S5.T1.2.3.1.1"><span class="ltx_text ltx_font_italic" id="S5.T1.2.3.1.1.1">reflector</span></sub></th>
+<td class="ltx_td ltx_align_center ltx_border_b" id="S5.T1.2.3.2" style="padding-left:10.0pt;padding-right:10.0pt;"><math alttext="5\times 10^{19}" class="ltx_Math" display="inline" id="S5.T1.m10" intent=":literal"><semantics><mrow><mn>5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mn>19</mn></msup></mrow><annotation encoding="application/x-tex">5\times 10^{19}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="S5.T1.2.3.3" style="padding-left:10.0pt;padding-right:10.0pt;">0.1413</td>
+<td class="ltx_td ltx_align_center ltx_border_b" id="S5.T1.2.3.4" style="padding-left:10.0pt;padding-right:10.0pt;"><math alttext="3.704\times 10^{13}" class="ltx_Math" display="inline" id="S5.T1.m11" intent=":literal"><semantics><mrow><mn>3.704</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mn>13</mn></msup></mrow><annotation encoding="application/x-tex">3.704\times 10^{13}</annotation></semantics></math></td></tr>
+</tbody>
+</table>
+</figure>
+</section>
+<section class="ltx_bibliography" id="bib">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+<ul class="ltx_biblist" id="bib.L1">
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib28"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Buddhiraju, P. Santhanam, and S. Fan</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Thermodynamic limits of energy harvesting from outgoing thermal radiation</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Proceedings of the National Academy of Sciences</span> <span class="ltx_text ltx_bib_volume">115</span> (<span class="ltx_text ltx_bib_number">16</span>) (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0027-8424, 1091-6490</span>,
+<a class="ltx_ref ltx_bib_external" href="https://pnas.org/doi/full/10.1073/pnas.1717595115" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1073/pnas.1717595115" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib19"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Cui and A. P. Raman</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Nonreciprocal perturbation theory for near-complete violation of thermal emission</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arxiv</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.p1.1" title="III Modeling &amp; Discussion ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§III</span></a>,
+<a class="ltx_ref" href="#S3.p1.3" title="III Modeling &amp; Discussion ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§III</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib1"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">P. S. Davids, J. Kirsch, A. Starbuck, R. Jarecki, J. Shank, and D. Peters</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Electrical power generation from moderate-temperature radiative thermal sources</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Science</span> <span class="ltx_text ltx_bib_volume">367</span> (<span class="ltx_text ltx_bib_number">6484</span>), <span class="ltx_text ltx_bib_pages">pp. 1341–1345</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1126/science.aba2089" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib2"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Z. Dong, R. K. Vinnakota, A. F. Briggs, L. Nordin, S. R. Bank, D. A. Genov, and D. Wasserman</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Electrical modulation of degenerate semiconductor plasmonic interfaces</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Applied Physics</span> <span class="ltx_text ltx_bib_volume">126</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages">pp. 043101</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0021-8979</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1063/1.5108905" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib27"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. A. Green</span><span class="ltx_text ltx_bib_year"> (2012)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Time-asymmetric photovoltaics</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nano Letters</span> <span class="ltx_text ltx_bib_volume">12</span> (<span class="ltx_text ltx_bib_number">11</span>), <span class="ltx_text ltx_bib_pages">pp. 5985–5988</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1530-6984, 1530-6992</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1021/nl3034784" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib21"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Greffet, R. Carminati, K. Joulain, J. Mulet, S. Mainguy, and Y. Chen</span><span class="ltx_text ltx_bib_year"> (2002)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Coherent emission of light by thermal sources</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nature</span> <span class="ltx_text ltx_bib_volume">416</span> (<span class="ltx_text ltx_bib_number">6876</span>), <span class="ltx_text ltx_bib_pages">pp. 61–64</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0028-0836, 1476-4687</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/416061a" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib12"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">G. C. Hulley, R. M. Duren, F. M. Hopkins, S. J. Hook, N. Vance, P. Guillevic, W. R. Johnson, B. T. Eng, J. M. Mihaly, V. M. Jovanovic, S. L. Chazanoff, Z. K. Staniszewski, L. Kuai, J. Worden, C. Frankenberg, G. Rivera, A. D. Aubrey, C. E. Miller, N. K. Malakar, J. M. Sánchez Tomás, and K. T. Holmes</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">High spatial resolution imaging of methane and other trace gases with the airborne hyperspectral thermal emission spectrometer (hytes)</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Atmospheric Measurement Techniques</span> <span class="ltx_text ltx_bib_volume">9</span> (<span class="ltx_text ltx_bib_number">5</span>), <span class="ltx_text ltx_bib_pages">pp. 2393–2408</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1867-8548</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.5194/amt-9-2393-2016" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib3"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. S. Hwang, J. Xu, and A. P. Raman</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Simultaneous control of spectral and directional emissivity with gradient epsilon-near-zero inas photonic structures</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Advanced Materials</span> <span class="ltx_text ltx_bib_volume">35</span> (<span class="ltx_text ltx_bib_number">39</span>), <span class="ltx_text ltx_bib_pages">pp. 2302956</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1521-4095</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1002/adma.202302956" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib4"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. S. Hwang, J. Xu, and A. P. Raman</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Thermally tunable angular selectivity of broadband directional thermal emission</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nano Letters</span> <span class="ltx_text ltx_bib_volume">25</span> (<span class="ltx_text ltx_bib_number">19</span>), <span class="ltx_text ltx_bib_pages">pp. 8064–8071</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1530-6984</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1021/acs.nanolett.5c02197" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib35"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Jafari Ghalekohneh and B. Zhao</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Nonreciprocal solar thermophotovoltaics</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Phys. Rev. Appl.</span> <span class="ltx_text ltx_bib_volume">18</span>, <span class="ltx_text ltx_bib_pages">pp. 034083</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevApplied.18.034083" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://link.aps.org/doi/10.1103/PhysRevApplied.18.034083" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib38"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Jalas, A. Petrov, M. Eich, W. Freude, S. Fan, Z. Yu, R. Baets, M. Popović, A. Melloni, J. D. Joannopoulos, M. Vanwolleghem, C. R. Doerr, and H. Renner</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">What is — and what is not — an optical isolator</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nature Photonics</span> <span class="ltx_text ltx_bib_volume">7</span> (<span class="ltx_text ltx_bib_number">8</span>), <span class="ltx_text ltx_bib_pages">pp. 579–582</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1749-4885, 1749-4893</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/nphoton.2013.185" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p3.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib34"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">O. V. Kotov and Yu. E. Lozovik</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Giant tunable nonreciprocity of light in weyl semimetals</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review B</span> <span class="ltx_text ltx_bib_volume">98</span> (<span class="ltx_text ltx_bib_number">19</span>), <span class="ltx_text ltx_bib_pages">pp. 195446</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 2469-9950, 2469-9969</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevB.98.195446" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib33"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. N. Le, J. Pelouard, F. Charra, and S. Vassant</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Determination of the far-infrared dielectric function of a thin ingaas layer using a detuned salisbury screen</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optical Materials Express</span> <span class="ltx_text ltx_bib_volume">12</span> (<span class="ltx_text ltx_bib_number">7</span>), <span class="ltx_text ltx_bib_pages">pp. 2711–2723</span> (<span class="ltx_text ltx_bib_language">EN</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 2159-3930</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OME.455445" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S5.p1.1" title="V Methods ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§V</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib20"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Y. Lin, J. Moreno, and J. G. Fleming</span><span class="ltx_text ltx_bib_year"> (2003)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Three-dimensional photonic-crystal emitter for thermal photovoltaic power generation</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Applied Physics Letters</span> <span class="ltx_text ltx_bib_volume">83</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 380–382</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0003-6951, 1077-3118</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1063/1.1592614" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib31"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Liu, S. Xia, W. Wan, J. Qin, H. Li, C. Zhao, L. Bi, and C. Qiu</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Broadband mid-infrared non-reciprocal absorption using magnetized gradient epsilon-near-zero thin films</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nature Materials</span> <span class="ltx_text ltx_bib_volume">22</span> (<span class="ltx_text ltx_bib_number">10</span>), <span class="ltx_text ltx_bib_pages">pp. 1196–1202</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1476-1122, 1476-4660</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/s41563-023-01635-9" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib5"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Liu, X. Yin, E. Ulin-Avila, B. Geng, T. Zentgraf, L. Ju, F. Wang, and X. Zhang</span><span class="ltx_text ltx_bib_year"> (2011)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A graphene-based broadband optical modulator</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nature</span> <span class="ltx_text ltx_bib_volume">474</span> (<span class="ltx_text ltx_bib_number">7349</span>), <span class="ltx_text ltx_bib_pages">pp. 64–67</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0028-0836, 1476-4687</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/nature10067" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib23"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[17]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">X. Liu, T. Tyler, T. Starr, A. F. Starr, N. M. Jokerst, and W. J. Padilla</span><span class="ltx_text ltx_bib_year"> (2011)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Taming the blackbody with infrared metamaterials as selective thermal emitters</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review Letters</span> <span class="ltx_text ltx_bib_volume">107</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages">pp. 045901</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0031-9007, 1079-7114</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevLett.107.045901" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib13"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[18]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. Lucchi</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Applications of the infrared thermography in the energy audit of buildings: a review</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Renewable and Sustainable Energy Reviews</span> <span class="ltx_text ltx_bib_volume">82</span>, <span class="ltx_text ltx_bib_pages">pp. 3077–3090</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 13640321</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1016/j.rser.2017.10.031" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib29"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[19]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">B. Nabavi, S. Jafari Ghalekohneh, K. J. Shayegan, E. J. Tervo, H. Atwater, and B. Zhao</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">High-temperature strong nonreciprocal thermal radiation from semiconductors</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">ACS Photonics</span> <span class="ltx_text ltx_bib_volume">12</span> (<span class="ltx_text ltx_bib_number">5</span>), <span class="ltx_text ltx_bib_pages">pp. 2767–2774</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 2330-4022, 2330-4022</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1021/acsphotonics.5c00365" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib26"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[20]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Pajovic, Y. Tsurimaki, X. Qian, and G. Chen</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Intrinsic nonreciprocal reflection and violation of kirchhoff’s law of radiation in planar type-i magnetic weyl semimetal surfaces</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review B</span> <span class="ltx_text ltx_bib_volume">102</span> (<span class="ltx_text ltx_bib_number">16</span>), <span class="ltx_text ltx_bib_pages">pp. 165417</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 2469-9950, 2469-9969</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevB.102.165417" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib15"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[21]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Palchetti, G. Di Natale, and G. Bianchini</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Remote sensing of cirrus cloud microphysical properties using spectral measurements over the full range of their thermal emission</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Journal of Geophysical Research: Atmospheres</span> <span class="ltx_text ltx_bib_volume">121</span> (<span class="ltx_text ltx_bib_number">18</span>) (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 2169-897X, 2169-8996</span>,
+<a class="ltx_ref ltx_bib_external" href="https://agupubs.onlinelibrary.wiley.com/doi/10.1002/2016JD025162" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1002/2016JD025162" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib6"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[22]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Park, J. Kang, X. Liu, S. J. Maddox, K. Tang, P. C. McIntyre, S. R. Bank, and M. L. Brongersma</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Dynamic thermal emission control with inas-based plasmonic metasurfaces</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Science Advances</span> <span class="ltx_text ltx_bib_volume">4</span> (<span class="ltx_text ltx_bib_number">12</span>), <span class="ltx_text ltx_bib_pages">pp. eaat3163</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 2375-2548</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1126/sciadv.aat3163" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib37"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[23]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Y. Park, Z. Omair, and S. Fan</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Nonreciprocal thermophotovoltaic systems</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">ACS Photonics</span> <span class="ltx_text ltx_bib_volume">9</span> (<span class="ltx_text ltx_bib_number">12</span>), <span class="ltx_text ltx_bib_pages">pp. 3943–3949</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 2330-4022, 2330-4022</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1021/acsphotonics.2c01308" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib36"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[24]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Y. Park, B. Zhao, and S. Fan</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Reaching the ultimate efficiency of solar energy harvesting with a nonreciprocal multijunction solar cell</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nano Letters</span> <span class="ltx_text ltx_bib_volume">22</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 448–452</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1530-6984, 1530-6992</span>,
+<a class="ltx_ref ltx_bib_external" href="https://pubs.acs.org/doi/10.1021/acs.nanolett.1c04288" title="">Link</a>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1021/acs.nanolett.1c04288" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib7"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[25]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. P. Raman, M. A. Anoma, L. Zhu, E. Rephaeli, and S. Fan</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Passive radiative cooling below ambient air temperature under direct sunlight</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nature</span> <span class="ltx_text ltx_bib_volume">515</span> (<span class="ltx_text ltx_bib_number">7528</span>), <span class="ltx_text ltx_bib_pages">pp. 540–544</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0028-0836, 1476-4687</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/nature13883" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib8"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[26]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">E. Sakr and P. Bermel</span><span class="ltx_text ltx_bib_year"> (2017)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Thermophotovoltaics with spectral and angular selective doped-oxide thermal emitters</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics Express</span> <span class="ltx_text ltx_bib_volume">25</span> (<span class="ltx_text ltx_bib_number">20</span>), <span class="ltx_text ltx_bib_pages">pp. A880</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1094-4087</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OE.25.00A880" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib16"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[27]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. J. Shayegan, S. Biswas, B. Zhao, S. Fan, and H. A. Atwater</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Direct observation of the violation of kirchhoff’s law of thermal radiation</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nature Photonics</span> <span class="ltx_text ltx_bib_volume">17</span> (<span class="ltx_text ltx_bib_number">10</span>), <span class="ltx_text ltx_bib_pages">pp. 891–896</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1749-4893</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/s41566-023-01261-6" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S3.p6.1" title="III Modeling &amp; Discussion ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§III</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib17"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[28]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. J. Shayegan, B. Zhao, Y. Kim, S. Fan, and H. A. Atwater</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Nonreciprocal infrared absorption via resonant magneto-optical coupling to inas</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Science Advances</span> <span class="ltx_text ltx_bib_volume">8</span> (<span class="ltx_text ltx_bib_number">18</span>), <span class="ltx_text ltx_bib_pages">pp. eabm4308</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1126/sciadv.abm4308" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S3.p6.1" title="III Modeling &amp; Discussion ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§III</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib9"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[29]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Suhendri, M. Hu, Y. Su, J. Darkwa, and S. Riffat</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Implementation of passive radiative cooling technology in buildings: a review</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Buildings</span> <span class="ltx_text ltx_bib_volume">10</span> (<span class="ltx_text ltx_bib_number">12</span>), <span class="ltx_text ltx_bib_pages">pp. 215</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 2075-5309</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.3390/buildings10120215" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib10"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[30]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Vassant, I. Moldovan Doyen, F. Marquier, F. Pardo, U. Gennser, A. Cavanna, J. L. Pelouard, and J. J. Greffet</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Electrical modulation of emissivity</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Applied Physics Letters</span> <span class="ltx_text ltx_bib_volume">102</span> (<span class="ltx_text ltx_bib_number">8</span>), <span class="ltx_text ltx_bib_pages">pp. 081125</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0003-6951, 1077-3118</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1063/1.4793650" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inbook" id="bib.bib14"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[31]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Vollmer</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Computer vision: a reference guide</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages">pp. 666–670</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">Vollmer wrote the chpater, Katsushi Ikeuchi is the editor in chief of the book</span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib11"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[32]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Wang, Y. Wang, S. Zhang, and W. Zheng</span><span class="ltx_text ltx_bib_year"> (2017)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Mid-infrared broadband absorber of full semiconductor epi-layers</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physics Letters A</span> <span class="ltx_text ltx_bib_volume">381</span> (<span class="ltx_text ltx_bib_number">16</span>), <span class="ltx_text ltx_bib_pages">pp. 1439–1444</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 03759601</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1016/j.physleta.2017.02.021" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib18"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[33]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. J. Wilson, A. M. Summers, S. Zigo, B. Davis, S. Robatjazi, J. A. Powell, D. Rolles, A. Rudenko, and C. A. Trallero-Herrero</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">An intense, few-cycle source in the long-wave infrared</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Scientific Reports</span> <span class="ltx_text ltx_bib_volume">9</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 6002</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 2045-2322</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/s41598-019-42433-1" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p4.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib22"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[34]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Z. Zhang, L. Li, T. Tang, F. Zhang, A. Du, M. Pu, T. Kang, Y. Guo, J. Yang, and X. Luo</span><span class="ltx_text ltx_bib_year"> (2026)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Broadband polarization-asymmetric directional thermal emission enabled by opposite phase-gradient metasurfaces</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">PhotoniX</span> <span class="ltx_text ltx_bib_volume">7</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 41</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 2662-1991</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1186/s43074-026-00258-y" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib30"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[35]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Z. Zhang, A. Kalantari Dehaghi, P. Ghosh, and L. Zhu</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Observation of strong nonreciprocal thermal emission</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review Letters</span> <span class="ltx_text ltx_bib_volume">135</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 016901</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0031-9007, 1079-7114</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevLett.135.016901" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib25"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[36]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">B. Zhao, Y. Shi, J. Wang, Z. Zhao, N. Zhao, and S. Fan</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Near-complete violation of kirchhoff’s law of thermal radiation with a 03 t magnetic field</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics Letters</span> <span class="ltx_text ltx_bib_volume">44</span> (<span class="ltx_text ltx_bib_number">17</span>), <span class="ltx_text ltx_bib_pages">pp. 4203</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0146-9592, 1539-4794</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OL.44.004203" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib32"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[37]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">B. Zhao, J. Wang, Z. Zhao, C. Guo, Z. Yu, and S. Fan</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Nonreciprocal thermal emitters using metasurfaces with multiple diffraction channels</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review Applied</span> <span class="ltx_text ltx_bib_volume">16</span> (<span class="ltx_text ltx_bib_number">6</span>), <span class="ltx_text ltx_bib_pages">pp. 064001</span> (<span class="ltx_text ltx_bib_language">en</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 2331-7019</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevApplied.16.064001" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib24"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[38]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Zhu and S. Fan</span><span class="ltx_text ltx_bib_year"> (2014)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Near-complete violation of detailed balance in thermal radiation</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physical Review B</span> <span class="ltx_text ltx_bib_volume">90</span> (<span class="ltx_text ltx_bib_number">22</span>), <span class="ltx_text ltx_bib_pages">pp. 220301</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevB.90.220301" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S5.p1.1" title="V Methods ‣ Nonreciprocal magneto-optic beam steering of thermal emission"><span class="ltx_text ltx_ref_tag">§V</span></a>.
+</span></li>
+</ul>
+</section>
+</article></div></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
