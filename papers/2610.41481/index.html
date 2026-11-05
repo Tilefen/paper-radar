@@ -1,0 +1,1349 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>S-FPL51 与 S-LAH71 的低温光学特性：折射率、透过率和热膨胀</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style><style>
+.paper-reader{max-width:860px;margin:0 auto}
+.paper-reader h1{font-size:28px;line-height:1.35;margin:10px 0 6px}
+.paper-reader .original-title{color:var(--muted);font-size:14px;margin-bottom:18px}
+.paper-reader .meta{color:var(--muted);font-size:13px;margin-bottom:20px}
+.paper-reader .toc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:20px 0 28px;font-size:14px}
+.paper-reader .toc ol{margin:6px 0 0 18px;padding:0}
+.paper-reader .toc li{margin:3px 0}
+.paper-reader article{font-size:16px;line-height:1.9}
+.paper-reader h2{font-size:22px;margin:30px 0 10px}
+.paper-reader h3{font-size:18px;margin:22px 0 8px}
+.paper-reader figure{margin:20px 0;text-align:center}
+.paper-reader img{max-width:100%;height:auto}
+.paper-reader figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+.paper-reader table{display:block;overflow-x:auto;border-collapse:collapse;margin:16px 0;font-size:14px}
+.paper-reader math{overflow-x:auto;max-width:100%}
+.paper-reader pre{overflow-x:auto}
+</style></head><body class="">
+<header><a class="brand" href="../index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="../daily/index.html">日报</a><a href="../papers/index.html" aria-current="page">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 中文全文</div><h1>S-FPL51 与 S-LAH71 的低温光学特性：折射率、透过率和热膨胀</h1><div class="paper-reader"><h1>S-FPL51 与 S-LAH71 的低温光学特性：折射率、透过率和热膨胀</h1><p class="original-title">Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion</p><p class="meta">arXiv 2610.41481 · 机器翻译，公式与图表保留原文</p><nav class="toc"><strong>目录</strong><ol></ol></nav><article class="ltx_document">
+<div class="ltx_para" id="p1">
+<p class="ltx_p" id="p1.1">a]<span class="ltx_text" id="p1.1.1" style="font-size:80%;">NOVA Optical Infrared Instrumentation Group at ASTRON，Oude Hoogeveensedijk 4，NL-7991 PD Dwingeloo，荷兰</span>
+b]<span class="ltx_text" id="p1.1.2" style="font-size:80%;">OMT Solutions BV，High Tech Campus 9，NL-5656 AE Eindhoven，荷兰</span></p>
+</div>
+<h1 class="ltx_title ltx_title_document">S-FPL51 与 S-LAH71 的低温光学特性：折射率、透过率和热膨胀</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">J.A. van den Born
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">E. Elswijk
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">E. Dijkstra
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">P. van Nijnatten
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">A.W. Janssen
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">R. Navarro
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>[
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>[
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">摘要</h6>
+<p class="ltx_p" id="abstract1.1">即将建成的极大望远镜上的多台近红外仪器使用 OHARA S-FPL51 和 S-LAH71 玻璃棱镜的组合来校正大气差分折射。由于这些仪器的大部分部件置于冷却至液氮温度的容器内，设计阶段应考虑光学和机械性能的变化。</p>
+<p class="ltx_p" id="abstract1.2">在本报告中，我们更新了在低温条件下表征 S-FPL51 和 S-LAH71 玻璃的持续工作。这些工作包括折射率测量（293 K、100 K 和 80 K）、透过率测量（293 K、77 K 和 43 K）以及热膨胀系数测定（293 K 至 45 K 之间）。我们将描述用于获得这些结果的低温测试装置，并给出这些材料特性的汇总方程。</p>
+<p class="ltx_p" id="abstract1.3">该表征将有助于大型望远镜未来近红外仪器的概念设计权衡、机械接口方案和详细光学设计。</p>
+</div>
+<div class="ltx_classification"><h6 class="ltx_title ltx_title_classification">关键词</h6>CTE, ELT, material properties, MICADO, near-infrared, refractive index, transmission
+</div><span class="ltx_note ltx_role_authorinfo" id="id1"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">authorinfo: </span>E-mail: born@astron.nl</span></span></span>
+<section class="ltx_section" id="S1">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">1 </span>引言</h2>
+<div class="ltx_para" id="S1.p1">
+<p class="ltx_p" id="S1.p1.1">天文望远镜上大多数已运行和即将投入使用的红外仪器都采用低温冷却的光学元件、机构和探测器，以尽量减少不需要的热辐射，从而提高任何被观测源的信噪比。这些仪器设计中的众多挑战之一是所用材料的温度相关材料特性。尽管铝或熔融石英等常见材料已在广泛的环境条件下得到充分表征<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib15" title="">2</a>, <a class="ltx_ref" href="#bib.bib17" title="">7</a>, <a class="ltx_ref" href="#bib.bib18" title="">6</a>]</cite>，但新材料或高度专用材料往往缺乏可直接获得的数据。如果不存在明显的替代材料，为安全裕量起见，往往需要在公差计算中保留较大的不确定度，或开展专门的测量活动。相反，当有准确数据可用时，可以做出更好的设计权衡，能够开展详细的机械和光学设计，并能对仪器性能做出更好的预测。</p>
+</div>
+<div class="ltx_para" id="S1.p2">
+<p class="ltx_p" id="S1.p2.1">对于极大望远镜上的近红外仪器，OHARA 的低折射率氟磷酸盐玻璃 S-FPL51<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib9" title="">10</a>]</cite>和高折射率镧玻璃 S-LAH71<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib10" title="">11</a>]</cite>已被证明是用于校正大气差分折射的常用玻璃组合。用于极大望远镜（ELT）的 MICADO <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib4" title="">1</a>]</cite>和用于三十米望远镜（TMT）的 IRIS <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib8" title="">3</a>]</cite>都通过对可用玻璃组合的广泛搜索选择了这一组合，以便匹配大气的色散特性<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib2" title="">18</a>, <a class="ltx_ref" href="#bib.bib3" title="">12</a>]</cite>，并依据仪器需求和科学目标进行加权。</p>
+</div>
+<div class="ltx_para" id="S1.p3">
+<p class="ltx_p" id="S1.p3.1">对 MICADO 而言，为进行大气色散校正器（ADC）棱镜几何结构的最终迭代，以及对冷光学设计开展更高层次的优化，需要掌握低温折射率信息。还需要获得玻璃与镜架材料之间热膨胀差异的准确信息，以确保棱镜安装方案中的高应力不会诱发过大的双折射。此外，必须在制造商提供的数据范围之外确定这两种玻璃在工作温度下的透射率，以便更好地界定仪器主波长范围（0.8 - 2.4 µm）之外、但探测器仍具有响应的波段内的镀膜透射要求。另外，有些材料（如锗）在温度升高时透射率曲线会发生变化<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib5" title="">14</a>, <a class="ltx_ref" href="#bib.bib6" title="">16</a>]</cite>。尽管我们尚不清楚有哪些材料在低温条件下的透射率会与室温不同，但针对 S-FPL51 和 S-LAH71 基底验证这一假设并无坏处。</p>
+</div>
+<div class="ltx_para" id="S1.p4">
+<p class="ltx_p" id="S1.p4.1">本文通过描述我们对 S-FPL51 和 S-LAH71 材料的测量，扩充现有且不断增长的材料特性数据库。出于上述原因，我们开展了多项不同的测量活动，以确定室温和低温条件下的折射率、透射率曲线和热膨胀系数。测量所用样品与 MICADO 最终硬件将使用的玻璃来自同一制造批次。对于这两种材料，我们将在第<a class="ltx_ref" href="#S2" title="2 Index of refraction ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">2</span></a>节给出随温度变化的折射率，在第<a class="ltx_ref" href="#S3" title="3 Transmission measurement ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">3</span></a>节给出 500 至 3600 nm 范围内的（低温）透射率曲线，并在第<a class="ltx_ref" href="#S4" title="4 Coefficient of Thermal Expansion ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">4</span></a>节给出热膨胀系数（CTE）。上述各节将分别描述测量原理和所用装置，随后给出测量结果并作简要讨论。报告最后将在第<a class="ltx_ref" href="#S5" title="5 Conclusions ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">5</span></a>节给出总结和结论。</p>
+</div>
+</section>
+<section class="ltx_section" id="S2">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">2 </span>折射率</h2>
+<div class="ltx_para" id="S2.p1">
+<p class="ltx_p" id="S2.p1.1">最小偏向角折射测量法是精确测定材料折射率的标准方法<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib12" title="">15</a>, <a class="ltx_ref" href="#bib.bib11" title="">5</a>]</cite>。在该方法中，准直光束入射到顶角为<math alttext="A" class="ltx_Math" display="inline" id="S2.p1.m1" intent=":literal"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>的棱镜前表面。随后旋转该棱镜。在旋转过程中，可获得入射光与出射光之间的最小折射点，记为<math alttext="D" class="ltx_Math" display="inline" id="S2.p1.m2" intent=":literal"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>。材料折射率<math alttext="n" class="ltx_Math" display="inline" id="S2.p1.m3" intent=":literal"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>、顶角<math alttext="A" class="ltx_Math" display="inline" id="S2.p1.m4" intent=":literal"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>与最小偏向角<math alttext="D" class="ltx_Math" display="inline" id="S2.p1.m5" intent=":literal"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>之间的关系由下式给出</p>
+<table class="ltx_equation ltx_eqn_table" id="S2.E1">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="n=\frac{\sin{\left(\left(A+D\right)/2\right)}}{\sin{\left(A/2\right)}}." class="ltx_Math" display="block" id="S2.E1.m1" intent=":literal"><semantics><mrow><mrow><mi>n</mi><mo>=</mo><mfrac><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo>(</mo><mrow><mrow><mo>(</mo><mrow><mi>A</mi><mo>+</mo><mi>D</mi></mrow><mo>)</mo></mrow><mo>/</mo><mn>2</mn></mrow><mo>)</mo></mrow></mrow><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo>(</mo><mrow><mi>A</mi><mo>/</mo><mn>2</mn></mrow><mo>)</mo></mrow></mrow></mfrac></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">n=\frac{\sin{\left(\left(A+D\right)/2\right)}}{\sin{\left(A/2\right)}}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(1)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S2.p1.2">这种方法的一种变体利用光线在棱镜后表面的反射，此时测量装置成为反射式系统，最小偏向角对应于光线恰好沿其遇到棱镜前的入射方向返回的配置。这种情况要求棱镜后表面的反射以直角发生，由此可推出</p>
+<table class="ltx_equation ltx_eqn_table" id="S2.E2">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="n=\frac{\sin\theta_{i}}{\sin A}," class="ltx_Math" display="block" id="S2.E2.m1" intent=":literal"><semantics><mrow><mrow><mi>n</mi><mo>=</mo><mfrac><mrow><mi>sin</mi><mo lspace="0.167em">⁡</mo><msub><mi>θ</mi><mi>i</mi></msub></mrow><mrow><mi>sin</mi><mo lspace="0.167em">⁡</mo><mi>A</mi></mrow></mfrac></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">n=\frac{\sin\theta_{i}}{\sin A},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S2.p1.3">其中<math alttext="\theta_{i}" class="ltx_Math" display="inline" id="S2.p1.m6" intent=":literal"><semantics><msub><mi>θ</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\theta_{i}</annotation></semantics></math>是入射到第一个棱镜表面的光线角度，在该角度下第二个棱镜表面发生反射。</p>
+</div>
+<div class="ltx_para" id="S2.p2">
+<p class="ltx_p" id="S2.p2.1">对于几乎所有经典光学介质，折射率随波长变化。由于顶角不能是波长的函数，因此<math alttext="D" class="ltx_Math" display="inline" id="S2.p2.m1" intent=":literal"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>（透射情形）或<math alttext="\theta_{i}" class="ltx_Math" display="inline" id="S2.p2.m2" intent=":literal"><semantics><msub><mi>θ</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\theta_{i}</annotation></semantics></math>（反射情形）需要随波长变化。在这两种情况下，均可使用带有狭缝、若干准直光学元件和精确旋转台的测量装置来精确测量<math alttext="D" class="ltx_Math" display="inline" id="S2.p2.m3" intent=":literal"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>或<math alttext="\theta_{i}" class="ltx_Math" display="inline" id="S2.p2.m4" intent=":literal"><semantics><msub><mi>θ</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\theta_{i}</annotation></semantics></math>。当使用带有高精度角度编码器的旋转台和分光光度计，并进行确定顶角<math alttext="A" class="ltx_Math" display="inline" id="S2.p2.m5" intent=":literal"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math>的校准测量时，则可通过式（<a class="ltx_ref" href="#S2.E1" title="In 2 Index of refraction ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">1</span></a>）或（<a class="ltx_ref" href="#S2.E2" title="In 2 Index of refraction ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">2</span></a>）确定折射率。</p>
+</div>
+<section class="ltx_subsection" id="S2.SS1">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">2.1 </span>测试装置</h3>
+<div class="ltx_para" id="S2.SS1.p1">
+<p class="ltx_p" id="S2.SS1.p1.1">按照上述反射式测量概念，我们使用了由OMT Solutions设计和搭建的装置。该装置采用Perkin Elmer Lambda 1050 UV/VIS/NIR分光光度计进行光谱测量和输入光。双锥面反射镜对光进行准直，使光在棱镜上形成狭缝的垂直像。棱镜本身安装在低温恒温器内无氧高导电铜板之间，位于由步进电机驱动的旋转台上，并配有超高精度角度编码器系统。经回反射后穿过狭缝并到达光谱仪探测器的光，其光谱峰值被拟合为高斯曲线，然后由此确定质心位置。装置示意图如图<a class="ltx_ref" href="#S2.F1" title="Figure 1 ‣ 2.1 Test setup ‣ 2 Index of refraction ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">1</span></a>所示。</p>
+</div>
+<figure class="ltx_figure" id="S2.F1"><object class="ltx_graphics ltx_centering ltx_img_landscape" data="assets/mdr_schematic.svg" height="154" id="S2.F1.g1" style="aspect-ratio:357/154;" type="image/svg+xml" width="357"></object>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="S2.F1.3" style="font-size:90%;">图 1</span>：</span><span class="ltx_text" id="S2.F1.4" style="font-size:90%;">用于测量低温折射的所用测试装置的示意图。FTS同时包含探测器和光源。光被聚焦到焦平面，在该焦平面处可找到狭缝。穿过狭缝的光被准直，并从位于测试环境（低温恒温器）中的棱镜后表面反射。随后光返回狭缝，只有满足式（<a class="ltx_ref" href="#S2.E2" title="In 2 Index of refraction ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">2</span></a>）的波长的光才能通过。这随后在FTS测得的光谱中产生一个峰。</span></figcaption>
+</figure>
+</section>
+<section class="ltx_subsection" id="S2.SS2">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">2.2 </span>结果</h3>
+<div class="ltx_para" id="S2.SS2.p1">
+<p class="ltx_p" id="S2.SS2.p1.1">折射率随波长的变化可由如下形式的塞尔迈尔方程描述，</p>
+<table class="ltx_equation ltx_eqn_table" id="S2.E3">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="n(\lambda)=\sqrt{1+\frac{A_{1}\lambda^{2}}{\lambda^{2}-B_{1}^{2}}+\frac{A_{2}\lambda^{2}}{\lambda^{2}-B_{2}^{2}}+\frac{A_{3}\lambda^{2}}{\lambda^{2}-B_{3}^{2}}}." class="ltx_Math" display="block" id="S2.E3.m1" intent=":literal"><semantics><mrow><mrow><mrow><mi>n</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>λ</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><msqrt><mrow><mn>1</mn><mo>+</mo><mfrac><mrow><msub><mi>A</mi><mn>1</mn></msub><mo lspace="0em" rspace="0em">​</mo><msup><mi>λ</mi><mn>2</mn></msup></mrow><mrow><msup><mi>λ</mi><mn>2</mn></msup><mo>−</mo><msubsup><mi>B</mi><mn>1</mn><mn>2</mn></msubsup></mrow></mfrac><mo>+</mo><mfrac><mrow><msub><mi>A</mi><mn>2</mn></msub><mo lspace="0em" rspace="0em">​</mo><msup><mi>λ</mi><mn>2</mn></msup></mrow><mrow><msup><mi>λ</mi><mn>2</mn></msup><mo>−</mo><msubsup><mi>B</mi><mn>2</mn><mn>2</mn></msubsup></mrow></mfrac><mo>+</mo><mfrac><mrow><msub><mi>A</mi><mn>3</mn></msub><mo lspace="0em" rspace="0em">​</mo><msup><mi>λ</mi><mn>2</mn></msup></mrow><mrow><msup><mi>λ</mi><mn>2</mn></msup><mo>−</mo><msubsup><mi>B</mi><mn>3</mn><mn>2</mn></msubsup></mrow></mfrac></mrow></msqrt></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">n(\lambda)=\sqrt{1+\frac{A_{1}\lambda^{2}}{\lambda^{2}-B_{1}^{2}}+\frac{A_{2}\lambda^{2}}{\lambda^{2}-B_{2}^{2}}+\frac{A_{3}\lambda^{2}}{\lambda^{2}-B_{3}^{2}}}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(3)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S2.SS2.p1.2">在该方程中，波长<math alttext="\lambda" class="ltx_Math" display="inline" id="S2.SS2.p1.m1" intent=":literal"><semantics><mi>λ</mi><annotation encoding="application/x-tex">\lambda</annotation></semantics></math>以µm为单位。塞尔迈尔系数<math alttext="A_{i}" class="ltx_Math" display="inline" id="S2.SS2.p1.m2" intent=":literal"><semantics><msub><mi>A</mi><mi>i</mi></msub><annotation encoding="application/x-tex">A_{i}</annotation></semantics></math>的温度依赖性计算如下</p>
+<table class="ltx_equation ltx_eqn_table" id="S2.E4">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="A_{i}=C_{0,i}+C_{1,i}\left(\frac{T}{300}\right)+C_{2,i}\left(\frac{T}{300}\right)^{2}," class="ltx_Math" display="block" id="S2.E4.m1" intent=":literal"><semantics><mrow><mrow><msub><mi>A</mi><mi>i</mi></msub><mo>=</mo><mrow><msub><mi>C</mi><mrow><mn>0</mn><mo>,</mo><mi>i</mi></mrow></msub><mo>+</mo><mrow><msub><mi>C</mi><mrow><mn>1</mn><mo>,</mo><mi>i</mi></mrow></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo>(</mo><mfrac><mi>T</mi><mn>300</mn></mfrac><mo>)</mo></mrow></mrow><mo>+</mo><mrow><msub><mi>C</mi><mrow><mn>2</mn><mo>,</mo><mi>i</mi></mrow></msub><mo lspace="0em" rspace="0em">​</mo><msup><mrow><mo>(</mo><mfrac><mi>T</mi><mn>300</mn></mfrac><mo>)</mo></mrow><mn>2</mn></msup></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">A_{i}=C_{0,i}+C_{1,i}\left(\frac{T}{300}\right)+C_{2,i}\left(\frac{T}{300}\right)^{2},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S2.SS2.p1.3">其中温度<math alttext="T" class="ltx_Math" display="inline" id="S2.SS2.p1.m3" intent=":literal"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>以开尔文为单位。</p>
+</div>
+<figure class="ltx_figure" id="S2.F2">
+<div class="ltx_flex_figure">
+<div class="ltx_flex_cell ltx_flex_size_2">
+<div class="ltx_block ltx_figure_panel ltx_minipage ltx_align_center ltx_align_top" id="S2.F2.3" style="width:165.6pt;"><object class="ltx_graphics ltx_centering ltx_img_square" data="assets/SPIE_refractive_index_as_measured_S-FPL51.svg" height="195" id="S2.F2.g1" style="aspect-ratio:229/195;" type="image/svg+xml" width="229"></object>
+</div></div><div class="ltx_flex_cell ltx_flex_size_2">
+<div class="ltx_block ltx_figure_panel ltx_minipage ltx_align_center ltx_align_top" id="S2.F2.4" style="width:165.6pt;"><object class="ltx_graphics ltx_centering ltx_img_square" data="assets/SPIE_refractive_index_as_measured_S-LAH71.svg" height="195" id="S2.F2.g2" style="aspect-ratio:229/195;" type="image/svg+xml" width="229"></object>
+</div></div></div>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="S2.F2.5" style="font-size:90%;">图 2</span>：</span><span class="ltx_text" id="S2.F2.6" style="font-size:90%;">S-FPL51（左）和 S-LAH71（右）在 293 K（红色虚线）、100 K（绿色点划线）和 80 K（蓝色点线）下测得的折射率。作为参考，数据表中给出的曲线也以黑色显示<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib9" title="">10</a>, <a class="ltx_ref" href="#bib.bib10" title="">11</a>]</cite>。底部面板显示与数据表曲线之间的差值。该图此前已在参考文献 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">17</a>]</cite>中给出。两个顶部面板的表格版本见附录 <a class="ltx_ref" href="#A1" title="Appendix A Refractive index tables ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">A</span></a>。</span></figcaption>
+</figure>
+<div class="ltx_para" id="S2.SS2.p2">
+<p class="ltx_p" id="S2.SS2.p2.1">293 K、100 K 和 80 K 下的塞尔迈尔系数见表 <a class="ltx_ref" href="#S2.T1" title="Table 1 ‣ 2.2 Results ‣ 2 Index of refraction ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">1</span></a>。相应的最佳拟合温度系数见表 <a class="ltx_ref" href="#S2.T2" title="Table 2 ‣ 2.2 Results ‣ 2 Index of refraction ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">2</span></a>。这两种材料测得折射率的图形表示见图 <a class="ltx_ref" href="#S2.F2" title="Figure 2 ‣ 2.2 Results ‣ 2 Index of refraction ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">2</span></a>。在 0.8 至 2.5 µm 之间，S-FPL51 和 S-LAH71 的测得折射率与 OHARA 数据的差异分别可达 <math alttext="-1.6\times 10^{-3}" class="ltx_math_unparsed" display="inline" id="S2.SS2.p2.m1" intent=":literal"><semantics><mrow><mo>−</mo><mn>1.6</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>10</mn><msup><mrow></mrow><mrow><mo>−</mo><mn>3</mn></mrow></msup></mrow><annotation encoding="application/x-tex">-1.6\times 10^{-3}</annotation></semantics></math> 和 <math alttext="3\times 10^{-4}" class="ltx_Math" display="inline" id="S2.SS2.p2.m2" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>4</mn></mrow></msup></mrow><annotation encoding="application/x-tex">3\times 10^{-4}</annotation></semantics></math>。此前，S-FPL51 的低温折射率已在参考文献 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib13" title="">4</a>]</cite>中测量并给出。我们在 80 K 下的测量结果与之吻合至 <math alttext="1\times 10^{-4}" class="ltx_Math" display="inline" id="S2.SS2.p2.m3" intent=":literal"><semantics><mrow><mn>1</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>4</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1\times 10^{-4}</annotation></semantics></math>以内。此前还报道过另一项更有限的低温测量，见参考文献 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib14" title="">19</a>]</cite>；对于 81 K 下的两个重叠数据点，我们的测量结果与之一致到 <math alttext="2\times 10^{-4}" class="ltx_Math" display="inline" id="S2.SS2.p2.m4" intent=":literal"><semantics><mrow><mn>2</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>4</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2\times 10^{-4}</annotation></semantics></math>水平。</p>
+</div>
+<figure class="ltx_table" id="S2.T1">
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_table"><span class="ltx_text" id="S2.T1.3" style="font-size:90%;">表 1</span>：</span><span class="ltx_text" id="S2.T1.4" style="font-size:90%;">S-FPL51 和 S-LAH71 在 293 K、100 K 和 80 K 下的最佳拟合塞尔迈尔系数。</span></figcaption>
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle" id="S2.T1.5">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="S2.T1.5.1">
+<td class="ltx_td ltx_border_tt" id="S2.T1.5.1.1"></td>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S2.T1.5.1.2">Temperature (K)</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S2.T1.5.1.3"><math alttext="A_{1}" class="ltx_Math" display="inline" id="S2.T1.m1" intent=":literal"><semantics><msub><mi>A</mi><mn>1</mn></msub><annotation encoding="application/x-tex">A_{1}</annotation></semantics></math></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S2.T1.5.1.4"><math alttext="A_{2}" class="ltx_Math" display="inline" id="S2.T1.m2" intent=":literal"><semantics><msub><mi>A</mi><mn>2</mn></msub><annotation encoding="application/x-tex">A_{2}</annotation></semantics></math></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S2.T1.5.1.5"><math alttext="A_{3}" class="ltx_Math" display="inline" id="S2.T1.m3" intent=":literal"><semantics><msub><mi>A</mi><mn>3</mn></msub><annotation encoding="application/x-tex">A_{3}</annotation></semantics></math></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S2.T1.5.1.6"><math alttext="B_{1}" class="ltx_Math" display="inline" id="S2.T1.m4" intent=":literal"><semantics><msub><mi>B</mi><mn>1</mn></msub><annotation encoding="application/x-tex">B_{1}</annotation></semantics></math></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S2.T1.5.1.7"><math alttext="B_{2}" class="ltx_Math" display="inline" id="S2.T1.m5" intent=":literal"><semantics><msub><mi>B</mi><mn>2</mn></msub><annotation encoding="application/x-tex">B_{2}</annotation></semantics></math></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S2.T1.5.1.8"><math alttext="B_{3}" class="ltx_Math" display="inline" id="S2.T1.m6" intent=":literal"><semantics><msub><mi>B</mi><mn>3</mn></msub><annotation encoding="application/x-tex">B_{3}</annotation></semantics></math></th></tr>
+<tr class="ltx_tr" id="S2.T1.5.2">
+<td class="ltx_td ltx_align_center ltx_border_t" id="S2.T1.5.2.1" rowspan="3" style="padding-bottom: 4.0pt;"><span class="ltx_text" id="S2.T1.5.2.1.1">
+<span class="ltx_inline-block ltx_transformed_outer" id="S2.T1.5.2.1.1.1" style="width:6.8pt;height:38.5pt;vertical-align:-0.0pt;"><span class="ltx_transformed_inner" style="width:38.5pt;transform:translate(-15.8pt,-15.8pt) rotate(-90deg) ;">
+<span class="ltx_p ltx_align_center" id="S2.T1.5.2.1.1.1.1">S-FPL51</span>
+</span></span></span></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S2.T1.5.2.2" style="padding-bottom: 4.0pt;">293 K</td>
+<td class="ltx_td ltx_align_left ltx_border_t" id="S2.T1.5.2.3" style="padding-bottom: 4.0pt;"><math alttext="1.218\,87" class="ltx_Math" display="inline" id="S2.T1.m7" intent=":literal"><semantics><mn>1.218 87</mn><annotation encoding="application/x-tex">1.218\,87</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_border_t" id="S2.T1.5.2.4" style="padding-bottom: 4.0pt;"><math alttext="1.104\,97" class="ltx_Math" display="inline" id="S2.T1.m8" intent=":literal"><semantics><mn>1.104 97</mn><annotation encoding="application/x-tex">1.104\,97</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S2.T1.5.2.5" style="padding-bottom: 4.0pt;">-</td>
+<td class="ltx_td ltx_align_left ltx_border_t" id="S2.T1.5.2.6" style="padding-bottom: 4.0pt;"><math alttext="0.0819" class="ltx_Math" display="inline" id="S2.T1.m9" intent=":literal"><semantics><mn>0.0819</mn><annotation encoding="application/x-tex">0.0819</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_border_t" id="S2.T1.5.2.7" style="padding-bottom: 4.0pt;"><math alttext="14.211" class="ltx_Math" display="inline" id="S2.T1.m10" intent=":literal"><semantics><mn>14.211</mn><annotation encoding="application/x-tex">14.211</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S2.T1.5.2.8" style="padding-bottom: 4.0pt;">-</td></tr>
+<tr class="ltx_tr" id="S2.T1.5.3">
+<td class="ltx_td ltx_align_center" id="S2.T1.5.3.1" style="padding-bottom: 4.0pt;">100 K</td>
+<td class="ltx_td ltx_align_left" id="S2.T1.5.3.2" style="padding-bottom: 4.0pt;"><math alttext="1.222\,80" class="ltx_Math" display="inline" id="S2.T1.m11" intent=":literal"><semantics><mn>1.222 80</mn><annotation encoding="application/x-tex">1.222\,80</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left" id="S2.T1.5.3.3" style="padding-bottom: 4.0pt;"><math alttext="1.109\,44" class="ltx_Math" display="inline" id="S2.T1.m12" intent=":literal"><semantics><mn>1.109 44</mn><annotation encoding="application/x-tex">1.109\,44</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="S2.T1.5.3.4" style="padding-bottom: 4.0pt;">-</td>
+<td class="ltx_td ltx_align_left" id="S2.T1.5.3.5" style="padding-bottom: 4.0pt;"><math alttext="0.0819" class="ltx_Math" display="inline" id="S2.T1.m13" intent=":literal"><semantics><mn>0.0819</mn><annotation encoding="application/x-tex">0.0819</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left" id="S2.T1.5.3.6" style="padding-bottom: 4.0pt;"><math alttext="14.211" class="ltx_Math" display="inline" id="S2.T1.m14" intent=":literal"><semantics><mn>14.211</mn><annotation encoding="application/x-tex">14.211</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="S2.T1.5.3.7" style="padding-bottom: 4.0pt;">-</td></tr>
+<tr class="ltx_tr" id="S2.T1.5.4">
+<td class="ltx_td ltx_align_center" id="S2.T1.5.4.1" style="padding-bottom: 4.0pt;">80 K</td>
+<td class="ltx_td ltx_align_left" id="S2.T1.5.4.2" style="padding-bottom: 4.0pt;"><math alttext="1.223\,04" class="ltx_Math" display="inline" id="S2.T1.m15" intent=":literal"><semantics><mn>1.223 04</mn><annotation encoding="application/x-tex">1.223\,04</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left" id="S2.T1.5.4.3" style="padding-bottom: 4.0pt;"><math alttext="1.109\,35" class="ltx_Math" display="inline" id="S2.T1.m16" intent=":literal"><semantics><mn>1.109 35</mn><annotation encoding="application/x-tex">1.109\,35</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="S2.T1.5.4.4" style="padding-bottom: 4.0pt;">-</td>
+<td class="ltx_td ltx_align_left" id="S2.T1.5.4.5" style="padding-bottom: 4.0pt;"><math alttext="0.0819" class="ltx_Math" display="inline" id="S2.T1.m17" intent=":literal"><semantics><mn>0.0819</mn><annotation encoding="application/x-tex">0.0819</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left" id="S2.T1.5.4.6" style="padding-bottom: 4.0pt;"><math alttext="14.211" class="ltx_Math" display="inline" id="S2.T1.m18" intent=":literal"><semantics><mn>14.211</mn><annotation encoding="application/x-tex">14.211</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="S2.T1.5.4.7" style="padding-bottom: 4.0pt;">-</td></tr>
+<tr class="ltx_tr" id="S2.T1.5.5">
+<td class="ltx_td ltx_align_center ltx_border_bb ltx_border_t" id="S2.T1.5.5.1" rowspan="4" style="padding-bottom: 4.0pt;"><span class="ltx_text" id="S2.T1.5.5.1.1">
+<span class="ltx_inline-block ltx_transformed_outer" id="S2.T1.5.5.1.1.1" style="width:6.8pt;height:40.1pt;vertical-align:-0.0pt;"><span class="ltx_transformed_inner" style="width:40.1pt;transform:translate(-16.7pt,-16.7pt) rotate(-90deg) ;">
+<span class="ltx_p ltx_align_center" id="S2.T1.5.5.1.1.1.1">S-LAH71</span>
+</span></span></span></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S2.T1.5.5.2" style="padding-bottom: 4.0pt;">293 K</td>
+<td class="ltx_td ltx_align_left ltx_border_t" id="S2.T1.5.5.3" style="padding-bottom: 4.0pt;"><math alttext="2.274\,413\,8" class="ltx_Math" display="inline" id="S2.T1.m19" intent=":literal"><semantics><mn>2.274 413 8</mn><annotation encoding="application/x-tex">2.274\,413\,8</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_border_t" id="S2.T1.5.5.4" style="padding-bottom: 4.0pt;"><math alttext="0.025\,379" class="ltx_Math" display="inline" id="S2.T1.m20" intent=":literal"><semantics><mn>0.025 379</mn><annotation encoding="application/x-tex">0.025\,379</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S2.T1.5.5.5" style="padding-bottom: 4.0pt;">3.26205</td>
+<td class="ltx_td ltx_align_left ltx_border_t" id="S2.T1.5.5.6" style="padding-bottom: 4.0pt;"><math alttext="0.1256" class="ltx_Math" display="inline" id="S2.T1.m21" intent=":literal"><semantics><mn>0.1256</mn><annotation encoding="application/x-tex">0.1256</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_border_t" id="S2.T1.5.5.7" style="padding-bottom: 4.0pt;"><math alttext="0.3739" class="ltx_Math" display="inline" id="S2.T1.m22" intent=":literal"><semantics><mn>0.3739</mn><annotation encoding="application/x-tex">0.3739</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S2.T1.5.5.8" style="padding-bottom: 4.0pt;">16.73</td></tr>
+<tr class="ltx_tr" id="S2.T1.5.6">
+<td class="ltx_td ltx_align_center" id="S2.T1.5.6.1" style="padding-bottom: 4.0pt;">100 K</td>
+<td class="ltx_td ltx_align_left" id="S2.T1.5.6.2" style="padding-bottom: 4.0pt;"><math alttext="2.277\,994\,4" class="ltx_Math" display="inline" id="S2.T1.m23" intent=":literal"><semantics><mn>2.277 994 4</mn><annotation encoding="application/x-tex">2.277\,994\,4</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left" id="S2.T1.5.6.3" style="padding-bottom: 4.0pt;"><math alttext="0.023\,144" class="ltx_Math" display="inline" id="S2.T1.m24" intent=":literal"><semantics><mn>0.023 144</mn><annotation encoding="application/x-tex">0.023\,144</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="S2.T1.5.6.4" style="padding-bottom: 4.0pt;">3.27669</td>
+<td class="ltx_td ltx_align_left" id="S2.T1.5.6.5" style="padding-bottom: 4.0pt;"><math alttext="0.1256" class="ltx_Math" display="inline" id="S2.T1.m25" intent=":literal"><semantics><mn>0.1256</mn><annotation encoding="application/x-tex">0.1256</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left" id="S2.T1.5.6.6" style="padding-bottom: 4.0pt;"><math alttext="0.3739" class="ltx_Math" display="inline" id="S2.T1.m26" intent=":literal"><semantics><mn>0.3739</mn><annotation encoding="application/x-tex">0.3739</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="S2.T1.5.6.7" style="padding-bottom: 4.0pt;">16.73</td></tr>
+<tr class="ltx_tr" id="S2.T1.5.7">
+<td class="ltx_td ltx_align_center ltx_border_bb" id="S2.T1.5.7.1" style="padding-bottom: 4.0pt;">80 K</td>
+<td class="ltx_td ltx_align_left ltx_border_bb" id="S2.T1.5.7.2" style="padding-bottom: 4.0pt;"><math alttext="2.278\,602\,8" class="ltx_Math" display="inline" id="S2.T1.m27" intent=":literal"><semantics><mn>2.278 602 8</mn><annotation encoding="application/x-tex">2.278\,602\,8</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_border_bb" id="S2.T1.5.7.3" style="padding-bottom: 4.0pt;"><math alttext="0.022\,859" class="ltx_Math" display="inline" id="S2.T1.m28" intent=":literal"><semantics><mn>0.022 859</mn><annotation encoding="application/x-tex">0.022\,859</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="S2.T1.5.7.4" style="padding-bottom: 4.0pt;">3.27870</td>
+<td class="ltx_td ltx_align_left ltx_border_bb" id="S2.T1.5.7.5" style="padding-bottom: 4.0pt;"><math alttext="0.1256" class="ltx_Math" display="inline" id="S2.T1.m29" intent=":literal"><semantics><mn>0.1256</mn><annotation encoding="application/x-tex">0.1256</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_border_bb" id="S2.T1.5.7.6" style="padding-bottom: 4.0pt;"><math alttext="0.3739" class="ltx_Math" display="inline" id="S2.T1.m30" intent=":literal"><semantics><mn>0.3739</mn><annotation encoding="application/x-tex">0.3739</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="S2.T1.5.7.7" style="padding-bottom: 4.0pt;">16.73</td></tr>
+</tbody>
+</table>
+</figure>
+<figure class="ltx_table" id="S2.T2">
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_table"><span class="ltx_text" id="S2.T2.3" style="font-size:90%;">表 2</span>：</span><span class="ltx_text" id="S2.T2.4" style="font-size:90%;">S-FPL51 和 S-LAH71 的温度相关塞尔迈尔系数的最佳拟合参数，用于式 <a class="ltx_ref" href="#S2.E3" title="In 2.2 Results ‣ 2 Index of refraction ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">3</span></a>) 和 (<a class="ltx_ref" href="#S2.E4" title="In 2.2 Results ‣ 2 Index of refraction ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">4</span></a>)。</span></figcaption>
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle" id="S2.T2.5">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="S2.T2.5.1">
+<td class="ltx_td ltx_border_tt" id="S2.T2.5.1.1"></td>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S2.T2.5.1.2">Coefficient</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S2.T2.5.1.3">j=1</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S2.T2.5.1.4">j=2</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S2.T2.5.1.5">j=3</th></tr>
+<tr class="ltx_tr" id="S2.T2.5.2">
+<td class="ltx_td ltx_align_center ltx_border_t" id="S2.T2.5.2.1" rowspan="4"><span class="ltx_text" id="S2.T2.5.2.1.1">
+<span class="ltx_inline-block ltx_transformed_outer" id="S2.T2.5.2.1.1.1" style="width:6.8pt;height:38.5pt;vertical-align:-0.0pt;"><span class="ltx_transformed_inner" style="width:38.5pt;transform:translate(-15.8pt,-15.8pt) rotate(-90deg) ;">
+<span class="ltx_p ltx_align_center" id="S2.T2.5.2.1.1.1.1">S-FPL51</span>
+</span></span></span></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S2.T2.5.2.2"><math alttext="B_{j}" class="ltx_Math" display="inline" id="S2.T2.m1" intent=":literal"><semantics><msub><mi>B</mi><mi>j</mi></msub><annotation encoding="application/x-tex">B_{j}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_border_t" id="S2.T2.5.2.3"><math alttext="0.0819" class="ltx_Math" display="inline" id="S2.T2.m2" intent=":literal"><semantics><mn>0.0819</mn><annotation encoding="application/x-tex">0.0819</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_border_t" id="S2.T2.5.2.4"><math alttext="14.211" class="ltx_Math" display="inline" id="S2.T2.m3" intent=":literal"><semantics><mn>14.211</mn><annotation encoding="application/x-tex">14.211</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S2.T2.5.2.5">-</td></tr>
+<tr class="ltx_tr" id="S2.T2.5.3">
+<td class="ltx_td ltx_align_center" id="S2.T2.5.3.1"><math alttext="C_{0,j}" class="ltx_Math" display="inline" id="S2.T2.m4" intent=":literal"><semantics><msub><mi>C</mi><mrow><mn>0</mn><mo>,</mo><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">C_{0,j}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left" id="S2.T2.5.3.2"><math alttext="1.223\,708" class="ltx_Math" display="inline" id="S2.T2.m5" intent=":literal"><semantics><mn>1.223 708</mn><annotation encoding="application/x-tex">1.223\,708</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left" id="S2.T2.5.3.3"><math alttext="1.107\,92" class="ltx_Math" display="inline" id="S2.T2.m6" intent=":literal"><semantics><mn>1.107 92</mn><annotation encoding="application/x-tex">1.107\,92</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="S2.T2.5.3.4">-</td></tr>
+<tr class="ltx_tr" id="S2.T2.5.4">
+<td class="ltx_td ltx_align_center" id="S2.T2.5.4.1"><math alttext="C_{1,j}" class="ltx_Math" display="inline" id="S2.T2.m7" intent=":literal"><semantics><msub><mi>C</mi><mrow><mn>1</mn><mo>,</mo><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">C_{1,j}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left" id="S2.T2.5.4.2"><math alttext="-0.001\,57" class="ltx_Math" display="inline" id="S2.T2.m8" intent=":literal"><semantics><mrow><mo>−</mo><mn>0.001 57</mn></mrow><annotation encoding="application/x-tex">-0.001\,57</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left" id="S2.T2.5.4.3"><math alttext="0.0085" class="ltx_Math" display="inline" id="S2.T2.m9" intent=":literal"><semantics><mn>0.0085</mn><annotation encoding="application/x-tex">0.0085</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="S2.T2.5.4.4">-</td></tr>
+<tr class="ltx_tr" id="S2.T2.5.5">
+<td class="ltx_td ltx_align_center" id="S2.T2.5.5.1"><math alttext="C_{2,j}" class="ltx_Math" display="inline" id="S2.T2.m10" intent=":literal"><semantics><msub><mi>C</mi><mrow><mn>2</mn><mo>,</mo><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">C_{2,j}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left" id="S2.T2.5.5.2"><math alttext="-0.003\,46" class="ltx_Math" display="inline" id="S2.T2.m11" intent=":literal"><semantics><mrow><mo>−</mo><mn>0.003 46</mn></mrow><annotation encoding="application/x-tex">-0.003\,46</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left" id="S2.T2.5.5.3"><math alttext="-0.0118" class="ltx_Math" display="inline" id="S2.T2.m12" intent=":literal"><semantics><mrow><mo>−</mo><mn>0.0118</mn></mrow><annotation encoding="application/x-tex">-0.0118</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="S2.T2.5.5.4">-</td></tr>
+<tr class="ltx_tr" id="S2.T2.5.6">
+<td class="ltx_td ltx_align_center ltx_border_bb ltx_border_t" id="S2.T2.5.6.1" rowspan="4"><span class="ltx_text" id="S2.T2.5.6.1.1">
+<span class="ltx_inline-block ltx_transformed_outer" id="S2.T2.5.6.1.1.1" style="width:6.8pt;height:40.1pt;vertical-align:-0.0pt;"><span class="ltx_transformed_inner" style="width:40.1pt;transform:translate(-16.7pt,-16.7pt) rotate(-90deg) ;">
+<span class="ltx_p ltx_align_center" id="S2.T2.5.6.1.1.1.1">S-LAH71</span>
+</span></span></span></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S2.T2.5.6.2"><math alttext="B_{j}" class="ltx_Math" display="inline" id="S2.T2.m13" intent=":literal"><semantics><msub><mi>B</mi><mi>j</mi></msub><annotation encoding="application/x-tex">B_{j}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_border_t" id="S2.T2.5.6.3"><math alttext="0.1256" class="ltx_Math" display="inline" id="S2.T2.m14" intent=":literal"><semantics><mn>0.1256</mn><annotation encoding="application/x-tex">0.1256</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_border_t" id="S2.T2.5.6.4"><math alttext="0.3739" class="ltx_Math" display="inline" id="S2.T2.m15" intent=":literal"><semantics><mn>0.3739</mn><annotation encoding="application/x-tex">0.3739</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S2.T2.5.6.5">16.73</td></tr>
+<tr class="ltx_tr" id="S2.T2.5.7">
+<td class="ltx_td ltx_align_center" id="S2.T2.5.7.1"><math alttext="C_{0,j}" class="ltx_Math" display="inline" id="S2.T2.m16" intent=":literal"><semantics><msub><mi>C</mi><mrow><mn>0</mn><mo>,</mo><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">C_{0,j}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left" id="S2.T2.5.7.2"><math alttext="2.281\,482" class="ltx_Math" display="inline" id="S2.T2.m17" intent=":literal"><semantics><mn>2.281 482</mn><annotation encoding="application/x-tex">2.281\,482</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left" id="S2.T2.5.7.3"><math alttext="0.021\,623\,3" class="ltx_Math" display="inline" id="S2.T2.m18" intent=":literal"><semantics><mn>0.021 623 3</mn><annotation encoding="application/x-tex">0.021\,623\,3</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="S2.T2.5.7.4">3.28769</td></tr>
+<tr class="ltx_tr" id="S2.T2.5.8">
+<td class="ltx_td ltx_align_center" id="S2.T2.5.8.1"><math alttext="C_{1,j}" class="ltx_Math" display="inline" id="S2.T2.m19" intent=":literal"><semantics><msub><mi>C</mi><mrow><mn>1</mn><mo>,</mo><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">C_{1,j}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left" id="S2.T2.5.8.2"><math alttext="-0.012\,134" class="ltx_Math" display="inline" id="S2.T2.m20" intent=":literal"><semantics><mrow><mo>−</mo><mn>0.012 134</mn></mrow><annotation encoding="application/x-tex">-0.012\,134</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left" id="S2.T2.5.8.3"><math alttext="0.004\,932" class="ltx_Math" display="inline" id="S2.T2.m21" intent=":literal"><semantics><mn>0.004 932</mn><annotation encoding="application/x-tex">0.004\,932</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center" id="S2.T2.5.8.4">-0.0365</td></tr>
+<tr class="ltx_tr" id="S2.T2.5.9">
+<td class="ltx_td ltx_align_center ltx_border_bb" id="S2.T2.5.9.1"><math alttext="C_{2,j}" class="ltx_Math" display="inline" id="S2.T2.m22" intent=":literal"><semantics><msub><mi>C</mi><mrow><mn>2</mn><mo>,</mo><mi>j</mi></mrow></msub><annotation encoding="application/x-tex">C_{2,j}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_border_bb" id="S2.T2.5.9.2"><math alttext="0.005\,014" class="ltx_Math" display="inline" id="S2.T2.m23" intent=":literal"><semantics><mn>0.005 014</mn><annotation encoding="application/x-tex">0.005\,014</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_border_bb" id="S2.T2.5.9.3"><math alttext="-0.001\,112" class="ltx_Math" display="inline" id="S2.T2.m24" intent=":literal"><semantics><mrow><mo>−</mo><mn>0.001 112</mn></mrow><annotation encoding="application/x-tex">-0.001\,112</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="S2.T2.5.9.4">0.0105</td></tr>
+</tbody>
+</table>
+</figure>
+</section>
+</section>
+<section class="ltx_section" id="S3">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">3 </span>透过率测量</h2>
+<div class="ltx_para" id="S3.p1">
+<p class="ltx_p" id="S3.p1.1">S-FPL51 和 S-LAH71 在可见光和近红外波段都具有非常好的透过率。特别是，S-LAH71 在 2 µm 之后仍具有良好透过率，这已成为选择 S-FPL51/S-LAH71 组合作为 IRIS 和 MICADO 大气色散校正器首选组合的主要原因之一<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib3" title="">12</a>]</cite>。</p>
+</div>
+<div class="ltx_para" id="S3.p2">
+<p class="ltx_p" id="S3.p2.1">然而，此前没有这两种材料在 2.4 µm 以上波段的透过率数据。对于早期的权衡研究和性能估计而言，这并不是主要问题；但对于 MICADO 中滤光片镀膜的详细规格，以及 HAWAII-4RG 探测器对 0.8 至 2.4 µm 科学窗口之外辐射的已知灵敏度而言，人们强烈希望了解这些材料在该窗口之外波段的光谱行为。</p>
+</div>
+<section class="ltx_subsection" id="S3.SS1">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">3.1 </span>测试装置</h3>
+<div class="ltx_para" id="S3.SS1.p1">
+<p class="ltx_p" id="S3.SS1.p1.1">我们使用 NOVA 光学实验室的 Varian FT7000e 傅里叶变换光谱仪（FTS）<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib7" title="">9</a>]</cite>，测量了两片见证样片的透过率；这两片样片与将用于 MICADO ADC 的 S-FPL51 和 S-LAH71 材料来自同一制造批次。该光谱仪可配备多种不同的光源和探测器，因此可以采集从紫外（约从 250 nm 开始）到中红外（约到 30 µm 结束）的光谱。根据此前使用该光谱仪的经验，我们知道光源稳定性、探测器灵敏度和大气中所含的水蒸气会降低测量准确度，但通过仔细规划和校准可以控制这些影响。</p>
+</div>
+<div class="ltx_para" id="S3.SS1.p2">
+<p class="ltx_p" id="S3.SS1.p2.1">CRiSP，即光谱仪中的低温恒温器（CRyostat in SPectrometer），是一种定制低温恒温器，专门设计并建造以适配该光谱仪的测量舱<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib7" title="">9</a>]</cite>。该低温恒温器内有一个样品轮，带有七个一英寸样品槽。样品轮可由外部的步进电机定位。由于采用蜗轮蜗杆将电机轴的旋转传递到样品轮，电机轴与样品轮之间的传动比很低，因此电机需转动 6084° 才能从一个样品槽移动到下一个样品槽。样品轮如图 <a class="ltx_ref" href="#S3.F4" title="Figure 4 ‣ 3.1 Test setup ‣ 3 Transmission measurement ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">4</span></a> 所示，CRiSP 本身如图 <a class="ltx_ref" href="#S3.F3" title="Figure 3 ‣ 3.1 Test setup ‣ 3 Transmission measurement ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">3</span></a> 所示。</p>
+</div>
+<figure class="ltx_figure" id="S3.SS1.fig3">
+<div class="ltx_flex_figure">
+<div class="ltx_flex_cell ltx_flex_size_2">
+<figure class="ltx_figure ltx_figure_panel ltx_align_center ltx_align_top" id="S3.F3" style="width:165.6pt;"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_landscape" height="164" id="S3.SS1.g1" src="https://arxiv.org/html/2610.41481v1/CRiSP_outside.jpg" style="aspect-ratio:229/164;" width="229"/>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="S3.F3.3" style="font-size:90%;">图 3</span>：</span><span class="ltx_text" id="S3.F3.4" style="font-size:90%;">展示 CRiSP 在放入 NOVA 的 Varian FT7000e 光谱仪样品舱之前的照片。低温恒温器下半部分可见两个光通道。</span></figcaption>
+</figure></div><div class="ltx_flex_cell ltx_flex_size_2">
+<figure class="ltx_figure ltx_figure_panel ltx_align_center ltx_align_top" id="S3.F4" style="width:165.6pt;"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_landscape" height="164" id="S3.SS1.g2" src="https://arxiv.org/html/2610.41481v1/CRiSP_inside.jpg" style="aspect-ratio:229/164;" width="229"/>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="S3.F4.3" style="font-size:90%;">图 4</span>：</span><span class="ltx_text" id="S3.F4.4" style="font-size:90%;">CRiSP 内样品轮的照片。轮上带有凹口，用于在样品位置处稳定定位。与蜗轮蜗杆相连的电机轴在右上角可见。</span></figcaption>
+</figure></div></div>
+</figure>
+<div class="ltx_para" id="S3.SS1.p3">
+<p class="ltx_p" id="S3.SS1.p3.1">CRiSP 具有两个不同的光通道，可通过它们进行测量。一个通道装有蓝宝石窗口，应用于紫外和可见光波段测量。其在 0.2 至 4 µm 之间的透过率很好（<math alttext="&gt;80\%" class="ltx_Math" display="inline" id="S3.SS1.p3.m1" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>&gt;</mo><mrow><mn>80</mn><mo>%</mo></mrow></mrow><annotation encoding="application/x-tex">&gt;80\%</annotation></semantics></math>），但在 5 µm 之后迅速下降。对于红外测量，可使用另一种窗口。这是一种碲化镉（CdTe）窗口，在 1.5 至 28 µm 的光谱范围内，透过率非常稳定地保持在 60% 至 70% 之间。本报告中，我们仅使用了蓝宝石窗口。</p>
+</div>
+<div class="ltx_para" id="S3.SS1.p4">
+<p class="ltx_p" id="S3.SS1.p4.1">名义上，FTS 测量舱中的光束在舱中部附近聚焦。由于 CRiSP 观察窗直径很小，默认光学结构光损失过多而无法使用。过去我们设计了一种光束压缩器，可将入射光束缩小为直径 9 mm 的近似准直小光束。这样可使足够的光通过 CRiSP，从而成功进行测量。该光束压缩器由现成组件构成，仅底座安装板为适配 FTS 接口而定制。</p>
+</div>
+<div class="ltx_para" id="S3.SS1.p5">
+<p class="ltx_p" id="S3.SS1.p5.1">遗憾的是，观测到的光谱仪光束形状与预期的准直形状差异相当大。这很可能是因为光源是扩展光源而非点光源。实际上，这意味着总光量中只有一部分能到达低温恒温器另一侧的探测器，导致信噪比低于预期。尽管如此，通过叠加傅里叶变换光谱仪（FTS）的多次扫描，即使在低信噪比下也有可能获得有用的光谱特征。然而，要获得优于几个百分点的透射率准确度一直很困难。为此，需要在 CRiSP 外部采用标准测量配置对样品进行单独的透射光谱测量。</p>
+</div>
+<div class="ltx_para" id="S3.SS1.p6">
+<p class="ltx_p" id="S3.SS1.p6.1">为测量 S-FPL51 和 S-LAH71 的透射率，使用了四个样品槽。样品轮中的一个槽放置 S-FPL51 样品，其后是一个用于背景测量的空槽，再后是 S-LAH71 样品。最后一个槽放置玻璃陪片，温度传感器粘接在该陪片上。该传感器提供了实际样品的温度信息。两种玻璃样品的直径均为 1 英寸，厚度为 5 mm，经过抛光但未镀膜。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S3.SS2">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">3.2 </span>结果</h3>
+<div class="ltx_para" id="S3.SS2.p1">
+<p class="ltx_p" id="S3.SS2.p1.1">在实施低温测试之前，对两个样品均在 1000 至 3600 nm 之间获得了常规透射光谱。如图 <a class="ltx_ref" href="#S3.F5" title="Figure 5 ‣ 3.2 Results ‣ 3 Transmission measurement ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">5</span></a> 所示。这里，左侧面板显示实测透射率，包含所有反射损耗。右侧面板使用第<a class="ltx_ref" href="#S2" title="2 Index of refraction ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">2</span></a>节中测得的材料折射率来计算菲涅耳反射损耗，忽略任何偏振效应并假设吸收可忽略。随后利用该信息求出样品的内部透射率。由于光谱仪中光源的不稳定性，对 S-LAH71 测得超过 100% 的内部透过率。显然，这不可能是真实的。透射率的光谱形状与制造商数据表非常吻合，而后者确实保持在 100% 透射率以下。S-FPL51 的测量结果表现更稳定，在 1000 至 2500 nm<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib9" title="">10</a>, <a class="ltx_ref" href="#bib.bib10" title="">11</a>]</cite> 之间的最大内部透射率非常接近预期的 100%。</p>
+</div>
+<div class="ltx_para" id="S3.SS2.p2">
+<p class="ltx_p" id="S3.SS2.p2.1">两种材料在超过 2700 nm 后均出现透射率下降。S-FPL51 的降幅约为 12%，S-LAH71 约为 60%。在 2500 至 2700 nm 之间可以看到一些微弱的残余水吸收特征，这意味着测量舱未被干燥氮气完全吹扫。</p>
+</div>
+<figure class="ltx_figure" id="S3.F5"><object class="ltx_graphics ltx_centering ltx_img_landscape" data="assets/transmission_roomtemp.svg" height="170" id="S3.F5.g1" style="aspect-ratio:476/170;" type="image/svg+xml" width="476"></object>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="S3.F5.3" style="font-size:90%;">图 5</span>：</span><span class="ltx_text" id="S3.F5.4" style="font-size:90%;">S-FPL51 的透射率曲线以蓝色显示。红线表示 S-LAH71 的透射率。左图显示的是测量透射率，未对未镀膜样品的任何反射损耗进行补偿。若使用良好的减反射镀膜，可能会观察到更接近右图的透射曲线。实际上，其中显示的是内部透射率。</span></figcaption>
+</figure>
+<div class="ltx_para" id="S3.SS2.p3">
+<p class="ltx_p" id="S3.SS2.p3.1">接下来，图 <a class="ltx_ref" href="#S3.F6" title="Figure 6 ‣ 3.2 Results ‣ 3 Transmission measurement ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">6</span></a> 和图 <a class="ltx_ref" href="#S3.F7" title="Figure 7 ‣ 3.2 Results ‣ 3 Transmission measurement ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">7</span></a> 分别给出了 S-FPL51 与 S-LAH71 的低温测量结果。透射光谱分别在真空中的室温、77 K 和 43 K 下获得。由于光谱仪中 CRiSP 的装调（对准）较为繁琐，且整体吞吐量有限，信号噪声高于图 <a class="ltx_ref" href="#S3.F5" title="Figure 5 ‣ 3.2 Results ‣ 3 Transmission measurement ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">5</span></a> 所示测量。由于在室温测量中未发现任何细窄吸收特征，且在低温下快速检查原始数据后也未发现，因此我们采用（非均匀）Savitzky-Golay 滤波器来降低噪声<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib19" title="">13</a>]</cite>。对于该滤波器，将 <math alttext="p" class="ltx_Math" display="inline" id="S3.SS2.p3.m1" intent=":literal"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math> 阶多项式拟合到最后 <math alttext="n" class="ltx_Math" display="inline" id="S3.SS2.p3.m2" intent=":literal"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> 个数据点上，对应波数为 <math alttext="\nu" class="ltx_Math" display="inline" id="S3.SS2.p3.m3" intent=":literal"><semantics><mi>ν</mi><annotation encoding="application/x-tex">\nu</annotation></semantics></math>。该滤波器的一个简单示例是移动平均。这里，我们使用了 <math alttext="p=3" class="ltx_Math" display="inline" id="S3.SS2.p3.m4" intent=":literal"><semantics><mrow><mi>p</mi><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">p=3</annotation></semantics></math> 和 <math alttext="n=301" class="ltx_Math" display="inline" id="S3.SS2.p3.m5" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mn>301</mn></mrow><annotation encoding="application/x-tex">n=301</annotation></semantics></math>。</p>
+</div>
+<div class="ltx_para" id="S3.SS2.p4">
+<p class="ltx_p" id="S3.SS2.p4.1">在本文给出的结果中，光源稳定性问题再次出现。这些问题使 S-FPL51 的透射率曲线产生几个百分点的恒定偏移。在所有测量中，500 nm 附近的系统噪声显著增大，因此该区域观察到的透射率变化不太可能是真实信号。此外，S-LAH71 的平滑透射率曲线在 2700 nm 处透射率下降之前出现一个小凸起，这可归因于 Savitzky-Golay 滤波器被迫使用的三阶多项式。原始数据并未显示该凸起。除这些微小差异外，在重叠光谱区域内，透射率曲线与制造商提供的透射率曲线吻合良好。在不同温度下，我们也没有观察到透射率曲线出现任何显著变化。</p>
+</div>
+<figure class="ltx_figure" id="S3.F6"><object class="ltx_graphics ltx_centering ltx_img_landscape" data="assets/cold_transmission_sfpl51_with_lossessmoothed.svg" height="221" id="S3.F6.g1" style="aspect-ratio:476/221;" type="image/svg+xml" width="476"></object>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="S3.F6.3" style="font-size:90%;">图 6</span>：</span><span class="ltx_text" id="S3.F6.4" style="font-size:90%;">S-FPL51 在 293 K（红色）、77 K（绿色）和 43 K（蓝色）下测得的透射率曲线。黑色虚线给出 OHARA 规定的数据。未观察到透射率随温度发生显著变化。振幅变化更可能是由于光谱仪中光源的不稳定性。原始未平滑数据以低不透明度显示在背景中。</span></figcaption>
+</figure>
+<figure class="ltx_figure" id="S3.F7"><object class="ltx_graphics ltx_centering ltx_img_landscape" data="assets/cold_transmission_slah71_with_lossessmoothed.svg" height="221" id="S3.F7.g1" style="aspect-ratio:476/221;" type="image/svg+xml" width="476"></object>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="S3.F7.3" style="font-size:90%;">图 7</span>：</span><span class="ltx_text" id="S3.F7.4" style="font-size:90%;">S-LAH71 在 293 K（红色）、77 K（绿色）和 43 K（蓝色）下测得的透射率曲线。黑色虚线给出 OHARA 规定的数据。未观察到透射率随温度发生显著变化。振幅变化更可能是由于光谱仪中光源的不稳定性。原始未平滑数据以低不透明度显示在背景中。</span></figcaption>
+</figure>
+</section>
+</section>
+<section class="ltx_section" id="S4">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">4 </span>热膨胀系数</h2>
+<div class="ltx_para" id="S4.p1">
+<p class="ltx_p" id="S4.p1.1">热膨胀系数（CTE）用 <math alttext="\alpha" class="ltx_Math" display="inline" id="S4.p1.m1" intent=":literal"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> 表示，其定义为尺寸为 <math alttext="L_{0}" class="ltx_Math" display="inline" id="S4.p1.m2" intent=":literal"><semantics><msub><mi>L</mi><mn>0</mn></msub><annotation encoding="application/x-tex">L_{0}</annotation></semantics></math> 的样品在温度降低 <math alttext="\Delta T" class="ltx_Math" display="inline" id="S4.p1.m3" intent=":literal"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>T</mi></mrow><annotation encoding="application/x-tex">\Delta T</annotation></semantics></math> 时的物理尺寸变化。温度为 <math alttext="T" class="ltx_Math" display="inline" id="S4.p1.m4" intent=":literal"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math> 时的尺寸由下式给出</p>
+</div>
+<div class="ltx_para" id="S4.p2">
+<table class="ltx_equation ltx_eqn_table" id="S4.E5">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="L(T)=L_{0}(1-\alpha\Delta T)," class="ltx_Math" display="block" id="S4.E5.m1" intent=":literal"><semantics><mrow><mrow><mrow><mi>L</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>T</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><msub><mi>L</mi><mn>0</mn></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mrow><mn>1</mn><mo>−</mo><mrow><mi>α</mi><mo lspace="0em" rspace="0em">​</mo><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>T</mi></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">L(T)=L_{0}(1-\alpha\Delta T),</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(5)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S4.p2.1">其中 CTE <math alttext="\alpha" class="ltx_Math" display="inline" id="S4.p2.m1" intent=":literal"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> 定义为</p>
+<table class="ltx_equation ltx_eqn_table" id="S4.E6">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\alpha=\frac{1}{L}\frac{dL}{dT}." class="ltx_Math" display="block" id="S4.E6.m1" intent=":literal"><semantics><mrow><mrow><mi>α</mi><mo>=</mo><mrow><mfrac><mn>1</mn><mi>L</mi></mfrac><mo lspace="0em" rspace="0em">​</mo><mfrac><mrow><mi>d</mi><mo lspace="0em" rspace="0em">​</mo><mi>L</mi></mrow><mrow><mi>d</mi><mo lspace="0em" rspace="0em">​</mo><mi>T</mi></mrow></mfrac></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\alpha=\frac{1}{L}\frac{dL}{dT}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6)</span></td></tr></tbody>
+</table>
+</div>
+<div class="ltx_para" id="S4.p3">
+<p class="ltx_p" id="S4.p3.1">对工程师而言，或许更实用的是材料尺寸相对于室温的总变化。我们可以修改上述表达式来定义有效热膨胀系数（CTE，或称线性化 CTE），其中将样品在初始温度（通常为室温 293 K）下的长度取为<math alttext="L_{0}" class="ltx_Math" display="inline" id="S4.p3.m1" intent=":literal"><semantics><msub><mi>L</mi><mn>0</mn></msub><annotation encoding="application/x-tex">L_{0}</annotation></semantics></math>，并测量在温度<math alttext="T" class="ltx_Math" display="inline" id="S4.p3.m2" intent=":literal"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>下的长度变化。这给出了材料相对于初始条件收缩或膨胀程度的度量。换言之，</p>
+</div>
+<div class="ltx_para" id="S4.p4">
+<table class="ltx_equation ltx_eqn_table" id="S4.E7">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\alpha_{\mathrm{eff}}=\frac{L(T)-L_{0}}{L_{0}}=\frac{\Delta L(T)}{L_{0}}," class="ltx_Math" display="block" id="S4.E7.m1" intent=":literal"><semantics><mrow><mrow><msub><mi>α</mi><mi>eff</mi></msub><mo>=</mo><mfrac><mrow><mrow><mi>L</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>T</mi><mo stretchy="false">)</mo></mrow></mrow><mo>−</mo><msub><mi>L</mi><mn>0</mn></msub></mrow><msub><mi>L</mi><mn>0</mn></msub></mfrac><mo>=</mo><mfrac><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>L</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>T</mi><mo stretchy="false">)</mo></mrow></mrow><msub><mi>L</mi><mn>0</mn></msub></mfrac></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\alpha_{\mathrm{eff}}=\frac{L(T)-L_{0}}{L_{0}}=\frac{\Delta L(T)}{L_{0}},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(7)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S4.p4.1">其中<math alttext="T" class="ltx_Math" display="inline" id="S4.p4.m1" intent=":literal"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>假定以开尔文为单位。要以良好准确度确定材料的 CTE，关键是要么非常准确地测量<math alttext="\Delta L" class="ltx_Math" display="inline" id="S4.p4.m2" intent=":literal"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">\Delta L</annotation></semantics></math>，要么使<math alttext="L_{0}" class="ltx_Math" display="inline" id="S4.p4.m3" intent=":literal"><semantics><msub><mi>L</mi><mn>0</mn></msub><annotation encoding="application/x-tex">L_{0}</annotation></semantics></math>较大，或者两者兼有。</p>
+</div>
+<div class="ltx_para" id="S4.p5">
+<p class="ltx_p" id="S4.p5.1">更根本地说，材料的 CTE 呈非线性行为；它随温度连续变化。通过在多个点测量 CTE 值，可以找到一个经验形式，用以描述在有效范围内所有温度下的 CTE 值。</p>
+</div>
+<div class="ltx_para" id="S4.p6">
+<p class="ltx_p" id="S4.p6.1">我们已将数据拟合为以下三项幂级数，以描述随温度变化的 CTE，</p>
+<table class="ltx_equation ltx_eqn_table" id="S4.E8">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\alpha(T)=A+BT+CT^{2}." class="ltx_Math" display="block" id="S4.E8.m1" intent=":literal"><semantics><mrow><mrow><mrow><mi>α</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>T</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mi>A</mi><mo>+</mo><mrow><mi>B</mi><mo lspace="0em" rspace="0em">​</mo><mi>T</mi></mrow><mo>+</mo><mrow><mi>C</mi><mo lspace="0em" rspace="0em">​</mo><msup><mi>T</mi><mn>2</mn></msup></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\alpha(T)=A+BT+CT^{2}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(8)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S4.p6.2">并且，我们已将线膨胀数据拟合为一个类似但略有不同的三项幂级数，</p>
+<table class="ltx_equation ltx_eqn_table" id="S4.E9">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\frac{\Delta L}{L_{0}}=\left(A+BT+CT^{2}\right)\left(T-T_{0}\right)." class="ltx_Math" display="block" id="S4.E9.m1" intent=":literal"><semantics><mrow><mrow><mfrac><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>L</mi></mrow><msub><mi>L</mi><mn>0</mn></msub></mfrac><mo>=</mo><mrow><mrow><mo>(</mo><mrow><mi>A</mi><mo>+</mo><mrow><mi>B</mi><mo lspace="0em" rspace="0em">​</mo><mi>T</mi></mrow><mo>+</mo><mrow><mi>C</mi><mo lspace="0em" rspace="0em">​</mo><msup><mi>T</mi><mn>2</mn></msup></mrow></mrow><mo>)</mo></mrow><mo lspace="0em" rspace="0em">​</mo><mrow><mo>(</mo><mrow><mi>T</mi><mo>−</mo><msub><mi>T</mi><mn>0</mn></msub></mrow><mo>)</mo></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\frac{\Delta L}{L_{0}}=\left(A+BT+CT^{2}\right)\left(T-T_{0}\right).</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(9)</span></td></tr></tbody>
+</table>
+</div>
+<div class="ltx_para" id="S4.p7">
+<p class="ltx_p" id="S4.p7.1">最后一个方程的形式不同于例如美国国家标准与技术研究院（NIST）<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib16" title="">8</a>, <a class="ltx_ref" href="#bib.bib15" title="">2</a>]</cite>用于描述线膨胀的五项幂级数。附录<a class="ltx_ref" href="#A2" title="Appendix B Conversion to the NIST equation ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">B</span></a>给出了两种描述之间的换算。</p>
+</div>
+<section class="ltx_subsection" id="S4.SS1">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">4.1 </span>测试装置</h3>
+<figure class="ltx_figure" id="S4.SS1.fig3">
+<div class="ltx_flex_figure">
+<div class="ltx_flex_cell ltx_flex_size_2">
+<figure class="ltx_figure ltx_figure_panel ltx_align_center ltx_align_top" id="S4.F8" style="width:165.6pt;"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_landscape" height="171" id="S4.SS1.g1" src="https://arxiv.org/html/2610.41481v1/cte_setup_2.jpg" style="aspect-ratio:229/171;" width="229"/>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="S4.F8.3" style="font-size:90%;">图 8</span>：</span><span class="ltx_text" id="S4.F8.4" style="font-size:90%;">本图展示了将样品放入样品架的方法。左侧轴仅装有反射镜，并作为参考。</span></figcaption>
+</figure></div><div class="ltx_flex_cell ltx_flex_size_2">
+<figure class="ltx_figure ltx_figure_panel ltx_align_center ltx_align_top" id="S4.F9" style="width:165.6pt;"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_landscape" height="171" id="S4.SS1.g2" src="https://arxiv.org/html/2610.41481v1/cte_setup_3.jpg" style="aspect-ratio:229/171;" width="229"/>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="S4.F9.3" style="font-size:90%;">图 9</span>：</span><span class="ltx_text" id="S4.F9.4" style="font-size:90%;">样品架被封闭在一个屏蔽罩内，以减少漏光并防止热辐射。三根光纤对应于 IDS3010 的三个轴。</span></figcaption>
+</figure></div></div>
+</figure>
+<div class="ltx_para" id="S4.SS1.p1">
+<p class="ltx_p" id="S4.SS1.p1.1">在我们的测试装置中，我们使用干涉测量来准确测量样品位移随温度的变化。测量信号通过光纤从光源传输到低温恒温器，在低温恒温器中，光经放置于被测样品顶部的平面反射镜反射。随后，光通过同一光纤返回光源单元，并在那里处理所得的干涉信号。</p>
+</div>
+<div class="ltx_para" id="S4.SS1.p2">
+<p class="ltx_p" id="S4.SS1.p2.1">本实验使用 Attocube IDS3010 干涉位移传感器。在理想条件下，IDS3010 可同时在三个轴向上进行亚纳米级测量。NOVA Box Cryostat 顶部安装了一个真空馈通，用于在低温恒温器的冷真空与室温环境之间传输信号。低温恒温器内部的装置由一块底板构成，底板上放置两个样品，见图 <a class="ltx_ref" href="#S4.F8" title="Figure 8 ‣ 4.1 Test setup ‣ 4 Coefficient of Thermal Expansion ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">8</span></a>。样品上方放置小平面反射镜以反射激光。至少保留一个测量轴空闲，并作为参考信号。该轴仅包含反射镜。参考信号用于校准并消除任何系统误差，例如由铝制结构长度变化引起的系统误差。顶板位于底板上方约 60 mm 处，并容纳传感器头，如图 <a class="ltx_ref" href="#S4.F9" title="Figure 9 ‣ 4.1 Test setup ‣ 4 Coefficient of Thermal Expansion ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">9</span></a>所示。装调通过拧紧或拧松传感器头外壳完成。测量完玻璃样品后，利用 IDS3010 的绝对测距功能确定样品在 293 K 下的初始长度。随后，在冷却至 40 K 期间连续记录所有三个轴的距离；类似地，在升温回室温期间也进行了另一次记录。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S4.SS2">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection">4.2 </span>结果</h3>
+<div class="ltx_para" id="S4.SS2.p1">
+<p class="ltx_p" id="S4.SS2.p1.1">两个样品的线膨胀如图 <a class="ltx_ref" href="#S4.F10" title="Figure 10 ‣ 4.2 Results ‣ 4 Coefficient of Thermal Expansion ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">10</span></a>所示。这里，我们展示式(<a class="ltx_ref" href="#S4.E9" title="In 4 Coefficient of Thermal Expansion ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">9</span></a>)对原始数据的最佳拟合，原始数据由两个热循环组成。所报告的温度与材料长度之间存在滞后，因为温度传感器并未直接放置在被测样品上，而是放置在底板上样品旁边。由于我们将冷却和升温的数据合并为一条曲线，这种滞后应被平均掉，并且仍应是具有代表性的拟合。同样值得注意的是，S-FPL51 数据在 210 至 190 K 的冷却过程中出现较大凹陷。很可能是样品、参考反射镜或其中一个光纤头因温度诱发的应力释放发生了位移。原始数据的这一部分已被排除在最佳拟合之外，因为它不是 <math alttext="\Delta L/L" class="ltx_Math" display="inline" id="S4.SS2.p1.m1" intent=":literal"><semantics><mrow><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>L</mi></mrow><mo>/</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">\Delta L/L</annotation></semantics></math> 信号的真正组成部分。</p>
+</div>
+<figure class="ltx_figure" id="S4.F10"><object class="ltx_graphics ltx_centering ltx_img_landscape" data="assets/eff_cte_sfpl51_slah71_SPIE.svg" height="229" id="S4.F10.g1" style="aspect-ratio:381/229;" type="image/svg+xml" width="381"></object>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="S4.F10.3" style="font-size:90%;">图 10</span>：</span><span class="ltx_text" id="S4.F10.4" style="font-size:90%;">测得的 S-FPL51（蓝线）和 S-LAH71（红线）的线膨胀。相应颜色的低不透明度线条显示了进行测量的两个热循环的原始数据。由这些线可推得约 <math alttext="\pm 10" class="ltx_Math" display="inline" id="S4.F10.m2" intent=":literal"><semantics><mrow><mo>±</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">\pm 10</annotation></semantics></math> K 的温度滞后。粗线是四条曲线平均值对式(<a class="ltx_ref" href="#S4.E8" title="In 4 Coefficient of Thermal Expansion ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">8</span></a>)的最佳拟合。图例给出了线膨胀系数，可转换为遵循 NIST 惯例。详见附录 <a class="ltx_ref" href="#A2" title="Appendix B Conversion to the NIST equation ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">B</span></a>。本图曾以略有不同的形式在参考文献 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">17</a>]</cite> 中给出。</span></figcaption>
+</figure>
+<div class="ltx_para" id="S4.SS2.p2">
+<p class="ltx_p" id="S4.SS2.p2.1">由结果可知，相对于室温（293 K），S-FPl51 和 S-LAH71 在 77 K 下的线收缩分别为 2.1 mm/m 和 1.3 mm/m。</p>
+</div>
+<div class="ltx_para" id="S4.SS2.p3">
+<p class="ltx_p" id="S4.SS2.p3.1">我们还尝试通过对式 (<a class="ltx_ref" href="#S4.E6" title="In 4 Coefficient of Thermal Expansion ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">6</span></a>) 进行数值求值来确定随温度变化的热膨胀系数（CTE）值。由于数据分箱较小以及温度滞后问题，所得信号噪声大得多。尽管如此，随着温度降低，仍可观察到明显的下降趋势。在此，我们已将数据拟合到式 (<a class="ltx_ref" href="#S4.E8" title="In 4 Coefficient of Thermal Expansion ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">8</span></a>)。此外，我们还对图 <a class="ltx_ref" href="#S4.F10" title="Figure 10 ‣ 4.2 Results ‣ 4 Coefficient of Thermal Expansion ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">10</span></a> 中得到的曲线进行了数值应用，作为合理性检查，并得到了非常相似的曲线。对式 (<a class="ltx_ref" href="#S4.E8" title="In 4 Coefficient of Thermal Expansion ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">8</span></a>) 和 (<a class="ltx_ref" href="#S4.E9" title="In 4 Coefficient of Thermal Expansion ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">9</span></a>) 的最佳拟合系数汇总见表 <a class="ltx_ref" href="#S4.T3" title="Table 3 ‣ 4.2 Results ‣ 4 Coefficient of Thermal Expansion ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">3</span></a>。在室温下，OHARA 在数据表中给出的 S-FPL51 的 CTE 值为 13.1 µm/m/K。与之吻合良好的是，我们从原始数据得到 13.2 µm/m/K，从应用 <math alttext="\Delta L/L" class="ltx_Math" display="inline" id="S4.SS2.p3.m1" intent=":literal"><semantics><mrow><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>L</mi></mrow><mo>/</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">\Delta L/L</annotation></semantics></math> 拟合得到 14.0 µm/m/K。类似地，对于 S-LAH71，OHARA 报告的值为 7.7 µm/m/K，不过在此情况下，我们用两种方法得到的值略高，分别为 9.9 µm/m/K 和 8.9 µm/m/K。</p>
+</div>
+<figure class="ltx_figure" id="S4.F11"><object class="ltx_graphics ltx_centering ltx_img_landscape" data="assets/true_cte.svg" height="226" id="S4.F11.g1" style="aspect-ratio:381/226;" type="image/svg+xml" width="381"></object>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="S4.F11.3" style="font-size:90%;">图 11</span>：</span><span class="ltx_text" id="S4.F11.4" style="font-size:90%;">在小温度分箱下对式 (<a class="ltx_ref" href="#S4.E6" title="In 4 Coefficient of Thermal Expansion ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">6</span></a>) 进行求值，可确定我们的 S-FPL51 样品（蓝色）和 S-LAH71 样品（红色）的 CTE 值随温度的变化。相应颜色的低不透明度线条显示了进行测量的两个热循环的原始数据。粗线是四条曲线平均值对式 (<a class="ltx_ref" href="#S4.E8" title="In 4 Coefficient of Thermal Expansion ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">8</span></a>) 的最佳拟合。最后，虚线表示对最佳拟合 <math alttext="\Delta L/L" class="ltx_Math" display="inline" id="S4.F11.m2" intent=":literal"><semantics><mrow><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>L</mi></mrow><mo>/</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">\Delta L/L</annotation></semantics></math> 曲线进行数值求值，以得到任意温度下的 CTE 值。</span></figcaption>
+</figure>
+<figure class="ltx_table" id="S4.T3">
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_table"><span class="ltx_text" id="S4.T3.3" style="font-size:90%;">表 3</span>：</span><span class="ltx_text" id="S4.T3.4" style="font-size:90%;">S-FPL51 和 S-LAH71 的线膨胀（<math alttext="\Delta L/L" class="ltx_Math" display="inline" id="S4.T3.m2" intent=":literal"><semantics><mrow><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>L</mi></mrow><mo>/</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">\Delta L/L</annotation></semantics></math>）以及（随温度变化的）CTE 值的最佳拟合系数。这些系数用于并应应用于式 (<a class="ltx_ref" href="#S4.E8" title="In 4 Coefficient of Thermal Expansion ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">8</span></a>) 和 (<a class="ltx_ref" href="#S4.E9" title="In 4 Coefficient of Thermal Expansion ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">9</span></a>) 中给出的三项幂级数。这些系数给出以 µm/m/K 为单位的 CTE 值和以 µm/m 为单位的线膨胀。</span></figcaption>
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle" id="S4.T3.5">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="S4.T3.5.1">
+<td class="ltx_td ltx_border_tt" id="S4.T3.5.1.1"></td>
+<th class="ltx_td ltx_th ltx_th_column ltx_border_tt" id="S4.T3.5.1.2"></th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S4.T3.5.1.3"><span class="ltx_text ltx_phantom" id="S4.T3.5.1.3.1"><span style="visibility:hidden">abcde</span></span>S-FPL51</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="S4.T3.5.1.4"><span class="ltx_text ltx_phantom" id="S4.T3.5.1.4.1"><span style="visibility:hidden">abcde</span></span>S-LAH71</th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt" id="S4.T3.5.1.5">Unit</th></tr>
+<tr class="ltx_tr" id="S4.T3.5.2">
+<td class="ltx_td ltx_align_center ltx_border_t" id="S4.T3.5.2.1"><math alttext="\alpha(T)" class="ltx_Math" display="inline" id="S4.T3.m3" intent=":literal"><semantics><mrow><mi>α</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>T</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\alpha(T)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S4.T3.5.2.2">A</td>
+<td class="ltx_td ltx_align_left ltx_border_t" id="S4.T3.5.2.3"><math alttext="3.1082\text{\times}{10}^{-01}" class="ltx_Math" display="inline" id="S4.T3.m4" intent=":literal"><semantics><mrow><mn>3.1082</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>01</mn></mrow></msup></mrow><annotation encoding="application/x-tex">3.1082\text{\times}{10}^{-01}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_border_t" id="S4.T3.5.2.4"><math alttext="-3.1350\text{\times}{10}^{-01}" class="ltx_Math" display="inline" id="S4.T3.m5" intent=":literal"><semantics><mrow><mrow><mo>−</mo><mn>3.1350</mn></mrow><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>01</mn></mrow></msup></mrow><annotation encoding="application/x-tex">-3.1350\text{\times}{10}^{-01}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_border_t" id="S4.T3.5.2.5">µm m<sup class="ltx_sup" id="S4.T3.5.2.5.1"><span class="ltx_text ltx_font_italic" id="S4.T3.5.2.5.1.1">-1</span></sup> K<sup class="ltx_sup" id="S4.T3.5.2.5.2"><span class="ltx_text ltx_font_italic" id="S4.T3.5.2.5.2.1">-1</span></sup></td></tr>
+<tr class="ltx_tr" id="S4.T3.5.3">
+<td class="ltx_td" id="S4.T3.5.3.1"></td>
+<td class="ltx_td ltx_align_center" id="S4.T3.5.3.2">B</td>
+<td class="ltx_td ltx_align_left" id="S4.T3.5.3.3"><math alttext="6.9497\text{\times}{10}^{-02}" class="ltx_Math" display="inline" id="S4.T3.m8" intent=":literal"><semantics><mrow><mn>6.9497</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>02</mn></mrow></msup></mrow><annotation encoding="application/x-tex">6.9497\text{\times}{10}^{-02}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left" id="S4.T3.5.3.4"><math alttext="4.9173\text{\times}{10}^{-02}" class="ltx_Math" display="inline" id="S4.T3.m9" intent=":literal"><semantics><mrow><mn>4.9173</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>02</mn></mrow></msup></mrow><annotation encoding="application/x-tex">4.9173\text{\times}{10}^{-02}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left" id="S4.T3.5.3.5">µm m<sup class="ltx_sup" id="S4.T3.5.3.5.1"><span class="ltx_text ltx_font_italic" id="S4.T3.5.3.5.1.1">-1</span></sup> K<sup class="ltx_sup" id="S4.T3.5.3.5.2"><span class="ltx_text ltx_font_italic" id="S4.T3.5.3.5.2.1">-2</span></sup></td></tr>
+<tr class="ltx_tr" id="S4.T3.5.4">
+<td class="ltx_td" id="S4.T3.5.4.1"></td>
+<td class="ltx_td ltx_align_center" id="S4.T3.5.4.2">C</td>
+<td class="ltx_td ltx_align_left" id="S4.T3.5.4.3"><math alttext="-8.7335\text{\times}{10}^{-05}" class="ltx_Math" display="inline" id="S4.T3.m12" intent=":literal"><semantics><mrow><mrow><mo>−</mo><mn>8.7335</mn></mrow><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>05</mn></mrow></msup></mrow><annotation encoding="application/x-tex">-8.7335\text{\times}{10}^{-05}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left" id="S4.T3.5.4.4"><math alttext="-4.8847\text{\times}{10}^{-05}" class="ltx_Math" display="inline" id="S4.T3.m13" intent=":literal"><semantics><mrow><mrow><mo>−</mo><mn>4.8847</mn></mrow><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>05</mn></mrow></msup></mrow><annotation encoding="application/x-tex">-4.8847\text{\times}{10}^{-05}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left" id="S4.T3.5.4.5">µm m<sup class="ltx_sup" id="S4.T3.5.4.5.1"><span class="ltx_text ltx_font_italic" id="S4.T3.5.4.5.1.1">-1</span></sup> K<sup class="ltx_sup" id="S4.T3.5.4.5.2"><span class="ltx_text ltx_font_italic" id="S4.T3.5.4.5.2.1">-3</span></sup></td></tr>
+<tr class="ltx_tr" id="S4.T3.5.5">
+<td class="ltx_td ltx_align_center ltx_border_t" id="S4.T3.5.5.1"><math alttext="\Delta L/L" class="ltx_Math" display="inline" id="S4.T3.m16" intent=":literal"><semantics><mrow><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>L</mi></mrow><mo>/</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">\Delta L/L</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="S4.T3.5.5.2">A</td>
+<td class="ltx_td ltx_align_left ltx_border_t" id="S4.T3.5.5.3"><math alttext="8.1504\text{\times}{10}^{00}" class="ltx_Math" display="inline" id="S4.T3.m17" intent=":literal"><semantics><mrow><mn>8.1504</mn><mtext>×</mtext><msup><mn>10</mn><mn>00</mn></msup></mrow><annotation encoding="application/x-tex">8.1504\text{\times}{10}^{00}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_border_t" id="S4.T3.5.5.4"><math alttext="4.8366\text{\times}{10}^{00}" class="ltx_Math" display="inline" id="S4.T3.m18" intent=":literal"><semantics><mrow><mn>4.8366</mn><mtext>×</mtext><msup><mn>10</mn><mn>00</mn></msup></mrow><annotation encoding="application/x-tex">4.8366\text{\times}{10}^{00}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_border_t" id="S4.T3.5.5.5">µm m<sup class="ltx_sup" id="S4.T3.5.5.5.1"><span class="ltx_text ltx_font_italic" id="S4.T3.5.5.5.1.1">-1</span></sup> K<sup class="ltx_sup" id="S4.T3.5.5.5.2"><span class="ltx_text ltx_font_italic" id="S4.T3.5.5.5.2.1">-1</span></sup></td></tr>
+<tr class="ltx_tr" id="S4.T3.5.6">
+<td class="ltx_td" id="S4.T3.5.6.1"></td>
+<td class="ltx_td ltx_align_center" id="S4.T3.5.6.2">B</td>
+<td class="ltx_td ltx_align_left" id="S4.T3.5.6.3"><math alttext="2.3906\text{\times}{10}^{-02}" class="ltx_Math" display="inline" id="S4.T3.m21" intent=":literal"><semantics><mrow><mn>2.3906</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>02</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2.3906\text{\times}{10}^{-02}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left" id="S4.T3.5.6.4"><math alttext="1.7752\text{\times}{10}^{-02}" class="ltx_Math" display="inline" id="S4.T3.m22" intent=":literal"><semantics><mrow><mn>1.7752</mn><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>02</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1.7752\text{\times}{10}^{-02}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left" id="S4.T3.5.6.5">µm m<sup class="ltx_sup" id="S4.T3.5.6.5.1"><span class="ltx_text ltx_font_italic" id="S4.T3.5.6.5.1.1">-1</span></sup> K<sup class="ltx_sup" id="S4.T3.5.6.5.2"><span class="ltx_text ltx_font_italic" id="S4.T3.5.6.5.2.1">-2</span></sup></td></tr>
+<tr class="ltx_tr" id="S4.T3.5.7">
+<td class="ltx_td ltx_border_bb" id="S4.T3.5.7.1"></td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="S4.T3.5.7.2">C</td>
+<td class="ltx_td ltx_align_left ltx_border_bb" id="S4.T3.5.7.3"><math alttext="-1.3660\text{\times}{10}^{-05}" class="ltx_Math" display="inline" id="S4.T3.m25" intent=":literal"><semantics><mrow><mrow><mo>−</mo><mn>1.3660</mn></mrow><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>05</mn></mrow></msup></mrow><annotation encoding="application/x-tex">-1.3660\text{\times}{10}^{-05}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_border_bb" id="S4.T3.5.7.4"><math alttext="-1.3644\text{\times}{10}^{-05}" class="ltx_Math" display="inline" id="S4.T3.m26" intent=":literal"><semantics><mrow><mrow><mo>−</mo><mn>1.3644</mn></mrow><mtext>×</mtext><msup><mn>10</mn><mrow><mo>−</mo><mn>05</mn></mrow></msup></mrow><annotation encoding="application/x-tex">-1.3644\text{\times}{10}^{-05}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_border_bb" id="S4.T3.5.7.5">µm m<sup class="ltx_sup" id="S4.T3.5.7.5.1"><span class="ltx_text ltx_font_italic" id="S4.T3.5.7.5.1.1">-1</span></sup> K<sup class="ltx_sup" id="S4.T3.5.7.5.2"><span class="ltx_text ltx_font_italic" id="S4.T3.5.7.5.2.1">-3</span></sup></td></tr>
+</tbody>
+</table>
+</figure>
+</section>
+</section>
+<section class="ltx_section" id="S5">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">5 </span>结论</h2>
+<div class="ltx_para" id="S5.p1">
+<p class="ltx_p" id="S5.p1.1">在本文中，我们报告了对 OHARA S-FPL51 和 S-LAH71 玻璃在低温条件下的若干性质进行表征的工作。对于 MICADO——即将建成的极大望远镜的近红外仪器——这些玻璃将用于大气色散校正器，这构成了本文所述表征工作的主要动机。</p>
+</div>
+<div class="ltx_para" id="S5.p2">
+<p class="ltx_p" id="S5.p2.1">我们对 S-FPL51 折射率的测量与别处描述的先前测量结果吻合良好。此前尚未报道过 S-LAH71 的低温折射率测量，因此这些结果将有助于未来使用该材料的低温仪器。S-FPL51 和 S-LAH71 均表现出随温度降低折射率值略有增加。我们提供了可在 80 K 至 293 K 范围内计算任意温度下塞尔迈尔系数的系数。</p>
+</div>
+<div class="ltx_para" id="S5.p3">
+<p class="ltx_p" id="S5.p3.1">接下来，我们根据制造商提供的现有透射数据，扩展了这两种玻璃的透射率曲线。两种材料在超过 2700 nm 后均表现出透射率下降。尤其是 S-LAH71，其透射率下降显著，这将有助于放宽 MICADO 中通带滤光片的一些带外阻断需求。在将这两种材料的透射率与低至 43 K 的低温下的透射率进行比较时，我们未发现透射率或其他吸收有任何变化。</p>
+</div>
+<div class="ltx_para" id="S5.p4">
+<p class="ltx_p" id="S5.p4.1">最后，我们报告了这两种玻璃在 300 K 至 45 K 之间的热膨胀测量结果。我们使用了一套相对简单的、基于干涉测距的装置来确定线膨胀以及热膨胀系数随温度的变化。我们发现，S-FPL51 在室温和 77 K 之间收缩 1.3 mm/m，而 S-LAH71 收缩 2.1 mm/m。室温下随温度变化的 CTE 值与 OHARA 提供的数据表大致一致，并且这些值在较低温度下有所降低，尽管这些测量包含更多的测量噪声，增加了所报告值的不确定度。尽管如此，线膨胀值对于设计镜架方案以及估算 ELT-MICADO 和 TMT-IRIS 等低温仪器的应力诱导光学像差将非常有用。</p>
+</div>
+<div class="ltx_pagination ltx_role_newpage"></div>
+</section>
+<section class="ltx_appendix" id="A1">
+<h2 class="ltx_title ltx_title_appendix"><span class="ltx_tag ltx_tag_appendix">附录 A </span>折射率表</h2>
+<figure class="ltx_figure" id="A1.fig3">
+<div class="ltx_flex_figure">
+<div class="ltx_flex_cell ltx_flex_size_2">
+<figure class="ltx_figure ltx_figure_panel ltx_align_center ltx_align_top" id="A1.T4" style="width:165.6pt;">
+<br class="ltx_break ltx_break"/>
+<table class="ltx_tabular ltx_centering ltx_figure_panel ltx_guessed_headers ltx_align_middle" id="A1.T4.1">
+<thead class="ltx_thead">
+<tr class="ltx_tr" id="A1.T4.1.1">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_th_row" colspan="4" id="A1.T4.1.1.1"><span class="ltx_text ltx_font_bold" id="A1.T4.1.1.1.1">S-FPL51</span></th></tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="A1.T4.1.2">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row ltx_border_tt" id="A1.T4.1.2.1"><math alttext="\lambda" class="ltx_Math" display="inline" id="A1.m1" intent=":literal"><semantics><mi>λ</mi><annotation encoding="application/x-tex">\lambda</annotation></semantics></math> (nm)</th>
+<td class="ltx_td ltx_align_right ltx_border_tt" id="A1.T4.1.2.2">T = 80 K</td>
+<td class="ltx_td ltx_align_right ltx_border_tt" id="A1.T4.1.2.3">T = 100 K</td>
+<td class="ltx_td ltx_align_right ltx_border_tt" id="A1.T4.1.2.4">T = 293 K</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.3">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row ltx_border_t" id="A1.T4.1.3.1">800</th>
+<td class="ltx_td ltx_align_right ltx_border_t" id="A1.T4.1.3.2">1.494145</td>
+<td class="ltx_td ltx_align_right ltx_border_t" id="A1.T4.1.3.3">1.494063</td>
+<td class="ltx_td ltx_align_right ltx_border_t" id="A1.T4.1.3.4">1.492740</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.4">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.4.1">850</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.4.2">1.493493</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.4.3">1.493411</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.4.4">1.492089</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.5">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.5.1">900</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.5.2">1.492913</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.5.3">1.492831</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.5.4">1.491510</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.6">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.6.1">950</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.6.2">1.492388</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.6.3">1.492306</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.6.4">1.490987</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.7">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.7.1">1000</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.7.2">1.491905</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.7.3">1.491823</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.7.4">1.490505</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.8">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.8.1">1050</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.8.2">1.491456</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.8.3">1.491374</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.8.4">1.490057</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.9">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.9.1">1100</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.9.2">1.491031</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.9.3">1.490949</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.9.4">1.489634</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.10">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.10.1">1150</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.10.2">1.490626</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.10.3">1.490544</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.10.4">1.489229</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.11">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.11.1">1200</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.11.2">1.490235</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.11.3">1.490153</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.11.4">1.488839</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.12">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.12.1">1250</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.12.2">1.489854</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.12.3">1.489772</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.12.4">1.488460</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.13">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.13.1">1300</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.13.2">1.489482</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.13.3">1.489399</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.13.4">1.488088</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.14">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.14.1">1350</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.14.2">1.489113</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.14.3">1.489031</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.14.4">1.487721</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.15">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.15.1">1400</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.15.2">1.488748</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.15.3">1.488666</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.15.4">1.487357</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.16">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.16.1">1450</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.16.2">1.488384</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.16.3">1.488302</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.16.4">1.486994</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.17">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.17.1">1500</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.17.2">1.488019</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.17.3">1.487937</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.17.4">1.486630</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.18">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.18.1">1550</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.18.2">1.487653</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.18.3">1.487571</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.18.4">1.486265</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.19">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.19.1">1600</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.19.2">1.487284</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.19.3">1.487202</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.19.4">1.485897</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.20">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.20.1">1650</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.20.2">1.486911</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.20.3">1.486829</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.20.4">1.485525</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.21">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.21.1">1700</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.21.2">1.486534</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.21.3">1.486451</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.21.4">1.485149</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.22">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.22.1">1750</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.22.2">1.486151</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.22.3">1.486069</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.22.4">1.484768</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.23">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.23.1">1800</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.23.2">1.485763</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.23.3">1.485681</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.23.4">1.484381</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.24">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.24.1">1850</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.24.2">1.485369</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.24.3">1.485286</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.24.4">1.483988</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.25">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.25.1">1900</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.25.2">1.484968</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.25.3">1.484885</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.25.4">1.483588</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.26">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.26.1">1950</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.26.2">1.484559</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.26.3">1.484477</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.26.4">1.483180</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.27">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.27.1">2000</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.27.2">1.484143</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.27.3">1.484061</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.27.4">1.482766</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.28">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.28.1">2050</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.28.2">1.483719</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.28.3">1.483637</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.28.4">1.482343</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.29">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.29.1">2100</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.29.2">1.483287</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.29.3">1.483204</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.29.4">1.481912</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.30">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.30.1">2150</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.30.2">1.482847</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.30.3">1.482764</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.30.4">1.481473</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.31">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.31.1">2200</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.31.2">1.482397</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.31.3">1.482314</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.31.4">1.481025</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.32">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.32.1">2250</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.32.2">1.481939</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.32.3">1.481856</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.32.4">1.480567</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.33">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.33.1">2300</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.33.2">1.481471</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.33.3">1.481388</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.33.4">1.480101</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.34">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.34.1">2350</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.34.2">1.480994</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.34.3">1.480911</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.34.4">1.479625</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.35">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.35.1">2400</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.35.2">1.480507</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.35.3">1.480424</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.35.4">1.479140</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.36">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T4.1.36.1">2450</th>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.36.2">1.480010</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.36.3">1.479927</td>
+<td class="ltx_td ltx_align_right" id="A1.T4.1.36.4">1.478645</td></tr>
+<tr class="ltx_tr" id="A1.T4.1.37">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row ltx_border_bb" id="A1.T4.1.37.1">2500</th>
+<td class="ltx_td ltx_align_right ltx_border_bb" id="A1.T4.1.37.2">1.479503</td>
+<td class="ltx_td ltx_align_right ltx_border_bb" id="A1.T4.1.37.3">1.479420</td>
+<td class="ltx_td ltx_align_right ltx_border_bb" id="A1.T4.1.37.4">1.478139</td></tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="A1.T4.4" style="font-size:90%;">表 4</span>：</span><span class="ltx_text" id="A1.T4.5" style="font-size:90%;">S-FPL51 在 80 K、100 K 和 293 K 下的折射率，在相应温度下的平均不确定度分别为 <math alttext="2.3\times 10^{-5}" class="ltx_Math" display="inline" id="A1.T4.m4" intent=":literal"><semantics><mrow><mn>2.3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>5</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2.3\times 10^{-5}</annotation></semantics></math>、<math alttext="2.3\times 10^{-5}" class="ltx_Math" display="inline" id="A1.T4.m5" intent=":literal"><semantics><mrow><mn>2.3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>5</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2.3\times 10^{-5}</annotation></semantics></math> 和 <math alttext="1.7\times 10^{-5}" class="ltx_Math" display="inline" id="A1.T4.m6" intent=":literal"><semantics><mrow><mn>1.7</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>5</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1.7\times 10^{-5}</annotation></semantics></math>。</span></figcaption>
+</figure></div><div class="ltx_flex_cell ltx_flex_size_2">
+<figure class="ltx_figure ltx_figure_panel ltx_align_center ltx_align_top" id="A1.T5" style="width:165.6pt;">
+<br class="ltx_break ltx_break"/>
+<table class="ltx_tabular ltx_centering ltx_figure_panel ltx_guessed_headers ltx_align_middle" id="A1.T5.1">
+<thead class="ltx_thead">
+<tr class="ltx_tr" id="A1.T5.1.1">
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_th_row" colspan="4" id="A1.T5.1.1.1"><span class="ltx_text ltx_font_bold" id="A1.T5.1.1.1.1">S-LAH71</span></th></tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="A1.T5.1.2">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row ltx_border_tt" id="A1.T5.1.2.1"><math alttext="\lambda" class="ltx_Math" display="inline" id="A1.m2" intent=":literal"><semantics><mi>λ</mi><annotation encoding="application/x-tex">\lambda</annotation></semantics></math> (nm)</th>
+<td class="ltx_td ltx_align_right ltx_border_tt" id="A1.T5.1.2.2">T = 80 K</td>
+<td class="ltx_td ltx_align_right ltx_border_tt" id="A1.T5.1.2.3">T = 100 K</td>
+<td class="ltx_td ltx_align_right ltx_border_tt" id="A1.T5.1.2.4">T = 293 K</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.3">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row ltx_border_t" id="A1.T5.1.3.1">800</th>
+<td class="ltx_td ltx_align_right ltx_border_t" id="A1.T5.1.3.2">1.832463</td>
+<td class="ltx_td ltx_align_right ltx_border_t" id="A1.T5.1.3.3">1.832394</td>
+<td class="ltx_td ltx_align_right ltx_border_t" id="A1.T5.1.3.4">1.832182</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.4">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.4.1">850</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.4.2">1.830116</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.4.3">1.830044</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.4.4">1.829811</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.5">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.5.1">900</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.5.2">1.828107</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.5.3">1.828032</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.5.4">1.827784</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.6">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.6.1">950</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.6.2">1.826358</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.6.3">1.826282</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.6.4">1.826022</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.7">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.7.1">1000</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.7.2">1.824813</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.7.3">1.824736</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.7.4">1.824466</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.8">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.8.1">1050</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.8.2">1.823429</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.8.3">1.823351</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.8.4">1.823073</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.9">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.9.1">1100</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.9.2">1.822172</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.9.3">1.822094</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.9.4">1.821809</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.10">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.10.1">1150</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.10.2">1.821018</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.10.3">1.820939</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.10.4">1.820650</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.11">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.11.1">1200</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.11.2">1.819946</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.11.3">1.819866</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.11.4">1.819573</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.12">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.12.1">1250</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.12.2">1.818940</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.12.3">1.818860</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.12.4">1.818563</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.13">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.13.1">1300</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.13.2">1.817987</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.13.3">1.817907</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.13.4">1.817607</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.14">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.14.1">1350</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.14.2">1.817077</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.14.3">1.816996</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.14.4">1.816695</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.15">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.15.1">1400</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.15.2">1.816201</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.15.3">1.816120</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.15.4">1.815817</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.16">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.16.1">1450</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.16.2">1.815351</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.16.3">1.815271</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.16.4">1.814967</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.17">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.17.1">1500</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.17.2">1.814523</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.17.3">1.814443</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.17.4">1.814138</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.18">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.18.1">1550</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.18.2">1.813711</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.18.3">1.813630</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.18.4">1.813326</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.19">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.19.1">1600</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.19.2">1.812911</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.19.3">1.812830</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.19.4">1.812526</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.20">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.20.1">1650</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.20.2">1.812119</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.20.3">1.812038</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.20.4">1.811734</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.21">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.21.1">1700</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.21.2">1.811332</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.21.3">1.811251</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.21.4">1.810948</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.22">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.22.1">1750</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.22.2">1.810548</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.22.3">1.810467</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.22.4">1.810165</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.23">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.23.1">1800</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.23.2">1.809763</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.23.3">1.809683</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.23.4">1.809382</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.24">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.24.1">1850</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.24.2">1.808977</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.24.3">1.808897</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.24.4">1.808597</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.25">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.25.1">1900</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.25.2">1.808188</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.25.3">1.808108</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.25.4">1.807810</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.26">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.26.1">1950</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.26.2">1.807393</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.26.3">1.807314</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.26.4">1.807017</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.27">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.27.1">2000</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.27.2">1.806592</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.27.3">1.806513</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.27.4">1.806218</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.28">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.28.1">2050</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.28.2">1.805784</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.28.3">1.805705</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.28.4">1.805412</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.29">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.29.1">2100</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.29.2">1.804967</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.29.3">1.804888</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.29.4">1.804597</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.30">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.30.1">2150</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.30.2">1.804140</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.30.3">1.804061</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.30.4">1.803772</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.31">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.31.1">2200</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.31.2">1.803302</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.31.3">1.803224</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.31.4">1.802938</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.32">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.32.1">2250</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.32.2">1.802454</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.32.3">1.802376</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.32.4">1.802092</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.33">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.33.1">2300</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.33.2">1.801593</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.33.3">1.801515</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.33.4">1.801234</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.34">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.34.1">2350</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.34.2">1.800719</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.34.3">1.800642</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.34.4">1.800364</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.35">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.35.1">2400</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.35.2">1.799833</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.35.3">1.799756</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.35.4">1.799480</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.36">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row" id="A1.T5.1.36.1">2450</th>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.36.2">1.798932</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.36.3">1.798856</td>
+<td class="ltx_td ltx_align_right" id="A1.T5.1.36.4">1.798583</td></tr>
+<tr class="ltx_tr" id="A1.T5.1.37">
+<th class="ltx_td ltx_align_right ltx_th ltx_th_row ltx_border_bb" id="A1.T5.1.37.1">2500</th>
+<td class="ltx_td ltx_align_right ltx_border_bb" id="A1.T5.1.37.2">1.798017</td>
+<td class="ltx_td ltx_align_right ltx_border_bb" id="A1.T5.1.37.3">1.797941</td>
+<td class="ltx_td ltx_align_right ltx_border_bb" id="A1.T5.1.37.4">1.797672</td></tr>
+</tbody>
+</table>
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="A1.T5.4" style="font-size:90%;">表 5</span>：</span><span class="ltx_text" id="A1.T5.5" style="font-size:90%;">S-LAH71 在 80 K、100 K 和 293 K 下的折射率，在相应温度下的平均不确定度分别为 <math alttext="2.4\times 10^{-5}" class="ltx_Math" display="inline" id="A1.T5.m4" intent=":literal"><semantics><mrow><mn>2.4</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>5</mn></mrow></msup></mrow><annotation encoding="application/x-tex">2.4\times 10^{-5}</annotation></semantics></math>、<math alttext="1.5\times 10^{-5}" class="ltx_Math" display="inline" id="A1.T5.m5" intent=":literal"><semantics><mrow><mn>1.5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>5</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1.5\times 10^{-5}</annotation></semantics></math> 和 <math alttext="1.8\times 10^{-5}" class="ltx_Math" display="inline" id="A1.T5.m6" intent=":literal"><semantics><mrow><mn>1.8</mn><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mrow><mo>−</mo><mn>5</mn></mrow></msup></mrow><annotation encoding="application/x-tex">1.8\times 10^{-5}</annotation></semantics></math>。</span></figcaption>
+</figure></div></div>
+</figure>
+<div class="ltx_pagination ltx_role_newpage"></div>
+</section>
+<section class="ltx_appendix" id="A2">
+<h2 class="ltx_title ltx_title_appendix"><span class="ltx_tag ltx_tag_appendix">附录 B </span>转换为 NIST 方程</h2>
+<div class="ltx_para" id="A2.p1">
+<p class="ltx_p" id="A2.p1.1">NIST 使用的描述线膨胀的标准方程（例如用于 Aluminium 6061-T6<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib16" title="">8</a>]</cite>）是一个五项幂级数，</p>
+</div>
+<div class="ltx_para" id="A2.p2">
+<table class="ltx_equation ltx_eqn_table" id="A2.E10">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="y=a+bT+cT^{2}+dT^{3}+eT^{4}," class="ltx_Math" display="block" id="A2.E10.m1" intent=":literal"><semantics><mrow><mrow><mi>y</mi><mo>=</mo><mrow><mi>a</mi><mo>+</mo><mrow><mi>b</mi><mo lspace="0em" rspace="0em">​</mo><mi>T</mi></mrow><mo>+</mo><mrow><mi>c</mi><mo lspace="0em" rspace="0em">​</mo><msup><mi>T</mi><mn>2</mn></msup></mrow><mo>+</mo><mrow><mi>d</mi><mo lspace="0em" rspace="0em">​</mo><msup><mi>T</mi><mn>3</mn></msup></mrow><mo>+</mo><mrow><mi>e</mi><mo lspace="0em" rspace="0em">​</mo><msup><mi>T</mi><mn>4</mn></msup></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">y=a+bT+cT^{2}+dT^{3}+eT^{4},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(10)</span></td></tr></tbody>
+</table>
+</div>
+<div class="ltx_para" id="A2.p3">
+<p class="ltx_p" id="A2.p3.1">其中 y 是线膨胀 <math alttext="\Delta L/L_{0}" class="ltx_Math" display="inline" id="A2.p3.m1" intent=":literal"><semantics><mrow><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>L</mi></mrow><mo>/</mo><msub><mi>L</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">\Delta L/L_{0}</annotation></semantics></math>，<math alttext="T" class="ltx_Math" display="inline" id="A2.p3.m2" intent=":literal"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math> 以开尔文为单位。我们可以将前几节给出的方程和系数转换为这种形式。</p>
+</div>
+<div class="ltx_para" id="A2.p4">
+<p class="ltx_p" id="A2.p4.1">根据热膨胀的定义，我们可以重写</p>
+<table class="ltx_equation ltx_eqn_table" id="A2.E11">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="L(T)=L_{0}\left(1-\alpha\Delta T\right)" class="ltx_Math" display="block" id="A2.E11.m1" intent=":literal"><semantics><mrow><mrow><mi>L</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>T</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><msub><mi>L</mi><mn>0</mn></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo>(</mo><mrow><mn>1</mn><mo>−</mo><mrow><mi>α</mi><mo lspace="0em" rspace="0em">​</mo><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>T</mi></mrow></mrow><mo>)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">L(T)=L_{0}\left(1-\alpha\Delta T\right)</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(11)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="A2.p4.2">into</p>
+</div>
+<div class="ltx_para" id="A2.p5">
+<table class="ltx_equation ltx_eqn_table" id="A2.E12">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\alpha\Delta T=\frac{L_{0}-L(T)}{L_{0}}=(A+BT+CT^{2})(T-T_{0})." class="ltx_Math" display="block" id="A2.E12.m1" intent=":literal"><semantics><mrow><mrow><mrow><mi>α</mi><mo lspace="0em" rspace="0em">​</mo><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>T</mi></mrow><mo>=</mo><mfrac><mrow><msub><mi>L</mi><mn>0</mn></msub><mo>−</mo><mrow><mi>L</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>T</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><msub><mi>L</mi><mn>0</mn></msub></mfrac><mo>=</mo><mrow><mrow><mo stretchy="false">(</mo><mrow><mi>A</mi><mo>+</mo><mrow><mi>B</mi><mo lspace="0em" rspace="0em">​</mo><mi>T</mi></mrow><mo>+</mo><mrow><mi>C</mi><mo lspace="0em" rspace="0em">​</mo><msup><mi>T</mi><mn>2</mn></msup></mrow></mrow><mo stretchy="false">)</mo></mrow><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mrow><mi>T</mi><mo>−</mo><msub><mi>T</mi><mn>0</mn></msub></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\alpha\Delta T=\frac{L_{0}-L(T)}{L_{0}}=(A+BT+CT^{2})(T-T_{0}).</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(12)</span></td></tr></tbody>
+</table>
+</div>
+<div class="ltx_para" id="A2.p6">
+<p class="ltx_p" id="A2.p6.1">将其展开可得到 NIST 方程的形式，其中</p>
+<table class="ltx_equationgroup ltx_eqn_table" id="A2.E13">
+<tbody>
+<tr class="ltx_equation ltx_eqn_row ltx_align_baseline" id="A2.E13X">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell"><math alttext="\displaystyle a" class="ltx_Math" display="inline" id="A2.E13X.m2" intent=":literal"><semantics><mi>a</mi><annotation encoding="application/x-tex">\displaystyle a</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math alttext="\displaystyle=-AT_{0}," class="ltx_Math" display="inline" id="A2.E13X.m3" intent=":literal"><semantics><mrow><mrow><mphantom></mphantom><mo>=</mo><mrow><mo>−</mo><mrow><mi>A</mi><mo lspace="0em" rspace="0em">​</mo><msub><mi>T</mi><mn>0</mn></msub></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\displaystyle=-AT_{0},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="5"><span class="ltx_tag ltx_tag_equationgroup ltx_align_right">(13)</span></td></tr>
+<tr class="ltx_equation ltx_eqn_row ltx_align_baseline" id="A2.E13Xa">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell"><math alttext="\displaystyle b" class="ltx_Math" display="inline" id="A2.E13Xa.m2" intent=":literal"><semantics><mi>b</mi><annotation encoding="application/x-tex">\displaystyle b</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math alttext="\displaystyle=A-BT_{0}," class="ltx_Math" display="inline" id="A2.E13Xa.m3" intent=":literal"><semantics><mrow><mrow><mphantom></mphantom><mo>=</mo><mrow><mi>A</mi><mo>−</mo><mrow><mi>B</mi><mo lspace="0em" rspace="0em">​</mo><msub><mi>T</mi><mn>0</mn></msub></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\displaystyle=A-BT_{0},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td></tr>
+<tr class="ltx_equation ltx_eqn_row ltx_align_baseline" id="A2.E13Xb">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell"><math alttext="\displaystyle c" class="ltx_Math" display="inline" id="A2.E13Xb.m2" intent=":literal"><semantics><mi>c</mi><annotation encoding="application/x-tex">\displaystyle c</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math alttext="\displaystyle=B-CT_{0}," class="ltx_Math" display="inline" id="A2.E13Xb.m3" intent=":literal"><semantics><mrow><mrow><mphantom></mphantom><mo>=</mo><mrow><mi>B</mi><mo>−</mo><mrow><mi>C</mi><mo lspace="0em" rspace="0em">​</mo><msub><mi>T</mi><mn>0</mn></msub></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\displaystyle=B-CT_{0},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td></tr>
+<tr class="ltx_equation ltx_eqn_row ltx_align_baseline" id="A2.E13Xc">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell"><math alttext="\displaystyle d" class="ltx_Math" display="inline" id="A2.E13Xc.m2" intent=":literal"><semantics><mi>d</mi><annotation encoding="application/x-tex">\displaystyle d</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math alttext="\displaystyle=C," class="ltx_Math" display="inline" id="A2.E13Xc.m3" intent=":literal"><semantics><mrow><mrow><mphantom></mphantom><mo>=</mo><mi>C</mi></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\displaystyle=C,</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td></tr>
+<tr class="ltx_equation ltx_eqn_row ltx_align_baseline" id="A2.E13Xd">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell"><math alttext="\displaystyle e" class="ltx_Math" display="inline" id="A2.E13Xd.m2" intent=":literal"><semantics><mi>e</mi><annotation encoding="application/x-tex">\displaystyle e</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell"><math alttext="\displaystyle=0." class="ltx_Math" display="inline" id="A2.E13Xd.m3" intent=":literal"><semantics><mrow><mrow><mphantom></mphantom><mo>=</mo><mn>0</mn></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\displaystyle=0.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td></tr></tbody>
+</table>
+<p class="ltx_p" id="A2.p6.2">S-FPL51 和 S-LAH71 的转换后系数见下方表 <a class="ltx_ref" href="#A2.T6" title="Table 6 ‣ Appendix B Conversion to the NIST equation ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">6</span></a>。与正文中一样，我们以 µm/m 为单位给出热膨胀，但转换为同样常用的无量纲 m/m 仅相差一个因子 10<sup class="ltx_sup" id="A2.p6.2.1">-6</sup>。</p>
+</div>
+<figure class="ltx_table" id="A2.T6">
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_table"><span class="ltx_text" id="A2.T6.3" style="font-size:90%;">表 6</span>：</span><span class="ltx_text" id="A2.T6.4" style="font-size:90%;">S-FPL51 和 S-LAH71 的线膨胀系数，已转换为例如 NIST 所使用的五项幂级数格式。这样更容易将测得的膨胀与其他材料直接比较。</span></figcaption>
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle" id="A2.T6.5">
+<thead class="ltx_thead">
+<tr class="ltx_tr" id="A2.T6.5.1">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt" id="A2.T6.5.1.1">Material</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="A2.T6.5.1.2"><math alttext="T_{0}" class="ltx_Math" display="inline" id="A2.T6.m1" intent=":literal"><semantics><msub><mi>T</mi><mn>0</mn></msub><annotation encoding="application/x-tex">T_{0}</annotation></semantics></math> (K)</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="A2.T6.5.1.3">a</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="A2.T6.5.1.4">b</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="A2.T6.5.1.5">c</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="A2.T6.5.1.6">d</th>
+<th class="ltx_td ltx_align_center ltx_th ltx_th_column ltx_border_tt" id="A2.T6.5.1.7">e</th></tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr" id="A2.T6.5.2">
+<td class="ltx_td ltx_align_left ltx_border_t" id="A2.T6.5.2.1">S-FPL51</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="A2.T6.5.2.2">293</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="A2.T6.5.2.3">-2.3881E+03</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="A2.T6.5.2.4">1.1460E+00</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="A2.T6.5.2.5">2.7908E-02</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="A2.T6.5.2.6">-1.3660E-05</td>
+<td class="ltx_td ltx_align_center ltx_border_t" id="A2.T6.5.2.7">0</td></tr>
+<tr class="ltx_tr" id="A2.T6.5.3">
+<td class="ltx_td ltx_align_left ltx_border_bb" id="A2.T6.5.3.1">S-LAH71</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="A2.T6.5.3.2">293</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="A2.T6.5.3.3">-1.4171E+03</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="A2.T6.5.3.4">-3.6473E-01</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="A2.T6.5.3.5">2.1750E-02</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="A2.T6.5.3.6">-1.3644E-05</td>
+<td class="ltx_td ltx_align_center ltx_border_bb" id="A2.T6.5.3.7">0</td></tr>
+</tbody>
+</table>
+</figure>
+<div class="ltx_pagination ltx_role_newpage"></div>
+</section>
+<section class="ltx_bibliography" id="bib">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+<ul class="ltx_biblist" id="bib.L1">
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib4"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. Davies, J. Alves, Y. Clénet, V. Hörmann, F. Kerber, F. Lang-Bardl, H. Nicklas, J. Pott, S. Rabien, E. Sturm, E. Tolstoy, B. Vulcani, and J. Kotilainen</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">The final design of MICADO, the first light ELT camera</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Ground-based and Airborne Instrumentation for Astronomy IX</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">Society of Photo-Optical Instrumentation Engineers (SPIE) Conference Series</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">This conference.</span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 INTRODUCTION ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib15"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Institute for Basic Standards (U.S.). Cryogenics Division, D.B. Mann, and American Gas Association</span><span class="ltx_text ltx_bib_year"> (1977)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">LNG Materials &amp; Fluids: A User’s Manual of Property Data in Graphic Format</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">The Division</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://books.google.nl/books?id=rAr9wQEACAAJ" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="1 INTRODUCTION ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S4.p7.1" title="4 Coefficient of Thermal Expansion ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">§4</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib8"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. E. Larkin, A. M. Moore, S. A. Wright, J. E. Wincentsen, D. Anderson, E. M. Chisholm, R. G. Dekany, J. S. Dunn, B. L. Ellerbroek, Y. Hayano, A. C. Phillips, L. Simard, R. Smith, R. Suzuki, R. W. Weber, J. L. Weiss, and K. Zhang</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">The Infrared Imaging Spectrograph (IRIS) for TMT: instrument overview</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Ground-based and Airborne Instrumentation for Astronomy VI</span>,  <span class="ltx_text ltx_bib_editor">C. J. Evans, L. Simard, and H. Takami (Eds.)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">Society of Photo-Optical Instrumentation Engineers (SPIE) Conference Series</span>, Vol. <span class="ltx_text ltx_bib_volume">9908</span>, <span class="ltx_text ltx_bib_pages">pp. 99081W</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/12.2232212" title="">Document</a>,
+<span class="ltx_text ltx_bib_external">1608.01720</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 INTRODUCTION ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib13"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. B. Leviton, B. J. Frey, and R. M. Henry</span><span class="ltx_text ltx_bib_year"> (2013)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Temperature-dependent refractive index measurements of S-FPL51, S-FTM16, and S-TIM28 to cryogenic temperatures</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Cryogenic Optical Systems and Instruments 2013</span>,  <span class="ltx_text ltx_bib_editor">J. B. Heaney and E. T. Kvamme (Eds.)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">Society of Photo-Optical Instrumentation Engineers (SPIE) Conference Series</span>, Vol. <span class="ltx_text ltx_bib_volume">8863</span>, <span class="ltx_text ltx_bib_pages">pp. 886308</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/12.2024821" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.SS2.p2.1" title="2.2 Results ‣ 2 Index of refraction ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">§2.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib11"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. B. Leviton and B. J. Frey</span><span class="ltx_text ltx_bib_year"> (2004)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Cryogenic High-Accuracy Refraction Measuring System (CHARMS): a new facility for cryogenic infrared through far-ultraviolet refractive index measurements</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Optical Fabrication, Metrology, and Material Advancements for Telescopes</span>,  <span class="ltx_text ltx_bib_editor">E. Atad-Ettedgui and P. Dierickx (Eds.)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">Society of Photo-Optical Instrumentation Engineers (SPIE) Conference Series</span>, Vol. <span class="ltx_text ltx_bib_volume">5494</span>, <span class="ltx_text ltx_bib_pages">pp. 492–504</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/12.563795" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.p1.1" title="2 Index of refraction ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib18"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. B. Leviton and B. J. Frey</span><span class="ltx_text ltx_bib_year"> (2006)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Temperature-dependent absolute refractive index measurements of synthetic fused silica</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Optomechanical Technologies for Astronomy</span>,  <span class="ltx_text ltx_bib_editor">E. Atad-Ettedgui, J. Antebi, and D. Lemke (Eds.)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">Society of Photo-Optical Instrumentation Engineers (SPIE) Conference Series</span>, Vol. <span class="ltx_text ltx_bib_volume">6273</span>, <span class="ltx_text ltx_bib_pages">pp. 62732K</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/12.672853" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="1 INTRODUCTION ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib17"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">National Institute of Standards and Technology (U.S.) and N.J. Simon</span><span class="ltx_text ltx_bib_year"> (1994)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Cryogenic Properties of Inorganic Insulation Materials for ITER Magnets: A Review</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref ltx_bib_external" href="https://books.google.nl/books?id=jvKG0AEACAAJ" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="1 INTRODUCTION ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib16"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">National Institute of Standards and Technology</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Aluminum 6061-T6 (UNS AA96061)</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">NIST.</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note"><a class="ltx_ref ltx_url ltx_font_typewriter" href="https://www.nist.gov/mml/acmd/aluminum-6061-t6-uns-aa96061" title="">https://www.nist.gov/mml/acmd/aluminum-6061-t6-uns-aa96061</a> [Accessed: 2024-05-28]</span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#A2.p1.1" title="Appendix B Conversion to the NIST equation ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">Appendix B</span></a>,
+<a class="ltx_ref" href="#S4.p7.1" title="4 Coefficient of Thermal Expansion ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">§4</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib7"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. Navarro, E. Elswijk, M. J. A. te Voert, and L. Venema</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Cryogenic optical performance verification methods for optical components, coatings and optical systems</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">International Conference on Space Optics — ICSO 2014</span>,  <span class="ltx_text ltx_bib_editor">Z. Sodnik, B. Cugny, and N. Karafolas (Eds.)</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume">10563</span>, <span class="ltx_text ltx_bib_pages">pp. 105634A</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/12.2304226" title="">Document</a>,
+<a class="ltx_ref ltx_bib_external" href="https://doi.org/10.1117/12.2304226" title="">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.SS1.p1.1" title="3.1 Test setup ‣ 3 Transmission measurement ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">§3.1</span></a>,
+<a class="ltx_ref" href="#S3.SS1.p2.1" title="3.1 Test setup ‣ 3 Transmission measurement ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">§3.1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib9"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">OHARA INC.</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">OHARA S-FPL51 data sheet</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">OHARA INC.</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note"><a class="ltx_ref ltx_url ltx_font_typewriter" href="https://oharacorp.com/wp-content/uploads/datasheets/esfpl51.pdf" title="">https://oharacorp.com/wp-content/uploads/datasheets/esfpl51.pdf</a> [Accessed: 2024-05-17]</span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 INTRODUCTION ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S2.F2" title="In 2.2 Results ‣ 2 Index of refraction ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">Figure 2</span></a>,
+<a class="ltx_ref" href="#S2.F2.6" title="In 2.2 Results ‣ 2 Index of refraction ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">Figure 2</span></a>,
+<a class="ltx_ref" href="#S3.SS2.p1.1" title="3.2 Results ‣ 3 Transmission measurement ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">§3.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_misc" id="bib.bib10"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">OHARA INC.</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">OHARA S-LAH71 data sheet</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">OHARA INC.</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note"><a class="ltx_ref ltx_url ltx_font_typewriter" href="https://oharacorp.com/wp-content/uploads/datasheets/eslah71.pdf" title="">https://oharacorp.com/wp-content/uploads/datasheets/eslah71.pdf</a> [Accessed: 2024-05-17]</span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 INTRODUCTION ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S2.F2" title="In 2.2 Results ‣ 2 Index of refraction ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">Figure 2</span></a>,
+<a class="ltx_ref" href="#S2.F2.6" title="In 2.2 Results ‣ 2 Index of refraction ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">Figure 2</span></a>,
+<a class="ltx_ref" href="#S3.SS2.p1.1" title="3.2 Results ‣ 3 Transmission measurement ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">§3.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib3"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. C. Phillips, R. Suzuki, J. E. Larkin, A. M. Moore, Y. Hayano, T. Tsuzuki, and S. A. Wright</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">The Infrared Imaging Spectrograph (IRIS) for TMT: the ADC optical design</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Ground-based and Airborne Instrumentation for Astronomy VI</span>,  <span class="ltx_text ltx_bib_editor">C. J. Evans, L. Simard, and H. Takami (Eds.)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">Society of Photo-Optical Instrumentation Engineers (SPIE) Conference Series</span>, Vol. <span class="ltx_text ltx_bib_volume">9908</span>, <span class="ltx_text ltx_bib_pages">pp. 9908A1</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/12.2232952" title="">Document</a>,
+<span class="ltx_text ltx_bib_external">1608.01690</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 INTRODUCTION ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">§1</span></a>,
+<a class="ltx_ref" href="#S3.p1.1" title="3 Transmission measurement ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">§3</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib19"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Savitzky and M. J. E. Golay</span><span class="ltx_text ltx_bib_year"> (1964)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Smoothing and differentiation of data by simplified least squares procedures</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Analytical Chemistry</span> <span class="ltx_text ltx_bib_volume">36</span>, <span class="ltx_text ltx_bib_pages">pp. 1627–1639</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1021/ac60214a047" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.SS2.p3.1" title="3.2 Results ‣ 3 Transmission measurement ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">§3.2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib5"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Stolberg-Rohr and G. J. Hawkins</span><span class="ltx_text ltx_bib_year"> (2015)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Spectral design of temperature-invariant narrow bandpass filters for the mid-infrared</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">OExpr</span> <span class="ltx_text ltx_bib_volume">23</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 580</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OE.23.000580" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p3.1" title="1 INTRODUCTION ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib12"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. Tentori-Santa-Cruz</span><span class="ltx_text ltx_bib_year"> (1990)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Refractometry by minimum deviation: accuracy analysis</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">OptEn</span> <span class="ltx_text ltx_bib_volume">29</span> (<span class="ltx_text ltx_bib_number">2</span>), <span class="ltx_text ltx_bib_pages">pp. 160</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/12.55573" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.p1.1" title="2 Index of refraction ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">§2</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib6"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Thornton</span><span class="ltx_text ltx_bib_year"> (1989)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Absorption characteristics of low resistivity germanium</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Window and Dome Technologies and Materials</span>,  <span class="ltx_text ltx_bib_editor">P. Klocek (Ed.)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">Society of Photo-Optical Instrumentation Engineers (SPIE) Conference Series</span>, Vol. <span class="ltx_text ltx_bib_volume">1112</span>, <span class="ltx_text ltx_bib_pages">pp. 94–0</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/12.960768" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p3.1" title="1 INTRODUCTION ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_inproceedings" id="bib.bib1"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[17]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. A. van den Born, R. Romp, A. W. Janssen, R. Navarro, W. Jellema, E. Tolstoy, B. Jayawardhana, and M. Hartl</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">The MICADO atmospheric dispersion corrector: optomechanical design, expected performance and calibration techniques</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">Ground-based and Airborne Instrumentation for Astronomy IX</span>,  <span class="ltx_text ltx_bib_editor">C. J. Evans, J. J. Bryant, and K. Motohara (Eds.)</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_series">Society of Photo-Optical Instrumentation Engineers (SPIE) Conference Series</span>, Vol. <span class="ltx_text ltx_bib_volume">12184</span>, <span class="ltx_text ltx_bib_pages">pp. 121842W</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/12.2628877" title="">Document</a>,
+<span class="ltx_text ltx_bib_external">2207.02572</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.F2" title="In 2.2 Results ‣ 2 Index of refraction ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">Figure 2</span></a>,
+<a class="ltx_ref" href="#S2.F2.6" title="In 2.2 Results ‣ 2 Index of refraction ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">Figure 2</span></a>,
+<a class="ltx_ref" href="#S4.F10" title="In 4.2 Results ‣ 4 Coefficient of Thermal Expansion ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">Figure 10</span></a>,
+<a class="ltx_ref" href="#S4.F10.4" title="In 4.2 Results ‣ 4 Coefficient of Thermal Expansion ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">Figure 10</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_thesis" id="bib.bib2"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[18]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. van den Born</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">The micado atmospheric dispersion corrector</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_type">Ph.D. Thesis</span>, <span class="ltx_text ltx_bib_publisher">University of Groningen</span>, <span class="ltx_text ltx_bib_publisher">University of Groningen</span>, (<span class="ltx_text ltx_bib_language">English</span>).
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.33612/diss.611408443" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="1 INTRODUCTION ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">§1</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib14"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[19]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Yamamuro, S. Sato, T. Zenno, N. Takeyama, H. Matsuhara, I. Maeda, and Y. Matsueda</span><span class="ltx_text ltx_bib_year"> (2006)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Measurement of refractive indices of 20 optical materials at low temperatures</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optical Engineering</span> <span class="ltx_text ltx_bib_volume">45</span> (<span class="ltx_text ltx_bib_number">8</span>), <span class="ltx_text ltx_bib_pages">pp. 083401</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1117/1.2336241" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.SS2.p2.1" title="2.2 Results ‣ 2 Index of refraction ‣ Cryogenic Optical Characteristics of S-FPL51 and S-LAH71: Refractive index, Transmission and Thermal expansion"><span class="ltx_text ltx_ref_tag">§2.2</span></a>.
+</span></li>
+</ul>
+</section>
+</article></div></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
