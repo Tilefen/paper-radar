@@ -1,0 +1,475 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>窄线宽激光器的预测式电子反馈控制</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style><style>
+.paper-reader{max-width:860px;margin:0 auto}
+.paper-reader h1{font-size:28px;line-height:1.35;margin:10px 0 6px}
+.paper-reader .original-title{color:var(--muted);font-size:14px;margin-bottom:18px}
+.paper-reader .meta{color:var(--muted);font-size:13px;margin-bottom:20px}
+.paper-reader .toc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:20px 0 28px;font-size:14px}
+.paper-reader .toc ol{margin:6px 0 0 18px;padding:0}
+.paper-reader .toc li{margin:3px 0}
+.paper-reader article{font-size:16px;line-height:1.9}
+.paper-reader h2{font-size:22px;margin:30px 0 10px}
+.paper-reader h3{font-size:18px;margin:22px 0 8px}
+.paper-reader figure{margin:20px 0;text-align:center}
+.paper-reader img{max-width:100%;height:auto}
+.paper-reader figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+.paper-reader table{display:block;overflow-x:auto;border-collapse:collapse;margin:16px 0;font-size:14px}
+.paper-reader math{overflow-x:auto;max-width:100%}
+.paper-reader pre{overflow-x:auto}
+</style></head><body class="">
+<header><a class="brand" href="../index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="../daily/index.html">日报</a><a href="../papers/index.html" aria-current="page">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 中文全文</div><h1>窄线宽激光器的预测式电子反馈控制</h1><div class="paper-reader"><h1>窄线宽激光器的预测式电子反馈控制</h1><p class="original-title">Predictive electronic feedback control for narrow-linewidth lasers</p><p class="meta">arXiv 2610.31396 · 机器翻译，公式与图表保留原文</p><nav class="toc"><strong>目录</strong><ol></ol></nav><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">窄线宽激光器的预测式电子反馈控制</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Jiatian Liu
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_thanks"><span class="ltx_contact_name">Thanks: </span>Jiatian Liu and Xuan Qi contributed equally to this work.
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Shanghai Institute of Optics and Fine Mechanics, Chinese Academy of Sciences, Shanghai 201800, China
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>University of Chinese Academy of Sciences, Beijing 100049, China
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Xuan Qi
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_thanks"><span class="ltx_contact_name">Thanks: </span>Jiatian Liu and Xuan Qi contributed equally to this work.
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Shanghai Institute of Optics and Fine Mechanics, Chinese Academy of Sciences, Shanghai 201800, China
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>University of Chinese Academy of Sciences, Beijing 100049, China
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Xiayang Fan
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Shanghai Institute of Optics and Fine Mechanics, Chinese Academy of Sciences, Shanghai 201800, China
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>University of Chinese Academy of Sciences, Beijing 100049, China
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Shenchao Jin
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Shanghai Institute of Optics and Fine Mechanics, Chinese Academy of Sciences, Shanghai 201800, China
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>University of Chinese Academy of Sciences, Beijing 100049, China
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Yuan Sun
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_email"><span class="ltx_contact_name">email: </span><a href="mailto:yuansun@siom.ac.cn">yuansun@siom.ac.cn</a>
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Shanghai Institute of Optics and Fine Mechanics, Chinese Academy of Sciences, Shanghai 201800, China
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>University of Chinese Academy of Sciences, Beijing 100049, China
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">摘要</h6>
+<p class="ltx_p" id="abstract1.1">窄线宽激光器对于量子相干控制、量子精密度测量和量子信息科学中的多种关键原子-激光相互作用过程及光学装置至关重要。Pound-Drever-Hall（PDH）技术是窄线宽激光器频率稳定的标准方法，但其反馈环路中固有的时间延迟不可避免地会引入过大的相位噪声，通常称为伺服凸起（servo bumps）。以往的解决方案主要依赖于电子反馈控制环路之外的额外光学元件。本文提出并实现了一种基于 Smith 预测器的通用方法，完全在 PDH 反馈控制环路的电子部分内解决时间延迟问题。我们通过仅向环路中添加一个现场可编程门阵列（FPGA）控制器，系统地证明了其抑制相位噪声和减小伺服凸起的能力。这类方法经证明概念简洁、硬件开销极小、实际效果良好，并有望在未来得到广泛应用。</p>
+</div>
+<div class="ltx_para" id="p1">
+<p class="ltx_p" id="p1.1">量子精密度测量与量子信息科学中的大量前沿研究和关键任务应用，从根本上依赖于高性能激光源 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">1</a>]</cite>。在这一严苛的应用场景中，窄线宽性能尤为重要，因为它是多种关键原子-激光相互作用过程和光学装置的决定性因素。
+相关研究领域包括光学原子钟 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib2" title="">2</a>, <a class="ltx_ref" href="#bib.bib3" title="">3</a>, <a class="ltx_ref" href="#bib.bib4" title="">4</a>, <a class="ltx_ref" href="#bib.bib5" title="">5</a>, <a class="ltx_ref" href="#bib.bib6" title="">6</a>]</cite>、光学核钟 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib7" title="">7</a>, <a class="ltx_ref" href="#bib.bib8" title="">8</a>]</cite>、引力波检测 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib9" title="">9</a>, <a class="ltx_ref" href="#bib.bib10" title="">10</a>]</cite>、超冷分子的高精密度相干合成 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib11" title="">11</a>, <a class="ltx_ref" href="#bib.bib12" title="">12</a>, <a class="ltx_ref" href="#bib.bib13" title="">13</a>, <a class="ltx_ref" href="#bib.bib14" title="">14</a>]</cite>、暗物质搜寻 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib15" title="">15</a>]</cite>、基本物理常数漂移的检测 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib16" title="">16</a>]</cite>、量子接口 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib17" title="">17</a>, <a class="ltx_ref" href="#bib.bib18" title="">18</a>, <a class="ltx_ref" href="#bib.bib19" title="">19</a>, <a class="ltx_ref" href="#bib.bib20" title="">20</a>, <a class="ltx_ref" href="#bib.bib21" title="">21</a>]</cite>以及原子与分子的量子仿真 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib22" title="">22</a>, <a class="ltx_ref" href="#bib.bib23" title="">23</a>, <a class="ltx_ref" href="#bib.bib24" title="">24</a>, <a class="ltx_ref" href="#bib.bib25" title="">25</a>]</cite>。
+特别是，Rydberg原子已发展成为量子传感 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib26" title="">26</a>, <a class="ltx_ref" href="#bib.bib27" title="">27</a>, <a class="ltx_ref" href="#bib.bib28" title="">28</a>]</cite>和量子信息科学 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib29" title="">29</a>, <a class="ltx_ref" href="#bib.bib30" title="">30</a>]</cite>中一种前景广阔的物理平台，窄线宽激光器在其中发挥着不可或缺的作用。在为量子逻辑门 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib31" title="">31</a>, <a class="ltx_ref" href="#bib.bib32" title="">32</a>, <a class="ltx_ref" href="#bib.bib33" title="">33</a>]</cite>或电场检测 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib34" title="">34</a>, <a class="ltx_ref" href="#bib.bib35" title="">35</a>]</cite>驱动相干基态-Rydberg跃迁时，抑制从低频到高频整个频谱范围内的激光相位噪声 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib36" title="">36</a>]</cite>同样必不可少。</p>
+</div>
+<div class="ltx_para" id="p2">
+<p class="ltx_p" id="p2.1">窄线宽激光器通常通过锁频至超稳光学参考谐振腔来实现，而 Pound-Drever-Hall（PDH）技术已成为鉴频与闭环控制的标准方法<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib37" title="">37</a>]</cite>。PDH 技术将激光频率相对参考谐振腔共振的失谐转换为高频电学误差信号，从而能够对激光频率进行高速反馈校正。从控制理论中的频域机理来看，信号在光路与电子电路中的传输延迟 <math alttext="\tau" class="ltx_Math" display="inline" id="p2.m1" intent=":literal"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math> 会引入一个随频率 <math alttext="f" class="ltx_Math" display="inline" id="p2.m2" intent=":literal"><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math> 线性增加的附加相位滞后。其大小可表示为：<math alttext="\Delta\phi(f)=-2\pi f\tau" class="ltx_Math" display="inline" id="p2.m3" intent=":literal"><semantics><mrow><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>ϕ</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>f</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mo>−</mo><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><mi>π</mi><mo lspace="0em" rspace="0em">​</mo><mi>f</mi><mo lspace="0em" rspace="0em">​</mo><mi>τ</mi></mrow></mrow></mrow><annotation encoding="application/x-tex">\Delta\phi(f)=-2\pi f\tau</annotation></semantics></math>。当噪声频率接近临界点 <math alttext="1/(2\tau)" class="ltx_Math" display="inline" id="p2.m4" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><mrow><mo stretchy="false">(</mo><mrow><mn>2</mn><mo lspace="0em" rspace="0em">​</mo><mi>τ</mi></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">1/(2\tau)</annotation></semantics></math> 时，该延迟引起的相位滞后达到 <math alttext="\pi" class="ltx_Math" display="inline" id="p2.m5" intent=":literal"><semantics><mi>π</mi><annotation encoding="application/x-tex">\pi</annotation></semantics></math>。此时，系统原有的负反馈校正信号发生相位反转，转变为破坏系统稳定性的正反馈。换言之，反馈控制带宽实际上被限制在 <math alttext="1/\tau" class="ltx_Math" display="inline" id="p2.m6" intent=":literal"><semantics><mrow><mn>1</mn><mo>/</mo><mi>τ</mi></mrow><annotation encoding="application/x-tex">1/\tau</annotation></semantics></math> 的量级。
+受控制环路中有限带宽这一物理极限的限制，若尽可能抑制低频噪声以提高控制增益，将导致高频段相位裕度显著恶化。此时环路不仅无法抑制带宽边缘附近的噪声，反而会放大系统对该噪声的响应。因此，这不可避免地会引入显著的宽带噪声放大峰，通常分布在数十 kHz 至数 MHz 范围内，即通常所称的伺服凸起。
+由伺服凸起引起的中频和高频相位噪声在不同量子过程中表现出明显不同的有害机制。
+例如，在原子量子比特的单量子比特门与双量子比特纠缠门中，研究表明，当未被抑制的相位涨落延伸至与驱动量子比特操作的拉比频率相当的频率时，会诱发额外的退相位与态泄漏 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib36" title="">36</a>, <a class="ltx_ref" href="#bib.bib38" title="">38</a>, <a class="ltx_ref" href="#bib.bib39" title="">39</a>, <a class="ltx_ref" href="#bib.bib40" title="">40</a>, <a class="ltx_ref" href="#bib.bib41" title="">41</a>, <a class="ltx_ref" href="#bib.bib33" title="">33</a>]</cite>。</p>
+</div>
+<figure class="ltx_figure" id="S0.F1">
+<div class="ltx_flex_figure">
+<div class="ltx_flex_cell ltx_flex_size_3">
+<div class="ltx_block ltx_figure_panel ltx_minipage ltx_align_center ltx_align_top" id="S0.F1.3" style="width:113.9pt;">
+<p class="ltx_p ltx_align_center" id="S0.F1.3.1"><span class="ltx_text ltx_align_left ltx_inline-block" id="S0.F1.3.1.1" style="font-size:144%;width:113.9pt;">(a)</span></p><object class="ltx_graphics ltx_centering ltx_img_landscape" data="assets/ef2.svg" height="93" id="S0.F1.g1" style="aspect-ratio:157/93;" type="image/svg+xml" width="157"></object>
+</div></div><div class="ltx_flex_cell ltx_flex_size_3">
+<div class="ltx_block ltx_figure_panel ltx_minipage ltx_align_center ltx_align_top" id="S0.F1.4" style="width:127.6pt;">
+<p class="ltx_p ltx_align_center" id="S0.F1.4.1"><span class="ltx_text ltx_align_left ltx_inline-block" id="S0.F1.4.1.1" style="font-size:144%;width:127.6pt;">(b)</span></p><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="119" id="S0.F1.g2" src="assets/new12.png" style="aspect-ratio:176/119;" width="176"/>
+</div></div><div class="ltx_flex_cell ltx_flex_size_3">
+<div class="ltx_block ltx_figure_panel ltx_minipage ltx_align_center ltx_align_top" id="S0.F1.5" style="width:86.3pt;">
+<p class="ltx_p ltx_align_center" id="S0.F1.5.1"><span class="ltx_text ltx_align_left ltx_inline-block" id="S0.F1.5.1.1" style="font-size:144%;width:86.3pt;">(c)</span></p><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="90" id="S0.F1.g3" src="assets/FPGA.png" style="aspect-ratio:119/90;" width="119"/>
+</div></div></div>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="S0.F1.6" style="font-size:90%;">图 1</span>：</span><span class="ltx_text" id="S0.F1.7" style="font-size:90%;">基本设计、实验装置与控制系统架构。(a) 包含 Smith 预估器的闭环控制系统理论框图，展示系统固有时间延迟（<math alttext="\tau_{1}" class="ltx_Math" display="inline" id="S0.F1.m7" intent=":literal"><semantics><msub><mi>τ</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\tau_{1}</annotation></semantics></math> 和 <math alttext="\tau_{2}" class="ltx_Math" display="inline" id="S0.F1.m8" intent=":literal"><semantics><msub><mi>τ</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\tau_{2}</annotation></semantics></math>）以及用于延迟补偿的数学信号流。<math alttext="U(s)" class="ltx_Math" display="inline" id="S0.F1.m9" intent=":literal"><semantics><mrow><mi>U</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">U(s)</annotation></semantics></math> 是控制信号 <math alttext="U(t)" class="ltx_Math" display="inline" id="S0.F1.m10" intent=":literal"><semantics><mrow><mi>U</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">U(t)</annotation></semantics></math> 的拉普拉斯变换，该控制信号定义在时间域 <math alttext="[0,\infty)" class="ltx_Math" display="inline" id="S0.F1.m11" intent=":literal"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo>,</mo><mi mathvariant="normal">∞</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[0,\infty)</annotation></semantics></math> 上，并对应给定的起始时间 <math alttext="t=0" class="ltx_Math" display="inline" id="S0.F1.m12" intent=":literal"><semantics><mrow><mi>t</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t=0</annotation></semantics></math>。(b) 实验装置示意图，展示用于评估和抑制系统相位噪声的 Smith 预估器的集成。HWP，二分之一波片。QWP，四分之一波片。PBS，偏振分束器。EOM，电光调制器。AOM，声光调制器。AWG，任意波形发生器。PD，光电二极管。(c) 数字控制环路的逻辑框图。绿色框内包含的功能模块（包括 Smith 预估器和 PID 控制器）均在 FPGA 架构内完整实现。</span></figcaption>
+</figure>
+<div class="ltx_para" id="p3">
+<p class="ltx_p" id="p3.1">此前，对由伺服凸起引起的过量噪声的抑制主要依赖于使用谐振腔 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib42" title="">42</a>, <a class="ltx_ref" href="#bib.bib43" title="">43</a>, <a class="ltx_ref" href="#bib.bib38" title="">38</a>, <a class="ltx_ref" href="#bib.bib39" title="">39</a>]</cite> 的直接光谱滤波、自注入锁定 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib44" title="">44</a>, <a class="ltx_ref" href="#bib.bib45" title="">45</a>, <a class="ltx_ref" href="#bib.bib46" title="">46</a>]</cite>，或通常采用延迟光纤的前馈补偿技术 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib47" title="">47</a>, <a class="ltx_ref" href="#bib.bib48" title="">48</a>, <a class="ltx_ref" href="#bib.bib49" title="">49</a>, <a class="ltx_ref" href="#bib.bib50" title="">50</a>, <a class="ltx_ref" href="#bib.bib51" title="">51</a>]</cite>。
+然而，这些方法不可避免地需要在电子反馈环路之外引入额外的光学元件，这通常会限制可用的激光输出功率，或在系统的调谐与稳定化方面增加额外负担。
+面向未来对窄线宽激光器的需求，我们提出并实现了一种通用方法，在 PDH 反馈控制环路的电子部分内完全解决时间延迟问题；该方法可解释为一种针对伺服凸起的纯电子抑制方案。
+无需任何额外光学元件，该方法仅通过处理反馈环路内的误差信号和反馈信号，就能有效降低伺服凸起的幅度。由于伺服凸起是 PDH 锁定中运行的控制反馈环路的固有特性，并且尽管它本质上具有类噪声特性，但如果系统足够稳定且鲁棒，其特性随时间保持不变，那么预测性电子反馈控制便成为一种可行的解决方案。具体而言，通过将经典控制理论中的 Smith 预测器 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib52" title="">52</a>]</cite> 与 PDH 技术相结合，并利用 FPGA 的实时信号处理能力，我们的工作使用单个控制器成功实现了对伺服凸起的有效抑制。</p>
+</div>
+<div class="ltx_para" id="p4">
+<p class="ltx_p" id="p4.1">我们首先给出延迟补偿的理论分析以及如图 <a class="ltx_ref" href="#S0.F1" title="Figure 1 ‣ Predictive electronic feedback control for narrow-linewidth lasers"><span class="ltx_text ltx_ref_tag">1</span></a>(a) 所示方法的工作原理。
+总环路延迟由两个不同分量 <math alttext="\tau_{1},\tau_{2}" class="ltx_Math" display="inline" id="p4.m1" intent=":literal"><semantics><mrow><msub><mi>τ</mi><mn>1</mn></msub><mo>,</mo><msub><mi>τ</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\tau_{1},\tau_{2}</annotation></semantics></math> 组成。<math alttext="\tau_{1}" class="ltx_Math" display="inline" id="p4.m2" intent=":literal"><semantics><msub><mi>τ</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\tau_{1}</annotation></semantics></math> 表示链路延迟，其从作用于激光器的控制信号开始，经过光路传播与 PDH 解调，直到所产生的误差信号在比例-积分-微分（PID）模块之前被反馈回来。<math alttext="\tau_{2}" class="ltx_Math" display="inline" id="p4.m3" intent=":literal"><semantics><msub><mi>τ</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\tau_{2}</annotation></semantics></math> 表示 PID 与激光器系统之间的前向传输延迟。
+在拉普拉斯域中，令 <math alttext="s" class="ltx_Math" display="inline" id="p4.m4" intent=":literal"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math> 表示复频率变量，并令 <math alttext="U(s)" class="ltx_Math" display="inline" id="p4.m5" intent=":literal"><semantics><mrow><mi>U</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">U(s)</annotation></semantics></math> 表示激光器系统接收到的控制信号。由于延迟 <math alttext="\tau_{2}" class="ltx_Math" display="inline" id="p4.m6" intent=":literal"><semantics><msub><mi>τ</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\tau_{2}</annotation></semantics></math>，PID 控制器输出的信号在数学上等效于 <math alttext="U(s)e^{\tau_{2}s}" class="ltx_Math" display="inline" id="p4.m7" intent=":literal"><semantics><mrow><mrow><mi>U</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><mo lspace="0em" rspace="0em">​</mo><msup><mi>e</mi><mrow><msub><mi>τ</mi><mn>2</mn></msub><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow></msup></mrow><annotation encoding="application/x-tex">U(s)e^{\tau_{2}s}</annotation></semantics></math>。假设激光频率精确跟随 <math alttext="U(s)" class="ltx_Math" display="inline" id="p4.m8" intent=":literal"><semantics><mrow><mi>U</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">U(s)</annotation></semantics></math> 的控制，则 PDH 模块的输出变为 <math alttext="U(s)G_{1}(s)" class="ltx_Math" display="inline" id="p4.m9" intent=":literal"><semantics><mrow><mrow><mi>U</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><mo lspace="0em" rspace="0em">​</mo><msub><mi>G</mi><mn>1</mn></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">U(s)G_{1}(s)</annotation></semantics></math>，其中 <math alttext="G_{1}(s)" class="ltx_Math" display="inline" id="p4.m10" intent=":literal"><semantics><mrow><msub><mi>G</mi><mn>1</mn></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">G_{1}(s)</annotation></semantics></math> 表示其理想的无延迟传递函数。随后，该信号经历延迟 <math alttext="\tau_{1}" class="ltx_Math" display="inline" id="p4.m11" intent=":literal"><semantics><msub><mi>τ</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\tau_{1}</annotation></semantics></math>，物理生成的误差信号可表示为 <math alttext="Y_{\text{real}}(s)=U(s)G_{1}(s)e^{-\tau_{1}s}" class="ltx_Math" display="inline" id="p4.m12" intent=":literal"><semantics><mrow><mrow><msub><mi>Y</mi><mtext>real</mtext></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mrow><mi>U</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><mo lspace="0em" rspace="0em">​</mo><msub><mi>G</mi><mn>1</mn></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow><mo lspace="0em" rspace="0em">​</mo><msup><mi>e</mi><mrow><mo>−</mo><mrow><msub><mi>τ</mi><mn>1</mn></msub><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow></mrow></msup></mrow></mrow><annotation encoding="application/x-tex">Y_{\text{real}}(s)=U(s)G_{1}(s)e^{-\tau_{1}s}</annotation></semantics></math>。
+我们将 Smith 预估器引入环路，并使其与激光频率稳定过程无缝结合。PID 输出 <math alttext="U(s)e^{\tau_{2}s}" class="ltx_Math" display="inline" id="p4.m13" intent=":literal"><semantics><mrow><mrow><mi>U</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><mo lspace="0em" rspace="0em">​</mo><msup><mi>e</mi><mrow><msub><mi>τ</mi><mn>2</mn></msub><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow></msup></mrow><annotation encoding="application/x-tex">U(s)e^{\tau_{2}s}</annotation></semantics></math> 分为两路：主路照常驱动激光器系统，而旁路则直接馈入 Smith 预估器。在内部，预估器利用 <math alttext="G_{1}(s)" class="ltx_Math" display="inline" id="p4.m14" intent=":literal"><semantics><mrow><msub><mi>G</mi><mn>1</mn></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">G_{1}(s)</annotation></semantics></math> 的已知模型进行并行计算，并给出差分补偿信号 <math alttext="Y_{\text{comp}}(s)=U(s)e^{\tau_{2}s}G_{1}(s)[1-e^{-(\tau_{1}+\tau_{2})s}]" class="ltx_Math" display="inline" id="p4.m15" intent=":literal"><semantics><mrow><mrow><msub><mi>Y</mi><mtext>comp</mtext></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mrow><mi>U</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><mo lspace="0em" rspace="0em">​</mo><msup><mi>e</mi><mrow><msub><mi>τ</mi><mn>2</mn></msub><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow></msup><mo lspace="0em" rspace="0em">​</mo><msub><mi>G</mi><mn>1</mn></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">[</mo><mrow><mn>1</mn><mo>−</mo><msup><mi>e</mi><mrow><mo>−</mo><mrow><mrow><mo stretchy="false">(</mo><mrow><msub><mi>τ</mi><mn>1</mn></msub><mo>+</mo><msub><mi>τ</mi><mn>2</mn></msub></mrow><mo stretchy="false">)</mo></mrow><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow></mrow></msup></mrow><mo stretchy="false">]</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">Y_{\text{comp}}(s)=U(s)e^{\tau_{2}s}G_{1}(s)[1-e^{-(\tau_{1}+\tau_{2})s}]</annotation></semantics></math>。
+加法器将受延迟 <math alttext="Y_{\text{real}}(s)" class="ltx_Math" display="inline" id="p4.m16" intent=":literal"><semantics><mrow><msub><mi>Y</mi><mtext>real</mtext></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">Y_{\text{real}}(s)</annotation></semantics></math> 影响的物理信号与补偿信号 <math alttext="Y_{\text{comp}}(s)" class="ltx_Math" display="inline" id="p4.m17" intent=":literal"><semantics><mrow><msub><mi>Y</mi><mtext>comp</mtext></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">Y_{\text{comp}}(s)</annotation></semantics></math> 相加。理想情况下，加法器的输出 <math alttext="U(s)e^{\tau_{2}s}G_{1}(s)e^{-(\tau_{1}+\tau_{2})s}" class="ltx_Math" display="inline" id="p4.m18" intent=":literal"><semantics><mrow><mrow><mi>U</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><mo lspace="0em" rspace="0em">​</mo><msup><mi>e</mi><mrow><msub><mi>τ</mi><mn>2</mn></msub><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow></msup><mo lspace="0em" rspace="0em">​</mo><msub><mi>G</mi><mn>1</mn></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow><mo lspace="0em" rspace="0em">​</mo><msup><mi>e</mi><mrow><mo>−</mo><mrow><mrow><mo stretchy="false">(</mo><mrow><msub><mi>τ</mi><mn>1</mn></msub><mo>+</mo><msub><mi>τ</mi><mn>2</mn></msub></mrow><mo stretchy="false">)</mo></mrow><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow></mrow></msup></mrow><annotation encoding="application/x-tex">U(s)e^{\tau_{2}s}G_{1}(s)e^{-(\tau_{1}+\tau_{2})s}</annotation></semantics></math> 恰好等于 <math alttext="U(s)G_{1}(s)e^{\tau_{2}s}" class="ltx_Math" display="inline" id="p4.m19" intent=":literal"><semantics><mrow><mrow><mi>U</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><mo lspace="0em" rspace="0em">​</mo><msub><mi>G</mi><mn>1</mn></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow><mo lspace="0em" rspace="0em">​</mo><msup><mi>e</mi><mrow><msub><mi>τ</mi><mn>2</mn></msub><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow></msup></mrow><annotation encoding="application/x-tex">U(s)G_{1}(s)e^{\tau_{2}s}</annotation></semantics></math>，从而在数学上抵消实际物理信号 <math alttext="Y_{\text{real}}(s)" class="ltx_Math" display="inline" id="p4.m20" intent=":literal"><semantics><mrow><msub><mi>Y</mi><mtext>real</mtext></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">Y_{\text{real}}(s)</annotation></semantics></math>。最终，返回 PID 模块的补偿后反馈信号恢复为 <math alttext="U(s)G_{1}(s)e^{\tau_{2}s}" class="ltx_Math" display="inline" id="p4.m21" intent=":literal"><semantics><mrow><mrow><mi>U</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><mo lspace="0em" rspace="0em">​</mo><msub><mi>G</mi><mn>1</mn></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow><mo lspace="0em" rspace="0em">​</mo><msup><mi>e</mi><mrow><msub><mi>τ</mi><mn>2</mn></msub><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow></msup></mrow><annotation encoding="application/x-tex">U(s)G_{1}(s)e^{\tau_{2}s}</annotation></semantics></math>。
+因此，通过更新整个系统的电子与信号处理部分，时间延迟得到有效补偿，因而伺服凸峰将被抑制。</p>
+</div>
+<div class="ltx_para" id="p5">
+<p class="ltx_p" id="p5.1">所提方法的实验装置如图 <a class="ltx_ref" href="#S0.F1" title="Figure 1 ‣ Predictive electronic feedback control for narrow-linewidth lasers"><span class="ltx_text ltx_ref_tag">1</span></a>(b) 所示，并包含光拍频测量，以独立评估系统的相位噪声。具体而言，来自超稳光学谐振腔的透射光与声光调制器（AOM）产生的频移一阶衍射光进行光拍频。AOM 以 80 MHz 的恒定频率驱动。在这些实验条件下，所得拍频信号的载波功率波动严格保持在 1 dB 以下，从而为后续噪声表征建立稳定基线。我们选择利用频率响应分析仪（FRA）的闭环注入法，以获得 PDH 系统高信噪比（SNR）的频率响应特性。由于系统在低频段具有极高的开环增益，有效测量频段设为 10 kHz 至 5 MHz。关于用于消除设备固有延迟的微扰信号注入与双通道同步采集的详细实验流程，见补充材料。</p>
+</div>
+<div class="ltx_para" id="p6">
+<p class="ltx_p" id="p6.1">基于已表征的系统响应，采用数字方式实现 Smith 预测器以补偿纯时间延迟，其逻辑框图如图 <a class="ltx_ref" href="#S0.F1" title="Figure 1 ‣ Predictive electronic feedback control for narrow-linewidth lasers"><span class="ltx_text ltx_ref_tag">1</span></a>(c) 所示。绿色阴影区域内的操作在 FPGA 的内部架构中执行。在该数字流水线中，PID 的输出被分为两条并行路径。主路径承载有效反馈信号，该信号经物理 PDH 链路传输至激光器的频率控制端口，以维持锁频。同时，第二路径被送入内部环形缓冲区，以计算瞬时控制量<math alttext="U(t)" class="ltx_Math" display="inline" id="p6.m1" intent=":literal"><semantics><mrow><mi>U</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">U(t)</annotation></semantics></math>与其延迟对应量<math alttext="U(t-\tau)" class="ltx_Math" display="inline" id="p6.m2" intent=":literal"><semantics><mrow><mi>U</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mrow><mi>t</mi><mo>−</mo><mi>τ</mi></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">U(t-\tau)</annotation></semantics></math>之间的差分信号，其中<math alttext="\tau=\tau_{1}+\tau_{2}" class="ltx_Math" display="inline" id="p6.m3" intent=":literal"><semantics><mrow><mi>τ</mi><mo>=</mo><mrow><msub><mi>τ</mi><mn>1</mn></msub><mo>+</mo><msub><mi>τ</mi><mn>2</mn></msub></mrow></mrow><annotation encoding="application/x-tex">\tau=\tau_{1}+\tau_{2}</annotation></semantics></math>。
+由于预测器模型失配会引入与<math alttext="1-e^{-\tau s}" class="ltx_Math" display="inline" id="p6.m4" intent=":literal"><semantics><mrow><mn>1</mn><mo>−</mo><msup><mi>e</mi><mrow><mo>−</mo><mrow><mi>τ</mi><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow></mrow></msup></mrow><annotation encoding="application/x-tex">1-e^{-\tau s}</annotation></semantics></math>成正比的残差，因此插入截止频率为 20 kHz 的二阶高通滤波器，以在低频段限制该残差。
+与被控对象模型<math alttext="G(s)" class="ltx_Math" display="inline" id="p6.m5" intent=":literal"><semantics><mrow><mi>G</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">G(s)</annotation></semantics></math>卷积后，滤波后的预测信号被叠加到原始物理 PDH 误差信号上。该合成最终产生延迟补偿后的误差信号，随后将其反馈至 PID，从而稳健地闭合补偿环路。</p>
+</div>
+<div class="ltx_para" id="p7">
+<p class="ltx_p" id="p7.1">在 FPGA 的数字逻辑实现中，上述预测过程基于内部寄存器堆完成。系统时钟频率设为 125 MHz。预测器通过深度为<math alttext="N=1024" class="ltx_Math" display="inline" id="p7.m1" intent=":literal"><semantics><mrow><mi>N</mi><mo>=</mo><mn>1024</mn></mrow><annotation encoding="application/x-tex">N=1024</annotation></semantics></math>的移位寄存器缓存历史数据，以模拟系统的纯时间延迟环节，支持约 8.2 <math alttext="\mu\text{s}" class="ltx_Math" display="inline" id="p7.m2" intent=":literal"><semantics><mrow><mi>μ</mi><mo lspace="0em" rspace="0em">​</mo><mtext>s</mtext></mrow><annotation encoding="application/x-tex">\mu\text{s}</annotation></semantics></math>的最大延迟补偿。
+假设预测器模型本身的计算时间可忽略不计，则可通过在特定深度提取历史数据来重建时间延迟状态。例如，当测得的反馈链路延迟为 200 ns、前向传输延迟为 208 ns 时，对应的时钟周期数分别为 25 和 26。系统随后可按深度<math alttext="n=25+26=51" class="ltx_Math" display="inline" id="p7.m3" intent=":literal"><semantics><mrow><mi>n</mi><mo>=</mo><mrow><mn>25</mn><mo>+</mo><mn>26</mn></mrow><mo>=</mo><mn>51</mn></mrow><annotation encoding="application/x-tex">n=25+26=51</annotation></semantics></math>寻址并提取寄存器数据，作为模拟延迟变量<math alttext="U(s)e^{\tau_{2}s}G_{1}(s)e^{-(\tau_{1}+\tau_{2})s}" class="ltx_Math" display="inline" id="p7.m4" intent=":literal"><semantics><mrow><mrow><mi>U</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mrow><mo lspace="0em" rspace="0em">​</mo><msup><mi>e</mi><mrow><msub><mi>τ</mi><mn>2</mn></msub><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow></msup><mo lspace="0em" rspace="0em">​</mo><msub><mi>G</mi><mn>1</mn></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow><mo lspace="0em" rspace="0em">​</mo><msup><mi>e</mi><mrow><mo>−</mo><mrow><mrow><mo stretchy="false">(</mo><mrow><msub><mi>τ</mi><mn>1</mn></msub><mo>+</mo><msub><mi>τ</mi><mn>2</mn></msub></mrow><mo stretchy="false">)</mo></mrow><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow></mrow></msup></mrow><annotation encoding="application/x-tex">U(s)e^{\tau_{2}s}G_{1}(s)e^{-(\tau_{1}+\tau_{2})s}</annotation></semantics></math>。该值用于后续的差分与求和运算，从而在数字域内高效实现无延迟误差信号的重建。</p>
+</div>
+<figure class="ltx_figure" id="S0.F2"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="381" id="S0.F2.g1" src="assets/system-response1.png" style="aspect-ratio:476/381;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="S0.F2.3" style="font-size:90%;">图 2</span>：</span><span class="ltx_text" id="S0.F2.4" style="font-size:90%;">上图：被控对象的开环幅值响应，<math alttext="|G(j\omega)|" class="ltx_Math" display="inline" id="S0.F2.m3" intent=":literal"><semantics><mrow><mo stretchy="false">|</mo><mrow><mi>G</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mrow><mi>j</mi><mo lspace="0em" rspace="0em">​</mo><mi>ω</mi></mrow><mo stretchy="false">)</mo></mrow></mrow><mo stretchy="false">|</mo></mrow><annotation encoding="application/x-tex">|G(j\omega)|</annotation></semantics></math>。蓝线表示从闭环系统中提取的被控对象增益（dB），展示其固有的频率衰减特性。
+下图：被控对象的开环相位响应，<math alttext="\angle G(j\omega)" class="ltx_Math" display="inline" id="S0.F2.m4" intent=":literal"><semantics><mrow><mi mathvariant="normal">∠</mi><mo lspace="0em" rspace="0em">​</mo><mi>G</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mrow><mi>j</mi><mo lspace="0em" rspace="0em">​</mo><mi>ω</mi></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\angle G(j\omega)</annotation></semantics></math>。红线表示解缠相位（deg），清晰展示由硬件时间延迟引起的线性相位滞后。</span></figcaption>
+</figure>
+<div class="ltx_para" id="p8">
+<p class="ltx_p" id="p8.1">这里，设计 Smith 预估器的核心是对包含激光器在内的 PDH 反馈控制环路的动态响应进行准确建模。因此，首要步骤是表征幅频响应与相频响应。
+在实验上，该测试的做法是：在环路内将已知幅值与频率的扫频信号注入激光器反馈端，同时监测误差信号。通过分析误差信号与反馈信号、注入信号组合之间的传递关系，即可得到系统的幅值响应曲线与相位响应曲线。
+图 <a class="ltx_ref" href="#S0.F2" title="Figure 2 ‣ Predictive electronic feedback control for narrow-linewidth lasers"><span class="ltx_text ltx_ref_tag">2</span></a>给出了一组实测的幅频响应曲线与相频响应曲线。PDH 稳频环路呈现明显的低通特性，其幅值衰减行为与一阶积分系统高度接近。由相频响应曲线可知，系统相位在低频段稳定在 <math alttext="90^{\circ}" class="ltx_Math" display="inline" id="p8.m1" intent=":literal"><semantics><msup><mn>90</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">90^{\circ}</annotation></semantics></math> 附近。考虑到负反馈设计本身引入的 <math alttext="180^{\circ}" class="ltx_Math" display="inline" id="p8.m2" intent=":literal"><semantics><msup><mn>180</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">180^{\circ}</annotation></semantics></math> 相移，以及开环系统在低频段呈渐近 <math alttext="-90^{\circ}" class="ltx_Math" display="inline" id="p8.m3" intent=":literal"><semantics><mrow><mo>−</mo><msup><mn>90</mn><mo>∘</mo></msup></mrow><annotation encoding="application/x-tex">-90^{\circ}</annotation></semantics></math> 相位滞后的特性，二者共同作用使这些频率处的相位为 <math alttext="90^{\circ}" class="ltx_Math" display="inline" id="p8.m4" intent=":literal"><semantics><msup><mn>90</mn><mo>∘</mo></msup><annotation encoding="application/x-tex">90^{\circ}</annotation></semantics></math>。这与幅频曲线在低频处呈现的高增益特性相一致。
+在更高频率区域，系统中嵌入的时间延迟使相位滞后显著增大，且该滞后随频率线性增加。</p>
+</div>
+<figure class="ltx_figure" id="S0.F3">
+<div class="ltx_flex_figure">
+<div class="ltx_flex_cell ltx_flex_size_2"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_landscape" height="161" id="S0.F3.g1" src="assets/phase-noise.png" style="aspect-ratio:215/161;" width="215"/></div><div class="ltx_flex_cell ltx_flex_size_2"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_landscape" height="161" id="S0.F3.g2" src="assets/errorsignal.png" style="aspect-ratio:215/161;" width="215"/></div></div>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="S0.F3.3" style="font-size:90%;">图 3</span>：</span><span class="ltx_text" id="S0.F3.4" style="font-size:90%;">采用 Smith 预估器所提方法前后 PDH 稳频系统的频谱分析（红色曲线为未采用该方法，蓝色曲线为采用该方法）。(a) 以 <math alttext="80\text{ MHz}" class="ltx_Math" display="inline" id="S0.F3.m2" intent=":literal"><semantics><mrow><mn>80</mn><mo lspace="0em" rspace="0em">​</mo><mtext> MHz</mtext></mrow><annotation encoding="application/x-tex">80\text{ MHz}</annotation></semantics></math> 载波频率为中心的拍频信号频谱。(b) 锁定状态下的误差信号频谱。</span></figcaption>
+</figure>
+<div class="ltx_para" id="p9">
+<p class="ltx_p" id="p9.1">基于纯时间延迟相位公式的估计：</p>
+<table class="ltx_equation ltx_eqn_table" id="S0.E1">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\tau\approx-\frac{\Delta\phi}{\Delta\omega}=-\frac{\phi_{2}-\phi_{1}}{\omega_{2}-\omega_{1}}," class="ltx_Math" display="block" id="S0.E1.m1" intent=":literal"><semantics><mrow><mrow><mi>τ</mi><mo>≈</mo><mrow><mo>−</mo><mfrac><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>ϕ</mi></mrow><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>ω</mi></mrow></mfrac></mrow><mo>=</mo><mrow><mo>−</mo><mfrac><mrow><msub><mi>ϕ</mi><mn>2</mn></msub><mo>−</mo><msub><mi>ϕ</mi><mn>1</mn></msub></mrow><mrow><msub><mi>ω</mi><mn>2</mn></msub><mo>−</mo><msub><mi>ω</mi><mn>1</mn></msub></mrow></mfrac></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\tau\approx-\frac{\Delta\phi}{\Delta\omega}=-\frac{\phi_{2}-\phi_{1}}{\omega_{2}-\omega_{1}},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(1)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="p9.2">其中 <math alttext="\phi_{1},\phi_{2},\omega_{1},\omega_{2}" class="ltx_Math" display="inline" id="p9.m1" intent=":literal"><semantics><mrow><msub><mi>ϕ</mi><mn>1</mn></msub><mo>,</mo><msub><mi>ϕ</mi><mn>2</mn></msub><mo>,</mo><msub><mi>ω</mi><mn>1</mn></msub><mo>,</mo><msub><mi>ω</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\phi_{1},\phi_{2},\omega_{1},\omega_{2}</annotation></semantics></math> 取自图 <a class="ltx_ref" href="#S0.F2" title="Figure 2 ‣ Predictive electronic feedback control for narrow-linewidth lasers"><span class="ltx_text ltx_ref_tag">2</span></a>(b)，
+由此推得 FPGA 之外环路的延迟 <math alttext="\tau_{\text{out}}" class="ltx_Math" display="inline" id="p9.m2" intent=":literal"><semantics><msub><mi>τ</mi><mtext>out</mtext></msub><annotation encoding="application/x-tex">\tau_{\text{out}}</annotation></semantics></math> = 106 ns，该延迟代表 FPGA 端口与激光器之间的链路。
+此外，考虑到实验中采用的基于 FPGA 的数字控制器在执行 PID 算法时会引入额外的数字计算延迟 <math alttext="\tau_{2}" class="ltx_Math" display="inline" id="p9.m3" intent=":literal"><semantics><msub><mi>τ</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\tau_{2}</annotation></semantics></math>，在构建完整预估模型时，必须将 <math alttext="\tau_{2}" class="ltx_Math" display="inline" id="p9.m4" intent=":literal"><semantics><msub><mi>τ</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\tau_{2}</annotation></semantics></math> 叠加到总延迟上以进行完整补偿。
+针对系统的频率响应特征，拟合模型在低频段引入反相漏积分器，并结合整体的一阶低通滤波结构。</p>
+</div>
+<div class="ltx_para" id="p10">
+<p class="ltx_p" id="p10.1">将所提方法在实际 PDH 稳频系统中实施的一组典型实验结果（如图 <a class="ltx_ref" href="#S0.F1" title="Figure 1 ‣ Predictive electronic feedback control for narrow-linewidth lasers"><span class="ltx_text ltx_ref_tag">1</span></a>(b) 所示）展示于图 <a class="ltx_ref" href="#S0.F3" title="Figure 3 ‣ Predictive electronic feedback control for narrow-linewidth lasers"><span class="ltx_text ltx_ref_tag">3</span></a>中。如图 <a class="ltx_ref" href="#S0.F3" title="Figure 3 ‣ Predictive electronic feedback control for narrow-linewidth lasers"><span class="ltx_text ltx_ref_tag">3</span></a>(a) 所示，传统 PDH 环路（红色曲线）在偏移频率 <math alttext="\pm 480\text{ kHz}" class="ltx_Math" display="inline" id="p10.m1" intent=":literal"><semantics><mrow><mo>±</mo><mrow><mn>480</mn><mo lspace="0em" rspace="0em">​</mo><mtext> kHz</mtext></mrow></mrow><annotation encoding="application/x-tex">\pm 480\text{ kHz}</annotation></semantics></math> 处表现出明显的伺服凸起。我们观察到，<math alttext="\pm 90\text{ kHz}" class="ltx_Math" display="inline" id="p10.m2" intent=":literal"><semantics><mrow><mo>±</mo><mrow><mn>90</mn><mo lspace="0em" rspace="0em">​</mo><mtext> kHz</mtext></mrow></mrow><annotation encoding="application/x-tex">\pm 90\text{ kHz}</annotation></semantics></math> 和 <math alttext="\pm 180\text{ kHz}" class="ltx_Math" display="inline" id="p10.m3" intent=":literal"><semantics><mrow><mo>±</mo><mrow><mn>180</mn><mo lspace="0em" rspace="0em">​</mo><mtext> kHz</mtext></mrow></mrow><annotation encoding="application/x-tex">\pm 180\text{ kHz}</annotation></semantics></math> 处的尖锐尖峰归因于我们装置中固有的现场可编程门阵列（FPGA）噪声。在实施 Smith 预测器（蓝色曲线）后，这些伺服凸起被有效抑制，在峰值位置实现了 <math alttext="14\text{ dB}" class="ltx_Math" display="inline" id="p10.m4" intent=":literal"><semantics><mrow><mn>14</mn><mo lspace="0em" rspace="0em">​</mo><mtext> dB</mtext></mrow><annotation encoding="application/x-tex">14\text{ dB}</annotation></semantics></math> 的降低。此外，还测量了锁定激光器误差信号的频谱，图 <a class="ltx_ref" href="#S0.F3" title="Figure 3 ‣ Predictive electronic feedback control for narrow-linewidth lasers"><span class="ltx_text ltx_ref_tag">3</span></a>(b) 表明其在伺服凸起频率处的幅度被衰减了 <math alttext="18\text{ dB}" class="ltx_Math" display="inline" id="p10.m5" intent=":literal"><semantics><mrow><mn>18</mn><mo lspace="0em" rspace="0em">​</mo><mtext> dB</mtext></mrow><annotation encoding="application/x-tex">18\text{ dB}</annotation></semantics></math>。这些结果与图 <a class="ltx_ref" href="#S0.F3" title="Figure 3 ‣ Predictive electronic feedback control for narrow-linewidth lasers"><span class="ltx_text ltx_ref_tag">3</span></a>(a) 中观测到的射频（RF）频谱测量结果一致，并表明该系统的模型已成功构建。在实际中仍存在非零残差延迟，因为数字流水线本身需要有限个时钟周期；其对可达到的抑制效果的影响在补充材料中进行了量化。</p>
+</div>
+<figure class="ltx_figure" id="S0.F4"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="315" id="S0.F4.g1" src="assets/system_performance.png" style="aspect-ratio:476/315;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="S0.F4.3" style="font-size:90%;">图 4</span>：</span><span class="ltx_text" id="S0.F4.4" style="font-size:90%;">实验性能与关键参数的关系。左侧纵轴表示伺服凸起电平，右侧纵轴表示其峰值频率。实心标记和空心标记分别对应左、右纵轴；星号表示原始峰值位置。</span></figcaption>
+</figure>
+<div class="ltx_para" id="p11">
+<p class="ltx_p" id="p11.1">我们进一步研究 Smith 预测器的性能如何取决于建模与实现的关键参数。锁定增益以及预测模型与实际系统特性之间的偏差程度会影响伺服凸起的抑制。具体而言，预测模型中一阶反相漏积分级的泄漏强度设置为 <math alttext="k=5,6,7,8,9" class="ltx_Math" display="inline" id="p11.m1" intent=":literal"><semantics><mrow><mrow><mi>k</mi><mo>=</mo><mn>5</mn></mrow><mo>,</mo><mn>6</mn><mo>,</mo><mn>7</mn><mo>,</mo><mn>8</mn><mo>,</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">k=5,6,7,8,9</annotation></semantics></math>，其中 <math alttext="k" class="ltx_Math" display="inline" id="p11.m2" intent=":literal"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> 越大，低频增益越高，因而匹配越好。我们在三个锁定增益（<math alttext="K_{p}=-15,-17,-19" class="ltx_Math" display="inline" id="p11.m3" intent=":literal"><semantics><mrow><mrow><msub><mi>K</mi><mi>p</mi></msub><mo>=</mo><mrow><mo>−</mo><mn>15</mn></mrow></mrow><mo>,</mo><mrow><mo>−</mo><mn>17</mn></mrow><mo>,</mo><mrow><mo>−</mo><mn>19</mn></mrow></mrow><annotation encoding="application/x-tex">K_{p}=-15,-17,-19</annotation></semantics></math> dB）下进行了测量，结果如图 <a class="ltx_ref" href="#S0.F4" title="Figure 4 ‣ Predictive electronic feedback control for narrow-linewidth lasers"><span class="ltx_text ltx_ref_tag">4</span></a> 所示。
+最左列汇总了伺服凸起峰的原始状态，包括激光系统在三种略有不同的条件下工作时的 -20.33 dB @ 448 kHz、-28.22 dB @ 408 kHz 和 -29.28 dB @ 377 kHz。三组的电平均随 <math alttext="k" class="ltx_Math" display="inline" id="p11.m4" intent=":literal"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> 从小值增大而降低，在 <math alttext="k=9" class="ltx_Math" display="inline" id="p11.m5" intent=":literal"><semantics><mrow><mi>k</mi><mo>=</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">k=9</annotation></semantics></math> 处分别达到 -34.35 dB、-35.16 dB 和 -33.28 dB。在 <math alttext="k" class="ltx_Math" display="inline" id="p11.m6" intent=":literal"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> 较小时，Kp = -19 dB 组表现出最弱的抑制，其电平与其原始状态相当。同时，伺服凸起峰的频率通常随 <math alttext="k" class="ltx_Math" display="inline" id="p11.m7" intent=":literal"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> 的变化而发生位置偏移。</p>
+</div>
+<figure class="ltx_figure" id="S0.F5">
+<div class="ltx_flex_figure">
+<div class="ltx_flex_cell ltx_flex_size_2"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_landscape" height="161" id="S0.F5.g1" src="assets/errorsignal-onEIT.png" style="aspect-ratio:215/161;" width="215"/></div><div class="ltx_flex_cell ltx_flex_size_2"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_figure_panel ltx_img_landscape" height="161" id="S0.F5.g2" src="assets/PD-signal-onEIT.png" style="aspect-ratio:215/161;" width="215"/></div></div>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" id="S0.F5.3" style="font-size:90%;">图 5</span>：</span><span class="ltx_text" id="S0.F5.4" style="font-size:90%;">里德堡原子量子传感的实验结果。红色和蓝色曲线分别对应于系统在不采用和采用所提出的预测电子反馈控制方法时的工作情况。(a) 锁定状态下探测光束误差信号的频谱。(b) 探测激光经里德堡电磁诱导透明（EIT）的透射信号频谱。</span></figcaption>
+</figure>
+<div class="ltx_para" id="p12">
+<p class="ltx_p" id="p12.1">作为所提出的窄线宽激光器预测电子反馈控制方法的应用示例，我们利用里德堡电磁诱导透明（EIT）<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib34" title="">34</a>, <a class="ltx_ref" href="#bib.bib35" title="">35</a>]</cite>开展了低频电场量子传感实验，其中探测激光器采用该方法稳频。图 <a class="ltx_ref" href="#S0.F5" title="Figure 5 ‣ Predictive electronic feedback control for narrow-linewidth lasers"><span class="ltx_text ltx_ref_tag">5</span></a> 比较了采用传统 PDH 稳频和所提方法时系统的信号。从图 <a class="ltx_ref" href="#S0.F5" title="Figure 5 ‣ Predictive electronic feedback control for narrow-linewidth lasers"><span class="ltx_text ltx_ref_tag">5</span></a>(a) 和 <a class="ltx_ref" href="#S0.F5" title="Figure 5 ‣ Predictive electronic feedback control for narrow-linewidth lasers"><span class="ltx_text ltx_ref_tag">5</span></a>(b) 中的红色曲线可以看出，传统方法在基带误差信号和探测激光器的里德堡 EIT 透射信号中均在 140 kHz 附近表现出明显的噪声峰。此外，轮廓分析根据 110 kHz 至 160 kHz 频段内两个频谱的离散幅度数据点，揭示了误差信号与里德堡 EIT 信号的频谱包络之间具有令人信服的正相关（Pearson <math alttext="r=0.9023" class="ltx_Math" display="inline" id="p12.m1" intent=":literal"><semantics><mrow><mi>r</mi><mo>=</mo><mn>0.9023</mn></mrow><annotation encoding="application/x-tex">r=0.9023</annotation></semantics></math>）。
+这种共变是预期的，因为里德堡 EIT 过程的噪声包含探测激光器频率噪声的贡献。启用 Smith 预测器时两个通道同时受到抑制，也提供了证据表明里德堡 EIT 信号中降低的噪声峰来源于伺服峰。
+具体而言，里德堡 EIT 信号中 3.7 dB 的初始噪声峰被消除并降至噪声底水平。因此，如果目标电信号的频率位于 140 kHz 伺服峰附近，采用所提方法可将检测的信噪比（SNR）提高 2.46 dB。更多细节见补充材料。</p>
+</div>
+<div class="ltx_para" id="p13">
+<p class="ltx_p" id="p13.1">综上，我们已证明，PDH 稳频中有限环路延迟带来的伺服峰问题可以仅通过电子反馈路径得到有效缓解。通过在单个 FPGA 控制器中嵌入 Smith 预测器，基于模型的补偿重建出近乎无延迟的误差信号，并放宽了由总环路延迟设定的带宽限制，且无需增加光学元件或牺牲可用激光输出功率。以 80 MHz 光学拍频信号为参考进行测量，该预测器使伺服峰降低 14 dB，使锁定状态误差信号降低 18 dB。将其部署于基于里德堡的电场传感器中，可将 140 kHz 附近 3.7 dB 的凸峰抑制至探测器噪声底，使信噪比提高 2.46 dB。该方法无需修改被控对象，可直接迁移至光钟、相干光谱及其他受延迟限制的窄线宽平台。</p>
+</div>
+<div class="ltx_para" id="p14">
+<p class="ltx_p" id="p14.1">作者衷心感谢中国科学院战略性先导科技专项（批准号 XDB1690300）、国家重点研发计划（批准号 2024YFB4504002）以及中国载人航天工程空间应用系统的资助支持。</p>
+</div>
+<section class="ltx_bibliography" id="bib">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+<ul class="ltx_biblist">
+<li class="ltx_bibitem" id="bib.bib1"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock">S. Haroche, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PRXQuantum.6.010102" title="">PRX Quantum <span class="ltx_text ltx_font_bold">6</span>, 010102 (2025)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib2"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock">A. D. Ludlow, M. M. Boyd,
+J. Ye, E. Peik, and P. O. Schmidt, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/RevModPhys.87.637" title="">Rev. Mod. Phys. <span class="ltx_text ltx_font_bold">87</span>, 637 (2015)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib3"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock">S. M. Brewer, J.-S. Chen,
+A. M. Hankin, E. R. Clements, C. W. Chou, D. J. Wineland, D. B. Hume, and D. R. Leibrandt, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PhysRevLett.123.033201" title="">Phys. Rev. Lett. <span class="ltx_text ltx_font_bold">123</span>, 033201 (2019)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib4"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock">T. Bothwell, D. Kedar,
+E. Oelker, J. M. Robinson, S. L. Bromley, W. L. Tew, J. Ye, and C. J. Kennedy, <a class="ltx_ref ltx_href" href="https://doi.org/10.1088/1681-7575/ab4089" title="">Metrologia <span class="ltx_text ltx_font_bold">56</span>, 065004 (2019)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib5"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock">N. Ohmae, M. Takamoto,
+Y. Takahashi, M. Kokubun, K. Araki, A. Hinton, I. Ushijima, T. Muramatsu, T. Furumiya, Y. Sakai, N. Moriya, N. Kamiya, K. Fujii, R. Muramatsu, T. Shiimado, and H. Katori, <a class="ltx_ref ltx_href" href="https://doi.org/10.1002/qute.202100015" title="">Adv. Quantum Technol. <span class="ltx_text ltx_font_bold">4</span>, 2100015 (2021)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib6"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock">Y. Lin, Q. Wang, F. Meng, S. Cao, Y. Wang, Y. Li, Z. Sun, B. Lu, T. Yang, B. Lin, A. Zhang, F. Fang, and Z. Fang, <a class="ltx_ref ltx_href" href="https://doi.org/10.1088/1681-7575/abf33e" title="">Metrologia <span class="ltx_text ltx_font_bold">58</span>, 035010 (2021)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib7"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock">B. Huang, G. Yan, Q. Xiao, W. Bu, C. Zhao, Z. Zhang, C. Yan, Z.-A. Chen, P. Zhang, G. Penyazkov, Z. Zhan, L. Yan, Y. Wang, L. Li, S. Li, D. Jiang, X. Qian, X. Liu, Q. He, T. Sun, H. Tian, B. Lu, N. Ma, J. Li, Y. Wu, Q. Gong, Y. Li, H. Shi, X. Li, L. Ma, S. Zhu, Y. Mo, J. Lin, L. You, Y. Lin, X. Zhang, Y. Hang, L. Su, and S. Ding, <a class="ltx_ref ltx_href" href="https://doi.org/10.1038/s41586-026-11122-1" title="">Nature  (2026)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib8"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock">L. Toscani De Col, T. Riebner, I. Morawetz,
+F. Schneider, N. Sempelmann, J. Schlachet-Lépinay, F. Schaden, M. Bartokos, G. A. Kazakov, K. Beeks, B. Gerstenecker,
+M. Pimon, S. Lahs, A. Hellerschmied, T. Lercher, H. Denker, J. Premper, A. Niessner, M. Matus, M. Čížek, O. Číp, V. Lal, G. Zitzer, V. Petrov,
+J. Tiedau, M. V. Okhapkin, E. Peik, and T. Schumm, <a class="ltx_ref ltx_href" href="https://doi.org/10.1038/s41586-026-11084-4" title="">Nature  (2026)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib9"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock">The LIGO Scientific
+Collaboration, <a class="ltx_ref ltx_href" href="https://doi.org/10.1088/0264-9381/32/7/074001" title="">Class. Quantum Grav. <span class="ltx_text ltx_font_bold">32</span>, 074001 (2015)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib10"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock">B. P. Abbott, R. Abbott,
+T. D. Abbott, <em class="ltx_emph ltx_font_italic" id="bib.bib10.3">et al.</em> (LIGO Scientific Collaboration and Virgo
+Collaboration), <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PhysRevLett.116.061102" title="">Phys. Rev. Lett. <span class="ltx_text ltx_font_bold">116</span>, 061102 (2016)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib11"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock">T. Takekoshi, L. Reichsöllner, A. Schindewolf, J. M. Hutson, C. R. Le Sueur, O. Dulieu,
+F. Ferlaino, R. Grimm, and H.-C. Nägerl, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PhysRevLett.113.205301" title="">Phys. Rev. Lett. <span class="ltx_text ltx_font_bold">113</span>, 205301 (2014)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib12"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock">P. K. Molony, P. D. Gregory,
+Z. Ji, B. Lu, M. P. Köppinger, C. R. Le Sueur, C. L. Blackley, J. M. Hutson, and S. L. Cornish, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PhysRevLett.113.255301" title="">Phys. Rev. Lett. <span class="ltx_text ltx_font_bold">113</span>, 255301 (2014)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib13"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock">M. Guo, B. Zhu, B. Lu, X. Ye, F. Wang, R. Vexiau, N. Bouloufa-Maafa, G. Quéméner, O. Dulieu, and D. Wang, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PhysRevLett.116.205303" title="">Phys. Rev. Lett. <span class="ltx_text ltx_font_bold">116</span>, 205303 (2016)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib14"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock">X. He, K. Wang, J. Zhuang, P. Xu, X. Gao, R. Guo, C. Sheng, M. Liu, J. Wang, J. Li, G. V. Shlyapnikov, and M. Zhan, <a class="ltx_ref ltx_href" href="https://doi.org/10.1126/science.aba7468" title="">Science <span class="ltx_text ltx_font_bold">370</span>, 331 (2020)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib15"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock">T. Kobayashi, A. Takamizawa, D. Akamatsu, A. Kawasaki,
+A. Nishiyama, K. Hosaka, Y. Hisai, M. Wada, H. Inaba, T. Tanabe, and M. Yasuda, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PhysRevLett.129.241301" title="">Phys. Rev. Lett. <span class="ltx_text ltx_font_bold">129</span>, 241301 (2022)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib16"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock">S. Blatt, A. D. Ludlow,
+G. K. Campbell, J. W. Thomsen, T. Zelevinsky, M. M. Boyd, J. Ye, X. Baillard, M. Fouché, R. Le Targat, A. Brusch, P. Lemonde, M. Takamoto, F.-L. Hong, H. Katori, and V. V. Flambaum, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PhysRevLett.100.140801" title="">Phys. Rev. Lett. <span class="ltx_text ltx_font_bold">100</span>, 140801 (2008)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib17"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[17]</span>
+<span class="ltx_bibblock">B. Casabone, A. Stute,
+K. Friebe, B. Brandstätter, K. Schüppert, R. Blatt, and T. E. Northup, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PhysRevLett.111.100505" title="">Phys. Rev. Lett. <span class="ltx_text ltx_font_bold">111</span>, 100505 (2013)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib18"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[18]</span>
+<span class="ltx_bibblock">M. Lee, K. Friebe,
+D. A. Fioretto, K. Schüppert, F. R. Ong, D. Plankensteiner, V. Torggler, H. Ritsch, R. Blatt, and T. E. Northup, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PhysRevLett.122.153603" title="">Phys. Rev. Lett. <span class="ltx_text ltx_font_bold">122</span>, 153603 (2019)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib19"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[19]</span>
+<span class="ltx_bibblock">J. P. Covey, A. Sipahigil,
+S. Szoke, N. Sinclair, M. Endres, and O. Painter, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PhysRevApplied.11.034044" title="">Phys. Rev. Appl. <span class="ltx_text ltx_font_bold">11</span>, 034044 (2019a)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib20"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[20]</span>
+<span class="ltx_bibblock">J. P. Covey, A. Sipahigil, and M. Saffman, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PhysRevA.100.012307" title="">Phys. Rev. A <span class="ltx_text ltx_font_bold">100</span>, 012307 (2019b)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib21"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[21]</span>
+<span class="ltx_bibblock">W. Huie, S. G. Menon,
+H. Bernien, and J. P. Covey, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PhysRevResearch.3.043154" title="">Phys. Rev. Research <span class="ltx_text ltx_font_bold">3</span>, 043154 (2021)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib22"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[22]</span>
+<span class="ltx_bibblock">C. Gross and I. Bloch, <a class="ltx_ref ltx_href" href="https://doi.org/10.1126/science.aal3837" title="">Science <span class="ltx_text ltx_font_bold">357</span>, 995 (2017)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib23"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[23]</span>
+<span class="ltx_bibblock">C. Kokail, C. Maier,
+R. Van Bijnen, T. Brydges, M. K. Joshi, P. Jurcevic, C. A. Muschik, P. Silvi, R. Blatt, C. F. Roos, and P. Zoller, <a class="ltx_ref ltx_href" href="https://doi.org/10.1038/s41586-019-1177-4" title="">Nature <span class="ltx_text ltx_font_bold">569</span>, 355 (2019)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib24"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[24]</span>
+<span class="ltx_bibblock">M. K. Joshi, A. Elben,
+B. Vermersch, T. Brydges, C. Maier, P. Zoller, R. Blatt, and C. F. Roos, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PhysRevLett.124.240505" title="">Phys. Rev. Lett. <span class="ltx_text ltx_font_bold">124</span>, 240505 (2020)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib25"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[25]</span>
+<span class="ltx_bibblock">S. L. Cornish, M. R. Tarbutt, and K. R. A. Hazzard, <a class="ltx_ref ltx_href" href="https://doi.org/10.1038/s41567-024-02453-9" title="">Nat. Phys. <span class="ltx_text ltx_font_bold">20</span>, 730 (2024)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib26"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[26]</span>
+<span class="ltx_bibblock">C. L. Degen, F. Reinhard, and P. Cappellaro, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/RevModPhys.89.035002" title="">Rev. Mod. Phys. <span class="ltx_text ltx_font_bold">89</span>, 035002 (2017)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib27"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[27]</span>
+<span class="ltx_bibblock">N. Schlossberger, N. Prajapati, S. Berweger,
+A. P. Rotunno, A. B. Artusio-Glimpse, M. T. Simons, A. A. Sheikh, E. B. Norrgard, S. P. Eckel, and C. L. Holloway, <a class="ltx_ref ltx_href" href="https://doi.org/10.1038/s42254-024-00756-7" title="">Nat. Rev. Phys. <span class="ltx_text ltx_font_bold">6</span>, 606 (2024)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib28"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[28]</span>
+<span class="ltx_bibblock">H. Zhang, Y. Ma, K. Liao, W. Yang, Z. Liu, D. Ding, H. Yan, W. Li, and L. Zhang, <a class="ltx_ref ltx_href" href="https://doi.org/https://doi.org/10.1016/j.scib.2024.03.032" title="">Sci. Bull. <span class="ltx_text ltx_font_bold">69</span>, 1515 (2024)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib29"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[29]</span>
+<span class="ltx_bibblock">M. Saffman, T. G. Walker, and K. Mølmer, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/RevModPhys.82.2313" title="">Rev. Mod. Phys. <span class="ltx_text ltx_font_bold">82</span>, 2313 (2010)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib30"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[30]</span>
+<span class="ltx_bibblock">M. Saffman, <a class="ltx_ref ltx_href" href="https://arxiv.org/abs/2608.30783" title="">arXiv:2608.30783 [quant-ph]  (2026)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib31"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[31]</span>
+<span class="ltx_bibblock">K. M. Maller, M. T. Lichtman, T. Xia,
+Y. Sun, M. J. Piotrowicz, A. W. Carr, L. Isenhower, and M. Saffman, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PhysRevA.92.022336" title="">Phys. Rev. A <span class="ltx_text ltx_font_bold">92</span>, 022336 (2015)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib32"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[32]</span>
+<span class="ltx_bibblock">Z. Fu, P. Xu, Y. Sun, Y.-Y. Liu, X.-D. He, X. Li, M. Liu, R.-B. Li,
+J. Wang, L. Liu, and M.-S. Zhan, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PhysRevA.105.042430" title="">Phys. Rev. A <span class="ltx_text ltx_font_bold">105</span>, 042430 (2022)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib33"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[33]</span>
+<span class="ltx_bibblock">S. A. Norrell, Y. Shen,
+M. Saffman, and M. Otten, <a class="ltx_ref ltx_href" href="http://arxiv.org/abs/2605.19245" title="">arXiv:2605.19245 [quant-ph]  (2026)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib34"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[34]</span>
+<span class="ltx_bibblock">S. Jin, X. Fan, X. Wang, Y. Song, and Y. Sun, <a class="ltx_ref ltx_href" href="https://doi.org/10.1088/0256-307X/42/11/110304" title="">Chin. Phys. Lett. <span class="ltx_text ltx_font_bold">42</span>, 110304 (2025)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib35"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[35]</span>
+<span class="ltx_bibblock">D. Wang, S. Jin, X. Fan, H. Li, J. Liu, J. Huang, G. Zeng, and Y. Sun, <a class="ltx_ref ltx_href" href="https://www.researching.cn/articles/OJ54aa96e7bfbd42ca" title="">Photonics Res. <span class="ltx_text ltx_font_bold">14</span>, 4371 (2026)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib36"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[36]</span>
+<span class="ltx_bibblock">Y. Sun and C. Zhang, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PhysRevA.89.032516" title="">Phys. Rev. A <span class="ltx_text ltx_font_bold">89</span>, 032516 (2014)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib37"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[37]</span>
+<span class="ltx_bibblock">R. W. P. Drever, J. L. Hall, F. V. Kowalski, J. Hough,
+G. M. Ford, A. J. Munley, and H. Ward, <a class="ltx_ref ltx_href" href="https://doi.org/10.1007/BF00702605" title="">Appl. Phys. B <span class="ltx_text ltx_font_bold">31</span>, 97 (1983)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib38"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[38]</span>
+<span class="ltx_bibblock">S. de Léséleuc, D. Barredo, V. Lienhard,
+A. Browaeys, and T. Lahaye, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PhysRevA.97.053803" title="">Phys. Rev. A <span class="ltx_text ltx_font_bold">97</span>, 053803 (2018)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib39"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[39]</span>
+<span class="ltx_bibblock">H. Levine, A. Keesling,
+A. Omran, H. Bernien, S. Schwartz, A. S. Zibrov, M. Endres, M. Greiner, V. Vuletić, and M. D. Lukin, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PhysRevLett.121.123603" title="">Phys. Rev. Lett. <span class="ltx_text ltx_font_bold">121</span>, 123603 (2018)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib40"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[40]</span>
+<span class="ltx_bibblock">X. Jiang, J. Scott,
+M. Friesen, and M. Saffman, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PhysRevA.107.042611" title="">Phys. Rev. A <span class="ltx_text ltx_font_bold">107</span>, 042611 (2023)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib41"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[41]</span>
+<span class="ltx_bibblock">Y. Sun, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PhysRevApplied.20.L061002" title="">Phys. Rev. Appl. <span class="ltx_text ltx_font_bold">20</span>, L061002 (2023)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib42"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[42]</span>
+<span class="ltx_bibblock">J. Hald and V. Ruseva, <a class="ltx_ref ltx_href" href="https://doi.org/10.1364/JOSAB.22.002338" title="">J. Opt. Soc. Am. B <span class="ltx_text ltx_font_bold">22</span>, 2338 (2005)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib43"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[43]</span>
+<span class="ltx_bibblock">N. Akerman, N. Navon,
+S. Kotler, Y. Glickman, and R. Ozeri, <a class="ltx_ref ltx_href" href="https://doi.org/10.1088/1367-2630/17/11/113060" title="">New J. Phys. <span class="ltx_text ltx_font_bold">17</span>, 113060 (2015)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib44"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[44]</span>
+<span class="ltx_bibblock">L. Krinner, K. Dietze,
+L. Pelzer, N. Spethmann, and P. O. Schmidt, <a class="ltx_ref ltx_href" href="https://doi.org/10.1364/OE.514247" title="">Opt. Express <span class="ltx_text ltx_font_bold">32</span>, 15912 (2024)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib45"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[45]</span>
+<span class="ltx_bibblock">I. S. Panyaev, P. A. Itrin,
+D. A. Korobko, and A. A. Fotiadi, <a class="ltx_ref ltx_href" href="https://doi.org/10.1109/JLT.2023.3348994" title="">J. Lightwave Technol. <span class="ltx_text ltx_font_bold">42</span>, 2928 (2024)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib46"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[46]</span>
+<span class="ltx_bibblock">J. Zhang and W. Liang, <a class="ltx_ref ltx_href" href="https://doi.org/10.1364/OL.549280" title="">Opt. Lett. <span class="ltx_text ltx_font_bold">50</span>, 776 (2025)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib47"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[47]</span>
+<span class="ltx_bibblock">L. Li, W. Huie, N. Chen, B. DeMarco, and J. P. Covey, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PhysRevApplied.18.064005" title="">Phys. Rev. Appl. <span class="ltx_text ltx_font_bold">18</span>, 064005 (2022)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib48"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[48]</span>
+<span class="ltx_bibblock">Y.-X. Chao, Z.-X. Hua,
+X.-H. Liang, Z.-P. Yue, L. You, and M. K. Tey, <a class="ltx_ref ltx_href" href="https://doi.org/10.1364/OPTICA.516838" title="">Optica <span class="ltx_text ltx_font_bold">11</span>, 945 (2024)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib49"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[49]</span>
+<span class="ltx_bibblock">B. P. Maddox, J. M. Mortlock, T. R. Hepworth, A. P. Raghuram, P. D. Gregory, A. Guttridge, and S. L. Cornish, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PhysRevLett.133.253202" title="">Phys. Rev. Lett. <span class="ltx_text ltx_font_bold">133</span>, 253202 (2024)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib50"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[50]</span>
+<span class="ltx_bibblock">T. Denecker, Y. T. Chew,
+O. Guillemant, G. Watanabe, T. Tomita, K. Ohmori, and S. de Léséleuc, <a class="ltx_ref ltx_href" href="https://doi.org/10.1103/PhysRevA.111.042614" title="">Phys. Rev. A <span class="ltx_text ltx_font_bold">111</span>, 042614 (2025)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib51"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[51]</span>
+<span class="ltx_bibblock">T. Nakamura, Y. Liu,
+N. Jin, H. Cheng, C. McLemore, N. Hoghooghi, P. Rakich, and F. Quinlan, <a class="ltx_ref ltx_href" href="https://doi.org/10.1063/5.0297890" title="">APL Photonics <span class="ltx_text ltx_font_bold">10</span>, 126120 (2025)</a>. 
+</span></li>
+<li class="ltx_bibitem" id="bib.bib52"><span class="ltx_tag ltx_role_refnum ltx_tag_bibitem">[52]</span>
+<span class="ltx_bibblock">O. J. M. Smith, <a class="ltx_ref ltx_href" href="https://api.semanticscholar.org/CorpusID:124006549" title="">Chem. Eng. Prog. <span class="ltx_text ltx_font_bold">53</span>, 217 (1957)</a>. 
+</span></li>
+</ul>
+</section>
+</article></div></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
