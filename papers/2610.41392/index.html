@@ -1,0 +1,127 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>基于全介质级联超表面的太赫兹螺旋矢量束可重构产生</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style><style>
+.paper-reader{max-width:860px;margin:0 auto}
+.paper-reader h1{font-size:28px;line-height:1.35;margin:10px 0 6px}
+.paper-reader .original-title{color:var(--muted);font-size:14px;margin-bottom:18px}
+.paper-reader .meta{color:var(--muted);font-size:13px;margin-bottom:20px}
+.paper-reader .toc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:20px 0 28px;font-size:14px}
+.paper-reader .toc ol{margin:6px 0 0 18px;padding:0}
+.paper-reader .toc li{margin:3px 0}
+.paper-reader article{font-size:16px;line-height:1.9}
+.paper-reader h2{font-size:22px;margin:30px 0 10px}
+.paper-reader h3{font-size:18px;margin:22px 0 8px}
+.paper-reader figure{margin:20px 0;text-align:center}
+.paper-reader img{max-width:100%;height:auto}
+.paper-reader figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+.paper-reader table{display:block;overflow-x:auto;border-collapse:collapse;margin:16px 0;font-size:14px}
+.paper-reader math{overflow-x:auto;max-width:100%}
+.paper-reader pre{overflow-x:auto}
+</style></head><body class="">
+<header><a class="brand" href="../index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="../daily/index.html">日报</a><a href="../papers/index.html" aria-current="page">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 中文全文</div><h1>基于全介质级联超表面的太赫兹螺旋矢量束可重构产生</h1><div class="paper-reader"><h1>基于全介质级联超表面的太赫兹螺旋矢量束可重构产生</h1><p class="meta">arXiv 2610.41392 · 16 页</p><article><p>基于全介质级联超表面的太赫兹螺旋矢量光束可重构产生 HONGJUN CHEN,1,2 YUXIN TANG,1,2 JIANMING LI,1,2 JITAO LI,3 LI LUO,1,2 TINGTING TANG,1,2 JIE LI,1,2,* JIANQUAN YAO4 1 Sichuan Province Key Laboratory of Optoelectronic Sensor Devices and Systems, College of Optoelectronic Engineering (Chengdu IC Valley Industrial College), Chengdu University of Information Technology, Chengdu 610225, China. 2 Sichuan Meteorological Optoelectronic Sensor Technology and Application Engineering Research Center, Chengdu University of Information Technology, Chengdu 610225, China.</p><h2>3 School of Science, Southwest Petroleum University, Chengdu 610500, China.</h2><p>4 School of Precision Instruments and Opto-Electronics Engineering, Tianjin University, Tianjin 300072, China. 摘要 太赫兹（THz）复杂结构光场，尤其是矢量光束的可重构产生，仍然是一个重大挑战。本文提出一种基于全介质级联超表面的新型方案，用于可重构产生太赫兹螺旋矢量光束。通过将各向同性相位补偿层与各向异性圆偏振敏感层相结合，并采用专为螺旋光束定制的新型相位设计，我们实现了对左旋和右旋圆偏振（LCP 和 RCP）分量的独立控制，其控制量为两层</p><p>之间的相对旋转角。在线偏振太赫兹波照射下，在约0.9 THz频率附近演示了螺旋数可在1-3之间切换、圆偏振旋向可逆的太赫兹矢量光束。此外，由于螺旋光束的纵向演化特性，所产生的三束太赫兹矢量光束沿传播方向分别呈现279.9°、125.7°和75.5°的方位角旋转。这类兼具可重构性与纵向演化的复杂太赫兹矢量光束，有望应用于新一代无线通信和太赫兹成像等新兴领域。所提出的产生方案也为高维矢量光束的可重构</p><p>产生提供了有益参考。关键词：太赫兹波；结构光场；矢量光束；莫尔相位工程；超表面</p><p>引言 结构光场是一类具有独特时空演化特性的定制光场。在传播以及与物质相互作用的过程中，它们表现出多种新颖性质，如光子自旋-轨道耦合、拓扑奇点、力学效应和模式正交性，因此被广泛应用于微粒操控、生物医学成像、光通信与传感以及激光加工。光场的结构化可以通过向光束中引入相位奇点和偏振奇点来实现。随着研究的深入和应用的拓展，人们对结构光场的设计维度和可用自由度提出了更高要求 [1-3]。</p><p>因此，如何生成和操控多个电磁参数在多个时空维度上同时变化的光束，以及如何以实时可重构的方式生成不同结构的光束，相关关键技术正日益凸显其价值与意义。太赫兹（THz）波段的结构光场同样具有独特的应用前景。例如，在新一代（6G）无线通信中，太赫兹光束的轨道角动量（OAM）提供了一个额外的自由度，可进一步提高数据速率和信道容量[4]。在新型电子加速领域，高功率太赫兹向量光束为电子枪、加速器以及光束的</p><p>操控与诊断开辟了新的可能；因此，太赫兹驱动的电子加速已成为实现未来高品质、紧凑型加速器最有前景的途径之一[5]。在成像方面，太赫兹涡旋光束、贝塞尔光束和艾里光束等结构光场，为高分辨率、扩展景深和高对比度的太赫兹相衬成像以及计算层析成像等技术提供了关键支撑[6]。在太赫兹波段高效生成结构光场，是推动太赫兹技术更广泛应用的前提，而多种太赫兹结构光束的可重构生成仍是亟待解决的关键问题。在传统光学系统中，结构光场——尤其是向量光束——的可重构生成，</p><p>通常需要多个步骤，并涉及空间光调制器、起偏器和波片等器件，以及分光与合光操作。由于太赫兹波段长期缺乏成熟的数字化空间调制器件，早期太赫兹结构光场的生成主要依赖于利用相位板、级联波片和液晶等器件对常规光束进行光束整形[7–10]。这类方法难以</p><p>同时联合调控两个或多个电磁参数，且不同场分量的独立设计仍然困难，因此仍无法满足高维太赫兹结构光场的生成要求。近年来，超表面研究的进展为高维太赫兹结构光场的生成带来了新的机遇。2017年，研究人员采用单层金属超表面实现了太赫兹轨道角动量的复用—解复用，并生成了径向偏振洛伦兹光束[11–14]。2020年，Han等人将非线性超表面与近零介电常数（epsilon-near-zero）材料相结合，在辐射源处直接激励太赫兹涡旋光束[15]。2021年，</p><p>Yao 等分别利用全硅超表面产生了在线偏振和圆偏振中复用的太赫兹（THz）轨道角动量叠加 [16–18]。然而，这类单层超表面仍难以实现太赫兹结构光束的可重构产生。双层莫尔超表面为这一问题提供了有效解决方案。例如，2023 年，Chen 等提出一种机械旋转级联超表面方案，并分别对横向和纵向维度上的太赫兹艾里光束和聚焦高斯光束实现了动态调控 [19]。同样在 2023 年，Wang 等利用双层超表面灵活调控贝塞尔光束的阶数，从而实现了对</p><p>无衍射传输长度的宽范围调制 [20]。2025 年，Nan 等进一步实现了太赫兹贝塞尔光束的偏振与拓扑荷的同时切换 [21]。2026 年，Xu 等同样采用双层级联超表面，实现了具有宽调谐范围和宽带兼容性的连续面内焦点平移 [22]。然而，这些研究主要聚焦于标量太赫兹结构光束的可重构产生，关于矢量光束产生的研究仍明显不足。针对这些问题，我们提出一种工作在太赫兹波段的级联莫尔超表面器件。圆偏振复用层实现偏振解耦，而偏振无关层切换整体</p><p>每个通道的相位；结合专门为螺旋光束设计的相位分布，该配置可产生螺旋数和偏振态分布均可动态调谐的太赫兹矢量光束。通过调节两个超表面之间的相对旋转角 Δβ，可切换方位角螺旋斑的数量，并反转圆偏振旋向。结果与讨论</p><p>图 1 基于级联超表面可重构产生太赫兹螺旋矢量光束的示意图。我们提出一种偏振复用的全介质莫尔超表面方案，其中透镜由两个同轴对准的超表面组成。该超表面被设计为分别向正交的左旋和右旋圆偏振（LCP 和 RCP）太赫兹波赋予两种不同的传递函数，从而以线偏振光束照明时产生圆偏振在空间上非均匀分布的矢量光束。如图 1 所示，所设计的级联超表面由两个全介质层组成：MS1 为各向同性、偏振不敏感层，MS2 为各向异性、圆偏振敏感层，该层</p><p>为相互正交的圆偏振波提供相位调制。通过定制相位设计，随着相对旋转角 Δβ 变化，可生成具有共轭螺旋旋向和不同螺旋数的向量光束。在 Δβ = 0° 时，左旋圆偏振（LCP）分量形成顺时针双螺旋光束，而右旋圆偏振（RCP）分量形成逆时针双螺旋光束，并且焦平面上的斯托克斯参量 S3 呈现出两类均匀交替分布的斑块。在 Δβ = 13.6° 或 Δβ = −13.6° 时，LCP 分量分别变为顺时针三螺旋或单螺旋光束，而 RCP 分量分别变为逆时针单螺旋或三螺旋光束。因此，在线偏振 THz</p><p>照明下，将 Δβ 从 13.6° 切换至 −13.6°，会反转内、外螺旋光束的圆偏振旋向。为实现螺旋 THz 向量光束的可重构生成，我们构建了螺旋阶数可调的偏振敏感传播函数（忽略各超原子之间的振幅差，并假设透射振幅</p><p>为单位值）。莫尔超表面的第一层超表面 MS1 作为相位补偿元件，所产生的螺旋光束数量由旋转角 β 控制。由于 MS1 由偏振不敏感的圆柱形柱构成，波前调控通过传播相位原理实现。第二超表面 MS2 对圆偏振敏感，负责独立控制左旋圆偏振（LCP）和右旋圆偏振（RCP）分量。根据自旋解耦相位设计原理[23]，对 LCP 和 RCP 分量施加与旋转角相关的相位。螺旋光束所需的相位函数由两个独立</p><p>分量组成，如下所示：双曲透镜相位（式(1.1)）和二重自旋转相位（式(1.2)）[24, 25]：φ(x,y)= (2π/λ)(f₀ − √(x² + y² + f₀²))   (1.1) 其中 λ 表示入射光的目标波长，f₀ 为设计焦距，x 和 y 为超表面平面上的笛卡尔坐标。二重旋转相位分布（φrot）由下式给出[26–28]：φ_rot(r,θ)=k·round(a r + (b/2π)θ)   (1.2) 其中 k 是控制参数，决定图案被划分成的瓣数；r 是径向坐标（r = √(x² + y²)）；θ 是方位角（θ = tan⁻¹(y/x)）；round() 表示最近整数取整函数；a 调整……的尾部</p><p>旋转光束，而 b 则调节整体相位图。最终选取的最优值为 a = 0.65 和 b = 1，φrot 的符号决定螺旋旋转的方向，即顺时针或逆时针 [29]。为了使螺旋数能够通过将超表面旋转 β 角所引入的相移进行调谐，只需让 β 改变 k；因此为 MS1 设计的相位分布为： 1 rot ,MS r     (1.3) MS2 的相位分布由下式给出： 0 0 2 rot 2 rot , , , , MS LCP f MS RCP f r x y r x y                     (1.4) 分别将 MS1 和 MS2 的左旋圆偏振（LCP）与右旋圆偏振（RCP）相位相加，得到总相位</p><p>LCP 和 RCP 通道的总相位分布：</p><p>0 0 int int ,2 ,2 b jo LCP f b jo RCP f k round a r x y k round a r x y                               (1.5) 其中 φjoint-LCP 和 φjoint-RCP 分别是与 LCP 和 RCP 分量相对应的总相位分布，β 为相对旋转角。由此得到一种螺旋数可调的相位分布，其近似为：  roundN k   (1.6) 本文中 k 固定为 2。为获得螺旋数分别为 1、2 和 3 的螺旋，同时兼顾实验可行性，我们选取相等的旋转角间隔；相应地： 11 21 31, ,66 66 66      (1.7) 本文中，超表面的初始构型选取为对应于 N =</p><p>2，即 β = 21π/66，由此得到 Δβ = ±10π/66。由于初始相位设定为 N = 2，式 (1.5) 中与 LCP 和 RCP 通道相关联的 β 符号不同，而莫尔透镜所加载的相位在同一旋转方向下是相同的；因此我们得到： 21 66 21 66 LCP RCP N round k N round k                              (1.8) 由此得到 N LCP = {3, 2, 1} 和 N RCP = {1, 2, 3}。于是我们获得这样一种相位分布：在相同旋转角下，LCP 与 RCP 分量具有不同的螺旋数和相反的螺旋旋转方向。为实现 MS1 的共偏振相位控制以及 MS2 的独立交叉偏振控制，我们设计了两种超表面结构，即柱形和</p><p>矩形柱体，两者均工作于 1 THz。这两种硅柱体均采用 CST Studio Suite 2019 的时域求解器进行仿真，在 x 和 y 方向施加周期性边界条件，并以平面波作为激励。硅柱体的周期 P = 140 μm，高度 H = 200 μm，衬底厚度 h = 300 μm。如图 2e 所示，通过改变圆柱直径 R1 计算了透射振幅和相位。根据仿真结果，选取了八个超原子（其结构参数列于表 1），其尺寸以及</p><p>图 2. 超表面单元结构的几何参数扫描。(a、b) 不同尺寸超原子在x偏振和y偏振入射下的透射振幅；(c、d) 相应的相移；(e) 所选八个各向同性单元结构的振幅和相位；(f) 所选十六个各向异性单元结构的振幅和相位。相应的透射振幅和相位绘制于图 2e。可以看出，透射振幅保持在0.6以上，而相位在2π范围内以π/4为步长连续变化。对于矩形柱，通过改变长度L和宽度W获得了相应的透射振幅和相位。硅矩形柱不仅必须满足半波片条件（即</p><p>两个正交偏振的透射同偏振分量之间具有相等的振幅和π的相位差）从而能够实现偏振控制，而且还必须提供可在0–2π范围内连续演化的动态相位，以便获得所需的相位分布。如图 2f所示，在筛选仿真数据后，选出了十五个超原子；它们的透射振幅保持在0.6以上，</p><p>图 3. 级联超表面的设计相位。而相位在2π范围内以π/8为步长连续变化。相应的透射振幅和相位如图 2(a–d)所示。在1 THz入射频率下，我们构建了透射振幅和相移（Txx、Tyy、φxx、φyy）的数据库，记录矩形柱尺寸（W、L）变化时对应的数值。这里，Txx（Tyy）和φxx（φyy）分别表示在x偏振（y偏振）入射波下透射的x偏振（y偏振）分量的透射振幅和相位。基于所选的两种超原子形状，对两个超表面的单元结构逐一排布，以获得两层的设计相位分布</p><p>如图 3所示。由于初始选择的相位分布对应k = 2，在下文描述中，Δβ = 0°始终指初始相对旋转角β = 21π/66。图 3展示了莫尔超表面的相位分布：第一至第三列是两个超表面在不同旋转角β下的相位，第四和第五列是不同旋转角β对应的总相位分布。所设计的两层级联超表面在CST Studio Suite 2019中建模，并使用瞬态求解器进行仿真，设计焦距f₀ = 7 mm，阵列尺寸为[90 90 ]。图 4和图 5展示了所得光强（即|E|²）</p><p>分别在左旋圆偏振（LCP）和右旋圆偏振（RCP）太赫兹波照射下获得，频率为0.9 THz，入射场振幅为1 V/m。仿真中使用的时域脉冲带宽为0.6– 1.2 THz；最佳性能在0.9 THz处获得，而1 THz处的性能劣于0.9 THz处。对单元结构库的分析表明，可能的原因是……的偏差</p><p>图 4 不同传输距离下左旋圆偏振（LCP）入射时透射场的强度分布 |E|²（单位：V²/m²）。(a–c) Δβ = −13.6° 的 LCP 入射在 Z = 4600 μm、4900 μm 和 5200 μm 平面上的强度分布。(d–f) Δβ = 0° 的 LCP 入射在相同平面上的强度分布。(g–i) Δβ = −13.6° 的 LCP 入射在相同平面上的强度分布。部分单元结构的相位选择会在元件阵列的整体相位与设计理论之间引入误差，从而使最佳频率和最佳旋转角均发生偏移。在 0.85–1 THz 范围内获得了类似的仿真结果，因此我们选择 0.9 THz 和 13.6  ——即频率</p><p>和旋转角（二者给出最高光强）——用于展示。根据上述分析，图 4 展示了设计超表面器件对 0.9 THz LCP 入射的调制。具体而言，对于相对旋转角 Δβ = 0°，输出 LCP 波为沿 +z 方向顺时针旋转的双螺旋光束；对于 Δβ = −13.6°，为顺时针三螺旋光束；对于 Δβ = +13.6°，为顺时针单螺旋光束。</p><p>图 5 不同传输距离下右旋圆偏振（RCP）入射时透射场的强度分布 |E|²（单位：V²/m²）。(a–c) Δβ = −13.6° 的 RCP 入射在 Z = 4600 μm、4900 μm 和 5200 μm 平面上的强度分布。(d–f) Δβ = 0° 的 RCP 入射在相同平面上的强度分布。(g–i) Δβ = −13.6° 的 RCP 入射在相同平面上的强度分布。图 5 展示了 0.9 THz RCP 入射相应的调制；同样，RCP 入射输出的螺旋光束沿 +z 方向逆时针旋转。对于 Δβ = 0°，输出为双螺旋；对于 Δβ = −13.6°，输出为单螺旋；对于 Δβ = +13.6°，输出为三螺旋。结合图 4 和图 5 进一步表明</p><p>即螺旋的旋转速率随螺旋光束数量而变化；下文将对此进行详细分析。</p><p>图 6 线偏振入射下经级联超表面透射场中斯托克斯参量 S₀ 和 S₃ 的分布。(a–c) 不同旋转角 Δβ 下，斯托克斯参量 S₀（总光强）在 Z = 5.2 mm、4.5 mm 和 4.2 mm 平面上的强度分布。(d–f) 不同旋转角 Δβ 下，斯托克斯参量 S₃（圆偏振分量）在相同平面上的分布。图 6 给出了在振幅为 1.4 V/m 的线偏振平面太赫兹波照射下，设计级联超表面在 Z = 5.2 mm、4.5 mm 和 4.2 mm 平面上透射场的计算斯托克斯参量 S₀ 和 S₃。可以看出，在超表面旋转不同角度并受到照射后</p><p>在线偏振光入射下，透射光束仍表现出与两路正交圆偏振分别入射时相同的行为。由图 6(d–f)，当 Δβ = 0° 时，Z 平面上的 S₃ 分布在方位角方向上由左旋圆偏振（LCP）与右旋圆偏振（RCP）区域交替组成。当 Δβ = −13.6° 时，外侧三螺旋光束为 LCP，而内侧单螺旋光束为 RCP。当 Δβ = +13.6° 时，偏振分布相对于 Δβ = −13.6° 时恰好反转。因此，我们获得了一种方案：通过旋转级联超表面即可重构偏振分布，从而产生可重构的太赫兹螺旋矢量光束。</p><p>图 7 所生成矢量光束 S₃ 参量的三维重建。(a) Δβ = −13.6° 时 S₃ 的三维视图。(b) Δβ = 0° 时 S₃ 的三维视图。(c) Δβ = +13.6° 时 S₃ 的三维视图。(d) 对于 Δβ = −13.6°，沿 Z 传播 1000 μm 后，经三维重建并从上方观察到的 S₃ 分布旋转角。(e) Δβ = 0° 时同上。(f) Δβ = +13.6° 时同上。图 7 展示了通过堆叠在不同 Z 平面上计算得到的场数据的 S₃ 切片而获得的三维视图，这些切片覆盖 Z = 4200 μm 至 5200 μm，步长为 50 μm。S₃ 分布的三维显示使得在线偏振入射下螺旋光束的细节——包括其数量和</p><p>旋转方向——能够更直观地看出。图 7(a)–(c) 分别给出了 Δβ = −13.6°、0° 和 +13.6° 时的 S₃ 分布。由图 7(a)，在 Δβ = −13.6° 时，LCP</p><p>分量形成沿 +Z 顺时针旋转的三螺旋光束，而 RCP 分量形成沿 +Z 逆时针旋转的单螺旋光束。在图 7(c) 中，LCP 与 RCP 分量的螺旋数量恰好相反。图 7(b) 中 LCP 与 RCP 分量也观察到相同行为。值得注意的是，在 Z = 4600–4800 μm 范围内，光束似乎消失。原因在于两个通道的双螺旋光束在该区域重合；由于 LCP 与 RCP 分量之间未设计相位差，它们在该处的叠加产生普通线偏振场。图 6(b) 中的 S₀ 显示似乎与该推理一致。对图 7(a)–(f) 的综合分析</p><p>解决了图 6 讨论中遗留的问题，即旋转速率。在 z = 4200–5200 μm 范围内，一个螺旋的旋转最快（≈279.9°），两个螺旋中等（≈125.7°），三个螺旋最慢（≈75.5°）。结论 综上，设计了一种基于莫尔相位工程的级联超表面，并分析了其在线偏振太赫兹入射下的透射场特性。结果表明，所提方案能够在太赫兹波段可重构地产生螺旋矢量光束。通过改变级联超表面的相对旋转角，可以切换螺旋光束的数量并反转其圆偏振旋向。同时，</p><p>生成的矢量光束在纵向传输过程中表现出明显的方位角旋转和偏振演化，且不同螺旋数的光束以不同速率旋转。这些结果验证了利用级联超表面对太赫兹矢量光束实现多自由度控制的可行性，并为螺旋矢量场的动态重构提供了一种新的相位设计方法。致谢：本工作得到国家自然科学基金（Grant No. 12404484）和四川省科技支撑计划（Grant Nos. 2025NSFSC2073 和 2025ZNSFSC0846）资助。利益声明：作者声明无利益冲突。数据可用性：本文所呈现结果所依据的数据可从</p><p>作者处经合理请求获得。</p><p>引用 [1] C. He, Y . Shen, and A. Forbes, &quot;Towards higher-dimensional structured light,&quot; Light: Science &amp; Applications 11(1), 205 (2022). [2] Guo, Kenan &amp; Jiang, Yue &amp; Xiao, Shuyuan &amp; Liu, Tingting.. Tunable edge and depth sensing via phase-change nonlocal metasurfaces. Physical Review Applied. 24. 044005(2025). [3] Liu, Tingting &amp; Qiu, Jumin &amp; Shi, Xintong &amp; Liu, Qiegen &amp; Xiao, Shuyuan. Flat optics for analog computing: From fundamental mechanisms to advanced meta- processors. Physical Review Applied.(2026). [4] I. F. Akyildiz，C. Han，Z. Hu，S. Nie，J. M. Jornet, &quot;Terahertz band communication: an old problem revisited and research directions for the next decade,&quot; IEEE Transactions on Communications 70(6), 4250-4285 (2022).</p><p>[5] H. Xu, L. Yan, Y . Du, W. Huang, Q. Tian, R. Li, Y . Liang, S. Gu, J. Shi, and C. Tang, &quot;Cascaded high-gradient terahertz-driven acceleration of relativistic electron beams,&quot; Nature Photonics 15(6), 426-430 (2021). [6] R. Ning, D. Wang, J. Zhao, L. Rong, and Y . Wang, &quot;High accuracy terahertz computed tomography using a 3D printed super-oscillatory lens,&quot; Optics and Lasers in Engineering 167(4), 107610 (2023). [7] Z. Xie, X. Wang, J. Ye, S. Feng, W. Sun, T. Akalin, and Y . Zhang, &quot;Spatial terahertz modulator,&quot; Scientific Reports 3, 3347 (2013). [8] Z. Xie, J. He, X. Wang, S. Feng, and Y . Zhang, &quot;Generation of terahertz vector beams with a concentric ring metal grating and photo-generated carriers,&quot; Optics</p><p>Letters 40(3), 359-362 (2015). [9] R. Imai, N. Kanda, T. Higuchi, Z. Zheng, K. Konishi, and M. Kuwata-Gonokami, &quot;Generation of broadband terahertz laguerre-gaussian beam,&quot; Optics Letters 39(13), 3714-3717 (2013). [10] S. Ge, P. Chen, Z. Shen, W. Sun, X. Wang, W. Hu, Y . Zhang, and Y . Lu, &quot;Terahertz vortex beam generator based on a photopatterned large birefringence liquid crystal,&quot; Optics Express 25(11), 12349- 12356 (2017). [11] H. Zhao, B. Quan, X. Wang, C. Gu, J. Li, and Y . Zhang, &quot;Demonstration of Orbital Angular Momentum Multiplexing and Demultiplexing Based on a Metasurface in the Terahertz Band,&quot; ACS Photonics 5(5), 1726-1732 (2018). [12] J. Y . Guo, X. K. Wang, J. W. He, H. Zhao, S. F. Feng, P. Han, J. S. Ye, W. F. Sun,</p><p>G. H. Situ, and Y . Zhang, &quot;Generation of Radial Polarized Lorentz Beam with</p><p>Single Layer Metasurface,&quot; Advanced Optical Materials 6(1), 1700925 (2018). [13] X. F. Zang, Y . M. Zhu, C. X. Mao, W. W. Xu, H. Z. Ding, J. Y . Xie, Q. Q. Cheng, L. Chen, Y . Peng, Q. Hu, M. Gu, and S. L. Zhuang, &quot;Manipulating Terahertz Plasmonic V ortex Based on Geometric and Dynamic Phase,&quot; Advanced Optical Materials 7(3), 1801328 (2019). [14] He, Qianqian &amp; Guo, Kenan &amp; Qiu, Jumin &amp; Qiu, Huifu &amp; Xiao, Shuyuan &amp; Liu, Tingting. Edge-enhanced diffractive neural networks based on spin-multiplexed nonlocal metasurfaces. Physical Review Applied(2026). [15] Y . Lu, X. Feng, Q. Wang, X. Zhang, M. Fang, W. E. I. Sha, Z. Huang, Q. Xu, L. Niu, X. Chen, C. Ouyang, Y . Yang, X. Zhang, E. Plum, S. Zhang, J. Han, and W.</p><p>Zhang, &quot;Integrated Terahertz Generator-Manipulators Using Epsilon-near-Zero Hybrid Nonlinear Metasurfaces,&quot; Nano Letter 21(18), 7699-7707 (2021). [16] C. Zheng, G. Wang, J. Li, J. Li, S. Wang, H. Zhao, M. Li, Z. Yue, Y . Zhang, Y . Zhang, and J. Yao, &quot;All-Dielectric Metasurface for Manipulating the Superpositions of Orbital Angular Momentum via Spin-Decoupling,&quot; Advanced Optical Materials 9(10), 2002007 (2021). [17] J. Li, G. Wang, C. Zheng, J. Li, Y . Yang, Z. Zhang, M. Yang, H. Zhao, F. Li, T. Tang, L. Wu, J. Li, Y . Zhang, Y . Zhang, and J. Yao, &quot;All-silicon metasurfaces for polarization multiplexed generation of terahertz photonic orbital angular momentum superposition states,&quot; Journal of Materials Chemistry C 9(16), 5478-</p><p>5485 (2021). [18] J. Li, J. Li, Z. Yue, C. Zheng, G. Wang, J. Liu, H. Xu, C. Song, F. Yang, H. Li, F. Li, T. Tang, Y . Zhang, Y . Zhang, and J. Yao, &quot;Structured Vector Field Manipulation of Terahertz Wave along the Propagation Direction Based on Dielectric Metasurfaces,&quot; Laser &amp; Photonics Reviews 16(12), 2200325, (2022). [19] J. C. Zhang, G. B. Wu, M. K. Chen, X. Liu, K. F. Chan, D. P. Tsai, and C. H. Chan, &quot;A 6G meta-device for 3D varifocal,&quot; Science Advances 9(4), 1-9 (2023). [20] Wang, Guocui &amp; Zhou, Tian &amp; Huang, Jianzhou &amp; Wang, Xinke &amp; Hu, Bin &amp; Zhang, Yan. Moiré meta-device for flexibly controlled Bessel beam generation. Photonics Research. 11. 100-108. (2022). [21] Nan, Tong &amp; Zhu, Zhiyan &amp; Wang, Guocui &amp; Wang, Yunfei &amp; Sun, Shulin &amp;</p><p>Tian, Hao &amp; Zhang, Yan. Generation of Bessel beams with tunable topological charge and polarization. Nanophotonics. 14. 2695-2707 (2025). [22] Wenhui Xu, Guibin Li, Hui Li, Qi Tan, Yufei Liu, Jie Li, Hang Xu, Yan Zhang, Jianquan Yao; Dynamic terahertz focal planar scanning via cascaded metasurfaces.</p><p>Appl. Phys. Lett. 9 March 2026. [23] Li, Jie &amp; Lu, Xueguang &amp; Li, Hui &amp; Song, Chunyu &amp; Tan, Qi &amp; He, Yu &amp; Liu, Jingyu &amp; Luo, Li &amp; Tang, Tingting &amp; Liu, Tingting &amp; Hang, Xu &amp; Xiao, Shuyuan &amp; Huang, Wanxia &amp; Shen, Yun &amp; Zhang, Yan &amp; Zhang, Yating &amp; Yao, J.. Racemic dielectric metasurfaces for arbitrary terahertz polarization rotation and wavefront manipulation. Opto-Electronic Advances. 7. 240075(2024). [24] Tseng, Ming &amp; Hsiao, Hui-Hsin &amp; Chu, Cheng &amp; Chen, Mu &amp; Sun, Greg &amp; Liu, Ai-qun &amp; Tsai, Din Ping. Metalenses: Advances and Applications. Advanced Optical Materials. 6. 1800554(2018). [25] Chen, Mu &amp; Wu, Yongfeng &amp; Feng, Lei &amp; Fan, Qingbin &amp; Lu, Minghui &amp; Xu, Ting &amp; Tsai, Din Ping. Principles, Functions, and Applications of Optical Meta‐</p><p>Lens. Advanced Optical Materials. 9 (2021). [26] Ke, Yougang &amp; Bian, Yongfeng &amp; Tang, Qiang &amp; Tian, Jibo &amp; Zeng, Linzhou &amp; Chen, Yu &amp; Zhou, Xinxing. Rotational photonic spin Hall effect. Nanophotonics. 12. 4361-4373(2023). [27] Berlich, Rene &amp; Stallinga, Sjoerd. High-order-helix point spread functions for monocular three-dimensional imaging with superior aberration robustness. Optics Express. 26. 4873-4891(2018). [28] Kai, Niu &amp; Zhao, Shangdong &amp; Liu, Yu &amp; Tao, Shaohua &amp; Wang, Fuliang. Self- rotating beam in the free space propagation. Optics Express. 30. 5465-5472(2022). [29] Kim Y , Lee J, Kim WS et al. Millisecond-level electrically switchable metalens for adaptive rotational depth mapping and diffraction-limited imaging. Opto-Electron</p><p>Adv 9, 250216 (2026).</p></article></div></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
