@@ -1,0 +1,864 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>基于吸收检测的紧凑型单光束光泵磁力计</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style><style>
+.paper-reader{max-width:860px;margin:0 auto}
+.paper-reader h1{font-size:28px;line-height:1.35;margin:10px 0 6px}
+.paper-reader .original-title{color:var(--muted);font-size:14px;margin-bottom:18px}
+.paper-reader .meta{color:var(--muted);font-size:13px;margin-bottom:20px}
+.paper-reader .toc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:20px 0 28px;font-size:14px}
+.paper-reader .toc ol{margin:6px 0 0 18px;padding:0}
+.paper-reader .toc li{margin:3px 0}
+.paper-reader article{font-size:16px;line-height:1.9}
+.paper-reader h2{font-size:22px;margin:30px 0 10px}
+.paper-reader h3{font-size:18px;margin:22px 0 8px}
+.paper-reader figure{margin:20px 0;text-align:center}
+.paper-reader img{max-width:100%;height:auto}
+.paper-reader figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+.paper-reader table{display:block;overflow-x:auto;border-collapse:collapse;margin:16px 0;font-size:14px}
+.paper-reader math{overflow-x:auto;max-width:100%}
+.paper-reader pre{overflow-x:auto}
+</style></head><body class="">
+<header><a class="brand" href="../index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="../daily/index.html">日报</a><a href="../papers/index.html" aria-current="page">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 中文全文</div><h1>基于吸收检测的紧凑型单光束光泵磁力计</h1><div class="paper-reader"><h1>基于吸收检测的紧凑型单光束光泵磁力计</h1><p class="original-title">A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection</p><p class="meta">arXiv 2610.32795 · 机器翻译，公式与图表保留原文</p><nav class="toc"><strong>目录</strong><ol></ol></nav><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">基于吸收检测的紧凑型单光束光泵磁力计
+</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Jia-You Liou
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Yi-Hsuan Chen
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Hsiang-An Chuang
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Chih-Hsuan Huang
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Zong-Hsin Liu
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">I-Chiao Tsai
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Kai-Hsin Peng
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Yi-Hsin Chen
+</span><span class="ltx_note ltx_note_frontmatter ltx_thanks_funding ltx_role_thanks" id="id1"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span>This work was supported by Grants No. 114-2112-M-110-005 of the National Science and Technology Council, Taiwan, and No. NHRI-14A1-BN-CO-47-2525-1 of the Institute of Biomedical Engineering and Nanomedicine, National Health Research Institutes, Taiwan; by the Ministry of Economic Affairs of Taiwan under Grant Nos. 115-EC-17-A-22-1905, 114-EC-17-A-22-1905, and 113-EC-17-A-22-1905.</span></span></span><span class="ltx_note ltx_note_frontmatter ltx_thanks_correspondence ltx_role_thanks" id="id2"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span>Jia-You Liou, Kai-Hsin Peng, and Yi-Hsin Chen are with the Department of Physics, National Sun Yat-Sen University, Kaohsiung, 80424, Taiwan. (Corresponding author: yihsin.chen@mail.nsysu.edu.tw).</span></span></span><span class="ltx_note ltx_note_frontmatter ltx_thanks_note ltx_role_thanks" id="id3"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span>Yi-Hsuan Chen, Chih-Hsuan Huang, Zong-Hsin Liu, and I-Chiao Tsai are with the Metal Industries Research &amp; Development Centre, Kaohsiung, 811, Taiwan.
+</span></span></span><span class="ltx_note ltx_note_frontmatter ltx_thanks_note ltx_role_thanks" id="id4"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span>Hsiang-An Chuang is with the Department of Electrical Engineering, National Sun Yat-Sen University, Kaohsiung, 80424, Taiwan.
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">摘要</h6>
+<p class="ltx_p" id="abstract1.1">我们展示了一种紧凑型单光束光泵磁力计（OPM），采用充有500 Torr缓冲气体的纯<sup class="ltx_sup" id="abstract1.1.1"><span class="ltx_text ltx_font_italic" id="abstract1.1.1.1">87</span></sup>Rb微加工气室。通过<math alttext="\mu" class="ltx_Math" display="inline" id="abstract1.m3" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>–金属磁屏蔽与内部补偿线圈相结合，残余磁场被主动抑制到<math alttext="400" class="ltx_Math" display="inline" id="abstract1.m2" intent=":literal"><semantics><mn>400</mn><annotation encoding="application/x-tex">400</annotation></semantics></math> pT以下。我们系统表征了OPM响应随激光失谐和光强的变化，并由信号斜率与噪声幅度谱密度推导出磁场灵敏度。在最佳光强下、共振跃迁附近获得了11 fT<math alttext="/\sqrt{\rm{Hz}}" class="ltx_Math" display="inline" id="abstract1.m4" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>/</mo><msqrt><mi>Hz</mi></msqrt></mrow><annotation encoding="application/x-tex">/\sqrt{\rm{Hz}}</annotation></semantics></math>的最佳灵敏度，所用气室体积仅为0.027 cm<sup class="ltx_sup" id="abstract1.1.2">3</sup>。
+此外，利用折叠式柔性印刷电路板（FPCB）研制了小型化OPM原型，将气室、紧凑加热器和磁场线圈集成到立方体传感头中。研究了两种直接图形化在FPCB上的线圈构型。在优化工作条件下，OPM原型实现了66 fT<math alttext="/\sqrt{\rm{Hz}}" class="ltx_Math" display="inline" id="abstract1.m6" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>/</mo><msqrt><mi>Hz</mi></msqrt></mrow><annotation encoding="application/x-tex">/\sqrt{\rm{Hz}}</annotation></semantics></math>的灵敏度。
+这些结果表明，高缓冲气压单光束OPM能够实现优异灵敏度，为紧凑且可扩展的阵列铺平了道路。</p>
+</div>
+<div class="ltx_keywords">
+<h6 class="ltx_title ltx_title_keywords">索引词：</h6>Optically pumped magnetometer (OPM), spin-exchange relaxation-free (SERF), gyromagnetic ratio, Larmor precession, zero-field resonance (ZFR)
+
+</div>
+<section class="ltx_section" id="S1">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">I </span><span class="ltx_text ltx_font_smallcaps" id="S1.1">引言</span></h2>
+<div class="ltx_para" id="S1.p1">
+<p class="ltx_p" id="S1.p1.1">高灵敏度磁测量在许多科学领域发挥着重要作用，包括物理学、生物学、神经科学、材料科学和地质学。低温超导量子干涉器件（SQUIDs）已用于要求最严苛的应用<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib26" title="">1</a>]</cite>，而原子磁强计的最新进展——目前已具备亚飞特斯拉灵敏度<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib15" title="">2</a>, <a class="ltx_ref" href="#bib.bib4" title="">3</a>, <a class="ltx_ref" href="#bib.bib22" title="">4</a>]</cite>——拓展了超灵敏磁场检测的潜力。与SQUIDs不同，光泵磁强计（OPMs）是基于广泛采用的泵浦-探测配置的全光学原子磁强计<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib15" title="">2</a>, <a class="ltx_ref" href="#bib.bib17" title="">5</a>]</cite>。它们具有热态运行、高空间分辨率和小型化潜力等关键优势。大多数OPMs使用钾（K）、铷（Rb）或铯（Cs）等碱金属原子，因为其具有强光学跃迁和适合光泵浦的超精细结构。氦-4（<sup class="ltx_sup" id="S1.p1.1.1">4</sup>He）也因其亚稳态三重态而被使用，而其惰性、高扩散速率和低自旋弛豫速率使其非常适合在高温或高场环境中工作<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib14" title="">6</a>, <a class="ltx_ref" href="#bib.bib11" title="">7</a>]</cite>。最近，具有反作用规避的压缩探测光可将自旋交换受限的OPMs的灵敏度提升到相干态极限之外<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib5" title="">8</a>, <a class="ltx_ref" href="#bib.bib8" title="">9</a>]</cite>。此外，深度神经网络可在简化的标量OPM装置中从光学旋转信号中提取完整的向量磁场信息，在保持高灵敏度的同时显著降低系统复杂度<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib7" title="">10</a>]</cite>。这些进展使基于OPM的脑磁图（OPM-MEG）以及其他生物医学传感与成像应用成为可能，可提供无创、高分辨率的磁场测量，并提高了实用性<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib16" title="">11</a>, <a class="ltx_ref" href="#bib.bib13" title="">12</a>, <a class="ltx_ref" href="#bib.bib9" title="">13</a>]</cite>。</p>
+</div>
+<div class="ltx_para" id="S1.p2">
+<p class="ltx_p" id="S1.p2.1">原子磁力仪是最灵敏的磁场传感器之一，但其性能往往受到自旋交换碰撞的限制。然而，利用无自旋交换弛豫（SERF）技术可以克服这一限制 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib10" title="">14</a>, <a class="ltx_ref" href="#bib.bib19" title="">15</a>, <a class="ltx_ref" href="#bib.bib3" title="">16</a>]</cite>。经过多年发展，SERF 磁力仪已实现亚 fT<math alttext="/\sqrt{\rm{Hz}}" class="ltx_Math" display="inline" id="S1.p2.m1" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>/</mo><msqrt><mi>Hz</mi></msqrt></mrow><annotation encoding="application/x-tex">/\sqrt{\rm{Hz}}</annotation></semantics></math> <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib4" title="">3</a>, <a class="ltx_ref" href="#bib.bib22" title="">4</a>]</cite> 的超高灵敏度。为抑制自旋交换弛豫并获得最佳磁场灵敏度，自旋交换速率必须远大于拉莫尔进动频率 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib20" title="">17</a>, <a class="ltx_ref" href="#bib.bib1" title="">18</a>, <a class="ltx_ref" href="#bib.bib21" title="">19</a>]</cite>。这一条件要求高原子数密度和极低磁场，二者分别通过加热系统和磁屏蔽系统实现。综述文章 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib6" title="">20</a>]</cite> 详细介绍了 SERF 磁力仪的发展，包括原子源、加热温度和磁场灵敏度。由于光泵磁力仪（OPM）的灵敏度本质上与原子气室的体积相关，较大体积通常能获得更高的信噪比（SNR），因此小型化工作必须谨慎权衡尺寸与性能 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib27" title="">21</a>]</cite>。
+值得注意的进展包括：采用微加工气室实现紧凑设计 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib18" title="">22</a>]</cite>；利用单一椭圆偏振光的原子磁力仪实现了 7 fT<math alttext="/\sqrt{\rm{Hz}}" class="ltx_Math" display="inline" id="S1.p2.m2" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>/</mo><msqrt><mi>Hz</mi></msqrt></mrow><annotation encoding="application/x-tex">/\sqrt{\rm{Hz}}</annotation></semantics></math> <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib3" title="">16</a>]</cite> 的灵敏度；以及能够进行高灵敏度三轴磁场测量的单光束配置 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib2" title="">23</a>]</cite>。参考文献 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib24" title="">24</a>]</cite> 展示了一种便携式光学梯度仪，该梯度仪使用微加工碱金属气室，在无屏蔽的地球环境磁场中检测来自人脑和心脏的生物磁信号，并达到 16 fT<math alttext="/\rm{cm}/\sqrt{\rm{Hz}}" class="ltx_Math" display="inline" id="S1.p2.m3" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>/</mo><mrow><mi>cm</mi><mo>/</mo><msqrt><mi>Hz</mi></msqrt></mrow></mrow><annotation encoding="application/x-tex">/\rm{cm}/\sqrt{\rm{Hz}}</annotation></semantics></math> 的灵敏度。</p>
+</div>
+<div class="ltx_para" id="S1.p3">
+<p class="ltx_p" id="S1.p3.1">要在保持高灵敏度的同时实现紧凑型光泵磁力仪（OPM），抑制原子与器壁碰撞十分重要。缓冲气体提供了一种有效手段，可减缓原子向气室壁的扩散，从而降低壁致弛豫。本文采用高缓冲气压（500 Torr N<sub class="ltx_sub" id="S1.p3.1.1">2</sub>）的铷气室，并结合光吸收检测。
+该模式使用单一圆偏振激光束同时完成光泵浦和探测，无需独立的泵浦光路、探测光路以及偏振选择探测元件。泵浦光场通过光泵浦使原子在各自旋态之间的布居重新分布，并将这种重新分布作为透射光强的变化进行检测。尽管光吸收模式的信噪比（SNR）通常低于光旋转模式，但其系统尺寸和复杂度显著降低。在本工作中，我们在优化光强和激光失谐条件下实现了11 fT<math alttext="/\sqrt{\rm{Hz}}" class="ltx_Math" display="inline" id="S1.p3.m2" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>/</mo><msqrt><mi>Hz</mi></msqrt></mrow><annotation encoding="application/x-tex">/\sqrt{\rm{Hz}}</annotation></semantics></math>的灵敏度，所用小型气室体积仅为0.027 cm<sup class="ltx_sup" id="S1.p3.1.2">3</sup>。
+我们进一步开发了一种小型化OPM，利用折叠柔性印刷电路板（FPCB）将气室、紧凑加热器和磁场线圈集成到立方传感头中。
+两种线圈构型——方形亥姆霍兹（SH）和双平面（BP）——直接图形化制作在FPCB上，并对其磁场均匀性及其对传感器性能的影响进行了研究。该原型使用台式光学组件和读出组件进行了表征。在优化工作条件下，该小型化OPM实现了66 fT<math alttext="/\sqrt{\rm{Hz}}" class="ltx_Math" display="inline" id="S1.p3.m4" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>/</mo><msqrt><mi>Hz</mi></msqrt></mrow><annotation encoding="application/x-tex">/\sqrt{\rm{Hz}}</annotation></semantics></math>的灵敏度，展示了基于FPCB的架构在紧凑型高灵敏度OPM中的应用潜力。</p>
+</div>
+</section>
+<section class="ltx_section" id="S2">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">II </span><span class="ltx_text ltx_font_smallcaps" id="S2.1">理论与方法</span></h2>
+<div class="ltx_para" id="S2.p1">
+<p class="ltx_p" id="S2.p1.1">置于外磁场中的具有磁矩的原子会受到力矩作用，该力矩使其磁矩绕磁场方向以拉莫尔频率<math alttext="\omega_{L}=\gamma B" class="ltx_Math" display="inline" id="S2.p1.m1" intent=":literal"><semantics><mrow><msub><mi>ω</mi><mi>L</mi></msub><mo>=</mo><mrow><mi>γ</mi><mo lspace="0em" rspace="0em">​</mo><mi>B</mi></mrow></mrow><annotation encoding="application/x-tex">\omega_{L}=\gamma B</annotation></semantics></math>进动，其中<math alttext="B" class="ltx_Math" display="inline" id="S2.p1.m2" intent=":literal"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>为磁场强度，
+<math alttext="\gamma" class="ltx_Math" display="inline" id="S2.p1.m3" intent=":literal"><semantics><mi>γ</mi><annotation encoding="application/x-tex">\gamma</annotation></semantics></math>为有效角旋磁比。通常引用的超精细态旋磁比<math alttext="\gamma/2\pi" class="ltx_Math" display="inline" id="S2.p1.m4" intent=":literal"><semantics><mrow><mrow><mi>γ</mi><mo>/</mo><mn>2</mn></mrow><mo lspace="0em" rspace="0em">​</mo><mi>π</mi></mrow><annotation encoding="application/x-tex">\gamma/2\pi</annotation></semantics></math>对于<math alttext="{}^{87}\rm{Rb}" class="ltx_Math" display="inline" id="S2.p1.m5" intent=":literal"><semantics><mmultiscripts><mi>Rb</mi><mprescripts></mprescripts><mrow></mrow><mn>87</mn></mmultiscripts><annotation encoding="application/x-tex">{}^{87}\rm{Rb}</annotation></semantics></math>和<math alttext="{}^{85}\rm{Rb}" class="ltx_Math" display="inline" id="S2.p1.m6" intent=":literal"><semantics><mmultiscripts><mi>Rb</mi><mprescripts></mprescripts><mrow></mrow><mn>85</mn></mmultiscripts><annotation encoding="application/x-tex">{}^{85}\rm{Rb}</annotation></semantics></math>分别约为<math alttext="7~\rm{Hz/nT}" class="ltx_Math" display="inline" id="S2.p1.m7" intent=":literal"><semantics><mrow><mrow><mn>7</mn><mo lspace="0.330em" rspace="0em">​</mo><mi>Hz</mi></mrow><mo>/</mo><mi>nT</mi></mrow><annotation encoding="application/x-tex">7~\rm{Hz/nT}</annotation></semantics></math>和<math alttext="4.7~\rm{Hz/nT}" class="ltx_Math" display="inline" id="S2.p1.m8" intent=":literal"><semantics><mrow><mrow><mn>4.7</mn><mo lspace="0.330em" rspace="0em">​</mo><mi>Hz</mi></mrow><mo>/</mo><mi>nT</mi></mrow><annotation encoding="application/x-tex">4.7~\rm{Hz/nT}</annotation></semantics></math>。
+在高温无自旋交换弛豫（SERF）区，快速的自旋交换碰撞使超精细能级组之间的自旋进动发生平均化，从而降低有效旋磁比并抑制自旋交换弛豫，进而压窄磁共振线宽<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib1" title="">18</a>]</cite>。
+在光磁测量实验中，拉莫尔进动调制塞曼子能级间的布居分布，从而影响原子系综的光学响应。当偏振共振光与原子相互作用时，光泵浦将布居驱动至暗态。这些暗态的形成与稳定性对拉莫尔频率高度敏感，因而也对施加的磁场高度敏感。</p>
+</div>
+<section class="ltx_subsection" id="S2.SS1">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection"><span class="ltx_text" id="S2.SS1.4">II-A</span> </span><span class="ltx_text ltx_font_italic" id="S2.SS1.5">磁共振线宽与灵敏度</span></h3>
+<div class="ltx_para" id="S2.SS1.p1">
+<p class="ltx_p" id="S2.SS1.p1.1">通过扫描磁场并监测光透射的变化，可以观察到中心位于零场附近的磁共振特征，如图 <a class="ltx_ref" href="#S2.F1" title="Fig. 1 ‣ II-A Magnetic Resonance Linewidth and Sensitivity ‣ II Theory and Methods ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">1</span></a> 所示。该磁共振的全宽 <math alttext="\Delta B" class="ltx_Math" display="inline" id="S2.SS1.p1.m1" intent=":literal"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">\Delta B</annotation></semantics></math> 通过旋磁比与横向自旋极化的有效退相干时间 <math alttext="\tau" class="ltx_Math" display="inline" id="S2.SS1.p1.m2" intent=":literal"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math> 相关联，</p>
+<table class="ltx_equation ltx_eqn_table" id="S2.E1">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\Delta B=\frac{2}{\gamma\tau}." class="ltx_Math" display="block" id="S2.E1.m1" intent=":literal"><semantics><mrow><mrow><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>B</mi></mrow><mo>=</mo><mfrac><mn>2</mn><mrow><mi>γ</mi><mo lspace="0em" rspace="0em">​</mo><mi>τ</mi></mrow></mfrac></mrow><mo lspace="0em">.</mo></mrow><annotation encoding="application/x-tex">\Delta B=\frac{2}{\gamma\tau}.</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(1)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S2.SS1.p1.2">光泵磁力计（OPM）的工作依赖若干关键物理过程，包括光泵浦、拉莫尔进动、自旋弛豫和光学检测。圆偏振激光束选择性地将原子激发到偏好自旋取向，沿光轴产生净自旋极化。在外部磁场 <math alttext="\vec{B}" class="ltx_Math" display="inline" id="S2.SS1.p1.m3" intent=":literal"><semantics><mover accent="true"><mi>B</mi><mo stretchy="false">→</mo></mover><annotation encoding="application/x-tex">\vec{B}</annotation></semantics></math> 存在时，集体自旋极化绕磁场方向以拉莫尔频率进动。
+自旋极化因多种机制共同作用而弛豫，包括自旋交换碰撞与自旋破坏碰撞、磁场不均匀性、壁碰撞以及光泵浦本身。
+自旋相干时间通常表示为 <math alttext="\tau=1/(R_{p}+1/T_{2})" class="ltx_Math" display="inline" id="S2.SS1.p1.m4" intent=":literal"><semantics><mrow><mi>τ</mi><mo>=</mo><mrow><mn>1</mn><mo>/</mo><mrow><mo stretchy="false">(</mo><mrow><msub><mi>R</mi><mi>p</mi></msub><mo>+</mo><mrow><mn>1</mn><mo>/</mo><msub><mi>T</mi><mn>2</mn></msub></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\tau=1/(R_{p}+1/T_{2})</annotation></semantics></math>，其中 <math alttext="R_{p}" class="ltx_Math" display="inline" id="S2.SS1.p1.m5" intent=":literal"><semantics><msub><mi>R</mi><mi>p</mi></msub><annotation encoding="application/x-tex">R_{p}</annotation></semantics></math> 为光泵浦速率，与光强成正比，而 <math alttext="T_{2}" class="ltx_Math" display="inline" id="S2.SS1.p1.m6" intent=":literal"><semantics><msub><mi>T</mi><mn>2</mn></msub><annotation encoding="application/x-tex">T_{2}</annotation></semantics></math> 表示无光条件下的横向自旋弛豫时间，包括与 Rb 及缓冲气体 N<sub class="ltx_sub" id="S2.SS1.p1.2.1">2</sub> 原子的自旋破坏碰撞和扩散弛豫 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib3" title="">16</a>]</cite>。
+自旋取向的变化通过泵浦光或分离探测光束的吸收或透射进行光学读出 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib3" title="">16</a>, <a class="ltx_ref" href="#bib.bib6" title="">20</a>]</cite>。在零场共振（ZFR）区，透射信号与自旋极化的 <math alttext="x" class="ltx_Math" display="inline" id="S2.SS1.p1.m8" intent=":literal"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> 分量成正比，该分量通常由 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib27" title="">21</a>]</cite> 描述，</p>
+<table class="ltx_equation ltx_eqn_table" id="S2.E2">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="S_{x}(B)=\frac{S_{0}}{1+\left(\gamma\tau B\right)^{2}}," class="ltx_Math" display="block" id="S2.E2.m1" intent=":literal"><semantics><mrow><mrow><mrow><msub><mi>S</mi><mi>x</mi></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>B</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mfrac><msub><mi>S</mi><mn>0</mn></msub><mrow><mn>1</mn><mo>+</mo><msup><mrow><mo>(</mo><mrow><mi>γ</mi><mo lspace="0em" rspace="0em">​</mo><mi>τ</mi><mo lspace="0em" rspace="0em">​</mo><mi>B</mi></mrow><mo>)</mo></mrow><mn>2</mn></msup></mrow></mfrac></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">S_{x}(B)=\frac{S_{0}}{1+\left(\gamma\tau B\right)^{2}},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S2.SS1.p1.3">其中 <math alttext="S_{0}" class="ltx_Math" display="inline" id="S2.SS1.p1.m9" intent=":literal"><semantics><msub><mi>S</mi><mn>0</mn></msub><annotation encoding="application/x-tex">S_{0}</annotation></semantics></math> 表示共振信号幅度，半高全宽（FWHM）为 <math alttext="\Delta B=2/\gamma\tau" class="ltx_Math" display="inline" id="S2.SS1.p1.m10" intent=":literal"><semantics><mrow><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>B</mi></mrow><mo>=</mo><mrow><mrow><mn>2</mn><mo>/</mo><mi>γ</mi></mrow><mo lspace="0em" rspace="0em">​</mo><mi>τ</mi></mrow></mrow><annotation encoding="application/x-tex">\Delta B=2/\gamma\tau</annotation></semantics></math>，如式 (<a class="ltx_ref" href="#S2.E1" title="In II-A Magnetic Resonance Linewidth and Sensitivity ‣ II Theory and Methods ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">1</span></a>) 所示。
+该洛伦兹线型反映了原子系综对横向磁场的相干自旋响应。随着 <math alttext="B" class="ltx_Math" display="inline" id="S2.SS1.p1.m11" intent=":literal"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math> 从零增大，自旋极化因拉莫尔进动而逐渐退相，使透射信号降低。
+共振线宽 <math alttext="\Delta B" class="ltx_Math" display="inline" id="S2.SS1.p1.m12" intent=":literal"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">\Delta B</annotation></semantics></math> 与自旋相干时间 <math alttext="\tau" class="ltx_Math" display="inline" id="S2.SS1.p1.m13" intent=":literal"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math> 密切相关，线宽越窄，对应自旋极化寿命越长，磁测量灵敏度越高。提高光泵浦速率（通常通过提高光强）会增加原子自旋极化，从而提高光学信号对比度。然而，当泵浦速率过大时，光致弛豫和功率展宽会缩短 <math alttext="\tau" class="ltx_Math" display="inline" id="S2.SS1.p1.m14" intent=":literal"><semantics><mi>τ</mi><annotation encoding="application/x-tex">\tau</annotation></semantics></math>，导致磁共振变宽、灵敏度下降。因此，存在一个最佳泵浦速率，可在增强自旋极化和信号对比度与线宽展宽之间取得平衡。</p>
+</div>
+<div class="ltx_para" id="S2.SS1.p2">
+<p class="ltx_p" id="S2.SS1.p2.1">在无自旋交换弛豫（SERF）机制下，碱金属原子间的自旋交换碰撞速率 <math alttext="R_{\rm{SE}}" class="ltx_Math" display="inline" id="S2.SS1.p2.m1" intent=":literal"><semantics><msub><mi>R</mi><mi>SE</mi></msub><annotation encoding="application/x-tex">R_{\rm{SE}}</annotation></semantics></math> 远大于拉莫尔进动频率（<math alttext="R_{\rm{SE}}\gg\omega_{L}" class="ltx_Math" display="inline" id="S2.SS1.p2.m2" intent=":literal"><semantics><mrow><msub><mi>R</mi><mi>SE</mi></msub><mo>≫</mo><msub><mi>ω</mi><mi>L</mi></msub></mrow><annotation encoding="application/x-tex">R_{\rm{SE}}\gg\omega_{L}</annotation></semantics></math>）<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib10" title="">14</a>, <a class="ltx_ref" href="#bib.bib19" title="">15</a>, <a class="ltx_ref" href="#bib.bib20" title="">17</a>, <a class="ltx_ref" href="#bib.bib3" title="">16</a>]</cite>。快速的自旋交换相互作用不断混合超精细态，从而有效对不同超精细能级组进行平均。
+因此，自旋交换弛豫被强烈抑制，其对磁共振线宽的贡献随之降低；同时，快速自旋平均使得零场共振变得极窄。</p>
+</div>
+<figure class="ltx_figure" id="S2.F1"><object class="ltx_graphics ltx_centering ltx_img_landscape" data="assets/Fig1.svg" height="279" id="S2.F1.g1" style="aspect-ratio:476/279;" type="image/svg+xml" width="476"></object>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 1：</span>典型的零场共振曲线及其微分信号随横向磁场的变化。对零场附近微分信号的线性区域进行拟合以获得斜率 <math alttext="dS/dB" class="ltx_Math" display="inline" id="S2.F1.m2" intent=":literal"><semantics><mrow><mrow><mrow><mi>d</mi><mo lspace="0em" rspace="0em">​</mo><mi>S</mi></mrow><mo>/</mo><mi>d</mi></mrow><mo lspace="0em" rspace="0em">​</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">dS/dB</annotation></semantics></math>，如插图所示。</figcaption>
+</figure>
+<div class="ltx_para" id="S2.SS1.p3">
+<p class="ltx_p" id="S2.SS1.p3.1">光泵磁力计（OPM）的磁场灵敏度量化了在给定测量带宽内可检测到的最小磁场变化。实际中，施加小幅振荡磁场以调制自旋进动，并使用锁相放大器（LIA）解调透射信号。这种调制与解调方案提取磁共振的色散导数。灵敏度随后由检测信号的噪声水平和该色散信号的斜率共同决定，通常表示为</p>
+<table class="ltx_equation ltx_eqn_table" id="S2.E3">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\delta B=\frac{\delta S}{\left|\frac{dS}{dB}\right|}," class="ltx_Math" display="block" id="S2.E3.m1" intent=":literal"><semantics><mrow><mrow><mrow><mi>δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>B</mi></mrow><mo>=</mo><mfrac><mrow><mi>δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>S</mi></mrow><mrow><mo>|</mo><mfrac><mrow><mi>d</mi><mo lspace="0em" rspace="0em">​</mo><mi>S</mi></mrow><mrow><mi>d</mi><mo lspace="0em" rspace="0em">​</mo><mi>B</mi></mrow></mfrac><mo>|</mo></mrow></mfrac></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\delta B=\frac{\delta S}{\left|\frac{dS}{dB}\right|},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(3)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S2.SS1.p3.2">其中 <math alttext="\delta S" class="ltx_Math" display="inline" id="S2.SS1.p3.m1" intent=":literal"><semantics><mrow><mi>δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">\delta S</annotation></semantics></math> 表示检测信号的均方根（RMS）噪声，<math alttext="\frac{dS}{dB}" class="ltx_Math" display="inline" id="S2.SS1.p3.m2" intent=":literal"><semantics><mfrac><mrow><mi>d</mi><mo lspace="0em" rspace="0em">​</mo><mi>S</mi></mrow><mrow><mi>d</mi><mo lspace="0em" rspace="0em">​</mo><mi>B</mi></mrow></mfrac><annotation encoding="application/x-tex">\frac{dS}{dB}</annotation></semantics></math> 是信号相对于磁场的斜率。
+噪声 <math alttext="\delta S" class="ltx_Math" display="inline" id="S2.SS1.p3.m3" intent=":literal"><semantics><mrow><mi>δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">\delta S</annotation></semantics></math> 通常在频域中使用快速傅里叶变换（FFT）表征，从而使灵敏度能够以 fT<math alttext="/\sqrt{\rm{Hz}}" class="ltx_Math" display="inline" id="S2.SS1.p3.m4" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>/</mo><msqrt><mi>Hz</mi></msqrt></mrow><annotation encoding="application/x-tex">/\sqrt{\rm{Hz}}</annotation></semantics></math> 为单位表示。
+斜率 <math alttext="\frac{dS}{dB}" class="ltx_Math" display="inline" id="S2.SS1.p3.m5" intent=":literal"><semantics><mfrac><mrow><mi>d</mi><mo lspace="0em" rspace="0em">​</mo><mi>S</mi></mrow><mrow><mi>d</mi><mo lspace="0em" rspace="0em">​</mo><mi>B</mi></mrow></mfrac><annotation encoding="application/x-tex">\frac{dS}{dB}</annotation></semantics></math> 通常在磁共振线性区域附近评估，此时对小磁场变化的响应最大。通过结合测得的噪声谱密度和共振斜率，可获得 OPM 的灵敏度谱，从而定量评估传感器在不同工作条件下的性能。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S2.SS2">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection"><span class="ltx_text" id="S2.SS2.4">II-B</span> </span><span class="ltx_text ltx_font_italic" id="S2.SS2.5">零场共振</span></h3>
+<div class="ltx_para" id="S2.SS2.p1">
+<p class="ltx_p" id="S2.SS2.p1.1">在零场光吸收配置中，存在通常为数十 nT 量级的弱横向磁场时，探测光束透射相对于零场共振会降低，如图 <a class="ltx_ref" href="#S2.F1" title="Fig. 1 ‣ II-A Magnetic Resonance Linewidth and Sensitivity ‣ II Theory and Methods ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">1</span></a> 所示。这种行为可以从光泵浦和暗态形成的角度理解。在零磁场下，原子子能级保持简并，使圆偏振 <math alttext="\sigma^{+}" class="ltx_Math" display="inline" id="S2.SS2.p1.m1" intent=":literal"><semantics><msup><mi>σ</mi><mo>+</mo></msup><annotation encoding="application/x-tex">\sigma^{+}</annotation></semantics></math> 光能够将原子光泵浦至暗态。
+横向磁场会诱导拉莫尔进动，混合自旋态并破坏暗态形成，从而降低透射探测光强。
+量子化轴由沿 <math alttext="z" class="ltx_Math" display="inline" id="S2.SS2.p1.m2" intent=":literal"><semantics><mi>z</mi><annotation encoding="application/x-tex">z</annotation></semantics></math> 轴的磁场方向定义，该轴与沿 <math alttext="x" class="ltx_Math" display="inline" id="S2.SS2.p1.m3" intent=":literal"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> 轴的光传播方向正交。在该基下，入射圆偏振被分解为多个分量，这些分量耦合不同的塞曼子能级。这破坏了向暗态的有效光泵浦，导致吸收增强。即使 pT 或 fT 量级的磁场也可通过监测透射来检测。
+弱横向磁场下的吸收增强主要归因于相干暗态形成，而 D<sub class="ltx_sub" id="S2.SS2.p1.1.1">1</sub> 跃迁有利于该过程。与 D<sub class="ltx_sub" id="S2.SS2.p1.1.2">2</sub> 跃迁不同，D<sub class="ltx_sub" id="S2.SS2.p1.1.3">1</sub> 跃迁缺乏闭合循环跃迁，使原子能够更有效地被光泵浦到基态磁子能级的相干叠加态中，这些叠加态与光场解耦并形成暗态。</p>
+</div>
+<figure class="ltx_figure" id="S2.F2"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_landscape" height="225" id="S2.F2.g1" src="assets/Fig2.png" style="aspect-ratio:476/225;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 2：</span>实验装置。(a) 由分布式布拉格反射（DBR）激光器产生的 <math alttext="\sigma^{+}" class="ltx_Math" display="inline" id="S2.F2.m4" intent=":literal"><semantics><msup><mi>σ</mi><mo>+</mo></msup><annotation encoding="application/x-tex">\sigma^{+}</annotation></semantics></math> 偏振探测光束被导入气室，气室内含有 500 Torr 的 N<sub class="ltx_sub" id="S2.F2.3">2</sub> 缓冲气体和纯 <sup class="ltx_sup" id="S2.F2.4"><span class="ltx_text ltx_font_italic" id="S2.F2.4.1">87</span></sup>Rb。
+四层屏蔽被动地将外部杂散磁场隔离至 400 pT 以下。
+在屏蔽腔内，三对亥姆霍兹线圈产生所需的直流（DC）偏置磁场。
+透射探测信号由光电探测器（PD）检测，并送入锁相放大器（LIA）。(b) Twinleaf 制造的微加工气室照片。(c) 定制陶瓷印制电路板（PCB）加热器照片。双面反向走线电路设计降低了产生的磁场，同时 351 kHz 交流（AC）电流将气室维持在 437 K。</figcaption>
+</figure>
+</section>
+<section class="ltx_subsection" id="S2.SS3">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection"><span class="ltx_text" id="S2.SS3.4">II-C</span> </span><span class="ltx_text ltx_font_italic" id="S2.SS3.5">缓冲气室中的零场共振</span></h3>
+<div class="ltx_para" id="S2.SS3.p1">
+<p class="ltx_p" id="S2.SS3.p1.1">在实际光泵磁力仪（OPM）系统中，通常向气室中充入高压缓冲气体，以压窄磁共振线宽<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib32" title="">25</a>, <a class="ltx_ref" href="#bib.bib25" title="">26</a>]</cite>。缓冲气体通常处于几百 torr 的压力，可降低铷原子逸出激光束的扩散速率，并抑制壁碰撞，使原子与光场的相互作用持续时间更长。延长的相互作用时间提高了光泵浦效率，并稳定了暗态的形成。此外，N<sub class="ltx_sub" id="S2.SS3.p1.1.1">2</sub>等缓冲气体作为猝灭剂，提供非辐射衰减通道，从而减少强光泵浦下的辐射俘获和速度选择效应。
+此外，压力展宽大幅增加光学线宽，使超精细结构的细节对光泵浦而言不再那么关键。</p>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S3">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">III </span><span class="ltx_text ltx_font_smallcaps" id="S3.1">实验装置</span></h2>
+<section class="ltx_subsection" id="S3.SS1">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection"><span class="ltx_text" id="S3.SS1.4">III-A</span> </span><span class="ltx_text ltx_font_italic" id="S3.SS1.5">原子系统与磁环境</span></h3>
+<div class="ltx_para" id="S3.SS1.p1">
+<p class="ltx_p" id="S3.SS1.p1.1">实验装置由磁屏蔽罩、加热系统、激光源以及数据采集与分析系统组成，如图 <a class="ltx_ref" href="#S2.F2" title="Fig. 2 ‣ II-B Zero-Field Resonance ‣ II Theory and Methods ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">2</span></a> 所示。本工作使用的玻璃气室是由 Twinleaf 制造的微加工气室，外部尺寸为<math alttext="5\times 5\times 3.4~\text{mm}^{3}" class="ltx_Math" display="inline" id="S3.SS1.p1.m1" intent=":literal"><semantics><mrow><mn>5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>5</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mrow><mn>3.4</mn><mo lspace="0.330em" rspace="0em">​</mo><msup><mtext>mm</mtext><mn>3</mn></msup></mrow></mrow><annotation encoding="application/x-tex">5\times 5\times 3.4~\text{mm}^{3}</annotation></semantics></math>，内部尺寸为<math alttext="3\times 3\times 3~\text{mm}^{3}" class="ltx_Math" display="inline" id="S3.SS1.p1.m2" intent=":literal"><semantics><mrow><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>3</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mrow><mn>3</mn><mo lspace="0.330em" rspace="0em">​</mo><msup><mtext>mm</mtext><mn>3</mn></msup></mrow></mrow><annotation encoding="application/x-tex">3\times 3\times 3~\text{mm}^{3}</annotation></semantics></math>。其中含有纯<math alttext="{}^{87}\text{Rb}" class="ltx_Math" display="inline" id="S3.SS1.p1.m3" intent=":literal"><semantics><mmultiscripts><mtext>Rb</mtext><mprescripts></mprescripts><mrow></mrow><mn>87</mn></mmultiscripts><annotation encoding="application/x-tex">{}^{87}\text{Rb}</annotation></semantics></math>，并充有 500 Torr 的<math alttext="\rm{N_{2}}" class="ltx_Math" display="inline" id="S3.SS1.p1.m4" intent=":literal"><semantics><msub><mi>N</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\rm{N_{2}}</annotation></semantics></math>缓冲气体。该气室采用非磁性聚醚醚酮（PEEK）固定件安装，并置于四层磁屏蔽罩（Twinleaf：MS-1LF）内，该屏蔽罩由三层<math alttext="\mu" class="ltx_Math" display="inline" id="S3.SS1.p1.m5" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>金属层和一层铁氧体层组成。屏蔽罩配备三对内部补偿线圈。测量期间，利用这些线圈施加扫描直流磁场和交流调制磁场。
+在数字消磁单元（Twinleaf：DG-10）的驱动下，残余磁场被主动抑制到 400 pT 以下，并由商用零场磁力计（QuSpin：QZFM Gen-3）验证。</p>
+</div>
+<div class="ltx_para" id="S3.SS1.p2">
+<p class="ltx_p" id="S3.SS1.p2.1">然而，若干因素会引入不需要的磁场，例如加热元件和温度传感器。气室温度维持在437 K，对应原子密度2.0<math alttext="\times 10^{14}" class="ltx_Math" display="inline" id="S3.SS1.p2.m1" intent=":literal"><semantics><mrow><mphantom></mphantom><mo lspace="0.222em" rspace="0.222em">×</mo><msup><mn>10</mn><mn>14</mn></msup></mrow><annotation encoding="application/x-tex">\times 10^{14}</annotation></semantics></math> cm<sup class="ltx_sup" id="S3.SS1.p2.1.1"><span class="ltx_text ltx_font_italic" id="S3.SS1.p2.1.1.1">-3</span></sup>，所用加热器印刷在150 <math alttext="\rm{\mu}" class="ltx_Math" display="inline" id="S3.SS1.p2.m3" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\rm{\mu}</annotation></semantics></math>m厚的氢氧化物填充陶瓷PCB上，如图 <a class="ltx_ref" href="#S2.F2" title="Fig. 2 ‣ II-B Zero-Field Resonance ‣ II Theory and Methods ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">2</span></a>(c) 所示。
+采用紫外固化胶将非磁性镀银电阻温度检测器（RTD，PT1000）粘贴在气室侧面，作为在现场可编程门阵列（FPGA）上实现的比例积分（PI）温度控制器的反馈传感器，该控制器调节加热器驱动功率。温度稳定性为<math alttext="\pm" class="ltx_Math" display="inline" id="S3.SS1.p2.m4" intent=":literal"><semantics><mo>±</mo><annotation encoding="application/x-tex">\pm</annotation></semantics></math>0.05<sup class="ltx_sup" id="S3.SS1.p2.1.2">∘</sup>C。加热器采用双面反向走线电路设计以抵消磁场。它由基于FPGA和H桥电路的自制电路驱动，产生351 kHz的高频交流电流，比检测频带（DC–100 Hz）高出三个数量级以上。选择该频率是为了兼顾热效率与磁噪声抑制，在时域和空间域上最小化电流引起的磁干扰<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib3" title="">16</a>, <a class="ltx_ref" href="#bib.bib31" title="">27</a>, <a class="ltx_ref" href="#bib.bib30" title="">28</a>, <a class="ltx_ref" href="#bib.bib29" title="">29</a>]</cite> 。
+为降低工作加热器产生的残余磁场（加热器表面处<math alttext="\sim" class="ltx_Math" display="inline" id="S3.SS1.p2.m6" intent=":literal"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math>6 nT），在加热器与气室之间放置1.5 mm厚的Al<sub class="ltx_sub" id="S3.SS1.p2.1.3">2</sub>O<sub class="ltx_sub" id="S3.SS1.p2.1.4">3</sub>衬底。该配置将穿过光束的磁场抑制到约2 nT。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S3.SS2">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection"><span class="ltx_text" id="S3.SS2.4">III-B</span> </span><span class="ltx_text ltx_font_italic" id="S3.SS2.5">激光功率稳定与磁场调制</span></h3>
+<div class="ltx_para" id="S3.SS2.p1">
+<p class="ltx_p" id="S3.SS2.p1.1">探测光束由分布式布拉格反射激光器（DBR，Thorlabs：DBR795PN）产生，调谐至<sup class="ltx_sup" id="S3.SS2.p1.1.2"><span class="ltx_text ltx_font_italic" id="S3.SS2.p1.1.2.1">87</span></sup>Rb的D<sub class="ltx_sub" id="S3.SS2.p1.1.1">1</sub>跃迁（795 nm），并耦合进保偏（PM）光纤。其直径为2.6 mm，增大了相互作用体积以及气室中极化的<sup class="ltx_sup" id="S3.SS2.p1.1.3"><span class="ltx_text ltx_font_italic" id="S3.SS2.p1.1.3.1">87</span></sup>Rb原子比例。为稳定入射到气室的光功率，采用由自制的液晶可变延迟器（LCVR，作为可变二分之一波片（<math alttext="\lambda/2" class="ltx_Math" display="inline" id="S3.SS2.p1.m4" intent=":literal"><semantics><mrow><mi>λ</mi><mo>/</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\lambda/2</annotation></semantics></math>）工作）和偏振分束器（PBS）组成的反馈环路。
+此外，在第二个PBS前放置一个固定的<math alttext="\lambda/2" class="ltx_Math" display="inline" id="S3.SS2.p1.m5" intent=":literal"><semantics><mrow><mi>λ</mi><mo>/</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">\lambda/2</annotation></semantics></math>，以调节偏振，使入射光束分成透射分量和反射分量相等的两部分。反射光束由光电探测器（PD；Thorlabs：PDA36A2）监测，从而提供入射到气室的光功率的校准测量值。将PD信号与预定义设定点比较以生成误差信号，该信号被反馈到LCVR。通过调节偏振旋转角，LCVR稳定经PBS透射向气室的光功率。
+使用四分之一波片（<math alttext="\lambda/4" class="ltx_Math" display="inline" id="S3.SS2.p1.m6" intent=":literal"><semantics><mrow><mi>λ</mi><mo>/</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">\lambda/4</annotation></semantics></math>）在探测光束进入气室前将其转换为圆偏振。充有天然Rb原子的参考气室用作频率参考。实验中，探测激光器频率在17 GHz的总范围内扫描过Rb D<sub class="ltx_sub" id="S3.SS2.p1.1.4">1</sub>跃迁。对于光泵磁力仪（OPM）磁谱测量，入射到气室的光强在1.5 <math alttext="\sim" class="ltx_Math" display="inline" id="S3.SS2.p1.m8" intent=":literal"><semantics><mo>∼</mo><annotation encoding="application/x-tex">\sim</annotation></semantics></math> 2.5 mW/cm<sup class="ltx_sup" id="S3.SS2.p1.1.5">2</sup>之间变化。</p>
+</div>
+<div class="ltx_para" id="S3.SS2.p2">
+<p class="ltx_p" id="S3.SS2.p2.1">在采集磁共振曲线之前，消磁后使残差磁场最小化，并使用亥姆霍兹线圈产生扫描直流磁场和调制交流磁场。
+交流磁场由锁相放大器（LIA；Zurich Instruments：MFLI）驱动，在997 Hz下调制。
+直流磁场使用同一LIA以0.1 Hz扫描，校准的磁场转换因子为2.9 nT/mV，该因子由磁力仪QZFM Gen-3确定。
+透射探测信号由光电探测器（PD）检测并送入LIA。信号在调制频率处解调，随后经过截止频率为100 Hz的低通滤波器，以进行连续数据采集。测得的零场共振和色散曲线如图 <a class="ltx_ref" href="#S2.F1" title="Fig. 1 ‣ II-A Magnetic Resonance Linewidth and Sensitivity ‣ II Theory and Methods ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">1</span></a>所示。</p>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S4">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">IV </span><span class="ltx_text ltx_font_smallcaps" id="S4.1">结果与讨论</span></h2>
+<figure class="ltx_figure" id="S4.F3"><object class="ltx_graphics ltx_centering ltx_img_landscape" data="assets/Fig3.svg" height="333" id="S4.F3.g1" style="aspect-ratio:476/333;" type="image/svg+xml" width="476"></object>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 3：</span>纯<sup class="ltx_sup" id="S4.F3.4"><span class="ltx_text ltx_font_italic" id="S4.F3.4.1">87</span></sup>Rb蒸气在500 Torr N<sub class="ltx_sub" id="S4.F3.5">2</sub>缓冲气体存在下、不同光强下的透射光谱。红色（短虚线）、绿色（长虚线）和蓝色（实线）曲线分别对应11、6.8和2.9 mW/cm<sup class="ltx_sup" id="S4.F3.6">2</sup>的光强。黑色曲线为参考Rb气室（右轴）的透射光谱，用于校准激光器频率。
+</figcaption>
+</figure>
+<section class="ltx_subsection" id="S4.SS1">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection"><span class="ltx_text" id="S4.SS1.4">IV-A</span> </span><span class="ltx_text ltx_font_italic" id="S4.SS1.5">缓冲气体气室中的透射光谱</span></h3>
+<div class="ltx_para" id="S4.SS1.p1">
+<p class="ltx_p" id="S4.SS1.p1.1">典型透射光谱如图 <a class="ltx_ref" href="#S4.F3" title="Fig. 3 ‣ IV Results and Discussion ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">3</span></a>所示。对于<sup class="ltx_sup" id="S4.SS1.p1.1.1"><span class="ltx_text ltx_font_italic" id="S4.SS1.p1.1.1.1">85</span></sup>Rb和<sup class="ltx_sup" id="S4.SS1.p1.1.2"><span class="ltx_text ltx_font_italic" id="S4.SS1.p1.1.2.1">87</span></sup>Rb同位素，参考气室的透射光谱呈现出与超精细基态对应的清晰可分辨凹陷。如黑线所示，中心两个较深凹陷归因于<sup class="ltx_sup" id="S4.SS1.p1.1.3"><span class="ltx_text ltx_font_italic" id="S4.SS1.p1.1.3.1">85</span></sup>Rb，而两个光谱翼上较浅的凹陷对应于来自<math alttext="F=2" class="ltx_Math" display="inline" id="S4.SS1.p1.m5" intent=":literal"><semantics><mrow><mi>F</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">F=2</annotation></semantics></math>和<math alttext="F=1" class="ltx_Math" display="inline" id="S4.SS1.p1.m6" intent=":literal"><semantics><mrow><mi>F</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F=1</annotation></semantics></math>基态的<sup class="ltx_sup" id="S4.SS1.p1.1.4"><span class="ltx_text ltx_font_italic" id="S4.SS1.p1.1.4.1">87</span></sup>Rb超精细跃迁。激发态的超精细分裂大于多普勒线宽，因此这些跃迁线仍能很好地分辨。我们相对于<math alttext="F=2\rightarrow F^{\prime}=1" class="ltx_Math" display="inline" id="S4.SS1.p1.m7" intent=":literal"><semantics><mrow><mi>F</mi><mo>=</mo><mn>2</mn><mo stretchy="false">→</mo><msup><mi>F</mi><mo>′</mo></msup><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F=2\rightarrow F^{\prime}=1</annotation></semantics></math>跃迁定义零失谐。该光谱作为频率参考，用于在整个测量过程中校准探测激光器的失谐。</p>
+</div>
+<div class="ltx_para" id="S4.SS1.p2">
+<p class="ltx_p" id="S4.SS1.p2.1">对于与500 Torr N<sub class="ltx_sub" id="S4.SS1.p2.1.2">2</sub>缓冲气体混合的纯<sup class="ltx_sup" id="S4.SS1.p2.1.1"><span class="ltx_text ltx_font_italic" id="S4.SS1.p2.1.1.1">87</span></sup>Rb，强压力展宽将吸收线合并为一个显著展宽的单一谱线轮廓<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib12" title="">30</a>, <a class="ltx_ref" href="#bib.bib23" title="">31</a>]</cite>。缓冲气体还引起压力频移，通常导致几GHz的红移。这种展宽且更平滑的吸收光谱可提高光学磁力测量的稳定性。此外，所涉及的超精细跃迁具有不同的跃迁强度，对光谱的贡献不同，并形成具有特征性的双特征透射轮廓。</p>
+</div>
+<div class="ltx_para" id="S4.SS1.p3">
+<p class="ltx_p" id="S4.SS1.p3.1">此外，透射光谱依赖于光强。随着光强增加，例如 11 mW/cm<sup class="ltx_sup" id="S4.SS1.p3.1.1">2</sup> 处的红色曲线，<math alttext="F=2" class="ltx_Math" display="inline" id="S4.SS1.p3.m2" intent=":literal"><semantics><mrow><mi>F</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">F=2</annotation></semantics></math> 基态在 <math alttext="-3~" class="ltx_Math" display="inline" id="S4.SS1.p3.m3" intent=":literal"><semantics><mrow><mo>−</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">-3~</annotation></semantics></math>GHz 附近表现出比 4 GHz 附近的 <math alttext="F=1" class="ltx_Math" display="inline" id="S4.SS1.p3.m4" intent=":literal"><semantics><mrow><mi>F</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F=1</annotation></semantics></math> 基态更深的吸收。随着光强降低，功率展宽和光泵浦效率对两个跃迁的相对贡献不同，从而导致不同的共振响应。
+谱深度反映光泵浦速率，而提高该速率会同时增强原子自旋偏振和弛豫速率。
+理解这种双重特征以及依赖光强的演化，对于优化零场 OPM 运行很重要。
+理论上，<math alttext="F=1" class="ltx_Math" display="inline" id="S4.SS1.p3.m5" intent=":literal"><semantics><mrow><mi>F</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F=1</annotation></semantics></math> 和 <math alttext="F=2" class="ltx_Math" display="inline" id="S4.SS1.p3.m6" intent=":literal"><semantics><mrow><mi>F</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">F=2</annotation></semantics></math> 超精细跃迁具有不同的饱和光强和功率展宽行为，这意味着对每个基态的光泵浦可能产生不相等的响应，因为光泵浦速率、自旋偏振的形成以及弛豫过程均取决于跃迁和光强。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S4.SS2">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection"><span class="ltx_text" id="S4.SS2.4">IV-B</span> </span><span class="ltx_text ltx_font_italic" id="S4.SS2.5">激光器光强与失谐对光谱特征的影响</span></h3>
+<figure class="ltx_figure" id="S4.F4"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_square" height="488" id="S4.F4.g1" src="assets/Fig4.png" style="aspect-ratio:476/488;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 4：</span>光强与激光器失谐对共振线宽、峰值高度和微分斜率的影响。左列显示了 (a) 线宽（FWHM）、(d) 峰值高度和 (g) 微分斜率的密度图。
+对于每个参量，从相应的密度图中提取两个代表性光强，以说明其对激光器失谐的依赖关系，如中列所示。
+提取两个代表性失谐（<math alttext="F=2" class="ltx_Math" display="inline" id="S4.F4.m3" intent=":literal"><semantics><mrow><mi>F</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">F=2</annotation></semantics></math> 跃迁在 -3.9 GHz 处和 <math alttext="F=1" class="ltx_Math" display="inline" id="S4.F4.m4" intent=":literal"><semantics><mrow><mi>F</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F=1</annotation></semantics></math> 跃迁在 2.8 GHz 处），以说明其对光强的依赖关系，如右列所示。棕色虚线和黑色点划线为视觉引导线。
+</figcaption>
+</figure>
+<div class="ltx_para" id="S4.SS2.p1">
+<p class="ltx_p" id="S4.SS2.p1.1">磁场灵敏度定义为<math alttext="\delta B=\frac{\delta S}{|\frac{dS}{dB}|}" class="ltx_Math" display="inline" id="S4.SS2.p1.m1" intent=":literal"><semantics><mrow><mrow><mi>δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>B</mi></mrow><mo>=</mo><mfrac><mrow><mi>δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>S</mi></mrow><mrow><mo stretchy="false">|</mo><mfrac><mrow><mi>d</mi><mo lspace="0em" rspace="0em">​</mo><mi>S</mi></mrow><mrow><mi>d</mi><mo lspace="0em" rspace="0em">​</mo><mi>B</mi></mrow></mfrac><mo stretchy="false">|</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">\delta B=\frac{\delta S}{|\frac{dS}{dB}|}</annotation></semantics></math>。必须优化泵浦速率，以在改善的自旋极化和信号对比度与随之而来的线宽展宽之间取得平衡。我们首先关注磁共振响应，以考察光强和激光失谐如何影响其关键特性，包括零场共振的线宽和峰高以及差分信号的斜率。
+通过对激光光强和失谐影响的系统研究，我们在图 <a class="ltx_ref" href="#S4.F4" title="Fig. 4 ‣ IV-B Effects of Laser Intensity and Detuning on Spectral Features ‣ IV Results and Discussion ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">4</span></a>中给出了我们的光泵磁力仪（OPM）的特性。
+如图 <a class="ltx_ref" href="#S4.F4" title="Fig. 4 ‣ IV-B Effects of Laser Intensity and Detuning on Spectral Features ‣ IV Results and Discussion ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">4</span></a>(a)所示，提取的线宽（半高全宽，FWHM）在约-3.9和2.8 GHz的失谐处相对较窄。
+我们进一步提取了两个代表性光强（1.5和1.9 mW/cm<sup class="ltx_sup" id="S4.SS2.p1.1.1">2</sup>）下的测量结果，并在图 <a class="ltx_ref" href="#S4.F4" title="Fig. 4 ‣ IV-B Effects of Laser Intensity and Detuning on Spectral Features ‣ IV Results and Discussion ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">4</span></a>(b)中给出。
+两种光强下均表现出双结构响应。
+此外，图 <a class="ltx_ref" href="#S4.F4" title="Fig. 4 ‣ IV-B Effects of Laser Intensity and Detuning on Spectral Features ‣ IV Results and Discussion ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">4</span></a>(c)表明线宽随光强增加而增大。如第<a class="ltx_ref" href="#S2.SS1" title="II-A Magnetic Resonance Linewidth and Sensitivity ‣ II Theory and Methods ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">II-A</span></a>节所讨论，<math alttext="\Delta B=\frac{2}{\gamma\tau}" class="ltx_Math" display="inline" id="S4.SS2.p1.m3" intent=":literal"><semantics><mrow><mrow><mi mathvariant="normal">Δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>B</mi></mrow><mo>=</mo><mfrac><mn>2</mn><mrow><mi>γ</mi><mo lspace="0em" rspace="0em">​</mo><mi>τ</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\Delta B=\frac{2}{\gamma\tau}</annotation></semantics></math>和<math alttext="\tau=1/(R_{p}+1/T_{2})" class="ltx_Math" display="inline" id="S4.SS2.p1.m4" intent=":literal"><semantics><mrow><mi>τ</mi><mo>=</mo><mrow><mn>1</mn><mo>/</mo><mrow><mo stretchy="false">(</mo><mrow><msub><mi>R</mi><mi>p</mi></msub><mo>+</mo><mrow><mn>1</mn><mo>/</mo><msub><mi>T</mi><mn>2</mn></msub></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\tau=1/(R_{p}+1/T_{2})</annotation></semantics></math>。
+在我们的实验条件下，光泵浦速率<math alttext="R_{p}\gg 1/T_{2}" class="ltx_Math" display="inline" id="S4.SS2.p1.m5" intent=":literal"><semantics><mrow><msub><mi>R</mi><mi>p</mi></msub><mo>≫</mo><mrow><mn>1</mn><mo>/</mo><msub><mi>T</mi><mn>2</mn></msub></mrow></mrow><annotation encoding="application/x-tex">R_{p}\gg 1/T_{2}</annotation></semantics></math>，即横向自旋弛豫时间的倒数。
+在足够高的光强（<math alttext="&gt;1.5" class="ltx_Math" display="inline" id="S4.SS2.p1.m6" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>&gt;</mo><mn>1.5</mn></mrow><annotation encoding="application/x-tex">&gt;1.5</annotation></semantics></math> mW/cm<sup class="ltx_sup" id="S4.SS2.p1.1.2">2</sup>）下，探测光束不再被完全吸收，磁共振线宽近似与光强成正比，如棕色虚线引导线所示。
+进一步增大光强会引发功率展宽，导致线宽出现更陡的线性增加，如黑色点划线所示。</p>
+</div>
+<div class="ltx_para" id="S4.SS2.p2">
+<p class="ltx_p" id="S4.SS2.p2.1">类似地，提取零场共振峰高和差分斜率作为激光光强和失谐的函数，如图 <a class="ltx_ref" href="#S4.F4" title="Fig. 4 ‣ IV-B Effects of Laser Intensity and Detuning on Spectral Features ‣ IV Results and Discussion ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">4</span></a>(d)–<a class="ltx_ref" href="#S4.F4" title="Fig. 4 ‣ IV-B Effects of Laser Intensity and Detuning on Spectral Features ‣ IV Results and Discussion ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">4</span></a>(i)所示。
+峰高随失谐的变化关系如图 <a class="ltx_ref" href="#S4.F4" title="Fig. 4 ‣ IV-B Effects of Laser Intensity and Detuning on Spectral Features ‣ IV Results and Discussion ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">4</span></a>(e)所示。在两种光强下，峰高在两个共振区域附近均表现出明显的双结构响应。随着光强增大，整体峰高变大，而双结构特征仍然可见。
+图 <a class="ltx_ref" href="#S4.F4" title="Fig. 4 ‣ IV-B Effects of Laser Intensity and Detuning on Spectral Features ‣ IV Results and Discussion ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">4</span></a>(f)中峰高随光强的变化也可分为两个区间。在低光强下，探测光束在穿过原子蒸气传播时被强烈吸收，只有很小一部分光束能够透射过原子系综。我们通过CCD相机采集的荧光信号直接观察到了这一行为。在采用泵浦-探测配置的先前研究中，也报道了类似效应；这些研究测量了沿激光束方向的自旋极化分布<cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib31" title="">27</a>, <a class="ltx_ref" href="#bib.bib28" title="">32</a>]</cite>。激光光强的衰减由下式给出</p>
+<table class="ltx_equation ltx_eqn_table" id="S4.E4">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="\frac{dI(x)}{dx}=-n\sigma I(x)(1-P(x))," class="ltx_Math" display="block" id="S4.E4.m1" intent=":literal"><semantics><mrow><mrow><mfrac><mrow><mi>d</mi><mo lspace="0em" rspace="0em">​</mo><mi>I</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mrow><mrow><mi>d</mi><mo lspace="0em" rspace="0em">​</mo><mi>x</mi></mrow></mfrac><mo>=</mo><mrow><mo>−</mo><mrow><mi>n</mi><mo lspace="0em" rspace="0em">​</mo><mi>σ</mi><mo lspace="0em" rspace="0em">​</mo><mi>I</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mrow><mn>1</mn><mo>−</mo><mrow><mi>P</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">\frac{dI(x)}{dx}=-n\sigma I(x)(1-P(x)),</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S4.SS2.p2.2">其中 <math alttext="n" class="ltx_Math" display="inline" id="S4.SS2.p2.m1" intent=":literal"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> 是原子密度，<math alttext="\sigma" class="ltx_Math" display="inline" id="S4.SS2.p2.m2" intent=":literal"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math> 是吸收截面，<math alttext="P(x)" class="ltx_Math" display="inline" id="S4.SS2.p2.m3" intent=":literal"><semantics><mrow><mi>P</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">P(x)</annotation></semantics></math> 是作为原子位置 <math alttext="x" class="ltx_Math" display="inline" id="S4.SS2.p2.m4" intent=":literal"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math> 函数的自旋偏振。
+因此，检测信号随入射光强缓慢增加，导致峰高相对较弱地增加。
+高于某一阈值光强（<math alttext="2.0" class="ltx_Math" display="inline" id="S4.SS2.p2.m5" intent=":literal"><semantics><mn>2.0</mn><annotation encoding="application/x-tex">2.0</annotation></semantics></math> mW/cm<sup class="ltx_sup" id="S4.SS2.p2.2.1">2</sup>）时，吸收变得饱和，探测光束不再被完全吸收。
+随着光强增加，光泵浦变得更加显著，导致更强的原子偏振以及峰高相应地更陡增加。</p>
+</div>
+<div class="ltx_para" id="S4.SS2.p3">
+<p class="ltx_p" id="S4.SS2.p3.1">微分斜率通过带磁场调制的锁相放大器提取。斜率的失谐依赖关系表现出类似的双结构响应，表明这三个量受相同的底层共振特征支配。这里我们关注光强如何改变斜率，如图 <a class="ltx_ref" href="#S4.F4" title="Fig. 4 ‣ IV-B Effects of Laser Intensity and Detuning on Spectral Features ‣ IV Results and Discussion ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">4</span></a>(i) 所示。
+由于斜率与峰高和线宽之比有关，其光强依赖关系遵循上述相同的双区间行为。在本次测量中，斜率通常随光强增加，这是有利的，因为斜率出现在磁场灵敏度的分母中。然而，灵敏度还由分子中的噪声水平决定。因此，尽管增加光强会提高微分斜率，总灵敏度仍取决于噪声水平，接下来必须考察其光强依赖关系。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S4.SS3">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection"><span class="ltx_text" id="S4.SS3.4">IV-C</span> </span><span class="ltx_text ltx_font_italic" id="S4.SS3.5">灵敏度</span></h3>
+<figure class="ltx_figure" id="S4.F5"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_portrait" height="713" id="S4.F5.g1" src="assets/Fig5.png" style="aspect-ratio:476/713;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 5：</span>光强和激光失谐对测量噪声与光泵磁力仪（OPM）灵敏度的影响。
+(a) 和 (d) 噪声与灵敏度作为光强和激光失谐函数的密度图。
+(b) 和 (e) 两个代表性光强下的噪声与灵敏度失谐依赖关系。
+(c) 和 (f) 两个跃迁处的噪声与灵敏度光强依赖关系。
+<math alttext="11~\rm{fT}/\sqrt{\rm{Hz}}" class="ltx_Math" display="inline" id="S4.F5.m4" intent=":literal"><semantics><mrow><mrow><mn>11</mn><mo lspace="0.330em" rspace="0em">​</mo><mi>fT</mi></mrow><mo>/</mo><msqrt><mi>Hz</mi></msqrt></mrow><annotation encoding="application/x-tex">11~\rm{fT}/\sqrt{\rm{Hz}}</annotation></semantics></math> 的最佳灵敏度是在 <math alttext="F=2" class="ltx_Math" display="inline" id="S4.F5.m5" intent=":literal"><semantics><mrow><mi>F</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">F=2</annotation></semantics></math> 共振附近、光强为 <math alttext="1.9~\rm{mW/cm^{2}}" class="ltx_Math" display="inline" id="S4.F5.m6" intent=":literal"><semantics><mrow><mrow><mn>1.9</mn><mo lspace="0.330em" rspace="0em">​</mo><mi>mW</mi></mrow><mo>/</mo><msup><mi>cm</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">1.9~\rm{mW/cm^{2}}</annotation></semantics></math> 时获得的。棕色虚线和黑色点划线为目视引导线。
+</figcaption>
+</figure>
+<div class="ltx_para" id="S4.SS3.p1">
+<p class="ltx_p" id="S4.SS3.p1.1">现在我们转向噪声项 <math alttext="\delta S" class="ltx_Math" display="inline" id="S4.SS3.p1.m1" intent=":literal"><semantics><mrow><mi>δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">\delta S</annotation></semantics></math>，它表示检测信号中涨落的幅度，并在确定灵敏度方面起重要作用。
+低光强导致光泵浦不足和信号微弱，而高光强会引起功率展宽和噪声增加。
+按照图 <a class="ltx_ref" href="#S4.F4" title="Fig. 4 ‣ IV-B Effects of Laser Intensity and Detuning on Spectral Features ‣ IV Results and Discussion ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">4</span></a> 中的分析，我们通过计入测量噪声进一步评估灵敏度。
+噪声密度和相应灵敏度作为光强和激光失谐的函数展示于图 <a class="ltx_ref" href="#S4.F5" title="Fig. 5 ‣ IV-C Sensitivity ‣ IV Results and Discussion ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">5</span></a> 中。</p>
+</div>
+<div class="ltx_para" id="S4.SS3.p2">
+<p class="ltx_p" id="S4.SS3.p2.1">对于噪声测量，随后停止磁场扫描，并记录锁相放大器（LIA）的解调输出。时域信号的幅度谱密度（ASD）采用 Welch 方法计算，使用 Hann 窗和 50% 重叠。通过对 3–80 Hz 频率范围内的 ASD 取平均，得到噪声密度 <math alttext="\delta S" class="ltx_Math" display="inline" id="S4.SS3.p2.m1" intent=":literal"><semantics><mrow><mi>δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">\delta S</annotation></semantics></math>。
+随后将 OPM 灵敏度计算为 <math alttext="\delta B=\frac{\delta S}{|\frac{dS}{dB}|}" class="ltx_Math" display="inline" id="S4.SS3.p2.m2" intent=":literal"><semantics><mrow><mrow><mi>δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>B</mi></mrow><mo>=</mo><mfrac><mrow><mi>δ</mi><mo lspace="0em" rspace="0em">​</mo><mi>S</mi></mrow><mrow><mo stretchy="false">|</mo><mfrac><mrow><mi>d</mi><mo lspace="0em" rspace="0em">​</mo><mi>S</mi></mrow><mrow><mi>d</mi><mo lspace="0em" rspace="0em">​</mo><mi>B</mi></mrow></mfrac><mo stretchy="false">|</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">\delta B=\frac{\delta S}{|\frac{dS}{dB}|}</annotation></semantics></math>。</p>
+</div>
+<div class="ltx_para" id="S4.SS3.p3">
+<p class="ltx_p" id="S4.SS3.p3.1">在低光强下，测量的噪声幅度谱密度（ASD）几乎对激光失谐和光强均不敏感，如图 <a class="ltx_ref" href="#S4.F5" title="Fig. 5 ‣ IV-C Sensitivity ‣ IV Results and Discussion ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">5</span></a>(b) 和 <a class="ltx_ref" href="#S4.F5" title="Fig. 5 ‣ IV-C Sensitivity ‣ IV Results and Discussion ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">5</span></a>(c) 所示。
+然而，随着光强增大，依赖于失谐的噪声谱中出现双结构特征，同时较高光强下噪声急剧上升。
+特别是，当光强增大到接近 2.0 mW/cm<sup class="ltx_sup" id="S4.SS3.p3.1.1">2</sup> 的拐点以上时，噪声迅速增加。这一行为表明，在高光强区域，额外的光强相关噪声机制变得显著。</p>
+</div>
+<div class="ltx_para" id="S4.SS3.p4">
+<p class="ltx_p" id="S4.SS3.p4.1">在高探测光强下观察到的噪声急剧增加与透射峰高度增强密切相关，如图 <a class="ltx_ref" href="#S4.F4" title="Fig. 4 ‣ IV-B Effects of Laser Intensity and Detuning on Spectral Features ‣ IV Results and Discussion ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">4</span></a>(f) 所示。
+当探测光强从拐点增大到 2.4 mW/cm<sup class="ltx_sup" id="S4.SS3.p4.1.1">2</sup> 时，峰高增大约 3.4 倍，放大了噪声幅度。然而，在图 <a class="ltx_ref" href="#S4.F5" title="Fig. 5 ‣ IV-C Sensitivity ‣ IV Results and Discussion ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">5</span></a>(c) 的相同光强范围内，测量的噪声增大约 20 倍。
+其余噪声增量可能与圆偏振单光束泵浦-探测机制有关。在该配置下，增大探测光强会改变光泵浦速率、自旋极化和锁相响应，从而使探测光强涨落耦合到自旋极化涨落和解调信号噪声中。该机制可能解释了超出仅由透射峰增强所预期的观测噪声增量。</p>
+</div>
+<div class="ltx_para" id="S4.SS3.p5">
+<p class="ltx_p" id="S4.SS3.p5.1">将测量的噪声与微分斜率结合，可得到光泵磁力仪（OPM）的灵敏度，如图 <a class="ltx_ref" href="#S4.F5" title="Fig. 5 ‣ IV-C Sensitivity ‣ IV Results and Discussion ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">5</span></a>(d)–(f) 所示。在光强为 1.9 mW/cm<sup class="ltx_sup" id="S4.SS3.p5.1.1">2</sup> 时，最佳灵敏度在 <math alttext="F=1" class="ltx_Math" display="inline" id="S4.SS3.p5.m1" intent=":literal"><semantics><mrow><mi>F</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F=1</annotation></semantics></math> 和 <math alttext="F=2" class="ltx_Math" display="inline" id="S4.SS3.p5.m2" intent=":literal"><semantics><mrow><mi>F</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">F=2</annotation></semantics></math> 共振区附近获得。优化灵敏度的光强依赖性总结于图 <a class="ltx_ref" href="#S4.F5" title="Fig. 5 ‣ IV-C Sensitivity ‣ IV Results and Discussion ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">5</span></a>(f)。在弱光强条件下，噪声几乎对光强不敏感，而微分斜率随光强增大，从而使灵敏度提高。然而，进一步增大光强会引入额外噪声，反而使灵敏度下降。因此，最佳光强体现了微分斜率与噪声之间的权衡。
+在 <math alttext="F=2" class="ltx_Math" display="inline" id="S4.SS3.p5.m5" intent=":literal"><semantics><mrow><mi>F</mi><mo>=</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">F=2</annotation></semantics></math> 共振跃迁附近实现了 11 fT<math alttext="/\sqrt{\rm{Hz}}" class="ltx_Math" display="inline" id="S4.SS3.p5.m4" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>/</mo><msqrt><mi>Hz</mi></msqrt></mrow><annotation encoding="application/x-tex">/\sqrt{\rm{Hz}}</annotation></semantics></math> 的最佳灵敏度。</p>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S5">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">V </span><span class="ltx_text ltx_font_smallcaps" id="S5.1">小型化传感器原型</span></h2>
+<div class="ltx_para" id="S5.p1">
+<p class="ltx_p" id="S5.p1.1">上一节介绍了台式光泵磁力仪（OPM）系统，并系统表征了磁场灵敏度如何依赖激光失谐和光强。基于这些结果，我们研制了一种小型化传感器原型，以评估将单光束吸收模式 OPM 集成到紧凑型传感器探头中的可行性。这里，我们介绍该小型化传感器的结构及其相对于台式系统的性能。</p>
+</div>
+<figure class="ltx_figure" id="S5.F6"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_square" height="540" id="S5.F6.g1" src="assets/Fig6.png" style="aspect-ratio:476/540;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 6：</span>微型化光泵磁力仪（OPM）传感器原型的设计与组装。
+(a) 定制集成柔性印制电路板（FPCB）的布局，包括可折叠传感区（I）、加热区（II）和激光区（III），并包含磁场线圈、加热器连接和电气走线。光电探测器（PDs）和激光二极管将在未来工作中集成。
+(b) 部分组装的传感头，包含六块支撑板、气室、加热器、气室支架、Al<sub class="ltx_sub" id="S5.F6.3">2</sub>O<sub class="ltx_sub" id="S5.F6.4">3</sub> 板和 PT1000 温度传感器。
+(c) 将 FPCB 折叠为紧凑立方结构后完全组装的传感头。</figcaption>
+</figure>
+<section class="ltx_subsection" id="S5.SS1">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection"><span class="ltx_text" id="S5.SS1.4">V-A</span> </span><span class="ltx_text ltx_font_italic" id="S5.SS1.5">集成传感器架构与实验配置</span></h3>
+<div class="ltx_para" id="S5.SS1.p1">
+<p class="ltx_p" id="S5.SS1.p1.1">微型化传感器原型的设计与组装如图 <a class="ltx_ref" href="#S5.F6" title="Fig. 6 ‣ V Miniaturized Sensor Prototype ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">6</span></a> 所示。定制 FPCB 分为三个主要功能区：主传感区（标记为 I）、加热区（II）和激光集成区（III）。
+主传感区（I）容纳气室和磁场线圈。它还为温度传感器和 PDs 提供电气接口；PDs 预留用于未来集成，本工作未使用。
+加热区（II）为气室提供温控，而预留的激光集成区（III）包含激光二极管的电气接口。图 <a class="ltx_ref" href="#S5.F6" title="Fig. 6 ‣ V Miniaturized Sensor Prototype ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">6</span></a>(b) 展示了部分组装的传感头。
+六块由 FR-5 玻璃纤维增强环氧树脂层压板制成的支撑板已固定在 FPCB 背面，以提供机械支撑并限定折叠后传感头的几何形状。
+一个边长为 5.5 mm 的紧凑方形加热器（台式系统所用加热器的边长为 6.5 mm）安装在气室支架中。
+使用紫外固化胶将微加工气室和气室支架固定到周围的 FPCB 上。
+组装后，将传感区折叠成紧凑的传感头，如图 <a class="ltx_ref" href="#S5.F6" title="Fig. 6 ‣ V Miniaturized Sensor Prototype ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">6</span></a>(c) 所示，每侧外部尺寸为 <math alttext="12~\rm{mm}" class="ltx_Math" display="inline" id="S5.SS1.p1.m1" intent=":literal"><semantics><mrow><mn>12</mn><mo lspace="0.330em" rspace="0em">​</mo><mi>mm</mi></mrow><annotation encoding="application/x-tex">12~\rm{mm}</annotation></semantics></math>。</p>
+</div>
+<div class="ltx_para" id="S5.SS1.p2">
+<p class="ltx_p" id="S5.SS1.p2.1">为表征微型化传感器原型，光学激发和检测采用与台式装置相同的 DBR 激光器、偏振光学元件、PD 以及用于锁相放大和数据采集的电子设备进行。
+微型化亥姆霍兹线圈直接设计并图形化于 FPCB 上。
+光学相互作用体积内的磁场梯度会显著降低传感器性能。通过减小激光束直径可部分抑制这一效应，从而将相互作用区域限制在磁场更均匀的中心区域。
+然而，根据 OPM 的灵敏度标度关系，最小可测磁场可表示为 <cite class="ltx_cite ltx_citemacro_cite">[<a class="ltx_ref" href="#bib.bib27" title="">21</a>]</cite></p>
+<table class="ltx_equation ltx_eqn_table" id="S5.E5">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="B_{\min}=\frac{1}{\gamma\sqrt{n\tau Vt}}," class="ltx_Math" display="block" id="S5.E5.m1" intent=":literal"><semantics><mrow><mrow><msub><mi>B</mi><mi>min</mi></msub><mo>=</mo><mfrac><mn>1</mn><mrow><mi>γ</mi><mo lspace="0em" rspace="0em">​</mo><msqrt><mrow><mi>n</mi><mo lspace="0em" rspace="0em">​</mo><mi>τ</mi><mo lspace="0em" rspace="0em">​</mo><mi>V</mi><mo lspace="0em" rspace="0em">​</mo><mi>t</mi></mrow></msqrt></mrow></mfrac></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">B_{\min}=\frac{1}{\gamma\sqrt{n\tau Vt}},</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(5)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S5.SS1.p2.2">其中 <math alttext="V" class="ltx_Math" display="inline" id="S5.SS1.p2.m1" intent=":literal"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math> 是光学相互作用体积，<math alttext="t" class="ltx_Math" display="inline" id="S5.SS1.p2.m2" intent=":literal"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> 是测量时间。灵敏度极限受参与测量的原子数强烈影响，而该原子数与 <math alttext="nV" class="ltx_Math" display="inline" id="S5.SS1.p2.m3" intent=":literal"><semantics><mrow><mi>n</mi><mo lspace="0em" rspace="0em">​</mo><mi>V</mi></mrow><annotation encoding="application/x-tex">nV</annotation></semantics></math> 成正比。减小光束尺寸会减少对光–原子相互作用有贡献的原子数，从而抬高基本灵敏度极限。
+因此，可通过设计具有均匀磁场的更大区域来增大相互作用体积。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S5.SS2">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection"><span class="ltx_text" id="S5.SS2.4">V-B</span> </span><span class="ltx_text ltx_font_italic" id="S5.SS2.5">面向集成传感器设计的磁场线圈</span></h3>
+<div class="ltx_para" id="S5.SS2.p1">
+<p class="ltx_p" id="S5.SS2.p1.1">为评估集成线圈几何结构对性能的影响，对两种线圈配置进行了仿真和实验研究。
+第一种配置称为方形亥姆霍兹（SH）配置，使用在柔性印制电路板（FPCB）上图形化的圆角方形亥姆霍兹线圈。第二种配置称为双平面（BP）配置，使用集成双平面线圈。
+在两种配置中，集成线圈提供了剩余磁场补偿、直流磁场扫描和交流调制所需的全部磁场。
+对磁场分布进行仿真，以评估线圈几何结构对均匀场区域的影响，如图 <a class="ltx_ref" href="#S5.F7" title="Fig. 7 ‣ V-B Magnetic Coils Designed for Integrated Sensor ‣ V Miniaturized Sensor Prototype ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">7</span></a> 所示。线圈电流设置为 <math alttext="1~\rm{mA}" class="ltx_Math" display="inline" id="S5.SS2.p1.m1" intent=":literal"><semantics><mrow><mn>1</mn><mo lspace="0.330em" rspace="0em">​</mo><mi>mA</mi></mrow><annotation encoding="application/x-tex">1~\rm{mA}</annotation></semantics></math>。
+感兴趣区域（ROI）定义为以气室为中心、直径为 <math alttext="2.5~\rm{mm}" class="ltx_Math" display="inline" id="S5.SS2.p1.m2" intent=":literal"><semantics><mrow><mn>2.5</mn><mo lspace="0.330em" rspace="0em">​</mo><mi>mm</mi></mrow><annotation encoding="application/x-tex">2.5~\rm{mm}</annotation></semantics></math> 的球形体积。磁场差异比 <math alttext="D" class="ltx_Math" display="inline" id="S5.SS2.p1.m3" intent=":literal"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math> 定义为</p>
+<table class="ltx_equation ltx_eqn_table" id="S5.E6">
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math alttext="D=\frac{|\bf{B}|-\overline{|\bf{B}|}_{\rm{ROI}}}{\overline{|\bf{B}|}_{\rm{ROI}}}\times 100\%," class="ltx_Math" display="block" id="S5.E6.m1" intent=":literal"><semantics><mrow><mrow><mi>D</mi><mo>=</mo><mrow><mfrac><mrow><mrow><mo stretchy="false">|</mo><mi>𝐁</mi><mo stretchy="false">|</mo></mrow><mo>−</mo><msub><mover accent="true"><mrow><mo stretchy="false">|</mo><mi>𝐁</mi><mo stretchy="false">|</mo></mrow><mo stretchy="true">¯</mo></mover><mi>ROI</mi></msub></mrow><msub><mover accent="true"><mrow><mo stretchy="false">|</mo><mi>𝐁</mi><mo stretchy="false">|</mo></mrow><mo stretchy="true">¯</mo></mover><mi>ROI</mi></msub></mfrac><mo lspace="0.222em" rspace="0.222em">×</mo><mrow><mn>100</mn><mo>%</mo></mrow></mrow></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">D=\frac{|\bf{B}|-\overline{|\bf{B}|}_{\rm{ROI}}}{\overline{|\bf{B}|}_{\rm{ROI}}}\times 100\%,</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right" rowspan="1"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6)</span></td></tr></tbody>
+</table>
+<p class="ltx_p" id="S5.SS2.p1.2">其中 <math alttext="|\bf{B}|" class="ltx_Math" display="inline" id="S5.SS2.p1.m4" intent=":literal"><semantics><mrow><mo stretchy="false">|</mo><mi>𝐁</mi><mo stretchy="false">|</mo></mrow><annotation encoding="application/x-tex">|\bf{B}|</annotation></semantics></math> 是局部磁场大小，<math alttext="\overline{|\bf{B}|}_{\rm{ROI}}" class="ltx_Math" display="inline" id="S5.SS2.p1.m5" intent=":literal"><semantics><msub><mover accent="true"><mrow><mo stretchy="false">|</mo><mi>𝐁</mi><mo stretchy="false">|</mo></mrow><mo stretchy="true">¯</mo></mover><mi>ROI</mi></msub><annotation encoding="application/x-tex">\overline{|\bf{B}|}_{\rm{ROI}}</annotation></semantics></math> 是 ROI 内的平均磁场大小。</p>
+</div>
+<figure class="ltx_figure" id="S5.F7"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_square" height="568" id="S5.F7.g1" src="assets/Fig7.png" style="aspect-ratio:476/568;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 7：</span>由 (a) SH 和 (b) BP 配置产生的仿真空间磁场分布。线圈电流设置为 <math alttext="1~\rm{mA}" class="ltx_Math" display="inline" id="S5.F7.m4" intent=":literal"><semantics><mrow><mn>1</mn><mo lspace="0.330em" rspace="0em">​</mo><mi>mA</mi></mrow><annotation encoding="application/x-tex">1~\rm{mA}</annotation></semantics></math>。在 BP 设计中，红色和绿色迹线表示相反的电流方向。密度图中的色标表示磁场差异比 <math alttext="D" class="ltx_Math" display="inline" id="S5.F7.m5" intent=":literal"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>。感兴趣区域（ROI）定义为以气室为中心、直径为 <math alttext="2.5~\rm{mm}" class="ltx_Math" display="inline" id="S5.F7.m6" intent=":literal"><semantics><mrow><mn>2.5</mn><mo lspace="0.330em" rspace="0em">​</mo><mi>mm</mi></mrow><annotation encoding="application/x-tex">2.5~\rm{mm}</annotation></semantics></math> 的球形体积，插图显示了中心 ROI 的放大视图。</figcaption>
+</figure>
+<figure class="ltx_figure" id="S5.F8"><img alt="Refer to caption" class="ltx_graphics ltx_centering ltx_img_square" height="589" id="S5.F8.g1" src="assets/Fig8.png" style="aspect-ratio:476/589;" width="476"/>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 8：</span>仿真 <math alttext="B_{x}" class="ltx_Math" display="inline" id="S5.F8.m9" intent=":literal"><semantics><msub><mi>B</mi><mi>x</mi></msub><annotation encoding="application/x-tex">B_{x}</annotation></semantics></math> 沿 <math alttext="X" class="ltx_Math" display="inline" id="S5.F8.m10" intent=":literal"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> 方向在不同横向位置 <math alttext="(Y,Z)" class="ltx_Math" display="inline" id="S5.F8.m11" intent=":literal"><semantics><mrow><mo stretchy="false">(</mo><mi>Y</mi><mo>,</mo><mi>Z</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(Y,Z)</annotation></semantics></math> 处的分布，对应 (a) SH 和 (b) BP 配置。每条曲线表示固定横向位置处的一条线剖面，对应于 <math alttext="(Y,Z)=(0,0)" class="ltx_Math" display="inline" id="S5.F8.m12" intent=":literal"><semantics><mrow><mrow><mo stretchy="false">(</mo><mi>Y</mi><mo>,</mo><mi>Z</mi><mo stretchy="false">)</mo></mrow><mo>=</mo><mrow><mo stretchy="false">(</mo><mn>0</mn><mo>,</mo><mn>0</mn><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">(Y,Z)=(0,0)</annotation></semantics></math>、<math alttext="(0.6,0)" class="ltx_Math" display="inline" id="S5.F8.m13" intent=":literal"><semantics><mrow><mo stretchy="false">(</mo><mn>0.6</mn><mo>,</mo><mn>0</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(0.6,0)</annotation></semantics></math>、<math alttext="(1.25,0)" class="ltx_Math" display="inline" id="S5.F8.m14" intent=":literal"><semantics><mrow><mo stretchy="false">(</mo><mn>1.25</mn><mo>,</mo><mn>0</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(1.25,0)</annotation></semantics></math> 和 <math alttext="(1.25,1.25)~\rm{mm}" class="ltx_Math" display="inline" id="S5.F8.m15" intent=":literal"><semantics><mrow><mrow><mo stretchy="false">(</mo><mn>1.25</mn><mo>,</mo><mn>1.25</mn><mo stretchy="false">)</mo></mrow><mo lspace="0.330em" rspace="0em">​</mo><mi>mm</mi></mrow><annotation encoding="application/x-tex">(1.25,1.25)~\rm{mm}</annotation></semantics></math>。紫色虚线表示 ROI 内的平均磁场 <math alttext="\overline{B}_{\rm{x,ROI}}" class="ltx_Math" display="inline" id="S5.F8.m16" intent=":literal"><semantics><msub><mover accent="true"><mi>B</mi><mo stretchy="true">¯</mo></mover><mrow><mi>x</mi><mo>,</mo><mi>ROI</mi></mrow></msub><annotation encoding="application/x-tex">\overline{B}_{\rm{x,ROI}}</annotation></semantics></math>。</figcaption>
+</figure>
+<div class="ltx_para" id="S5.SS2.p2">
+<p class="ltx_p" id="S5.SS2.p2.1">图 <a class="ltx_ref" href="#S5.F7" title="Fig. 7 ‣ V-B Magnetic Coils Designed for Integrated Sensor ‣ V Miniaturized Sensor Prototype ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">7</span></a> 显示了仿真空间磁场分布，其中颜色表示差异比 <math alttext="D" class="ltx_Math" display="inline" id="S5.SS2.p2.m1" intent=":literal"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>。左上角的插图显示了中心感兴趣区域（ROI）的放大视图。BP 配置在 ROI 内表现出更小的空间变化，表明气室中心附近的磁场均匀性得到改善。
+图 <a class="ltx_ref" href="#S5.F8" title="Fig. 8 ‣ V-B Magnetic Coils Designed for Integrated Sensor ‣ V Miniaturized Sensor Prototype ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">8</span></a> 进一步显示了仿真 <math alttext="B_{x}" class="ltx_Math" display="inline" id="S5.SS2.p2.m2" intent=":literal"><semantics><msub><mi>B</mi><mi>x</mi></msub><annotation encoding="application/x-tex">B_{x}</annotation></semantics></math> 分布，其沿 <math alttext="X" class="ltx_Math" display="inline" id="S5.SS2.p2.m3" intent=":literal"><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> 方向、在不同横向位置 <math alttext="(Y,Z)" class="ltx_Math" display="inline" id="S5.SS2.p2.m4" intent=":literal"><semantics><mrow><mo stretchy="false">(</mo><mi>Y</mi><mo>,</mo><mi>Z</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(Y,Z)</annotation></semantics></math> 处。在 SH 配置中，<math alttext="B_{x}" class="ltx_Math" display="inline" id="S5.SS2.p2.m5" intent=":literal"><semantics><msub><mi>B</mi><mi>x</mi></msub><annotation encoding="application/x-tex">B_{x}</annotation></semantics></math> 分布曲线表现出明显弯曲，表明磁场存在显著的空间变化。ROI 内的平均磁场 <math alttext="\overline{B}_{\rm{x,ROI}}" class="ltx_Math" display="inline" id="S5.SS2.p2.m6" intent=":literal"><semantics><msub><mover accent="true"><mi>B</mi><mo stretchy="true">¯</mo></mover><mrow><mi>x</mi><mo>,</mo><mi>ROI</mi></mrow></msub><annotation encoding="application/x-tex">\overline{B}_{\rm{x,ROI}}</annotation></semantics></math> 为 <math alttext="82.7~\rm{nT}" class="ltx_Math" display="inline" id="S5.SS2.p2.m7" intent=":literal"><semantics><mrow><mn>82.7</mn><mo lspace="0.330em" rspace="0em">​</mo><mi>nT</mi></mrow><annotation encoding="application/x-tex">82.7~\rm{nT}</annotation></semantics></math>，估计的磁场变化为 <math alttext="13.8\%" class="ltx_Math" display="inline" id="S5.SS2.p2.m8" intent=":literal"><semantics><mrow><mn>13.8</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">13.8\%</annotation></semantics></math>。相比之下，BP 配置表现出明显更平坦的 <math alttext="B_{x}" class="ltx_Math" display="inline" id="S5.SS2.p2.m9" intent=":literal"><semantics><msub><mi>B</mi><mi>x</mi></msub><annotation encoding="application/x-tex">B_{x}</annotation></semantics></math> 分布曲线，并得到 <math alttext="\overline{B}_{\rm{x,ROI}}\approx 13.3~\rm{nT}" class="ltx_Math" display="inline" id="S5.SS2.p2.m10" intent=":literal"><semantics><mrow><msub><mover accent="true"><mi>B</mi><mo stretchy="true">¯</mo></mover><mrow><mi>x</mi><mo>,</mo><mi>ROI</mi></mrow></msub><mo>≈</mo><mrow><mn>13.3</mn><mo lspace="0.330em" rspace="0em">​</mo><mi>nT</mi></mrow></mrow><annotation encoding="application/x-tex">\overline{B}_{\rm{x,ROI}}\approx 13.3~\rm{nT}</annotation></semantics></math>，其磁场变化仅为 <math alttext="2.6\%" class="ltx_Math" display="inline" id="S5.SS2.p2.m11" intent=":literal"><semantics><mrow><mn>2.6</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">2.6\%</annotation></semantics></math>。这些结果表明，BP 配置提供的磁场分布均匀性显著更高。</p>
+</div>
+</section>
+<section class="ltx_subsection" id="S5.SS3">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection"><span class="ltx_text" id="S5.SS3.4">V-C</span> </span><span class="ltx_text ltx_font_italic" id="S5.SS3.5">性能及与台式系统的比较</span></h3>
+<div class="ltx_para" id="S5.SS3.p1">
+<p class="ltx_p" id="S5.SS3.p1.1">随后对两种小型化线圈配置的性能进行了实验评估。对于 SH 配置，均匀场区域有限，因此需要将激光束直径减小至 <math alttext="1.6~\rm{mm}" class="ltx_Math" display="inline" id="S5.SS3.p1.m1" intent=":literal"><semantics><mrow><mn>1.6</mn><mo lspace="0.330em" rspace="0em">​</mo><mi>mm</mi></mrow><annotation encoding="application/x-tex">1.6~\rm{mm}</annotation></semantics></math>。经优化后，SH 配置获得的最佳磁场灵敏度为 <math alttext="1.2~\rm{pT}/\sqrt{\rm{Hz}}" class="ltx_Math" display="inline" id="S5.SS3.p1.m2" intent=":literal"><semantics><mrow><mrow><mn>1.2</mn><mo lspace="0.330em" rspace="0em">​</mo><mi>pT</mi></mrow><mo>/</mo><msqrt><mi>Hz</mi></msqrt></mrow><annotation encoding="application/x-tex">1.2~\rm{pT}/\sqrt{\rm{Hz}}</annotation></semantics></math>。
+对于 BP 设计，激光束可增大至 <math alttext="2.6~\rm{mm}" class="ltx_Math" display="inline" id="S5.SS3.p1.m3" intent=":literal"><semantics><mrow><mn>2.6</mn><mo lspace="0.330em" rspace="0em">​</mo><mi>mm</mi></mrow><annotation encoding="application/x-tex">2.6~\rm{mm}</annotation></semantics></math>，与台式系统中所用光束相同。
+在优化的工作条件下，BP 配置实现了 <math alttext="66~\rm{fT}/\sqrt{\rm{Hz}}" class="ltx_Math" display="inline" id="S5.SS3.p1.m4" intent=":literal"><semantics><mrow><mrow><mn>66</mn><mo lspace="0.330em" rspace="0em">​</mo><mi>fT</mi></mrow><mo>/</mo><msqrt><mi>Hz</mi></msqrt></mrow><annotation encoding="application/x-tex">66~\rm{fT}/\sqrt{\rm{Hz}}</annotation></semantics></math> 的灵敏度。
+即使减小了光束尺寸，SH 配置被照体积内的磁场均匀性仍低于 BP 线圈所提供的均匀性。由此产生的磁场梯度会引入额外的非均匀展宽，并降低共振斜率。这些结果表明，增大均匀场体积对于在小型化气室光泵磁力仪（OPM）中保持高灵敏度尤为重要。</p>
+</div>
+<div class="ltx_para" id="S5.SS3.p2">
+<p class="ltx_p" id="S5.SS3.p2.1">在确定 BP 配置为首选设计后，我们将其灵敏度谱与图 <a class="ltx_ref" href="#S5.F9" title="Fig. 9 ‣ V-C Performance and Comparison with the Benchtop System ‣ V Miniaturized Sensor Prototype ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">9</span></a> 中台式系统的灵敏度谱进行比较。灵敏度在 3 至 80 Hz 的频率范围内评估，如阴影区域所示。为避免高估宽带灵敏度水平，该范围内显著的窄带干扰峰未纳入平均过程。灵敏度为 <math alttext="66~\rm{fT}/\sqrt{\rm{Hz}}" class="ltx_Math" display="inline" id="S5.SS3.p2.m1" intent=":literal"><semantics><mrow><mrow><mn>66</mn><mo lspace="0.330em" rspace="0em">​</mo><mi>fT</mi></mrow><mo>/</mo><msqrt><mi>Hz</mi></msqrt></mrow><annotation encoding="application/x-tex">66~\rm{fT}/\sqrt{\rm{Hz}}</annotation></semantics></math>，相当于微型化后灵敏度劣化为原来的 1/6。BP 配置在大部分评估频带内表现出总体更高的磁场等效噪声水平。其噪声水平约为台式系统的四倍，且在低于 <math alttext="20~\rm{Hz}" class="ltx_Math" display="inline" id="S5.SS3.p2.m2" intent=":literal"><semantics><mrow><mn>20</mn><mo lspace="0.330em" rspace="0em">​</mo><mi>Hz</mi></mrow><annotation encoding="application/x-tex">20~\rm{Hz}</annotation></semantics></math> 的频率处尤其升高。这种低频噪声升高预计主要与微型化传感器中改进的加热结构有关。两个频谱还包含若干窄带谱峰，其中包括 <math alttext="60~\rm{Hz}" class="ltx_Math" display="inline" id="S5.SS3.p2.m3" intent=":literal"><semantics><mrow><mn>60</mn><mo lspace="0.330em" rspace="0em">​</mo><mi>Hz</mi></mrow><annotation encoding="application/x-tex">60~\rm{Hz}</annotation></semantics></math> 附近的一个显著分量，这些谱峰主要与窄带环境或电学干扰有关。剩余的灵敏度劣化主要归因于磁共振展宽。BP 配置的共振线宽比台式系统宽 50%，这与 BP 线圈的残差场梯度一致，而该梯度大于台式系统所用屏蔽线圈的残差场梯度。还观察到共振线型有轻微畸变，进一步证明空间磁场不均匀性。</p>
+</div>
+<figure class="ltx_figure" id="S5.F9"><object class="ltx_graphics ltx_centering ltx_img_square" data="assets/Fig9.svg" height="476" id="S5.F9.g1" style="aspect-ratio:476/476;" type="image/svg+xml" width="476"></object>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure">图 9：</span>微型化 BP 配置（a）与台式系统（b）的磁场灵敏度谱比较。阴影区域表示 3 至 80 Hz 的评估频带。红色虚线表示该频率范围内的平均灵敏度，分别对应 <math alttext="66~\rm{fT}/\sqrt{\rm{Hz}}" class="ltx_Math" display="inline" id="S5.F9.m3" intent=":literal"><semantics><mrow><mrow><mn>66</mn><mo lspace="0.330em" rspace="0em">​</mo><mi>fT</mi></mrow><mo>/</mo><msqrt><mi>Hz</mi></msqrt></mrow><annotation encoding="application/x-tex">66~\rm{fT}/\sqrt{\rm{Hz}}</annotation></semantics></math> 和 <math alttext="11~\rm{fT}/\sqrt{\rm{Hz}}" class="ltx_Math" display="inline" id="S5.F9.m4" intent=":literal"><semantics><mrow><mrow><mn>11</mn><mo lspace="0.330em" rspace="0em">​</mo><mi>fT</mi></mrow><mo>/</mo><msqrt><mi>Hz</mi></msqrt></mrow><annotation encoding="application/x-tex">11~\rm{fT}/\sqrt{\rm{Hz}}</annotation></semantics></math>。</figcaption>
+</figure>
+</section>
+<section class="ltx_subsection" id="S5.SS4">
+<h3 class="ltx_title ltx_title_subsection"><span class="ltx_tag ltx_tag_subsection"><span class="ltx_text" id="S5.SS4.4">V-D</span> </span><span class="ltx_text ltx_font_italic" id="S5.SS4.5">展望</span></h3>
+<div class="ltx_para" id="S5.SS4.p1">
+<p class="ltx_p" id="S5.SS4.p1.1">未来开发将聚焦于将光学与检测组件进一步集成到基于 FPCB 的传感器平台中，包括将光电探测器（PD）和光源直接纳入传感器头。由于气室的工作温度最高可达 <math alttext="160^{\circ}\rm{C}" class="ltx_Math" display="inline" id="S5.SS4.p1.m1" intent=":literal"><semantics><mrow><msup><mn>160</mn><mo>∘</mo></msup><mo lspace="0em" rspace="0em">​</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">160^{\circ}\rm{C}</annotation></semantics></math>，而 PD 将仅相距几毫米，局部温度升高可能增加探测器热噪声并降低信噪比。此外，光源将替换为未封装的垂直腔面发射激光器（VCSEL），以进一步实现微型化。尽管高缓冲气体压强和高气室温度会使吸收谱显著展宽，但在评估磁强计性能时仍应考虑 <math alttext="120~\rm{MHz}" class="ltx_Math" display="inline" id="S5.SS4.p1.m2" intent=":literal"><semantics><mrow><mn>120</mn><mo lspace="0.330em" rspace="0em">​</mo><mi>MHz</mi></mrow><annotation encoding="application/x-tex">120~\rm{MHz}</annotation></semantics></math> 的宽激光线宽的影响。此外，微型化 VCSEL 系统可能导致更大的光强波动，并因此增加磁强计的光学噪声。</p>
+</div>
+<div class="ltx_para" id="S5.SS4.p2">
+<p class="ltx_p" id="S5.SS4.p2.1">集成磁场线圈还可以进一步优化。根据仿真结果，将单电流配置替换为双电流设计，并适当调节电流幅值和方向，可进一步提高磁场均匀性。采用优化后的电流分布，ROI内的磁场差异比<math alttext="D" class="ltx_Math" display="inline" id="S5.SS4.p2.m1" intent=":literal"><semantics><mi>D</mi><annotation encoding="application/x-tex">D</annotation></semantics></math>可降至<math alttext="1\%" class="ltx_Math" display="inline" id="S5.SS4.p2.m2" intent=":literal"><semantics><mrow><mn>1</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">1\%</annotation></semantics></math>以下，为进一步提高全集成传感器的灵敏度提供了潜在途径。</p>
+</div>
+</section>
+</section>
+<section class="ltx_section" id="S6">
+<h2 class="ltx_title ltx_title_section"><span class="ltx_tag ltx_tag_section">VI </span><span class="ltx_text ltx_font_smallcaps" id="S6.1">结论</span></h2>
+<div class="ltx_para" id="S6.p1">
+<p class="ltx_p" id="S6.p1.1">我们开发了一套紧凑型光泵磁力仪（OPM）系统，该系统由激光源、含纯<sup class="ltx_sup" id="S6.p1.1.1"><span class="ltx_text ltx_font_italic" id="S6.p1.1.1.1">87</span></sup>Rb且充有500 Torr N<sub class="ltx_sub" id="S6.p1.1.2">2</sub>缓冲气体的微加工气室、四层磁屏蔽以及用于控制磁场的亥姆霍兹线圈组成。系统以吸收模式工作，采用单圆偏振光束。通过分析信号斜率和噪声谱，推导出磁场灵敏度。我们系统研究了灵敏度对激光失谐和光强的依赖关系，揭示了峰高增强与噪声增加之间的权衡。在气室体积为0.027 cm<sup class="ltx_sup" id="S6.p1.1.3">3</sup>时，实现了11 fT<math alttext="/\sqrt{\rm{Hz}}" class="ltx_Math" display="inline" id="S6.p1.m3" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>/</mo><msqrt><mi>Hz</mi></msqrt></mrow><annotation encoding="application/x-tex">/\sqrt{\rm{Hz}}</annotation></semantics></math>的最佳灵敏度。
+此外，我们采用折叠式柔性印制电路板（FPCB）开发了一种小型化OPM原型，将气室、加热器和磁场线圈集成到边长12 mm的立方体传感头中。在所研究的两种线圈配置中，BP设计提供了改善的磁场均匀性，并实现了66 fT<math alttext="/\sqrt{\rm{Hz}}" class="ltx_Math" display="inline" id="S6.p1.m5" intent=":literal"><semantics><mrow><mphantom></mphantom><mo>/</mo><msqrt><mi>Hz</mi></msqrt></mrow><annotation encoding="application/x-tex">/\sqrt{\rm{Hz}}</annotation></semantics></math>的灵敏度。相对于台式系统的剩余性能差距，凸显了进一步降低光相互作用区域内磁场梯度的重要性。未来工作将聚焦于将光源和光电探测器集成到基于FPCB的平台中，以实现全集成传感器。
+这种紧凑装置可实现低噪声磁场检测，并为适用于生物医学和便携式应用的小型化多轴OPM提供了有前景的平台。
+热原子系综的使用进一步支持其集成到芯片级传感器平台中。</p>
+</div>
+</section>
+<section class="ltx_bibliography" id="bib">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+<ul class="ltx_biblist" id="bib.L1">
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib26"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. L. Fagaly</span><span class="ltx_text ltx_bib_year"> (2006)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Superconducting quantum interference device instruments and applications</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Review of Scientific Instruments</span> <span class="ltx_text ltx_bib_volume">77</span> (<span class="ltx_text ltx_bib_number">10</span>), <span class="ltx_text ltx_bib_pages">pp. 101101</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0034-6748</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1063/1.2354545" title="">Document</a>,
+<span class="ltx_text ltx_bib_external">https://pubs.aip.org/aip/rsi/article-pdf/doi/10.1063/1.2354545/11171638/101101_1_online.pdf</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib15"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">I. K. Kominis, T. W. Kornack, J. C. Allred, and M. V. Romalis</span><span class="ltx_text ltx_bib_year"> (2003)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A subfemtotesla multichannel atomic magnetometer</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nature</span> <span class="ltx_text ltx_bib_volume">422</span> (<span class="ltx_text ltx_bib_number">6932</span>), <span class="ltx_text ltx_bib_pages">pp. 596–599</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1476-4687</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/nature01484" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib4"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">H. B. Dang, A. C. Maloof, and M. V. Romalis</span><span class="ltx_text ltx_bib_year"> (2010)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Ultrahigh sensitivity magnetic field and magnetization measurements with an atomic magnetometer</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Applied Physics Letters</span> <span class="ltx_text ltx_bib_volume">97</span> (<span class="ltx_text ltx_bib_number">15</span>), <span class="ltx_text ltx_bib_pages">pp. 151110</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib22"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">W. Wasilewski, K. Jensen, H. Krauter, J. J. Renema, M. V. Balabas, and E. S. Polzik</span><span class="ltx_text ltx_bib_year"> (2010)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Quantum Noise Limited and Entanglement-Assisted Magnetometry</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Phys. Rev. Lett.</span> <span class="ltx_text ltx_bib_volume">104</span>, <span class="ltx_text ltx_bib_pages">pp. 133601</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevLett.104.133601" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib17"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">V. Shah, G. Vasilakis, and M. V. Romalis</span><span class="ltx_text ltx_bib_year"> (2010)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">High Bandwidth Atomic Magnetometery with Continuous Quantum Nondemolition Measurements</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Phys. Rev. Lett.</span> <span class="ltx_text ltx_bib_volume">104</span>, <span class="ltx_text ltx_bib_pages">pp. 013601</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevLett.104.013601" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib14"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. Bertrand, T. Jager, A. Boness, W. Fourcault, G. Le Gal, A. Palacios-Laloy, J. Paulet, and J. M. Léger</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A 4He vector zero-field optically pumped magnetometer operated in the Earth-field</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Review of Scientific Instruments</span> <span class="ltx_text ltx_bib_volume">92</span> (<span class="ltx_text ltx_bib_number">10</span>), <span class="ltx_text ltx_bib_pages">pp. 105005</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0034-6748</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1063/5.0062791" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib11"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">W. Fourcault, R. Romain, G. L. Gal, F. Bertrand, V. Josselin, M. L. Prado, E. Labyt, and A. Palacios-Laloy</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Helium-4 magnetometers for room-temperature biomedical imaging: toward collective operation and photon-noise limited sensitivity</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Opt. Express</span> <span class="ltx_text ltx_bib_volume">29</span> (<span class="ltx_text ltx_bib_number">10</span>), <span class="ltx_text ltx_bib_pages">pp. 14467–14475</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OE.420031" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib5"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Troullinou, R. Jiménez-Martínez, J. Kong, V. G. Lucivero, and M. W. Mitchell</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Squeezed-Light Enhancement and Backaction Evasion in a High Sensitivity Optically Pumped Magnetometer</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Phys. Rev. Lett.</span> <span class="ltx_text ltx_bib_volume">127</span>, <span class="ltx_text ltx_bib_pages">pp. 193601</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevLett.127.193601" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib8"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Troullinou, V. G. Lucivero, and M. W. Mitchell</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Quantum-Enhanced Magnetometry at Optimal Number Density</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Phys. Rev. Lett.</span> <span class="ltx_text ltx_bib_volume">131</span>, <span class="ltx_text ltx_bib_pages">pp. 133602</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevLett.131.133602" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib7"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">X. Meng, Y. Zhang, X. Zhang, S. Jin, T. Wang, L. Jiang, L. Xiao, S. Jia, and Y. Xiao</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Machine learning assisted vector atomic magnetometry</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nature Communications</span> <span class="ltx_text ltx_bib_volume">14</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 6105</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 2041-1723</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/s41467-023-41676-x" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib16"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. Borna, T. R. Carter, J. D. Goldberg, A. P. Colombo, Y. Jau, C. Berry, J. McKay, J. Stephen, M. Weisend, and P. D. D. Schwindt</span><span class="ltx_text ltx_bib_year"> (2017)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A 20-channel magnetoencephalography system based on optically pumped magnetometers</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Physics in Medicine <math alttext="\&amp;" class="ltx_Math" display="inline" id="bib.bib16.m1" intent=":literal"><semantics><mo>&amp;</mo><annotation encoding="application/x-tex">\&amp;</annotation></semantics></math> Biology</span> <span class="ltx_text ltx_bib_volume">62</span> (<span class="ltx_text ltx_bib_number">23</span>), <span class="ltx_text ltx_bib_pages">pp. 8909</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1088/1361-6560/aa93d1" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib13"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Rea, E. Boto, N. Holmes, R. Hill, J. Osborne, N. Rhodes, J. Leggett, L. Rier, R. Bowtell, V. Shah, and M. J. Brookes</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A 90-channel triaxial magnetoencephalography system using optically pumped magnetometers</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Annals of the New York Academy of Sciences</span> <span class="ltx_text ltx_bib_volume">1517</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 107–124</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/https%3A//doi.org/10.1111/nyas.14890" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib9"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">N. Aslam, H. Zhou, E. K. Urbach, M. J. Turner, R. L. Walsworth, M. D. Lukin, and H. Park</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Quantum sensors for biomedical applications</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nature Reviews Physics</span> <span class="ltx_text ltx_bib_volume">5</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages">pp. 157–169</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 2522-5820</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/s42254-023-00558-3" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p1.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib10"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. C. Allred, R. N. Lyman, T. W. Kornack, and M. V. Romalis</span><span class="ltx_text ltx_bib_year"> (2002)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">High-Sensitivity Atomic Magnetometer Unaffected by Spin-Exchange Relaxation</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Phys. Rev. Lett.</span> <span class="ltx_text ltx_bib_volume">89</span>, <span class="ltx_text ltx_bib_pages">pp. 130801</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevLett.89.130801" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S2.SS1.p2.1" title="II-A Magnetic Resonance Linewidth and Sensitivity ‣ II Theory and Methods ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§II-A</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib19"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">I. M. Savukov and M. V. Romalis</span><span class="ltx_text ltx_bib_year"> (2005)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Effects of spin-exchange collisions in a high-density alkali-metal vapor in low magnetic fields</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Phys. Rev. A</span> <span class="ltx_text ltx_bib_volume">71</span>, <span class="ltx_text ltx_bib_pages">pp. 023405</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevA.71.023405" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S2.SS1.p2.1" title="II-A Magnetic Resonance Linewidth and Sensitivity ‣ II Theory and Methods ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§II-A</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib3"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">V. Shah and M. V. Romalis</span><span class="ltx_text ltx_bib_year"> (2009)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Spin-exchange relaxation-free magnetometry using elliptically polarized light</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Phys. Rev. A</span> <span class="ltx_text ltx_bib_volume">80</span>, <span class="ltx_text ltx_bib_pages">pp. 013416</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevA.80.013416" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S2.SS1.p1.2" title="II-A Magnetic Resonance Linewidth and Sensitivity ‣ II Theory and Methods ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§II-A</span></a>,
+<a class="ltx_ref" href="#S2.SS1.p2.1" title="II-A Magnetic Resonance Linewidth and Sensitivity ‣ II Theory and Methods ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§II-A</span></a>,
+<a class="ltx_ref" href="#S3.SS1.p2.1" title="III-A Atomic System and Magnetic Environment ‣ III Setup ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§III-A</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib20"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[17]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. P. Ledbetter, I. M. Savukov, V. M. Acosta, D. Budker, and M. V. Romalis</span><span class="ltx_text ltx_bib_year"> (2008)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Spin-exchange-relaxation-free magnetometry with Cs vapor</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Phys. Rev. A</span> <span class="ltx_text ltx_bib_volume">77</span>, <span class="ltx_text ltx_bib_pages">pp. 033408</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevA.77.033408" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S2.SS1.p2.1" title="II-A Magnetic Resonance Linewidth and Sensitivity ‣ II Theory and Methods ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§II-A</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib1"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[18]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">X. Zhang, J. Qin, Y. Wang, and C. Chen</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A Fast Identification on the Spin-Exchange Relaxation-Free Regime of Atomic Magnetometer Exploiting Measurement on Gyromagnetic Ratio</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Transactions on Instrumentation and Measurement</span> <span class="ltx_text ltx_bib_volume">68</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages">pp. 1157–1164</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/TIM.2018.2863519" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S2.p1.1" title="II Theory and Methods ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib21"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[19]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Jiang, L. Duan, J. Liu, Y. Liang, W. Quan, and J. Fang</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Examination of Spin-Exchange Relaxation in the Alkali Metal-Noble Gas Comagnetometer With a Large Electron Magnetic Field</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Transactions on Instrumentation and Measurement</span> <span class="ltx_text ltx_bib_volume">70</span> (<span class="ltx_text ltx_bib_number"></span>), <span class="ltx_text ltx_bib_pages">pp. 1–8</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/TIM.2020.3033933" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib6"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[20]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Li, W. Quan, B. Zhou, Z. Wang, J. Lu, Z. Hu, G. Liu, and J. Fang</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">SERF Atomic Magnetometer–Recent Advances and Applications: A Review</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Sensors Journal</span> <span class="ltx_text ltx_bib_volume">18</span> (<span class="ltx_text ltx_bib_number">20</span>), <span class="ltx_text ltx_bib_pages">pp. 8198–8207</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/JSEN.2018.2863707" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S2.SS1.p1.2" title="II-A Magnetic Resonance Linewidth and Sensitivity ‣ II Theory and Methods ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§II-A</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib27"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[21]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. M. Tierney, N. Holmes, S. Mellor, J. D. López, G. Roberts, R. M. Hill, E. Boto, J. Leggett, V. Shah, M. J. Brookes, R. Bowtell, and G. R. Barnes</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Optically pumped magnetometers: From quantum origins to multi-channel magnetoencephalography</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">NeuroImage</span> <span class="ltx_text ltx_bib_volume">199</span>, <span class="ltx_text ltx_bib_pages">pp. 598–608</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1053-8119</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/https%3A//doi.org/10.1016/j.neuroimage.2019.05.063" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a class="ltx_ref" href="#S2.SS1.p1.2" title="II-A Magnetic Resonance Linewidth and Sensitivity ‣ II Theory and Methods ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§II-A</span></a>,
+<a class="ltx_ref" href="#S5.SS1.p2.1" title="V-A Integrated Sensor Architecture and Experimental Configuration ‣ V Miniaturized Sensor Prototype ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§V-A</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib18"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[22]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">V. Shah, S. Knappe, P. D. D. Schwindt, and J. Kitching</span><span class="ltx_text ltx_bib_year"> (2007)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Subpicotesla atomic magnetometry with a microfabricated vapour cell</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Nature Photonics</span> <span class="ltx_text ltx_bib_volume">1</span> (<span class="ltx_text ltx_bib_number">11</span>), <span class="ltx_text ltx_bib_pages">pp. 649–652</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 1749-4893</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1038/nphoton.2007.201" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib2"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[23]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Tang, Y. Zhai, L. Cao, Y. Zhang, L. Li, B. Zhao, B. Zhou, B. Han, and G. Liu</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">High-sensitivity operation of a single-beam atomic magnetometer for three-axis magnetic field measurement</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Opt. Express</span> <span class="ltx_text ltx_bib_volume">29</span> (<span class="ltx_text ltx_bib_number">10</span>), <span class="ltx_text ltx_bib_pages">pp. 15641–15652</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OE.425851" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib24"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[24]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M.E. Limes, E.L. Foley, T.W. Kornack, S. Caliga, S. McBride, A. Braun, W. Lee, V.G. Lucivero, and M.V. Romalis</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Portable Magnetometry for Detection of Biomagnetism in Ambient Environments</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Phys. Rev. Appl.</span> <span class="ltx_text ltx_bib_volume">14</span>, <span class="ltx_text ltx_bib_pages">pp. 011002</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevApplied.14.011002" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S1.p2.1" title="I Introduction ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib32"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[25]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">W. Happer and H. Tang</span><span class="ltx_text ltx_bib_year"> (1973)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Spin-Exchange Shift and Narrowing of Magnetic Resonance Lines in Optically Pumped Alkali Vapors</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Phys. Rev. Lett.</span> <span class="ltx_text ltx_bib_volume">31</span>, <span class="ltx_text ltx_bib_pages">pp. 273–276</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevLett.31.273" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.SS3.p1.1" title="II-C Zero-Field Resonance in a Buffer Gas Cell ‣ II Theory and Methods ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§II-C</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib25"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[26]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Y. Wang, G. Jin, J. Tang, W. Zhou, B. Han, B. Zhou, and T. Shi</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Optimized gas pressure of an Rb vapor cell in a single-beam SERF magnetometer</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Opt. Express</span> <span class="ltx_text ltx_bib_volume">30</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages">pp. 336–348</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OE.447456" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S2.SS3.p1.1" title="II-C Zero-Field Resonance in a Buffer Gas Cell ‣ II Theory and Methods ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§II-C</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib31"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[27]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A. P. Colombo, T. R. Carter, A. Borna, Y. Jau, C. N. Johnson, A. L. Dagel, and P. D. D. Schwindt</span><span class="ltx_text ltx_bib_year"> (2016)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Four-Channel Optically Pumped Atomic Magnetometer for Magnetoencephalography</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optics Express</span> <span class="ltx_text ltx_bib_volume">24</span> (<span class="ltx_text ltx_bib_number">14</span>), <span class="ltx_text ltx_bib_pages">pp. 15403–15416</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1364/OE.24.015403" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.SS1.p2.1" title="III-A Atomic System and Magnetic Environment ‣ III Setup ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§III-A</span></a>,
+<a class="ltx_ref" href="#S4.SS2.p2.1" title="IV-B Effects of Laser Intensity and Detuning on Spectral Features ‣ IV Results and Discussion ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§IV-B</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib30"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[28]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Lu, J. Wang, K. Yang, J. Zhao, W. Quan, B. Han, and M. Ding</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">In-Situ Measurement of Electrical-Heating-Induced Magnetic Field for an Atomic Magnetometer</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Sensors</span> <span class="ltx_text ltx_bib_volume">20</span> (<span class="ltx_text ltx_bib_number">7</span>), <span class="ltx_text ltx_bib_pages">pp. 1826</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.3390/s20071826" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.SS1.p2.1" title="III-A Atomic System and Magnetic Environment ‣ III Setup ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§III-A</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib29"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[29]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">Z. Liu, C. Zhang, H. Yuan, K. Yin, Y. Yang, Y. Yan, Y. Wang, B. Zhou, X. Ning, and B. Han</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Indium Tin Oxide Non-Magnetic Heating Film for Miniaturized SERF Gradient Magnetometer</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Sensors Journal</span> <span class="ltx_text ltx_bib_volume">21</span> (<span class="ltx_text ltx_bib_number">15</span>), <span class="ltx_text ltx_bib_pages">pp. 16554–16559</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/JSEN.2021.3076133" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S3.SS1.p2.1" title="III-A Atomic System and Magnetic Environment ‣ III Setup ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§III-A</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib12"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[30]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Shi, T. Wang, Y. Liu, and X. Wang</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Broadening and shifting of Rb D1 and D2 line in low pressure vapor cell</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Optik</span> <span class="ltx_text ltx_bib_volume">183</span>, <span class="ltx_text ltx_bib_pages">pp. 751–756</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text issn ltx_bib_external">ISSN 0030-4026</span>,
+<a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/https%3A//doi.org/10.1016/j.ijleo.2019.02.115" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS1.p2.1" title="IV-A Transmission Spectra in a Buffer Gas Cell ‣ IV Results and Discussion ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§IV-A</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib23"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[31]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">A.P. McWilliam, S. Dyer, D. Hunter, M. Mrozowski, S.J. Ingleby, O. Sharp, D.P. Burt, P.F. Griffin, J.P. McGilligan, and E. Riis</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Optimizing longitudinal spin relaxation in miniaturized optically pumped magnetometers</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Phys. Rev. Appl.</span> <span class="ltx_text ltx_bib_volume">22</span>, <span class="ltx_text ltx_bib_pages">pp. 064024</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1103/PhysRevApplied.22.064024" title="">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS1.p2.1" title="IV-A Transmission Spectra in a Buffer Gas Cell ‣ IV Results and Discussion ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§IV-A</span></a>.
+</span></li>
+<li class="ltx_bibitem ltx_bib_article" id="bib.bib28"><span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[32]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Zhao, M. Ding, J. Lu, K. Yang, D. Ma, H. Yao, B. Han, and G. Liu</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Determination of Spin Polarization in Spin-Exchange Relaxation-Free Atomic Magnetometer Using Transient Response</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Transactions on Instrumentation and Measurement</span> <span class="ltx_text ltx_bib_volume">69</span> (<span class="ltx_text ltx_bib_number">3</span>), <span class="ltx_text ltx_bib_pages">pp. 845–852</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a class="ltx_ref doi ltx_bib_external" href="https://dx.doi.org/10.1109/TIM.2019.2905308" title="">Document</a>,
+<span class="ltx_text issn ltx_bib_external">ISSN 1557-9662</span></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a class="ltx_ref" href="#S4.SS2.p2.1" title="IV-B Effects of Laser Intensity and Detuning on Spectral Features ‣ IV Results and Discussion ‣ A Compact Single-Beam Optically Pumped Magnetometer Based on Absorption Detection"><span class="ltx_text ltx_ref_tag">§IV-B</span></a>.
+</span></li>
+</ul>
+</section>
+</article></div></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
