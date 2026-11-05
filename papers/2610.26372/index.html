@@ -1,0 +1,127 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>面向对地观测系统亚太赫兹本振的自振荡光子频率梳</title>
+<style>
+:root{
+  --bg:#f7f7f5;--surface:#ffffff;--ink:#1f2421;--muted:#6b726e;
+  --line:#e3e6e2;--accent:#0f766e;--accent-soft:#e5f3f0;--chip:#eef1ee;
+  --notice-bg:#fdf6e3;--notice-line:#e7d9b8;--topic-bg:#173a35;--topic-ink:#eaf3f0;--topic-link:#7fd4c8;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#141615;--surface:#1c1f1d;--ink:#e8eae7;--muted:#9aa39d;
+    --line:#2e3330;--accent:#5ec4b8;--accent-soft:#16302d;--chip:#262a28;
+    --notice-bg:#2e2a1c;--notice-line:#4a4130;--topic-bg:#122b27;--topic-ink:#e2efeb;--topic-link:#7fd4c8;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;
+  font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,
+  "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+header{max-width:1000px;margin:0 auto;padding:28px 24px 18px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:16px}
+.brand{color:var(--ink);font-weight:700;font-size:14px;letter-spacing:.12em}
+header span{font-size:12.5px;color:var(--muted)}
+.site-nav{margin:0;padding:0;border:0;gap:8px 22px;font-size:14px}
+.site-nav a{padding:4px 0;color:var(--muted)}
+.site-nav a[aria-current="page"]{color:var(--accent);font-weight:600;border-bottom:2px solid var(--accent)}
+main{max-width:1000px;margin:0 auto;padding:8px 24px 40px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:30px;line-height:1.3;letter-spacing:-.01em;margin:6px 0 14px}
+h2{display:flex;align-items:baseline;gap:14px;font-size:20px;letter-spacing:-.01em;margin:0 0 18px}
+h2 .no{color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.22em}
+h3{font-size:17.5px;line-height:1.5;margin:0 0 8px}
+h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+p{margin:8px 0}
+.lede{color:var(--muted);font-size:15.5px}
+.muted{color:var(--muted);font-size:13px}
+.metrics{display:flex;flex-wrap:wrap;gap:40px;margin:22px 0;padding:16px 0;
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.metrics div{font-size:12.5px;color:var(--muted)}
+.metrics strong{display:block;font-size:26px;line-height:1.2;color:var(--ink)}
+.notice{margin:16px 0;padding:12px 16px;font-size:14px;background:var(--notice-bg);
+  border:1px solid var(--notice-line);border-radius:10px}
+nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin:26px 0 0;padding:12px 0;
+  border-bottom:1px solid var(--line);font-size:13.5px}
+section{margin-top:44px;scroll-margin-top:16px}
+.trends{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.trend{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.trend p{font-size:14.5px}
+.sources{margin-top:10px;font-size:12.5px;color:var(--muted)}
+.briefs{list-style:none;margin:0;padding:0;background:var(--surface);
+  border:1px solid var(--line);border-radius:12px}
+.briefs li{padding:14px 20px;border-top:1px solid var(--line)}
+.briefs li:first-child{border-top:none}
+.briefs li a{font-weight:600;color:var(--ink)}
+.briefs li a:hover{color:var(--accent);text-decoration:none}
+.briefs li span{display:block;margin-top:2px;font-size:13.5px;color:var(--muted)}
+input{width:100%;margin:0 0 18px;padding:12px 16px;font:inherit;font-size:14.5px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:10px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.paper{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 1px 2px rgb(0 0 0/.03);padding:26px 30px;margin:20px 0}
+.paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:10px;
+  font-size:12.5px;color:var(--muted)}
+.paper-meta>span{color:var(--accent);letter-spacing:.08em}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--accent-soft);
+  color:var(--accent);font-size:12px;font-weight:600}
+.original{display:inline-block;margin:2px 0 4px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+.reason{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent);font-size:14.5px}
+.paper ul{margin:6px 0;padding-left:22px}
+li{margin:5px 0}
+.insight{margin:18px 0;padding:14px 18px;background:var(--chip);border-radius:10px}
+.insight h4{margin-top:4px;color:var(--accent)}
+.insight small{margin-left:6px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--muted)}
+.topic{padding:24px 26px;border-radius:12px;background:var(--topic-bg);color:var(--topic-ink)}
+.topic a{color:var(--topic-link)}
+.archive{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin-top:20px}
+.edition{display:block;padding:20px 22px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;color:var(--ink)}
+.edition:hover{border-color:var(--accent);text-decoration:none}
+.edition h2{margin:4px 0 6px;font-size:18px}
+.edition p{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:18px}
+.section-heading h2{margin:0}
+.section-heading>a{font-size:13.5px;white-space:nowrap}
+.library-preview{display:grid;gap:12px}
+.library-preview .edition h3{margin:4px 0 6px}
+.library-preview .edition .original{display:block;font-size:12.5px}
+.reading-link{display:inline-block;font-size:13px;margin:4px 0 8px;font-weight:600}
+.empty{margin-top:20px;padding:36px 30px;background:var(--surface);
+  border:1px dashed var(--line);border-radius:12px}
+.steps{padding:14px 0;color:var(--accent);font-size:14px;font-weight:600}
+[hidden]{display:none!important}
+@media (max-width:640px){
+  header{padding:22px 18px 14px}
+  main{padding:4px 18px 32px}
+  h1{font-size:25px}
+  .metrics{gap:24px}
+  .paper{padding:20px 18px}
+  .topic{padding:20px}
+}
+</style><style>
+.paper-reader{max-width:860px;margin:0 auto}
+.paper-reader h1{font-size:28px;line-height:1.35;margin:10px 0 6px}
+.paper-reader .original-title{color:var(--muted);font-size:14px;margin-bottom:18px}
+.paper-reader .meta{color:var(--muted);font-size:13px;margin-bottom:20px}
+.paper-reader .toc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:20px 0 28px;font-size:14px}
+.paper-reader .toc ol{margin:6px 0 0 18px;padding:0}
+.paper-reader .toc li{margin:3px 0}
+.paper-reader article{font-size:16px;line-height:1.9}
+.paper-reader h2{font-size:22px;margin:30px 0 10px}
+.paper-reader h3{font-size:18px;margin:22px 0 8px}
+.paper-reader figure{margin:20px 0;text-align:center}
+.paper-reader img{max-width:100%;height:auto}
+.paper-reader figcaption{font-size:13.5px;color:var(--muted);margin-top:6px}
+.paper-reader table{display:block;overflow-x:auto;border-collapse:collapse;margin:16px 0;font-size:14px}
+.paper-reader math{overflow-x:auto;max-width:100%}
+.paper-reader pre{overflow-x:auto}
+</style></head><body class="">
+<header><a class="brand" href="../index.html">PAPER RADAR</a><nav class="site-nav" aria-label="主导航"><a href="../daily/index.html">日报</a><a href="../papers/index.html" aria-current="page">论文索引</a></nav></header>
+<main><div class="eyebrow">PAPER RADAR / 中文全文</div><h1>面向对地观测系统亚太赫兹本振的自振荡光子频率梳</h1><div class="paper-reader"><h1>面向对地观测系统亚太赫兹本振的自振荡光子频率梳</h1><p class="meta">arXiv 2610.26372 · 14 页</p><article><p>用于地球观测系统亚THz本振产生的自振荡光子频率梳 Dimitrios Kastritsis*a, Ioannis Stratakisa, Stavros Iezekiela a Emphasis Research Centre, University of Cyprus, Nicosia, Cyprus 摘要 地球观测任务依赖微波与亚太赫兹辐射度学来反演温度、湿度和云特性等大气参数，其中183-GHz和229-GHz谱区尤为关键。在这些频率上产生本振（LO）信号，既需要低相位噪声和高频率稳定度，又要满足严格的尺寸、重量和功耗（SWaP）约束。传统架构采用介质谐振振荡器，</p><p>再接级联的倍频级，因而需要为不同频段配备专用的产生链路，增加了硬件复杂度。此外，倍频还会劣化所产生信号的相位噪声。本文提出并数值研究了一种可重构的自振荡微波光子架构，用于地球观测接收机中的本振产生。在光电反馈环路内进行级联Mach–Zehnder调制与相位调制，产生高阶分量得到增强的光频梳。随后利用滤光片组合选取所需的梳线。首先，使用带宽约为10</p><p>GHz的常规带通滤光片隔离包含所需分量的谱区，再由带宽约为3 MHz的窄带双谐振腔布拉格光栅环形谐振器（BGRR）完成最终的谱线选取。所选梳线随后与源自同一激光器的光参考合束并由光电探测器探测，通过光外差产生所需的毫米波或亚太赫兹信号。本文给出了183-GHz和229-GHz产生的数值仿真结果，表明同一基础架构通过将光电振荡器（OEO）的电学滤波器调谐到相应振荡频率并选取对应的光频梳阶次，即可覆盖多个本振频率。</p><p>关键词：自振荡频率梳、光电振荡器、微波光子学、地球观测 *Email: kastritsis.dimitrios@ucy.ac.ac</p><h2>1. INTRODUCTION</h2><p>毫米波与亚太赫兹技术在卫星对地观测中发挥着关键作用，尤其是在大气温度和湿度廓线的微波探测方面；例如MetOp Second Generation（MetOp-SG）微波探测器（MWS）的24个通道覆盖23.8至229 GHz的频率范围[1]。在这一频率范围内，用于大气水汽廓线探测的183-GHz频段（175.311 –191.311 GHz）以及229-GHz准窗口（228–230 GHz）与本工作尤为相关[1], [2]。在这些频率上，谱纯的本振（LO）产生是关键要求，而MWS依靠级联的电子倍频链来产生所需的本振信号。具体而言，183-GHz</p><p>接收机采用30.552 -GHz介质谐振器振荡器（DRO），其内置有源倍频器，再经肖特基三倍频；而229 -GHz接收机则采用28.625-GHz DRO，并配合无源MMIC与肖特基倍频级 [2]。这类电子学本振（LO）方案虽已相当成熟，但需要多级频率倍频才能达到所需工作频率，因此促使人们研究灵活性与可重构性更优的替代方案。微波光子学借助光域中可用的大带宽与低传输损耗，为高频信号产生提供了一种颇具吸引力的途径 [3]。其中，光电振荡器（OEO）</p><p>在反馈环路中存储光能，从而获得很高的有效品质因数，并产生相位噪声低、频谱纯净的微波与毫米波信号 [4], [5]。在对地观测应用中，一款45.86 -GHz OEO曾作为微波扫描辐射计（MWS）、微波成像仪（MWI）和冰云成像仪（ICI）的潜在中间本振源加以研究，其边模抑制比约为 46 dB，在 100-kHz 频偏处的相位噪声为 −102 dBc/Hz [6]。</p><p>光频梳可通过探测间隔适当的光谱分量，进一步把光子信号产生扩展到毫米波乃至亚太赫兹频段 [7] - [9]。电光光频梳产生方式对微波光子应用尤其有吸引力，因为梳齿间隔直接取决于驱动电光调制器的电信号频率，而级联调制则可灵活控制所产生的梳线数量及其相对幅度。这类方案已利用光强、相位以及级联电光调制器开展过广泛研究 [8], [9]；然而，传统电光</p><p>梳发生器通常依赖外部微波源来驱动调制器。自振荡光频梳发生器（SOFCG）将电光梳产生与光电反馈结合起来，使调制所需的电驱动信号可在反馈环路自身内部产生 [7], [8]。一种基于双驱动马赫–曾德尔调制器（MZM）的SOFCG产生了 23 条梳线，间隔为 11.84 -GHz，并通过光外差产生了 94.8 -GHz 信号，且有望扩展到约 260 GHz [7]。另一种采用级联MZM与相位调制的方案产生了 11 条梳线，间隔分别为 10- 和 12-GHz，其光谱功率分布通过调制幅度、相对</p><p>相位以及马赫-曾德尔调制器（MZM）偏置[8]。这些结果表明，自振荡光频梳架构具有在统一光子平台中结合微波振荡、光频梳产生与高频信号合成的潜力。在上述概念基础上，本文研究一种自振荡光子架构，用于可重构地产生面向地球观测应用的183-和229-GHz本振（LO）信号。所提出的架构在统一的光子-电子平台中集成了级联马赫-曾德尔调制与相位调制、光电振荡器（OEO）反馈回路以及窄带可调谐光滤波。通过适当选取OEO振荡频率并将</p><p>滤光片调谐到相应的光频梳分量，即可利用同一产生架构获得不同的本振频率，从而有望减少对专用振荡器和倍频链的需求。文中给出了183-和229-GHz产生的数值仿真，以验证所提方法的可重构性。相应的光功能也有可能采用光子集成技术实现。本文其余部分组织如下：第II节介绍所提出的架构及其工作原理，第III节描述数值模型并给出183-和229-GHz产生的结果，最后第IV节总结主要结论。</p><h2>2. 工作原理与频率产生概念</h2><p>所提架构的框图如图1所示。该自振荡频率梳将光电振荡回路与光滤波及外差产生部分相结合。连续波（CW）激光器首先被分成两条光路。在主光路中，光载波由级联的MZM和相位调制器（PM）调制，产生线间距由OEO振荡频率决定的光频梳。由于调制器仅在微波梳间距频率（而非最终的亚太赫兹本振频率）上驱动，所需的电光调制带宽可以远低于最终的亚太赫兹本振</p><p>频率[9]。光频梳信号经半导体光放大器（SOA）放大后，由多模干涉（MMI）耦合器分成两路。一部分光信号反馈至光电探测器，以闭合光电回路。经光电检测后，电信号由低噪声放大器（LNA）和功率放大器（PA）放大，并由电带通滤波器（EBPF）进行频谱约束。电移相器在信号加到PM之前，调节驱动MZM和PM的射频信号的相对相位。当回路增益条件与回路相位条件同时满足时，即可建立振荡。EBPF限制频率</p><p>振荡可发生的范围，而总环路延迟决定了所支持的纵模。由此得到的振荡频率 𝑓OEO 决定了所产生的光学频率梳的梳线间隔。所产生的光频梳的其余部分首先通过 10 GHz 粗调光学带通滤光片（Coarse OBPF），以抑制带外光分量并进行初步的光谱选择。随后，窄带 3 MHz 波长选择滤波器（WSF）分离出所需的第 N 阶梳线。与此同时，第二条光路提供原始光载波的一个副本，其相位可在与所选梳线分量合束前进行调节。然后两路光信号合束，经半导体光放大器（SOA）放大后施加到高频</p><p>光电探测器上。两者的外差拍频在 𝑓LO = 𝑁𝑓OEO 处产生所需的毫米波或亚太赫兹本振（LO）信号。</p><p>图 1 中浅蓝色高亮的器件对应于拟通过 JePPIX 多项目晶圆工艺在 InP 平台上制造的光子子系统。该子系统是所提架构的部分实现，并未包含产生完整亚太赫兹本振信号所需的全部功能。特别是，波长选择性光滤波级在当前系统模型中被视为外部分立器件。因此，本文给出的结果基于系统级数值分析，而非对完整架构的实验验证。图 1. 所提出的用于亚太赫兹本振信号产生的自振荡光子频率梳架构的工作原理。该</p><p>OEO 决定光频梳间隔，而所选的第 N 阶梳线分量与光载波重新合束，通过光电探测产生所需的本振频率。对于所需的本振频率 f LO，OEO 应按照 𝑓𝑂𝐸𝑂 = 𝑓𝐿𝑂 𝑁⁄ 以整数次谐波工作。通过合理选择 N，可以在将 OEO 工作频率保持在相对较窄的微波频率范围内的同时，产生不同的所需本振频率。表 1 总结了针对所考虑的 MWI、MWS 和 ICI 本振频率以及不同整数倍频阶数得到的候选 OEO 工作频率。表 1. 不同整数倍频阶数下、针对所考虑的 MWI、MWS 和 ICI 的候选 OEO 工作频率，𝑓𝑂𝐸𝑂 = 𝑓𝐿𝑂/𝑁，</p><p>LO frequencies. LO frequency (GHz) N=2 N=3 N=4 N=5 N=6 N=7 N=8 N=9 N=10 N=11 89 44.500 29.667 22.250 17.800 14.833 12.714 11.125 9.889 8.900 8.091 118 59.000 39.333 29.500 23.600 19.667 16.857 14.750 13.111 11.800 10.727 166 83.000 55.333 41.500 33.200 27.667 23.714 20.750 18.444 16.600 15.091 183 91.500 61.000 45.750 36.600 30.500 26.143 22.875 20.333 18.300 16.636 229 114.500 76.333 57.250 45.800 38.167 32.714 28.625 25.444 22.900 20.818 243 121.500 81.000 60.750 48.600 40.500 34.714 30.375 27.000 24.300 22.091 325 162.500 108.333 81.250 65.000 54.167 46.429 40.625 36.111 32.500 29.545 448 224.000 149.333 112.000 89.600 74.667 64.000 56.000 49.778 44.800 40.727 f f f</p><p>粗体标出的条目对应于聚集在约 30 GHz 和 45 GHz 附近的工作频率。这两个频率区域尤其值得关注，因为它们表明，原则上可以借助集成了调谐范围有限的电带通滤波器的 OEO 架构来覆盖若干所需的对地观测本振频率，而不必为每个本振频段配置不同的振荡器链路。系统级仿真选用约 30 GHz 工作区域，因为它与现有光子集成元件的带宽限制更为兼容，尤其是那些可通过 JePPIX</p><p>平台。我们此前对V波段基于光电振荡器（OEO）的信号产生所开展的研究[6]进一步支持了高频工作区的意义，该研究表明将该架构扩展到更高的微波频率是可行的。因此，表1中保留了45 GHz区域，以说明所提概念更广泛的可扩展性，尽管在当前的数值实现中并未考虑该区域。在本文给出的数值分析中，所提方法针对183 GHz和229 GHz这两个代表性本振（LO）频率进行了演示，分别对应于OEO在约30 GHz附近工作以及选取合适的高阶梳齿分量</p><p>波长选择性滤光片 所提自激振荡光学频率梳发生器所采用的窄带滤波功能，基于文献[10]、[11]先前提出的超窄带双腔布拉格光栅环形谐振器（BGRR），其示意结构如图2所示。该结构由两个级联的法布里–珀罗（FP）谐振腔以闭环形式构成，每个谐振腔构成环的一半，布拉格光栅则充当谐振腔反射镜。由此得到的双腔BGRR因而兼具布拉格光栅FP谐振腔的光谱选择性与环形谐振器的谐振特性。该滤光片最初是为石英单模光纤（SMF）实现而开发的，并进行了建模</p><p>采用传输矩阵法（TMM）。在本工作中，对该结构进行了扩展，以实现热光可调谐性。与先前报道的结构不同，构成谐振腔1和谐振腔2的各段光纤的折射率被改变，而布拉格反射镜的折射率分布保持不变。改变谐振腔折射率会改变其光程，从而使布拉格阻带内的窄带FP谐振发生移动。该方法与先前演示的热可调谐光纤FP滤光片类似，其中加热主要集中在谐振腔区域，从而限制了对周围光纤布拉格光栅（FBG）反射器的热微扰[12]。对于石英光纤，热调谐</p><p>主要源于折射率随温度的变化，尽管热膨胀也提供了额外且较小的贡献[13]。因此，在本数值模型中，热调谐通过谐振腔折射率𝑛𝑐𝑎𝑣 = 𝑛0 + 𝛥𝑛来表示，其中n0=1.44为石英在1550 nm处采用的标称折射率，10−6 ≤ 𝛥𝑛 ≤ 5 × 10−4。该区间与石英实际的热光变化相一致。文献报道的1550 nm附近热光系数为10-5 K-1量级；因此，所考虑的范围大致对应于0.1 K到50 K之间的温度变化。本模型忽略了热膨胀，因为热膨胀</p><p>熔融石英的热膨胀系数比其热光系数小一个数量级以上。布拉格反射镜采用针对滤光片中心波长λ0设计的四分之一波长膜堆实现，其中交替分布的两段材料分别以折射率n1和n2以及相应的物理长度d1和d2表征。相应的段长由四分之一波长条件d₁ = λ₀/(4n₁)和d₂ = n₁d₁/n₂确定。对于λ₀ = 1548.35 nm、n₁ = 1.44、n₂ = 1.4435，上述关系给出d₁ = 268.81 nm、d₂ = 268.16 nm。每个法布里–珀罗（FP）谐振腔的物理长度定义为lc = 21001 d₂，在所采用的设计中对应于lc = 5.632 mm。环形谐振器</p><p>通过理想定向耦合器耦合，假设耦合发生在单个点且无损耗，这与原始模型一致。通过改变两个FP谐振腔的折射率，双谐振腔布拉格光栅环形谐振器（BGRR）的窄透射谐振可在布拉格反射镜所定义的阻带内连续调谐。对于本设计中考虑的均匀布拉格光栅，阻带范围约为300 GHz，并规定了窄透射谐振可被调谐的光谱区域。由于所需的毫米波或亚太赫兹信号由滤波后的梳齿与1550 nm激光器的光载波经外差光电探测产生，因此该滤光片被设计为</p><p>中心波长约为1548.35 nm，对应于相对光载波约206 GHz的频率偏移。</p><p>这一选择使滤光片大致位于目标183 GHz和229 GHz频率偏移的中间位置，并使两个相应的梳频分量均处于布拉格阻带内，从而可通过热光调谐选择其中任一分量。图 2. 文献[10]提出的双谐振腔布拉格光栅环形谐振器（BGRR）滤光片的框图。图中以红色突出显示的两个法布里–珀罗（FP）谐振腔对应于施加热光调谐的区域。改编自[10]。传输矩阵模型中所用的双谐振腔BGRR波长选择性滤光片的主要参数汇总于表 2。表 2. 双谐振腔布拉格光栅环形谐振器波长选择性滤光片的设计参数。</p><p>低折射率光栅段的折射率 (n1) 1.44 高折射率光栅段的折射率 (n2) 1.4435 每个反射镜的光栅周期数 (Ng) 1000 中心波长 (λ0) 1548.35 nm 低折射率光栅段的物理长度 (d1) 268.81 nm 高折射率光栅段的物理长度 (d2) 268.16 nm 每段光栅 di 的幅度损耗系数 (αi) 10-10 FP谐振腔物理长度 (lc) 5.632 mm 环形光纤上、下自耦合系数 0.96 为说明本工作所研究的两个本振频率的波长选择过程，图 3 给出了10 GHz粗调光学带通滤光片和可调谐双谐振腔</p><p>BGRR及其合成响应，用于选取183-GHz和229-GHz梳齿分量。相应的梳线位置已示意标出。更一般地，所提出的架构有望用于产生表 1中所报道对地观测仪器相关的多个本振频率，包括89、118、166、183、229、243和325 GHz，前提是处于所考虑的波长选择性滤波级所支持的调谐范围内。若扩展到更高的本振频率（如448 GHz），则需要采用更宽带宽的滤波实现，例如基于啁啾光纤布拉格光栅[14]或其他波长选择性架构。</p><p>图 3. 10-GHz粗选带通滤光片与双腔BGRR的理论计算透射响应，以及二者合成的响应，用于选取(a) 183-GHz和(b) 229-GHz梳齿分量。相应的梳线频率已标出，以供参考。</p><h2>3. SIMULATION SETUP</h2><p>所提出的架构在VPIphotonics中实现并进行了评估，系统级仿真模型如图 4所示。自振荡环路采用时域采样模式（Sample Mode）进行仿真，以捕捉光电振荡器（OEO）的动态建立过程与稳态行为。针对每种研究情形共进行了30次仿真运行。第20次和第30次运行后得到的光谱之间未观察到明显差异，表明振荡已有效达到稳态。409.6 ns的仿真时间窗给出2.44 MHz的固有光谱分辨率。对183 GHz和229 GHz产生情形，采用的采样率分别为</p><p>640 GHz和1.28 THz。上一节末尾提出的定制波长选择性滤光片，通过Python协同仿真、利用由谐振光子结构的传输矩阵（TMM）得到的复传递函数来实现。由于VPI的光滤波例程按块信号运行，在协同仿真环节前后临时进行了采样到块（Sample-to-Block）与块到采样（Block-to-Sample）的转换，而系统的其余部分保持在采样模式。本文给出的数值仿真聚焦于约30 GHz的OEO工作频率。183 GHz和229 GHz的本振产生情形作为代表性示例加以研究，对应</p><p>上一节所述的一般频率产生概念。</p><p>图 4。所提出的自振荡光子频率梳架构的 VPIphotonics 系统级仿真模型。VPIphotonics 系统级仿真中使用的主要参数汇总于表 3。所选数值定义了数值仿真条件、光电振荡器（OEO）工作范围，以及电光频率产生、放大与滤波级的主要参数。仿真设置的选择旨在所关注的频率范围内提供足够的光谱分辨率，而 OEO 与滤波参数则依据本文所考虑的目标本振产生方案来确定。在马赫-曾德尔调制器（MZM）与相位调制器（PM）的射频驱动路径之间引入 7.2 ps 的延时，对应于相对相移</p><p>在 30.5 GHz 时约为 79°，在 32.7 GHz 时为 85°。数值模型采用了适合评估所提频率产生原理的光功率与射频功率电平。在可能的情况下，元器件参数的选取力求反映真实器件性能与实验上可实现的工作条件。尽管如此，实验实现还需进一步考虑插入损耗、放大需求、器件功率承受能力、光电探测器带宽与饱和，以及其他实际非理想因素。表 3。VPIphotonics 系统级仿真模型的主要参数。参数 值 / 范围 仿真平台 VPIphotonics</p><p>主仿真模式 Sample Mode 仿真时间窗 409.6 ns 频率分辨率 2.44 MHz 采样率 183 GHz 产生时为 640 GHz，229 GHz 产生时为 1.28 THz 仿真运行次数 30 OEO 工作频率范围 约 30 GHz 代表性本振（LO）频率 183 GHz、229 GHz 电带通滤波器中心频率 调谐至所需 OEO 频率附近 电带通滤波器带宽 10 MHz 低噪声放大器增益 28 dB 低噪声放大器噪声系数（NF） 3 dB 功率放大器增益 30 dB MZM 与 PM 驱动路径之间的射频延时 7.2 ps 激光器功率 13 dBm 激光器发射频率 193.414 THz 环路延时 0.05 µs MZM 半波电压 (Vπ) 6 V MZM 插入损耗 5 dB MZM 直流偏置 5 V</p><p>PM 半波电压 (Vπ) 6 V</p><p>PM 插入损耗 3 dB 环路光放大器增益 28 dB 环路光放大器 NF 4 dB 滤光片带宽（粗滤波） 10 GHz 外差级光放大器增益 30 dB 外差级光放大器 NF 4 dB 波长选择性滤波器 双谐振腔布拉格光栅环形谐振器 波长选择性滤波器模型 传输矩阵模型 波长选择性滤波器带宽 3 MHz 波长选择性滤波器（WSF）实现方式 Python 协同仿真 光电探测器响应度 0.7 A/W</p><h2>4. SIMULATION RESULTS</h2><p>所提出的自振荡光子频率梳架构通过VPIphotonics中的系统级仿真进行了评估。分析聚焦于可由约30 GHz的OEO工作频率生成的代表性本振频率，这与上一节介绍的频率倍增概念一致。针对183 GHz和229 GHz两种情况，考察了OEO产生的微波信号的演化、所得光学频率梳、所需梳齿分量的选择以及光电探测后获得的最终电信号。特别关注所生成的本振（LO）信号的光谱纯度以及对</p><p>不需要的频率分量的抑制。因此，下文给出的结果既包括所生成载波附近的近端频谱，也包括用于评估仿真频率范围内是否存在杂散分量的宽跨度频谱。</p><h2>183 GHz Generation</h2><p>对于183 GHz情况，OEO工作频率接近30.5 GHz，并选择六阶光学频率梳分量。经过光学滤波、与光载波合束以及光电探测后，在目标183 GHz频率处产生占主导的电分量。OEO的仿真电输出频谱如图 5所示。在电带通滤波器的通带内，约30.5 GHz处获得占主导的振荡分量。该振荡频率决定随后生成的光学频率梳的间隔，因而确定了183 GHz本振生成情况所需的频率倍增因子。该频谱确认，OEO以明显占主导的微波</p><p>分量在所示频率范围内工作。级联MZM–PM级输出端的光谱如图 6所示。生成了宽带频率梳，其梳齿间隔由OEO振荡频率决定。对于183 GHz生成情况，选择六阶梳齿分量用于随后与光载波拍频。尽管所生成频率梳的光谱包络不均匀，但频率梳平面度并非所提出本振生成方法的主要要求。相关条件是所需梳齿阶次可用且具有足够的光功率，以进行光谱选择和后续光电探测。</p><p>图 5. 183 GHz本振生成情况下OEO的仿真电输出频谱。约30.5 GHz处占主导的振荡分量决定所生成光学频率梳的间隔。固有光谱分辨率为2.44 MHz。图 6. 183 GHz本振生成情况下级联MZM–PM频率梳生成级输出端的仿真光谱。梳齿以OEO振荡频率为间隔，其中选择六阶分量用于后续光学滤波和光电探测。所生成183 GHz信号的近端视图如图 7所示。频谱由单个载波主导，而周围光谱基座显著低于载波电平。未出现强相邻离散光谱</p><p>在所示频率范围内可观察到各分量。</p><p>图 7. 所生成 183 GHz 信号的近载电频谱。固有光谱分辨率为 2.44 MHz。宽跨度电频谱如图 8 所示。目标 183 GHz 分量在输出频谱中明显占主导，而其余频谱分量在所研究频率范围内均被强烈抑制。使用水平标记比较目标载波与最高无用频谱分量的电平，可获得 55 dB 的杂散抑制。结合 −0.16 dBm 的生成输出功率，该结果表明所提出的架构能够生成目标亚太赫兹本振（LO）信号，同时保持对不需要频率产物的强抑制。</p><p>图 8. 所生成 183 GHz 信号的仿真宽跨度电频谱，展示了对不需要杂散分量的抑制。固有光谱分辨率为 2.44 MHz。</p><h2>229 GHz Generation</h2><p>对于 229 GHz 本振生成情形，光电子振荡器（OEO）工作于约 32.7 GHz。如图 9 所示，在 32.7 GHz 附近建立起占主导的振荡分量，该分量决定了随后所生成光学频率梳的间隔。图 9. 229 GHz 本振生成情形下 OEO 的仿真电输出频谱。32.7 GHz 附近的占主导振荡分量决定了所生成光学频率梳的间隔。固有光谱分辨率为 2.44 MHz。级联 MZM–PM 梳生成级输出的光谱如图 10 所示。多个梳分量以由 OEO 振荡频率定义的频率间隔生成。梳线直至 N =</p><p>16 在图 10 中以可观测功率出现。对于该情形，七阶梳分量由波长选择滤光片选出，并与光载波重新合并。对这两个光分量进行光电探测，产生 229 GHz 附近所需的电信号。图 10. 229 GHz 本振生成情形下级联 MZM–PM 梳生成级输出的仿真光谱。梳线间隔由 OEO 振荡频率决定，其中七阶分量被选出用于后续光学滤波和光电探测。</p><p>图 11 给出了所生成 229 GHz 信号的近载视图。频谱由目标载波占主导，而周围频谱分量均远低于主音。229 GHz 信号的输出功率为 +5.77 dBm。图 11. 所生成 229 GHz 信号的近载电频谱。固有光谱分辨率为 2.44 MHz。宽跨度电频谱如图 12 所示。目标 229 GHz 分量在所研究频率范围内明显主导输出，而无用频率分量被至少 59 dB 强烈抑制。结合近载频谱，这些结果证明了 229 GHz 本振的生成与光谱选择</p><p>信号，采用与 183 GHz 情形相同的自振荡光子频率梳架构。229 GHz 情形中实现的更高抑制至少可部分归因于：用于产生 229 GHz 的七阶梳线相比 183 GHz 情形所用六阶梳线具有更高的光功率。通过优化施加到调制器上的电驱动功率以及它们之间的相对射频（RF）相移，可以进一步提高所生成本振（LO）功率和频谱抑制，因为这些参数直接影响所生成梳线之间的光功率分布。图 12. 生成的 229 GHz 信号的仿真宽跨度电频谱，说明了无用杂散</p><p>分量的抑制。本征光谱分辨率为 2.44 MHz。</p><h2>5. CONCLUSIONS</h2><p>本工作提出并通过数值研究了一种可重构自振荡频率梳架构，用于地球观测系统中的毫米波和亚太赫兹本振产生。该方法将光电振荡器（OEO）与级联马赫-曾德尔调制和相位调制相结合，以产生光学频率梳，其频率间隔由 OEO 振荡频率决定。所需的高阶梳分量先由常规光学带通滤光片隔离，再由热光可调谐双腔布拉格光栅环形谐振器进行窄带选择，然后与源自同一激光器的光参考进行外差。这一架构</p><p>使得 OEO 和电光调制器能够在远低于目标本振频率的微波频率下工作。针对 183 GHz 和 229 GHz 的产生，分别使用约 30.5 GHz 和 32.7 GHz 的 OEO 频率进行了系统级 VPIphotonics 仿真。对于 183 GHz 情形，选择六阶梳分量产生了目标信号，仿真输出功率为 −0.16 dBm，对最强无用频谱分量的抑制约为 55 dB。对于 229 GHz 情形，选择七阶梳分量产生了 5.77 dBm 的输出功率，而无用频率分量被抑制至少 59 dB。后一情形中更高的输出功率和抑制部分归因于所选七阶</p><p>梳线具有更大的光功率。通过优化调制器射频驱动功率及其相对相移，可以进一步提高本振功率和频谱抑制。对可及本振频率的分析表明，通过适当选择 OEO 频率和梳阶，若干与 MWS、MWI 和 ICI 相关的频率有可能采用同一架构实现，从而减少针对各个频段对专用振荡器和倍频链的需求。所提出的系统被构想为混合光子-电子平台，其中选定功能适合光子集成，并有可能适合电子集成。实验验证以及对实际光功率和射频功率预算的进一步评估，</p><p>仍需评估器件限制和集成约束，以确立该概念作为面向星载地球观测仪器的紧凑型可重构多频本振源的可行性。致谢 本工作由欧盟和塞浦路斯共和国通过研究与创新基金会共同资助，项目为 PICSOC（资助编号：EXCELLENCE/0524/0507）。作者还感谢欧洲空间局（ESA）的 Enrico Lia 提供参考资料，支持了表 1 的编制。参考文献 [1] Munro, R. et al., &quot;EUMETSAT Polar System –Second Generation: Continuation of observations and advancing applications from low-Earth orbit,&quot; Bull. Amer. Meteor. Soc. 107(3), E628–E664 (2026). https://doi.org/10.1175/BAMS-</p><p>D-24-0307.1 [2] Cuadrado-Calle, D. et al., &quot;EQM front-end receivers at 183 and 229 GHz for the Microwave Sounder on MetOp-SG,&quot; Proc. XXXIIIrd General Assembly and Scientific Symposium of the International Union of Radio Science (URSI GASS), Rome, Italy, 1–4 (2020). https://doi.org/10.23919/URSIGASS49373.2020.9232214 [3] Capmany, J. and Novak, D., &quot;Microwave photonics combines two worlds,&quot; Nature Photon. 1(6), 319 –330 (2007). https://doi.org/10.1038/nphoton.2007.89 [4] Yao, X. S. and Maleki, L., &quot;Optoelectronic microwave oscillator,&quot; J. Opt. Soc. Amer. B 13(8), 1725 –1735 (1996). https://doi.org/10.1364/JOSAB.13.001725 [5] Eliyahu, D., Seidel, D. and Maleki, L., &quot;RF amplitude and phase -noise reduction of an optical link and an opto -</p><p>electronic oscillator,&quot; IEEE Trans. Microw. Theory Techn. 56(2), 449–456 (2008).</p><p>[6] Kastritsis, D., Lia, E., McKenzie, I. and Iezekiel, S., &quot;V -band optoelectronic oscillator for Earth observation applications,&quot; Proc. SPIE 13699, 136997F (2025). https://doi.org/10.1117/12.3071590 [7] Hasanuzzaman, G. K. M., Kanno, A., Dat, P. T. and Iezekiel, S., &quot;Self-oscillating optical frequency comb: Application to low phase noise millimeter wave generation and radio -over-fiber link,&quot; J. Lightwave Technol. 36(19), 4535 –4542 (2018). https://doi.org/10.1109/JLT.2018.2844344 [8] Dai et al ., &quot;Self -oscillating optical frequency comb generator based on an optoelectronic oscillator employing cascaded modulators,&quot; Opt. Express 23(23), 30014–30019 (2015). https://doi.org/10.1364/OE.23.030014</p><p>[9] Parriaux, A., Hammani, K. and Millot, G., &quot;Electro-optic frequency combs,&quot; Adv. Opt. Photon. 12(1), 223–287 (2020). https://doi.org/10.1364/AOP.382052 [10] Stratakis, I., Avraam, C., Kastritsis, D., &amp; Iezekiel, S. (2025). Ultra -narrowband dual -cavity Bragg grating ring resonator optical filter. Optics Communications, 577, 131330. [11] Stratakis, I., Avraam, C., Kastritsis, D., &amp; Iezekiel, S. (2025). Theory of Small Reflections for optical filters based on Bragg grating ring resonators. Optics Communications, 132320. [12] Zhou, B., Jiang, H., Wang, R., &amp; Lu, C. (2015). Optical fiber fiber Fabry –Perot filter with tunable cavity for high - precision resonance wavelength adjustment. J. Lightwave Technol. 33(14), 2950-2954.</p><p>[13] Gao, H. et al., (2018). Investigation on the thermo-optic coefficient of silica fiber within a wide temperature range. J. Lightwave Technol. 36(24), 5881-5886. [14] Zhao, X. et al ., (2022). Design and fabrication of wideband chirped tilted fiber Bragg gratings. Optics &amp; Laser Technology, 148, 107790.</p></article></div></main>
+<footer style="max-width:1000px;margin:48px auto 0;padding:22px 24px 40px;border-top:1px solid var(--line);color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span style="font-weight:700;letter-spacing:.12em;color:var(--ink)">PAPER RADAR</span><span>每日论文推荐 · 内容由模型辅助整理，关键数字请回原文核对</span></footer>
+<script>const search=document.querySelector('#search'); if(search) search.addEventListener('input',()=>{
+ const q=search.value.toLowerCase();document.querySelectorAll('[data-search]').forEach(el=>{el.hidden=!el.dataset.search.toLowerCase().includes(q)});
+});</script></body></html>
